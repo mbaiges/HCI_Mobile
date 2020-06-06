@@ -16,6 +16,8 @@
     <color name="darkPrimary">#BB86FC</color>
     <color name="darkCards">#E2CDFD</color>
     <color name="darkError">#ED483D</color>
+    <color name="darkNavBarActivated">#24242420</color>
+    <color name="darkNavBarPressed">#36363640</color>
 
     <color name="lightBackground1">#f7f7f7</color>
     <color name="lightBackground2">#FFFFFF</color>

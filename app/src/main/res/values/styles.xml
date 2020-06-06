@@ -1,14 +1,14 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/darkPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/darkBackground2</item>
     </style>
 
     <!--
-    <style name="AppThemeDark" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar">
         <item name="darkBackground1">@color/darkBackground1</item>
         <item name="darkBackground2">@color/darkBackground2</item>
         <item name="darkBackground3">@color/darkBackground3</item>
@@ -42,6 +42,15 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.DrawerHeaderBar">
+        <item name="background">@color/darkBackground1</item>
+    </style>
+
+    <style name="AppTheme.ActionBar">
+        <item name="background">@color/darkBackground1</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/drawer_list_selector</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
