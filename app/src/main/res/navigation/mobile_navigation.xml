@@ -3,23 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_favourites">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="ar.edu.itba.hci.uzr.intellifox.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_favourites"
+        android:name="ar.edu.itba.hci.uzr.intellifox.ui.favourites.FavouritesFragment"
+        android:label="@string/menu_favourites"
+        tools:layout="@layout/fragment_favourites" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="ar.edu.itba.hci.uzr.intellifox.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_rooms"
+        android:name="ar.edu.itba.hci.uzr.intellifox.ui.rooms.RoomsFragment"
+        android:label="@string/menu_rooms"
+        tools:layout="@layout/fragment_rooms" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="ar.edu.itba.hci.uzr.intellifox.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_routines"
+        android:name="ar.edu.itba.hci.uzr.intellifox.ui.routines.RoutinesFragment"
+        android:label="@string/menu_routines"
+        tools:layout="@layout/fragment_routines" />
+
+    <fragment
+        android:id="@+id/nav_devices"
+        android:name="ar.edu.itba.hci.uzr.intellifox.ui.devices.DevicesFragment"
+        android:label="@string/menu_devices"
+        tools:layout="@layout/fragment_devices" />
+
+    <fragment
+        android:id="@+id/nav_electrical_cons"
+        android:name="ar.edu.itba.hci.uzr.intellifox.ui.electrical_cons.ElectricalConsFragment"
+        android:label="@string/menu_electrical_cons"
+        tools:layout="@layout/fragment_electrical_cons" />
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="ar.edu.itba.hci.uzr.intellifox.ui.history.HistoryFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="ar.edu.itba.hci.uzr.intellifox.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_help_and_feed"
+        android:name="ar.edu.itba.hci.uzr.intellifox.ui.help_and_feed.HelpAndFeedFragment"
+        android:label="@string/menu_help_and_feed"
+        tools:layout="@layout/fragment_help_and_feed" />
+
+
 </navigation>

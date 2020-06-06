@@ -7,6 +7,38 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--
+    <style name="AppThemeDark" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="darkBackground1">@color/darkBackground1</item>
+        <item name="darkBackground2">@color/darkBackground2</item>
+        <item name="darkBackground3">@color/darkBackground3</item>
+        <item name="darkWindow">@color/darkWindow</item>
+        <item name="darkSidebar">@color/darkSidebar</item>
+        <item name="darkIcon">@color/darkIcon</item>
+        <item name="darkText">@color/darkText</item>
+        <item name="darkSub_header">@color/darkSub_header</item>
+        <item name="darkHeader">@color/darkHeader</item>
+        <item name="darkPrimary">@color/darkPrimary</item>
+        <item name="darkCards">@color/darkCards</item>
+        <item name="darkError">@color/darkError</item>
+    </style>
+
+    <style name="AppThemeLight" parent="ThemeOverlay.AppCompat.Light">
+        <item name="lightBackground1">@color/lightBackground1</item>
+        <item name="lightBackground2">@color/lightBackground2</item>
+        <item name="lightBackground3">@color/lightBackground3</item>
+        <item name="lightWindow">@color/lightWindow</item>
+        <item name="lightSidebar">@color/lightSidebar</item>
+        <item name="lightIcon">@color/lightIcon</item>
+        <item name="lightText">@color/lightText</item>
+        <item name="lightSub_header">@color/lightSub_header</item>
+        <item name="lightHeader">@color/lightHeader</item>
+        <item name="lightPrimary">@color/lightPrimary</item>
+        <item name="lightCards">@color/lightCards</item>
+        <item name="lightError">@color/lightError</item>
+    </style>
+    -->
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

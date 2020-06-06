@@ -5,16 +5,40 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/nav_favourites"
+            android:icon="@drawable/ic_menu_heart"
+            android:title="@string/menu_favourites" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_rooms"
+            android:icon="@drawable/ic_menu_door"
+            android:title="@string/menu_rooms" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_devices"
+            android:icon="@drawable/ic_menu_remote"
+            android:title="@string/menu_devices" />
+        <item
+            android:id="@+id/nav_routines"
+            android:icon="@drawable/ic_menu_calendar_clock"
+            android:title="@string/menu_routines" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <item
+            android:id="@+id/nav_electrical_cons"
+            android:icon="@drawable/ic_menu_lightning_bolt_outline"
+            android:title="@string/menu_electrical_cons" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_menu_history"
+            android:title="@string/menu_history" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_cog_outline"
+            android:title="@string/menu_settings" />
+        <item
+            android:id="@+id/nav_help_and_feed"
+            android:icon="@drawable/ic_menu_help_circle_outline"
+            android:title="@string/menu_help_and_feed" />
     </group>
 </menu>

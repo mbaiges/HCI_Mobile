@@ -1,16 +1,16 @@
-package ar.edu.itba.hci.uzr.intellifox.ui.slideshow;
+package ar.edu.itba.hci.uzr.intellifox.ui.devices;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class DevicesViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public DevicesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is devices fragment");
     }
 
     public LiveData<String> getText() {

@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.uzr.intellifox.ui.gallery;
+package ar.edu.itba.hci.uzr.intellifox.ui.help_and_feed;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 
-public class GalleryFragment extends Fragment {
+public class HelpAndFeedFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private HelpAndFeedViewModel helpAndFeedViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        helpAndFeedViewModel =
+                ViewModelProviders.of(this).get(HelpAndFeedViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_settings, container, false);
+        final TextView textView = root.findViewById(R.id.text_settings);
+        helpAndFeedViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
