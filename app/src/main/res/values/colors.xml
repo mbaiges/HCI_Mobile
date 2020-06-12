@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="accent">#03DAC5</color>
 
-    <color name="darkBackground1">#121212</color>
-    <color name="darkBackground2">#363636</color>
-    <color name="darkBackground3">#636363</color>
-    <color name="darkWindow">#242424</color>
-    <color name="darkSidebar">#8A8A8A</color>
-    <color name="darkIcon">#ABABAB</color>
-    <color name="darkText">#D0D0D0</color>
-    <color name="darkSub_header">#E2E2E2</color>
-    <color name="darkHeader">#EEEEEE</color>
-    <color name="darkPrimary">#BB86FC</color>
-    <color name="darkCards">#E2CDFD</color>
-    <color name="darkError">#ED483D</color>
-    <color name="darkNavBarActivated">#24242420</color>
-    <color name="darkNavBarPressed">#36363640</color>
-
-    <color name="lightBackground1">#f7f7f7</color>
-    <color name="lightBackground2">#FFFFFF</color>
-    <color name="lightBackground3">#ded9e0</color>
-    <color name="lightWindow">#e8e8e8</color>
-    <color name="lightSidebar">#757575</color>
-    <color name="lightIcon">#545454</color>
-    <color name="lightText">#050505</color>
-    <color name="lightSub_header">#1D1D1D</color>
-    <color name="lightHeader">#111111</color>
-    <color name="lightPrimary">#8e36f9</color>
-    <color name="lightCards">#954cba</color>
-    <color name="lightError">#12B7C2</color>
+    <color name="background1">#f7f7f7</color>
+    <color name="background2">#FFFFFF</color>
+    <color name="background3">#ded9e0</color>
+    <color name="window">#e8e8e8</color>
+    <color name="sidebar">#757575</color>
+    <color name="icon">#545454</color>
+    <color name="text">#050505</color>
+    <color name="sub_header">#1D1D1D</color>
+    <color name="header">#111111</color>
+    <color name="primary">#8e36f9</color>
+    <color name="primary2">#6200EE</color>
+    <color name="cards">#954cba</color>
+    <color name="error">#12B7C2</color>
+    <color name="navBarActivated">#24242420</color>
+    <color name="navBarPressed">#36363640</color>
 </resources>
