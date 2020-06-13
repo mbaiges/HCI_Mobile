@@ -2,7 +2,7 @@ package ar.edu.itba.hci.uzr.intellifox.ui.rooms;
 
 public class Room {
     private int id;
-    private String name, icon;
+    private String name;
 
     public Room(int id, String name) {
         this.id = id;
@@ -21,13 +21,5 @@ public class Room {
 
     public String getName() {
         return this.name;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
     }
 }

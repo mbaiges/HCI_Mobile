@@ -19,14 +19,14 @@ import ar.edu.itba.hci.uzr.intellifox.R;
 
 public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
     public RoutineArrayAdapter(Activity context, Routine[] objects) {
-        super(context, R.layout.room_card_item, objects);
+        super(context, R.layout.device_card_item, objects);
     }
 
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.routine_card_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.device_card_item, parent, false);
             holder = new ViewHolder();
             holder.imageView = convertView.findViewById(R.id.icon);
             holder.nameTextView = convertView.findViewById(R.id.name);

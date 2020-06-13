@@ -10,5 +10,8 @@
         android:id="@+id/routines_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
         android:numColumns="2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

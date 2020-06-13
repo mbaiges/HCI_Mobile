@@ -1,6 +1,5 @@
-package ar.edu.itba.hci.uzr.intellifox.ui.routines;
+package ar.edu.itba.hci.uzr.intellifox.ui.devices;
 
-import android.graphics.Color;
 import android.widget.ImageView;
 import android.widget.TextView;
 
