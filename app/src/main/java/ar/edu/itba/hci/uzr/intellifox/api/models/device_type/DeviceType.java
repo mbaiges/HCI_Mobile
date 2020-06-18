@@ -1,34 +1,50 @@
 package ar.edu.itba.hci.uzr.intellifox.api.models.device_type;
 
-public class DeviceType {
-    private int id, icon;
-    private String name, description;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public DeviceType(int id, String name, int icon) {
-        this.id = id;
-        this.name = name;
-        this.icon = icon;
+public class DeviceType {
+
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    public DeviceType() {
     }
 
-    public int getId() {
+    public DeviceType(String name) {
+        this.name = name;
+    }
+
+    public DeviceType(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public void setIcon(int icon) { this.icon = icon; }
-
-    public int getIcon() {
-        return this.icon;
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return this.name;
+    @Override
+    public String toString() {
+        return "DeviceType{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

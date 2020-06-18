@@ -24,10 +24,10 @@
         tools:layout="@layout/fragment_routines" />
 
     <fragment
-        android:id="@+id/nav_devices"
+        android:id="@+id/nav_device_types"
         android:name="ar.edu.itba.hci.uzr.intellifox.ui.device_types.DeviceTypesFragment"
         android:label="@string/menu_devices"
-        tools:layout="@layout/fragment_devices" />
+        tools:layout="@layout/fragment_device_types" />
 
     <fragment
         android:id="@+id/nav_electrical_cons"

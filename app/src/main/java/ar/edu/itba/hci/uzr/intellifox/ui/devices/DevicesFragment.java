@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.uzr.intellifox.ui.device_types;
+package ar.edu.itba.hci.uzr.intellifox.ui.devices;
 
 import android.os.Bundle;
 import android.util.Pair;
@@ -31,6 +31,7 @@ public class DevicesFragment extends Fragment {
         typeNames.put("faucet", new Pair<>("Tap", R.drawable.ic_device_water_pump));
         typeNames.put("lamp", new Pair<>("Light", R.drawable.ic_device_lightbulb_outline));
 
+        /*
         DeviceType[] values = new DeviceType[]{
                 new DeviceType(1, typeNames.get("faucet").first + "s", typeNames.get("faucet").second),
                 new DeviceType(2, typeNames.get("lamp").first + "s", typeNames.get("lamp").second),
@@ -38,9 +39,12 @@ public class DevicesFragment extends Fragment {
                 new DeviceType(4, typeNames.get("lamp").first + "s", typeNames.get("lamp").second),
                 new DeviceType(5, typeNames.get("lamp").first + "s", typeNames.get("lamp").second)
         };
+
+
         DeviceTypeArrayAdapter adapter = new DeviceTypeArrayAdapter(this.getActivity(), values);
 
         gridView.setAdapter(adapter);
+        */
         return root;
     }
 }

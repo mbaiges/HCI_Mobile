@@ -1,34 +1,80 @@
 package ar.edu.itba.hci.uzr.intellifox.api.models.device;
 
-public class Device {
-    private int id;
-    private String name, color;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public Device(int id, String name, String color) {
-        this.id = id;
-        this.name = name;
-        this.color = color;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
+
+public class Device {
+
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("type")
+    @Expose
+    private DeviceType type;
+    @SerializedName("meta")
+    @Expose
+    private DeviceMeta meta;
+
+    public Device() {
     }
 
-    public void setId(int id) { this.id = id; }
+    public Device(String name, DeviceType type, DeviceMeta meta) {
+        this.name = name;
+        this.type = type;
+        this.meta = meta;
+    }
 
-    public int getId() {
-        return this.id;
+    public Device(String id, DeviceType type, String name, DeviceMeta meta) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.meta = meta;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return this.name;
+    public DeviceType getType() {
+        return type;
     }
 
-    public String getColor() {
-        return color;
+    public void setType(DeviceType type) {
+        this.type = type;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public DeviceMeta getMeta() {
+        return meta;
+    }
+
+    public void setMeta(DeviceMeta meta) {
+        this.meta = meta;
+    }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", meta=" + meta +
+                '}';
     }
 }
