@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.uzr.intellifox.ui.routines;
+package ar.edu.itba.hci.uzr.intellifox.ui.devices;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,9 +12,8 @@ import androidx.fragment.app.Fragment;
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceArrayAdapter;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
-import ar.edu.itba.hci.uzr.intellifox.api.models.routine.RoutineArrayAdapter;
 
-public class RoutinesFragment extends Fragment {
+public class DevicesFragment extends Fragment {
 
     ListView listView;
 
@@ -31,7 +30,7 @@ public class RoutinesFragment extends Fragment {
                 new Routine(4, "Play cumbia in all speakers", "#EAEAEA"),
                 new Routine(5, "Drop all the water", "#667788")
         };
-        RoutineArrayAdapter adapter = new RoutineArrayAdapter(this.getActivity(), values);
+        DeviceArrayAdapter adapter = new DeviceArrayAdapter(this.getActivity(), values);
 
         listView.setAdapter(adapter);
         return root;

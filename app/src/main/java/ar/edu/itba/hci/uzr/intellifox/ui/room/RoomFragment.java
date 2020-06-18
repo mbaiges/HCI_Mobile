@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.uzr.intellifox.ui.rooms;
+package ar.edu.itba.hci.uzr.intellifox.ui.room;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,19 +13,17 @@ import androidx.fragment.app.Fragment;
 
 import java.util.List;
 
-
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
-
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.RoomArrayAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RoomsFragment extends Fragment {
+public class RoomFragment extends Fragment {
 
     GridView gridView;
     Room[] rooms;

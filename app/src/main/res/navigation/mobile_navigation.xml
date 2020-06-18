@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_devices"
-        android:name="ar.edu.itba.hci.uzr.intellifox.ui.devices.DevicesFragment"
+        android:name="ar.edu.itba.hci.uzr.intellifox.ui.device_types.DeviceTypesFragment"
         android:label="@string/menu_devices"
         tools:layout="@layout/fragment_devices" />
 

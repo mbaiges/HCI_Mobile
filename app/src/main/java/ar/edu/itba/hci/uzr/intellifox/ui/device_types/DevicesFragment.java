@@ -17,7 +17,7 @@ import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceTypeArrayAdapter;
 
-public class DevicesFragment extends Fragment {
+public class DeviceTypesFragment extends Fragment {
 
     GridView gridView;
     private Map<String, Pair<String, Integer>> typeNames;
