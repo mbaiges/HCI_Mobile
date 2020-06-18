@@ -27,7 +27,9 @@ public class DeviceTypesFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_devices, container, false);
         gridView = root.findViewById(R.id.device_types_grid_view);
 
-        typeNames = new HashMap<>();
+        typeNames = new HashMap<String, Pair<String, Integer>>() {
+                put
+        };
         typeNames.put("faucet", new Pair<>("Tap", R.drawable.ic_device_water_pump));
         typeNames.put("lamp", new Pair<>("Light", R.drawable.ic_device_lightbulb_outline));
 
