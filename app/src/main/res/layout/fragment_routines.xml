@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.rooms.RoomsFragment">
+    tools:context=".ui.routines.RoutinesFragment">
 
     <ListView
         android:id="@+id/routines_list_view"

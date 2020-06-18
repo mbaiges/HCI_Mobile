@@ -26,130 +26,150 @@
             android:layout_height="wrap_content"
             android:paddingBottom="12dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/view"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="12dp"
-                android:elevation="12dp"
-                app:cardCornerRadius="25dp"
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="77dp"
+                android:layout_height="81dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_circle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView">
-
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Victoria Smith"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@+id/view"
-                app:layout_constraintTop_toTopOf="@+id/view"
-                app:layout_constraintBottom_toTopOf="@+id/desc"/>
+                android:layout_width="117dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="23dp"
+                android:text="Victoria"
+                app:layout_constraintStart_toEndOf="@+id/icon"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/desc"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:text="Work"
-                style="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#8A000000"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@+id/view"
-                app:layout_constraintTop_toBottomOf="@+id/name"/>
+                android:textColor="@color/text"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
             <Button
                 android:id="@+id/arrowBtn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/ic_chevron_down"
-                app:layout_constraintBottom_toBottomOf="@+id/view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view" />
+                app:layout_constraintBottom_toBottomOf="@+id/name"
+                app:layout_constraintStart_toEndOf="@+id/name"
+                app:layout_constraintTop_toTopOf="@+id/name"
+                app:layout_constraintVertical_bias="0.25" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/expandableView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:paddingBottom="12dp"
                 android:visibility="gone"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/desc"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/desc">
 
                 <ImageView
                     android:id="@+id/phoneIcon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginTop="22dp"
+                    android:tint="@color/text"
                     android:layout_marginStart="12dp"
                     android:src="@drawable/ic_device_alarm_light_outline"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/phoneNumber"
+                    style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="(999) 345 32 45"
                     android:layout_marginStart="32dp"
-                    android:textColor="#000"
-                    style="@style/TextAppearance.AppCompat.Medium"
-                    app:layout_constraintTop_toTopOf="@+id/phoneIcon"
+                    android:text="(999) 345 32 45"
+                    android:textColor="@color/text"
+                    app:layout_constraintBottom_toTopOf="@+id/phoneDesc"
                     app:layout_constraintStart_toEndOf="@id/phoneIcon"
-                    app:layout_constraintBottom_toTopOf="@+id/phoneDesc"/>
+                    app:layout_constraintTop_toTopOf="@+id/phoneIcon" />
 
                 <TextView
                     android:id="@+id/phoneDesc"
+                    style="@style/TextAppearance.AppCompat.Body1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Mobile"
                     android:layout_marginStart="32dp"
-                    android:textColor="#8A000000"
-                    style="@style/TextAppearance.AppCompat.Body1"
-                    app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
+                    android:text="Mobile"
+                    android:textColor="@color/text"
+                    app:layout_constraintBottom_toBottomOf="@+id/phoneIcon"
                     app:layout_constraintStart_toEndOf="@id/phoneIcon"
-                    app:layout_constraintBottom_toBottomOf="@+id/phoneIcon"/>
+                    app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
 
                 <ImageView
                     android:id="@+id/mailIcon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginTop="22dp"
                     android:layout_marginStart="12dp"
+                    android:layout_marginTop="22dp"
+                    android:tint="@color/text"
                     android:src="@drawable/ic_device_blinds"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/phoneIcon"/>
+                    app:layout_constraintTop_toBottomOf="@+id/phoneIcon" />
 
                 <TextView
                     android:id="@+id/mailNumber"
+                    style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="workemail@gmail.com"
                     android:layout_marginStart="32dp"
-                    android:textColor="#000"
-                    style="@style/TextAppearance.AppCompat.Medium"
-                    app:layout_constraintTop_toTopOf="@+id/mailIcon"
+                    android:text="workemail@gmail.com"
+                    android:textColor="@color/text"
+                    app:layout_constraintBottom_toTopOf="@+id/mailDesc"
                     app:layout_constraintStart_toEndOf="@id/mailIcon"
-                    app:layout_constraintBottom_toTopOf="@+id/mailDesc"/>
+                    app:layout_constraintTop_toTopOf="@+id/mailIcon" />
 
                 <TextView
                     android:id="@+id/mailDesc"
+                    style="@style/TextAppearance.AppCompat.Body1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Work"
                     android:layout_marginStart="32dp"
-                    android:textColor="#8A000000"
-                    style="@style/TextAppearance.AppCompat.Body1"
-                    app:layout_constraintTop_toBottomOf="@+id/mailNumber"
+                    android:text="Work"
+                    android:textColor="@color/text"
+                    app:layout_constraintBottom_toBottomOf="@+id/mailIcon"
                     app:layout_constraintStart_toEndOf="@id/mailIcon"
-                    app:layout_constraintBottom_toBottomOf="@+id/mailIcon"/>
+                    app:layout_constraintTop_toBottomOf="@+id/mailNumber" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_width="40dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="36dp"
+                android:src="@drawable/ic_menu_heart"
+                android:tint="@color/text"
+                app:layout_constraintBottom_toBottomOf="@+id/icon"
+                app:layout_constraintStart_toEndOf="@+id/arrowBtn"
+                app:layout_constraintTop_toTopOf="@+id/icon" />
+
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon2"
+                app:layout_constraintTop_toTopOf="@+id/icon2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
