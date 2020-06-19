@@ -32,7 +32,7 @@
                 android:adjustViewBounds="true"
                 android:drawableTint="@color/background1"
                 android:src="@drawable/ic_device_lightbulb_outline"
-                android:tint="@color/background1"
+                android:tint="@color/text"
                 app:layout_constraintBottom_toTopOf="@+id/cardView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
