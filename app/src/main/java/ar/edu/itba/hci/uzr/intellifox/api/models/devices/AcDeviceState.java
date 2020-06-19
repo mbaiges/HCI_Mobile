@@ -11,17 +11,17 @@ public class AcDeviceState extends DeviceState {
     private String status;
     @SerializedName("temperature")
     @Expose
-    private String temperature;
-    @SerializedName("heat")
+    private Integer temperature;
+    @SerializedName("mode")
     @Expose
     private String mode;
-    @SerializedName("grill")
+    @SerializedName("verticalSwing")
     @Expose
     private String verticalSwing;
-    @SerializedName("convection")
+    @SerializedName("horizontalSwing")
     @Expose
     private String horizontalSwing;
-    @SerializedName("convection")
+    @SerializedName("fanSpeed")
     @Expose
     private String fanSpeed;
 
@@ -33,11 +33,11 @@ public class AcDeviceState extends DeviceState {
         this.status = status;
     }
 
-    public String getTemperature() {
+    public Integer getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(String temperature) {
+    public void setTemperature(Integer temperature) {
         this.temperature = temperature;
     }
 

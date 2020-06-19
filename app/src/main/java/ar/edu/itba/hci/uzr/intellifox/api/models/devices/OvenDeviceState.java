@@ -11,7 +11,7 @@ public class OvenDeviceState extends DeviceState {
     private String status;
     @SerializedName("temperature")
     @Expose
-    private String temperature;
+    private Integer temperature;
     @SerializedName("heat")
     @Expose
     private String heat;
@@ -30,17 +30,13 @@ public class OvenDeviceState extends DeviceState {
         this.status = status;
     }
 
-    public String getTemperature() {
-        return temperature;
-    }
+    public Integer getTemperature() { return temperature; }
 
-    public void setTemperature(String temperature) {
+    public void setTemperature(Integer temperature) {
         this.temperature = temperature;
     }
 
-    public String getHeat() {
-        return heat;
-    }
+    public String getHeat() { return heat; }
 
     public void setHeat(String heat) {
         this.heat = heat;

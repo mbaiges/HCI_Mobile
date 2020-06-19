@@ -11,10 +11,10 @@ public class BlindDeviceState extends DeviceState {
     private String status;
     @SerializedName("level")
     @Expose
-    private String level;
+    private Integer level;
     @SerializedName("currentLevel")
     @Expose
-    private String currentLevel;
+    private Integer currentLevel;
 
     public String getStatus() {
         return status;
@@ -24,19 +24,19 @@ public class BlindDeviceState extends DeviceState {
         this.status = status;
     }
 
-    public String getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
-    public String getCurrentLevel() {
+    public Integer getCurrentLevel() {
         return currentLevel;
     }
 
-    public void setCurrentLevel(String currentLevel) {
+    public void setCurrentLevel(Integer currentLevel) {
         this.currentLevel = currentLevel;
     }
 }

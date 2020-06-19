@@ -14,7 +14,7 @@ public class LightDeviceState extends DeviceState {
     private String color;
     @SerializedName("brightness")
     @Expose
-    private String brightness;
+    private Integer brightness;
 
     public String getStatus() { return status; }
 
@@ -24,7 +24,7 @@ public class LightDeviceState extends DeviceState {
 
     public void setColor(String color) { this.color = color; }
 
-    public String getBrightness() { return brightness; }
+    public Integer getBrightness() { return brightness; }
 
-    public void setBrightness(String brightness) { this.brightness = brightness; }
+    public void setBrightness(Integer brightness) { this.brightness = brightness; }
 }

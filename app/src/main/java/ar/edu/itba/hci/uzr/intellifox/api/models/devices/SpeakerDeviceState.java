@@ -17,7 +17,7 @@ public class SpeakerDeviceState extends DeviceState {
     private String genre;
     @SerializedName("song")
     @Expose
-    private String song;
+    private SpeakerSong song;
 
     public String getStatus() {
         return status;
@@ -43,11 +43,11 @@ public class SpeakerDeviceState extends DeviceState {
         this.genre = genre;
     }
 
-    public String getSong() {
+    public SpeakerSong getSong() {
         return song;
     }
 
-    public void setSong(String song) {
+    public void setSong(SpeakerSong song) {
         this.song = song;
     }
 }
