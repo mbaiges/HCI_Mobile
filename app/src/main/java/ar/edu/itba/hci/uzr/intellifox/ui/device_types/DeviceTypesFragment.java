@@ -2,7 +2,6 @@ package ar.edu.itba.hci.uzr.intellifox.ui.device_types;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +11,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
-import ar.edu.itba.hci.uzr.intellifox.api.models.ApiClient;
+import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceTypeArrayAdapter;
-import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
-import ar.edu.itba.hci.uzr.intellifox.api.models.room.RoomArrayAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

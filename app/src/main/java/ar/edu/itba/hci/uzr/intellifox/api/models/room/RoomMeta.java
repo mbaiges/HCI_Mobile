@@ -3,6 +3,8 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.room;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class RoomMeta {
 
     @SerializedName("desc")
@@ -40,5 +42,19 @@ public class RoomMeta {
                 "desc='" + desc + '\'' +
                 ", icon='" + icon + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoomMeta roomMeta = (RoomMeta) o;
+        return Objects.equals(desc, roomMeta.desc) &&
+                Objects.equals(icon, roomMeta.icon);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(desc, icon);
     }
 }
