@@ -11,6 +11,9 @@ public class DeviceType {
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("powerUasge")
+    @Expose
+    private String powerUasge;
 
     public DeviceType() {
     }
