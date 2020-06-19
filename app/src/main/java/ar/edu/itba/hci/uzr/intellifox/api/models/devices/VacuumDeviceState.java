@@ -3,6 +3,8 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.devices;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
 public class VacuumDeviceState extends DeviceState {
@@ -49,5 +51,21 @@ public class VacuumDeviceState extends DeviceState {
 
     public void setLocation(VacuumLocation location) {
         this.location = location;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VacuumDeviceState that = (VacuumDeviceState) o;
+        return Objects.equals(status, that.status) &&
+                Objects.equals(mode, that.mode) &&
+                Objects.equals(batteryLever, that.batteryLever) &&
+                Objects.equals(location, that.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, mode, batteryLever, location);
     }
 }

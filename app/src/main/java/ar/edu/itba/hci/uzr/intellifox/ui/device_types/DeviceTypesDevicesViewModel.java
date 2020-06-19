@@ -1,5 +1,6 @@
-package ar.edu.itba.hci.uzr.intellifox.ui.rooms;
+package ar.edu.itba.hci.uzr.intellifox.ui.device_types;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -18,45 +19,42 @@ import java.util.concurrent.TimeUnit;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
-import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RoomsViewModel extends ViewModel {
+public class DeviceTypesDevicesViewModel extends ViewModel {
 
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> fetcherHandler;
-    private MutableLiveData<Set<Room>> mRooms;
+    private MutableLiveData<Set<Device>> mDevices;
 
-    public RoomsViewModel() {
-        mRooms = new MutableLiveData<>();
-        fetchRooms();
+    public DeviceTypesDevicesViewModel() {
+        mDevices = new MutableLiveData<>();
+        fetchDeviceTypes();
         scheduleFetching();
     }
 
-    public LiveData<Set<Room>> getRooms() {
-        return mRooms;
+    public LiveData<Set<Device>> getDevices() {
+        return mDevices;
     }
 
-    private void fetchRooms() {
-        ApiClient.getInstance().getRooms(new Callback<Result<List<Room>>>() {
+    private void fetchDeviceTypes() {
+        ApiClient.getInstance().getDevices(new Callback<Result<List<Device>>>() {
             @Override
-            public void onResponse(@NonNull Call<Result<List<Room>>> call, @NonNull Response<Result<List<Room>>> response) {
+            public void onResponse(@NonNull Call<Result<List<Device>>> call, @NonNull Response<Result<List<Device>>> response) {
                 if (response.isSuccessful()) {
-                    Result<List<Room>> result = response.body();
+                    Result<List<Device>> result = response.body();
                     if (result != null) {
-                        Set<Room> actualRoomsSet = new HashSet<>(result.getResult());
-                        Set<Room> roomsSet = mRooms.getValue();
+                        Set<Device> devicesList = new HashSet<>(result.getResult());
+                        Set<Device> actualDevicesList = mDevices.getValue();
 
-                        if (roomsSet == null || !(roomsSet.equals(actualRoomsSet))) {
-                            mRooms.postValue(actualRoomsSet);
-                            for (Room r : actualRoomsSet) {
-                                Log.d("ROOM:", r.getId() + "+" + r.getName() + "+" + r.getMeta().getDesc() + "+" + r.getMeta().getIcon());
-                            }
+                        if (actualDevicesList == null || actualDevicesList.equals(devicesList)) {
+                            mDevices.postValue(devicesList);
                         }
-
                     } else {
                         handleError(response);
                     }
@@ -64,7 +62,7 @@ public class RoomsViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Result<List<Room>>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Result<List<Device>>> call, @NonNull Throwable t) {
                 handleUnexpectedError(t);
             }
         });
@@ -73,7 +71,7 @@ public class RoomsViewModel extends ViewModel {
     public void scheduleFetching() {
         final Runnable fetcher = new Runnable() {
             public void run() {
-                fetchRooms();
+                fetchDeviceTypes();
             }
         };
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);

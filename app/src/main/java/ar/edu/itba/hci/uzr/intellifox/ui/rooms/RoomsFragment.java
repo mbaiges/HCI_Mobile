@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.util.List;
+import java.util.Set;
 
 
 import ar.edu.itba.hci.uzr.intellifox.R;
@@ -34,9 +35,9 @@ public class RoomsFragment extends Fragment {
 
         gridView = root.findViewById(R.id.rooms_grid_view);
 
-        roomsViewModel.getRooms().observe(getViewLifecycleOwner(), new Observer<List<Room>>() {
+        roomsViewModel.getRooms().observe(getViewLifecycleOwner(), new Observer<Set<Room>>() {
             @Override
-            public void onChanged(@Nullable List<Room> rooms) {
+            public void onChanged(@Nullable Set<Room> rooms) {
                 Room[] roomsArray = new Room[rooms.size()];
                 int i = 0;
                 for (Room r : rooms) {

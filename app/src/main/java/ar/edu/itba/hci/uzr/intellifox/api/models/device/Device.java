@@ -3,6 +3,8 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.device;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
 
@@ -80,5 +82,23 @@ public class Device<T extends DeviceState>{
                 ", type=" + type +
                 ", meta=" + meta +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Device<?> device = (Device<?>) o;
+        return Objects.equals(id, device.id) &&
+                Objects.equals(name, device.name) &&
+                Objects.equals(type, device.type) &&
+                Objects.equals(room, device.room) &&
+                Objects.equals(state, device.state) &&
+                Objects.equals(meta, device.meta);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, type, room, state, meta);
     }
 }

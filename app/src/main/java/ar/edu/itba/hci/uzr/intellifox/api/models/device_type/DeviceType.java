@@ -3,6 +3,8 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.device_type;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class DeviceType {
 
     @SerializedName("id")
@@ -49,5 +51,20 @@ public class DeviceType {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeviceType that = (DeviceType) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(powerUasge, that.powerUasge);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, powerUasge);
     }
 }

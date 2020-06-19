@@ -21,8 +21,8 @@ import androidx.transition.TransitionManager;
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 
-public class DeviceArrayAdapter extends ArrayAdapter<Routine> {
-    public DeviceArrayAdapter(Activity context, Routine[] objects) {
+public class DeviceArrayAdapter extends ArrayAdapter<Device> {
+    public DeviceArrayAdapter(Activity context, Device[] objects) {
         super(context, R.layout.device_card_item, objects);
     }
 
@@ -59,11 +59,11 @@ public class DeviceArrayAdapter extends ArrayAdapter<Routine> {
             holder = (DeviceViewHolder) convertView.getTag();
         }
 
-        Routine routine = getItem(position);
-        if (routine != null) {
-            ColorFilter filter = new PorterDuffColorFilter(Color.parseColor(routine.getColor()), PorterDuff.Mode.SRC_IN);
-            holder.imageView.setColorFilter(filter);
-            holder.nameTextView.setText(routine.getName());
+        Device device = getItem(position);
+        if (device != null) {
+            //ColorFilter filter = new PorterDuffColorFilter(Color.parseColor(device.getColor()), PorterDuff.Mode.SRC_IN);
+            //holder.imageView.setColorFilter(filter);
+            holder.nameTextView.setText(device.getName());
         }
 
         return convertView;

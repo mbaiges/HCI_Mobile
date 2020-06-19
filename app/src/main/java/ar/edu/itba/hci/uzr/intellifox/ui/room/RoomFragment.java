@@ -32,13 +32,6 @@ public class RoomFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_rooms, container, false);
         gridView = root.findViewById(R.id.rooms_grid_view);
-//        Room[] values = new Room[]{
-//                new Room(1, "Mati's Room"),
-//                new Room(2, "Garden"),
-//                new Room(3, "Kitchen"),
-//                new Room(4, "Gabi's Playroom"),
-//                new Room(5, "Loundry Room")
-//        };
         getRooms(gridView);
         return root;
     }

@@ -3,6 +3,8 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.devices;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
 public class AcDeviceState extends DeviceState {
@@ -71,5 +73,23 @@ public class AcDeviceState extends DeviceState {
 
     public void setFanSpeed(String fanSpeed) {
         this.fanSpeed = fanSpeed;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AcDeviceState that = (AcDeviceState) o;
+        return Objects.equals(status, that.status) &&
+                Objects.equals(temperature, that.temperature) &&
+                Objects.equals(mode, that.mode) &&
+                Objects.equals(verticalSwing, that.verticalSwing) &&
+                Objects.equals(horizontalSwing, that.horizontalSwing) &&
+                Objects.equals(fanSpeed, that.fanSpeed);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, temperature, mode, verticalSwing, horizontalSwing, fanSpeed);
     }
 }

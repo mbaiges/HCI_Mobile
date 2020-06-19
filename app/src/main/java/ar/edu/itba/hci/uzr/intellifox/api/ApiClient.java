@@ -1,5 +1,10 @@
 package ar.edu.itba.hci.uzr.intellifox.api;
 
+import com.google.gson.GsonBuilder;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -8,7 +13,9 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.models.ErrorResult;
 import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceDeserializer;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
+import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,12 +29,18 @@ public class ApiClient {
     private static ApiClient instance = null;
     // Use IP 10.0.2.2 instead of 127.0.0.1 when running Android emulator in the
     // same computer that runs the API.
-    private final String BaseURL = "http://10.0.2.2:8082/api/";
+    private final String BaseURL = "http://10.0.2.2:8080/api/";
 
     private ApiClient() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+
+        gsonBuilder.registerTypeAdapter(Device.class, new DeviceDeserializer());
+        Gson gson = gsonBuilder.create();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BaseURL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         this.service = retrofit.create(ApiService.class);
     }
@@ -88,6 +101,12 @@ public class ApiClient {
 
     public Call<Result<List<Device>>> getDevices(Callback<Result<List<Device>>> callback) {
         Call<Result<List<Device>>> call = this.service.getDevices();
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Call<Result<List<Routine>>> getRoutines(Callback<Result<List<Routine>>> callback) {
+        Call<Result<List<Routine>>> call = this.service.getRoutines();
         call.enqueue(callback);
         return call;
     }

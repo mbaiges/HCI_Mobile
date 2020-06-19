@@ -35,7 +35,7 @@ public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
 
         Routine routine = getItem(position);
         if (routine != null) {
-            ColorFilter filter = new PorterDuffColorFilter(Color.parseColor(routine.getColor()), PorterDuff.Mode.SRC_IN);
+            ColorFilter filter = new PorterDuffColorFilter(Color.parseColor(routine.getMeta().getColor()), PorterDuff.Mode.SRC_IN);
             holder.imageView.setColorFilter(filter);
             holder.nameTextView.setText(routine.getName());
         }

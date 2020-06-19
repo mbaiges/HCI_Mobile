@@ -3,6 +3,8 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.devices;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class SpeakerSong {
     @SerializedName("title")
     @Expose
@@ -58,5 +60,22 @@ public class SpeakerSong {
 
     public void setProgress(String progress) {
         this.progress = progress;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SpeakerSong that = (SpeakerSong) o;
+        return Objects.equals(title, that.title) &&
+                Objects.equals(artist, that.artist) &&
+                Objects.equals(album, that.album) &&
+                Objects.equals(duration, that.duration) &&
+                Objects.equals(progress, that.progress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, artist, album, duration, progress);
     }
 }

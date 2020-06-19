@@ -2,6 +2,7 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.device_type;
 
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +11,17 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.navigation.Navigation;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 
 public class DeviceTypeArrayAdapter extends ArrayAdapter<DeviceType> {
+    private final String DEVICE_TYPE_NAME = "device_type";
     private Map<String, Pair<String, Integer>> typeInfo;
 
     public DeviceTypeArrayAdapter(Activity context, DeviceType[] objects) {
@@ -35,7 +40,6 @@ public class DeviceTypeArrayAdapter extends ArrayAdapter<DeviceType> {
                 put("speaker", new Pair<>("Speaker", R.drawable.ic_device_speaker));
                 put("oven", new Pair<>("Oven", R.drawable.ic_device_toaster_oven));
             }
-
         };
     }
 
@@ -45,6 +49,7 @@ public class DeviceTypeArrayAdapter extends ArrayAdapter<DeviceType> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.device_type_card_item, parent, false);
             holder = new DeviceTypeViewHolder();
+            holder.card = convertView.findViewById(R.id.card);
             holder.imageView = convertView.findViewById(R.id.icon);
             holder.nameTextView = convertView.findViewById(R.id.name);
             convertView.setTag(holder);
@@ -54,6 +59,9 @@ public class DeviceTypeArrayAdapter extends ArrayAdapter<DeviceType> {
 
         DeviceType deviceType = getItem(position);
         if (deviceType != null) {
+            Bundle args = new Bundle();
+            args.putString(DEVICE_TYPE_NAME, deviceType.getName());
+            holder.card.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_device_types_devices, args));
             Pair<String, Integer> info = typeInfo.get(deviceType.getName());
             if (info != null) {
                 if (info.second != null) {

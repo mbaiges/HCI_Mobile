@@ -3,6 +3,8 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.devices;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
 public class SpeakerDeviceState extends DeviceState {
@@ -49,5 +51,20 @@ public class SpeakerDeviceState extends DeviceState {
 
     public void setSong(SpeakerSong song) {
         this.song = song;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SpeakerDeviceState that = (SpeakerDeviceState) o;
+        return Objects.equals(status, that.status) &&
+                Objects.equals(volume, that.volume) &&
+                Objects.equals(genre, that.genre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, volume, genre, song);
     }
 }

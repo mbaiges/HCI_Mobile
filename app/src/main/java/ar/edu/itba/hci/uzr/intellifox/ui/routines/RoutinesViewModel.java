@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.uzr.intellifox.ui.rooms;
+package ar.edu.itba.hci.uzr.intellifox.ui.routines;
 
 import android.util.Log;
 
@@ -19,41 +19,42 @@ import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
+import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RoomsViewModel extends ViewModel {
+public class RoutinesViewModel extends ViewModel {
 
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> fetcherHandler;
-    private MutableLiveData<Set<Room>> mRooms;
+    private MutableLiveData<Set<Routine>> mRoutines;
 
-    public RoomsViewModel() {
-        mRooms = new MutableLiveData<>();
-        fetchRooms();
+    public RoutinesViewModel() {
+        mRoutines = new MutableLiveData<>();
+        fetchRoutines();
         scheduleFetching();
     }
 
-    public LiveData<Set<Room>> getRooms() {
-        return mRooms;
+    public LiveData<Set<Routine>> getRoutines() {
+        return mRoutines;
     }
 
-    private void fetchRooms() {
-        ApiClient.getInstance().getRooms(new Callback<Result<List<Room>>>() {
+    private void fetchRoutines() {
+        ApiClient.getInstance().getRoutines(new Callback<Result<List<Routine>>>() {
             @Override
-            public void onResponse(@NonNull Call<Result<List<Room>>> call, @NonNull Response<Result<List<Room>>> response) {
+            public void onResponse(@NonNull Call<Result<List<Routine>>> call, @NonNull Response<Result<List<Routine>>> response) {
                 if (response.isSuccessful()) {
-                    Result<List<Room>> result = response.body();
+                    Result<List<Routine>> result = response.body();
                     if (result != null) {
-                        Set<Room> actualRoomsSet = new HashSet<>(result.getResult());
-                        Set<Room> roomsSet = mRooms.getValue();
+                        Set<Routine> actualRoutinesList = new HashSet<>(result.getResult());
+                        Set<Routine> routinesSet = mRoutines.getValue();
 
-                        if (roomsSet == null || !(roomsSet.equals(actualRoomsSet))) {
-                            mRooms.postValue(actualRoomsSet);
-                            for (Room r : actualRoomsSet) {
-                                Log.d("ROOM:", r.getId() + "+" + r.getName() + "+" + r.getMeta().getDesc() + "+" + r.getMeta().getIcon());
+                        if (routinesSet == null || !(routinesSet.equals(actualRoutinesList))) {
+                            mRoutines.postValue(routinesSet);
+                            for (Routine r : actualRoutinesList) {
+                                Log.d("ROUTINE", r.getName());
                             }
                         }
 
@@ -64,7 +65,7 @@ public class RoomsViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Result<List<Room>>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Result<List<Routine>>> call, @NonNull Throwable t) {
                 handleUnexpectedError(t);
             }
         });
@@ -73,7 +74,7 @@ public class RoomsViewModel extends ViewModel {
     public void scheduleFetching() {
         final Runnable fetcher = new Runnable() {
             public void run() {
-                fetchRooms();
+                fetchRoutines();
             }
         };
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);

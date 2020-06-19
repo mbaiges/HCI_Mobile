@@ -3,6 +3,10 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.devices;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
+import java.util.Objects;
+
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
 public class OvenDeviceState extends DeviceState {
@@ -30,13 +34,17 @@ public class OvenDeviceState extends DeviceState {
         this.status = status;
     }
 
-    public Integer getTemperature() { return temperature; }
+    public Integer getTemperature() {
+        return temperature;
+    }
 
     public void setTemperature(Integer temperature) {
         this.temperature = temperature;
     }
 
-    public String getHeat() { return heat; }
+    public String getHeat() {
+        return heat;
+    }
 
     public void setHeat(String heat) {
         this.heat = heat;
@@ -58,4 +66,20 @@ public class OvenDeviceState extends DeviceState {
         this.convection = convection;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OvenDeviceState that = (OvenDeviceState) o;
+        return Objects.equals(status, that.status) &&
+                Objects.equals(temperature, that.temperature) &&
+                Objects.equals(heat, that.heat) &&
+                Objects.equals(grill, that.grill) &&
+                Objects.equals(convection, that.convection);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, temperature, heat, grill, convection);
+    }
 }
