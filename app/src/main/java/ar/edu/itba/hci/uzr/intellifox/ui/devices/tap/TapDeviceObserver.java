@@ -74,9 +74,10 @@ public class TapDeviceObserver extends DeviceObserver {
             TapDeviceState s = (TapDeviceState) state;
             TapDeviceViewHolder h = (TapDeviceViewHolder) holder;
 
-            clearSelections();
-            h.btnL.setChecked(true);
-
+            if(h.btnL != null){
+                clearSelections();
+                h.btnL.setChecked(true);
+            }
         }
     }
 
