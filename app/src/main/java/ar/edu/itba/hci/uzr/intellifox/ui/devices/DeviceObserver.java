@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
@@ -19,6 +20,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public abstract class DeviceObserver implements Observer<Device<? extends DeviceState>> {
+
+    private final static Integer DEFAULT_ON_DEVICE_COLOR = R.color.text;
+    private final static Integer DEFAULT_OFF_DEVICE_COLOR = R.color.background2;
 
     protected View contextView;
     protected DeviceViewHolder holder;
@@ -52,6 +56,7 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
     }
 
     protected void findElements() {
+        holder.icon = contextView.findViewById(R.id.icon);
         holder.onSwitch = contextView.findViewById(R.id.switch1);
         holder.description = contextView.findViewById(R.id.desc);
     }
@@ -78,7 +83,14 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
 
     protected void setUI(DeviceState state) {
         // To implement on each Detailed Info Device
+        setIconColor(state);
         setDescription(state);
+    }
+
+    private void setIconColor(DeviceState state) {
+        if (holder.icon != null && holder.onSwitch != null) {
+            holder.icon.setColorFilter(ContextCompat.getColor(contextView.getContext(), getIconColor(holder.onSwitch.isChecked())));
+        }
     }
 
     protected void attachFunctions() {
@@ -88,6 +100,9 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                 public void onCheckedChanged(CompoundButton view, boolean isChecked) {
                     Device<? extends DeviceState> device = holder.device;
                     if (device != null) {
+                        if (holder.icon != null) {
+                            holder.icon.setColorFilter(ContextCompat.getColor(contextView.getContext(), getIconColor(isChecked)));
+                        }
                         ApiClient.getInstance().executeDeviceAction(device.getId(), getOnSwitchActionName(isChecked), new String[0], new Callback<Result<Object>>() {
                             @Override
                             public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
@@ -111,6 +126,10 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                 }
             });
         }
+    }
+
+    private Integer getIconColor(Boolean turnedOn) {
+        return turnedOn?DEFAULT_ON_DEVICE_COLOR:DEFAULT_OFF_DEVICE_COLOR;
     }
 
     protected String getOnSwitchActionName(Boolean switchStatus) {

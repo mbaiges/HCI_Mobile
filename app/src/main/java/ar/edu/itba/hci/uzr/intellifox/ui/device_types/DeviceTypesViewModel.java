@@ -39,7 +39,6 @@ public class DeviceTypesViewModel extends ViewModel {
     public DeviceTypesViewModel() {
         mDeviceTypes = new MutableLiveData<>();
         fetchDeviceTypes();
-        scheduleFetching();
     }
 
     public LiveData<Set<DeviceType>> getDeviceTypes() {
