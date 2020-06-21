@@ -4,7 +4,14 @@ import java.util.List;
 
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.LightDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
@@ -54,26 +61,26 @@ public interface ApiService {
     @GET("devices/{deviceId}/state")
     Call<Result<DoorDeviceState>> getDoorDeviceState(@Path("deviceId") String deviceId);
 
-//    @GET("devices/{deviceId}/state")
-//    Call<Result<OvenDeviceState>> getOvenDeviceState(@Path("deviceId") String deviceId);
+    @GET("devices/{deviceId}/state")
+    Call<Result<OvenDeviceState>> getOvenDeviceState(@Path("deviceId") String deviceId);
 
-//    @GET("devices/{deviceId}/state")
-//    Call<Result<AcDeviceState>> getAcDeviceState(@Path("deviceId") String deviceId);
+    @GET("devices/{deviceId}/state")
+    Call<Result<AcDeviceState>> getAcDeviceState(@Path("deviceId") String deviceId);
 
-//    @GET("devices/{deviceId}/state")
-//    Call<Result<BlindDeviceState>> getBlindDeviceState(@Path("deviceId") String deviceId);
+    @GET("devices/{deviceId}/state")
+    Call<Result<BlindDeviceState>> getBlindDeviceState(@Path("deviceId") String deviceId);
 
-//    @GET("devices/{deviceId}/state")
-//    Call<Result<LightDeviceState>> getLightDeviceState(@Path("deviceId") String deviceId);
+    @GET("devices/{deviceId}/state")
+    Call<Result<LightDeviceState>> getLightDeviceState(@Path("deviceId") String deviceId);
 
-//    @GET("devices/{deviceId}/state")
-//    Call<Result<SpeakerDeviceState>> getSpeakerDeviceState(@Path("deviceId") String deviceId);
+    @GET("devices/{deviceId}/state")
+    Call<Result<SpeakerDeviceState>> getSpeakerDeviceState(@Path("deviceId") String deviceId);
 
-//    @GET("devices/{deviceId}/state")
-//    Call<Result<TapDeviceState>> getTapDeviceState(@Path("deviceId") String deviceId);
+    @GET("devices/{deviceId}/state")
+    Call<Result<TapDeviceState>> getTapDeviceState(@Path("deviceId") String deviceId);
 
-//    @GET("devices/{deviceId}/state")
-//    Call<Result<VacuumDeviceState>> getVacuumDeviceState(@Path("deviceId") String deviceId);
+    @GET("devices/{deviceId}/state")
+    Call<Result<VacuumDeviceState>> getVacuumDeviceState(@Path("deviceId") String deviceId);
 
 
 }

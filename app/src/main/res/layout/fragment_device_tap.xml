@@ -52,10 +52,11 @@
         android:id="@+id/howMany"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="28dp"
-        android:hint="How many?"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="40dp"
+        android:hint="@string/dev_tap_hint"
         android:padding="15dp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
@@ -131,11 +132,12 @@
         android:id="@+id/btnDispense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/primary"
-        android:text="Dispense"
+        android:text="@string/dev_tap_button_dispense"
         android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="@+id/buttons"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="@+id/buttons"
         app:layout_constraintTop_toBottomOf="@+id/buttons" />
 
@@ -143,12 +145,15 @@
         android:id="@+id/txtAmmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="Ammount"
-        android:textSize="30sp"
+        android:layout_marginStart="56dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/dev_tap_amount"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/howMany"
+        app:layout_constraintEnd_toStartOf="@+id/howMany"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/howMany" />
+        app:layout_constraintTop_toTopOf="@+id/howMany"
+        app:layout_constraintVertical_bias="0.454" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,8 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,7 +44,10 @@ public class DeviceViewModel extends ViewModel {
                 updateDoorDevice();
                 return null;
             });
-
+            put("faucet", (t) -> {
+                updateTapDevice();
+                return null;
+            });
         }};
         mDevice = new MutableLiveData<>();
     }
@@ -127,6 +132,37 @@ public class DeviceViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<Result<DoorDeviceState>> call, @NonNull Throwable t) {
+                handleUnexpectedError(t);
+            }
+        });
+    }
+
+
+    private void updateTapDevice() {
+        Log.v("UPDATE_TAP", "Running");
+        ApiClient.getInstance().getTapDeviceState(deviceId, new Callback<Result<TapDeviceState>>() {
+            @Override
+            public void onResponse(@NonNull Call<Result<TapDeviceState>> call, @NonNull Response<Result<TapDeviceState>> response) {
+                if (response.isSuccessful()) {
+                    Result<TapDeviceState> result = response.body();
+                    if (result != null) {
+                        TapDeviceState actualDeviceState = result.getResult();
+                        if (actualDeviceState != null) {
+                            TapDevice device = (TapDevice) mDevice.getValue();
+
+                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
+                                device.setState(actualDeviceState);
+                                mDevice.postValue(device);
+                                Log.v("UPDATED_TAP", device.toString());
+                            }
+                        }
+                    } else {
+                        handleError(response);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Result<TapDeviceState>> call, @NonNull Throwable t) {
                 handleUnexpectedError(t);
             }
         });

@@ -55,4 +55,11 @@
     <string name="dev_door_state_open">Abierto</string>
     <string name="dev_door_state_closed">Cerrado</string>
 
+    <!-- Canilla -->
+    <string name="dev_tap_state_closed">Cerrada</string>
+    <string name="dev_tap_state_opened">Abierta</string>
+    <string name="dev_tap_button_dispense">Dispensar</string>
+    <string name="dev_tap_hint">Cuanto?</string>
+    <string name="dev_tap_amount">Cantindad</string>
+
 </resources>
