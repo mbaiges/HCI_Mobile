@@ -8,9 +8,6 @@ import java.util.Objects;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
 public class AcDeviceState extends DeviceState {
-    @SerializedName("status")
-    @Expose
-    private String status;
     @SerializedName("temperature")
     @Expose
     private Integer temperature;
@@ -26,14 +23,6 @@ public class AcDeviceState extends DeviceState {
     @SerializedName("fanSpeed")
     @Expose
     private String fanSpeed;
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public Integer getTemperature() {
         return temperature;

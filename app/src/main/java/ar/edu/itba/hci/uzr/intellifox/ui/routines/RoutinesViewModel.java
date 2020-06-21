@@ -16,9 +16,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
-import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
+import ar.edu.itba.hci.uzr.intellifox.api.Result;
+import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,13 +47,13 @@ public class RoutinesViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     Result<List<Routine>> result = response.body();
                     if (result != null) {
-                        Set<Routine> actualRoutinesList = new HashSet<>(result.getResult());
+                        Set<Routine> actualRoutinesSet = new HashSet<>(result.getResult());
                         Set<Routine> routinesSet = mRoutines.getValue();
 
-                        if (routinesSet == null || !(routinesSet.equals(actualRoutinesList))) {
-                            mRoutines.postValue(routinesSet);
-                            for (Routine r : actualRoutinesList) {
-                                Log.d("ROUTINE", r.getName());
+                        if (routinesSet == null || !(routinesSet.equals(actualRoutinesSet))) {
+                            mRoutines.postValue(actualRoutinesSet);
+                            for (Routine r: actualRoutinesSet) {
+                                Log.v("ROUTINE", r.toString());
                             }
                         }
 

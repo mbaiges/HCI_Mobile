@@ -15,8 +15,8 @@ import java.util.List;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
+import ar.edu.itba.hci.uzr.intellifox.api.Error;
+import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.RoomArrayAdapter;
 import retrofit2.Call;

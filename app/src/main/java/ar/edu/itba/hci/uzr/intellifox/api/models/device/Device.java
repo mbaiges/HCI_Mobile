@@ -74,6 +74,14 @@ public class Device<T extends DeviceState>{
         this.meta = meta;
     }
 
+    public Room getRoom() { return room; }
+
+    public void setRoom(Room room) { this.room = room; }
+
+    public T getState() { return state; }
+
+    public void setState(T state) { this.state = state; }
+
     @Override
     public String toString() {
         return "Device{" +

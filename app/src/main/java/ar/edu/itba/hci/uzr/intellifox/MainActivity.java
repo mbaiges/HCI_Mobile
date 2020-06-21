@@ -2,7 +2,10 @@ package ar.edu.itba.hci.uzr.intellifox;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -27,6 +30,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.Locale;
+
 import ar.edu.itba.hci.uzr.intellifox.ui.settings.SettingsViewModel;
 
 
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         checkNightModeActivated();
+        //checkLanguage();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,6 +83,24 @@ public class MainActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
+/*
+    private void setAppLocale(String localeCode){
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.setLocale(new Locale(localeCode.toLowerCase()));
+        res.updateConfiguration(conf,dm);
+    }
+
+    public void checkLanguage() {
+        if(sharedPreferences.getBoolean(KEY_ISNIGHTMODE, true)){
+            setAppLocale("en");
+        }else {
+            setAppLocale("sp");
+        }
+    }
+
+ */
 
     @Override
     public boolean onSupportNavigateUp() {

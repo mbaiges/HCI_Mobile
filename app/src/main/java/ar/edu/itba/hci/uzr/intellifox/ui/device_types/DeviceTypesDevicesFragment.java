@@ -26,44 +26,43 @@ import ar.edu.itba.hci.uzr.intellifox.MainActivity;
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceArrayAdapter;
-import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
-import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceTypeArrayAdapter;
 
 public class DeviceTypesDevicesFragment extends Fragment {
 
-    private final String DEVICE_TYPE_NAME = "device_type";
+    static final String DEVICE_TYPE_NAME = "device_type_name";
     DeviceTypesDevicesViewModel deviceTypesDevicesViewModel;
     ListView listView;
-    String type_name;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_device_types_devices, container, false);
         listView = root.findViewById(R.id.device_types_devices_list_view);
 
-        Bundle bundle = this.getArguments();
-        String type_name_arg = null;
-        if (bundle != null) {
-            type_name_arg = bundle.getString(DEVICE_TYPE_NAME, null);
-        }
-
-        type_name = type_name_arg;
-
         deviceTypesDevicesViewModel =
                 ViewModelProviders.of(this).get(DeviceTypesDevicesViewModel.class);
+
+        Bundle bundle = this.getArguments();
+        String typeName = null;
+        if (bundle != null) {
+            typeName = bundle.getString(DEVICE_TYPE_NAME, null);
+        }
+
+        if (typeName != null) {
+            deviceTypesDevicesViewModel.init(typeName);
+        }
 
         deviceTypesDevicesViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<Device>>() {
             @Override
             public void onChanged(@Nullable Set<Device> deviceTypesDevices) {
-                List<Device> deviceTypesDevicesList = deviceTypesDevices.stream().filter(d -> d.getType().getName().equals(type_name)).collect(Collectors.toList());
-                Device[] deviceTypesDevicesArray = new Device[deviceTypesDevicesList.size()];
-                int i = 0;
-                for (Device r : deviceTypesDevicesList) {
-                    Log.v("DEVICE",r.getName());
-                    deviceTypesDevicesArray[i++] = r;
+                if (deviceTypesDevices != null) {
+                    Device[] deviceTypesDevicesArray = new Device[deviceTypesDevices.size()];
+                    int i = 0;
+                    for (Device r : deviceTypesDevices) {
+                        deviceTypesDevicesArray[i++] = r;
+                    }
+                    DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), deviceTypesDevicesArray);
+                    listView.setAdapter(adapter);
                 }
-                DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), deviceTypesDevicesArray);
-                listView.setAdapter(adapter);
             }
         });
 

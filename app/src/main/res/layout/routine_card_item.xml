@@ -48,13 +48,14 @@
                 android:src="@drawable/ic_menu_heart"
                 android:tint="@color/text"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/icon4"
+                app:layout_constraintEnd_toStartOf="@+id/executeIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/icon4"
+                android:id="@+id/executeIcon"
                 android:layout_width="40dp"
                 android:layout_height="36dp"
+                android:clickable="true"
                 android:layout_marginEnd="20dp"
                 android:src="@drawable/ic_play"
                 android:tint="@color/text"

@@ -15,10 +15,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
+import ar.edu.itba.hci.uzr.intellifox.api.Error;
+import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
 import retrofit2.Call;
@@ -31,10 +32,15 @@ public class DeviceTypesDevicesViewModel extends ViewModel {
             Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> fetcherHandler;
     private MutableLiveData<Set<Device>> mDevices;
+    private String typeName;
 
     public DeviceTypesDevicesViewModel() {
         mDevices = new MutableLiveData<>();
-        fetchDeviceTypes();
+    }
+
+    public void init(String typeName) {
+        this.typeName = typeName;
+        fetchDeviceTypeDevices();
         scheduleFetching();
     }
 
@@ -42,18 +48,24 @@ public class DeviceTypesDevicesViewModel extends ViewModel {
         return mDevices;
     }
 
-    private void fetchDeviceTypes() {
+    private void fetchDeviceTypeDevices() {
         ApiClient.getInstance().getDevices(new Callback<Result<List<Device>>>() {
             @Override
             public void onResponse(@NonNull Call<Result<List<Device>>> call, @NonNull Response<Result<List<Device>>> response) {
                 if (response.isSuccessful()) {
                     Result<List<Device>> result = response.body();
                     if (result != null) {
-                        Set<Device> devicesList = new HashSet<>(result.getResult());
-                        Set<Device> actualDevicesList = mDevices.getValue();
+                        List<Device> comingDevicesList = result.getResult();
+                        if (comingDevicesList != null) {
+                            Set<Device> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getType().getName().equals(typeName)).collect(Collectors.toSet());
+                            Set<Device> devicesSet = mDevices.getValue();
 
-                        if (actualDevicesList == null || actualDevicesList.equals(devicesList)) {
-                            mDevices.postValue(devicesList);
+                            if (devicesSet == null || !devicesSet.equals(actualDevicesSet)) {
+                                mDevices.postValue(actualDevicesSet);
+                                for(Device d: actualDevicesSet) {
+                                    Log.v("DEVICE_TYPE_DEVICE", d.toString());
+                                }
+                            }
                         }
                     } else {
                         handleError(response);
@@ -71,7 +83,7 @@ public class DeviceTypesDevicesViewModel extends ViewModel {
     public void scheduleFetching() {
         final Runnable fetcher = new Runnable() {
             public void run() {
-                fetchDeviceTypes();
+                fetchDeviceTypeDevices();
             }
         };
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);

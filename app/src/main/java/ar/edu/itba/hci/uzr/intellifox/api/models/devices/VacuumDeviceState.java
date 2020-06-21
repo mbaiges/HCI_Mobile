@@ -8,9 +8,6 @@ import java.util.Objects;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
 public class VacuumDeviceState extends DeviceState {
-    @SerializedName("status")
-    @Expose
-    private String status;
     @SerializedName("mode")
     @Expose
     private String mode;

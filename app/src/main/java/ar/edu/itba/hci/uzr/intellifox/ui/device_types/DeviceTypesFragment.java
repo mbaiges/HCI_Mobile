@@ -19,8 +19,8 @@ import java.util.Set;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
+import ar.edu.itba.hci.uzr.intellifox.api.Error;
+import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceTypeArrayAdapter;
@@ -48,13 +48,15 @@ public class DeviceTypesFragment extends Fragment {
         deviceTypesViewModel.getDeviceTypes().observe(getViewLifecycleOwner(), new Observer<Set<DeviceType>>() {
             @Override
             public void onChanged(@Nullable Set<DeviceType> deviceTypes) {
-                DeviceType[] deviceTypesArray = new DeviceType[deviceTypes.size()];
-                int i = 0;
-                for (DeviceType r : deviceTypes) {
-                    deviceTypesArray[i++] = r;
+                if (deviceTypes != null) {
+                    DeviceType[] deviceTypesArray = new DeviceType[deviceTypes.size()];
+                    int i = 0;
+                    for (DeviceType r : deviceTypes) {
+                        deviceTypesArray[i++] = r;
+                    }
+                    DeviceTypeArrayAdapter adapter = new DeviceTypeArrayAdapter(getActivity(), deviceTypesArray);
+                    gridView.setAdapter(adapter);
                 }
-                DeviceTypeArrayAdapter adapter = new DeviceTypeArrayAdapter(getActivity(), deviceTypesArray);
-                gridView.setAdapter(adapter);
             }
         });
 

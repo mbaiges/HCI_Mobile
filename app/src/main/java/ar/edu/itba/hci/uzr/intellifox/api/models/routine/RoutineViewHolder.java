@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class RoutineViewHolder {
-    public ImageView imageView;
+    public ImageView iconView;
     public TextView nameTextView;
+    public ImageView executeIconView;
 }

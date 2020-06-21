@@ -16,8 +16,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
+import ar.edu.itba.hci.uzr.intellifox.api.Error;
+import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,7 +53,7 @@ public class RoomsViewModel extends ViewModel {
                         if (roomsSet == null || !(roomsSet.equals(actualRoomsSet))) {
                             mRooms.postValue(actualRoomsSet);
                             for (Room r : actualRoomsSet) {
-                                Log.d("ROOM:", r.getId() + "+" + r.getName() + "+" + r.getMeta().getDesc() + "+" + r.getMeta().getIcon());
+                                Log.d("ROOM",r.toString());
                             }
                         }
 

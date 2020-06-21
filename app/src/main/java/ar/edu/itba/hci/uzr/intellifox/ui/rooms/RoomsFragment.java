@@ -38,13 +38,15 @@ public class RoomsFragment extends Fragment {
         roomsViewModel.getRooms().observe(getViewLifecycleOwner(), new Observer<Set<Room>>() {
             @Override
             public void onChanged(@Nullable Set<Room> rooms) {
-                Room[] roomsArray = new Room[rooms.size()];
-                int i = 0;
-                for (Room r : rooms) {
-                    roomsArray[i++] = r;
+                if (rooms != null) {
+                    Room[] roomsArray = new Room[rooms.size()];
+                    int i = 0;
+                    for (Room r : rooms) {
+                        roomsArray[i++] = r;
+                    }
+                    RoomArrayAdapter adapter = new RoomArrayAdapter(getActivity(), roomsArray);
+                    gridView.setAdapter(adapter);
                 }
-                RoomArrayAdapter adapter = new RoomArrayAdapter(getActivity(), roomsArray);
-                gridView.setAdapter(adapter);
             }
         });
 

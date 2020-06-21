@@ -16,6 +16,17 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_help_and_feed">Help And Feedback</string>
 
+    <string name="dev_faucet">Taps</string>
+    <string name="dev_ac">Air Conditioner</string>
+    <string name="dev_alarm">Alarms</string>
+    <string name="dev_blinds">Blinds</string>
+    <string name="dev_door">Doors</string>
+    <string name="dev_refrigerator">Fridges</string>
+    <string name="dev_lamp">Lights</string>
+    <string name="dev_vacuum">Vacuums</string>
+    <string name="dev_speaker">Speakers</string>
+    <string name="dev_oven">Ovens</string>
+
     <string name="create_room">Create Room</string>
     <string name="modify_room">Update Room</string>
     <string name="delete_room">Delete Room</string>

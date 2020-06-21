@@ -10,9 +10,6 @@ import java.util.Objects;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
 public class OvenDeviceState extends DeviceState {
-    @SerializedName("status")
-    @Expose
-    private String status;
     @SerializedName("temperature")
     @Expose
     private Integer temperature;

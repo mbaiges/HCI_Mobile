@@ -7,7 +7,7 @@
     tools:context=".ui.settings.SettingsFragment">
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/nightModeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -32,6 +32,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.494" />
 
+    <Switch
+        android:id="@+id/languajeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="English Languaje"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nightModeSwitch"
+        app:layout_constraintVertical_bias="0.133" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

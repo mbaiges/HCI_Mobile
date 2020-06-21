@@ -21,24 +21,24 @@ import java.util.Map;
 import ar.edu.itba.hci.uzr.intellifox.R;
 
 public class DeviceTypeArrayAdapter extends ArrayAdapter<DeviceType> {
-    private final String DEVICE_TYPE_NAME = "device_type";
-    private Map<String, Pair<String, Integer>> typeInfo;
+    private final String DEVICE_TYPE_NAME = "device_type_name";
+    private Map<String, Pair<Integer, Integer>> typeInfo;
 
     public DeviceTypeArrayAdapter(Activity context, DeviceType[] objects) {
         super(context, R.layout.device_type_card_item, objects);
 
-        typeInfo = new HashMap<String, Pair<String, Integer>>() {
+        typeInfo = new HashMap<String, Pair<Integer, Integer>>() {
             {
-                put("faucet", new Pair<>("Tap", R.drawable.ic_device_water_pump));
-                put("ac", new Pair<>("Air Conditioner", R.drawable.ic_device_air_conditioner));
-                put("alarm", new Pair<>("Alarm", R.drawable.ic_device_alarm_light_outline));
-                put("blinds", new Pair<>("Blind", R.drawable.ic_device_blinds));
-                put("door", new Pair<>("Door", R.drawable.ic_device_door));
-                put("refrigerator", new Pair<>("Fridge", R.drawable.ic_device_fridge_outline));
-                put("lamp", new Pair<>("Light", R.drawable.ic_device_lightbulb_outline));
-                put("vacuum", new Pair<>("Vacuum", R.drawable.ic_device_robot_vacuum));
-                put("speaker", new Pair<>("Speaker", R.drawable.ic_device_speaker));
-                put("oven", new Pair<>("Oven", R.drawable.ic_device_toaster_oven));
+                put("faucet", new Pair<>(R.string.dev_faucet, R.drawable.ic_device_water_pump));
+                put("ac", new Pair<>(R.string.dev_ac, R.drawable.ic_device_air_conditioner));
+                put("alarm", new Pair<>(R.string.dev_alarm, R.drawable.ic_device_alarm_light_outline));
+                put("blinds", new Pair<>(R.string.dev_blinds, R.drawable.ic_device_blinds));
+                put("door", new Pair<>(R.string.dev_door, R.drawable.ic_device_door));
+                put("refrigerator", new Pair<>(R.string.dev_refrigerator, R.drawable.ic_device_fridge_outline));
+                put("lamp", new Pair<>(R.string.dev_lamp, R.drawable.ic_device_lightbulb_outline));
+                put("vacuum", new Pair<>(R.string.dev_vacuum, R.drawable.ic_device_robot_vacuum));
+                put("speaker", new Pair<>(R.string.dev_speaker, R.drawable.ic_device_speaker));
+                put("oven", new Pair<>(R.string.dev_oven, R.drawable.ic_device_toaster_oven));
             }
         };
     }
@@ -61,15 +61,15 @@ public class DeviceTypeArrayAdapter extends ArrayAdapter<DeviceType> {
         if (deviceType != null) {
             Bundle args = new Bundle();
             args.putString(DEVICE_TYPE_NAME, deviceType.getName());
-            holder.card.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_device_types_devices, args));
-            Pair<String, Integer> info = typeInfo.get(deviceType.getName());
+            if (holder.card != null)
+                holder.card.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_device_types_devices, args));
+            Pair<Integer, Integer> info = typeInfo.get(deviceType.getName());
             if (info != null) {
                 if (info.second != null) {
                     holder.imageView.setImageResource(info.second);
                     holder.imageView.setColorFilter(ContextCompat.getColor(getContext(), R.color.background1));
                 }
-                String aux = info.first + "s";
-                holder.nameTextView.setText(aux);
+                holder.nameTextView.setText(info.first);
             }
         }
         return convertView;

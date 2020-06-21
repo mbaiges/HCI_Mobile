@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-import ar.edu.itba.hci.uzr.intellifox.api.models.Error;
-import ar.edu.itba.hci.uzr.intellifox.api.models.ErrorResult;
-import ar.edu.itba.hci.uzr.intellifox.api.models.Result;
+import ar.edu.itba.hci.uzr.intellifox.api.Error;
+import ar.edu.itba.hci.uzr.intellifox.api.ErrorResult;
+import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceDeserializer;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
@@ -107,6 +107,12 @@ public class ApiClient {
 
     public Call<Result<List<Routine>>> getRoutines(Callback<Result<List<Routine>>> callback) {
         Call<Result<List<Routine>>> call = this.service.getRoutines();
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Call<Result<Boolean>> executeRoutine(String routineId, Callback<Result<Boolean>> callback) {
+        Call<Result<Boolean>> call = this.service.executeRoutine(routineId);
         call.enqueue(callback);
         return call;
     }

@@ -40,13 +40,15 @@ public class RoutinesFragment extends Fragment {
         routinesViewModel.getRoutines().observe(getViewLifecycleOwner(), new Observer<Set<Routine>>() {
             @Override
             public void onChanged(@Nullable Set<Routine> routines) {
-                Routine[] routinesArray = new Routine[routines.size()];
-                int i = 0;
-                for (Routine r : routines) {
-                    routinesArray[i++] = r;
+                if (routines != null) {
+                    Routine[] routinesArray = new Routine[routines.size()];
+                    int i = 0;
+                    for (Routine r : routines) {
+                        routinesArray[i++] = r;
+                    }
+                    RoutineArrayAdapter adapter = new RoutineArrayAdapter(getActivity(), routinesArray);
+                    listView.setAdapter(adapter);
                 }
-                RoutineArrayAdapter adapter = new RoutineArrayAdapter(getActivity(), routinesArray);
-                listView.setAdapter(adapter);
             }
         });
 
