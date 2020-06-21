@@ -19,6 +19,8 @@ import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
@@ -45,6 +47,10 @@ public class DeviceViewModel extends ViewModel {
             });
             put("faucet", (t) -> {
                 updateTapDevice();
+                return null;
+            });
+            put("blind", (t) -> {
+                updateBlindDevice();
                 return null;
             });
         }};
@@ -166,6 +172,38 @@ public class DeviceViewModel extends ViewModel {
             }
         });
     }
+
+
+    private void updateBlindDevice() {
+        Log.v("UPDATE_TAP", "Running");
+        ApiClient.getInstance().getBlindDeviceState(deviceId, new Callback<Result<BlindDeviceState>>() {
+            @Override
+            public void onResponse(@NonNull Call<Result<BlindDeviceState>> call, @NonNull Response<Result<BlindDeviceState>> response) {
+                if (response.isSuccessful()) {
+                    Result<BlindDeviceState> result = response.body();
+                    if (result != null) {
+                        BlindDeviceState actualDeviceState = result.getResult();
+                        if (actualDeviceState != null) {
+                            BlindDevice device = (BlindDevice) mDevice.getValue();
+
+                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
+                                device.setState(actualDeviceState);
+                                mDevice.postValue(device);
+                                Log.v("UPDATED_TAP", device.toString());
+                            }
+                        }
+                    } else {
+                        handleError(response);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Result<BlindDeviceState>> call, @NonNull Throwable t) {
+                handleUnexpectedError(t);
+            }
+        });
+    }
+
 
     public void scheduleUpdating() {
         final Runnable fetcher = new Runnable() {

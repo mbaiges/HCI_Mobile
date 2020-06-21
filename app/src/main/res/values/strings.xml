@@ -60,4 +60,9 @@
     <string name="dev_tap_hint">How many?</string>
     <string name="dev_tap_amount">Amount</string>
 
+    <!-- Blind -->
+    <string name="dev_blind_state_closed">Cerrada</string>
+    <string name="dev_blind_state_opened">Abierta</string>
+    <string name="dev_blind_level">Level</string>
+
 </resources>

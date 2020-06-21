@@ -20,8 +20,6 @@ import retrofit2.Response;
 
 public class TapDeviceObserver extends DeviceObserver {
 
-    private static final String LOCK_ACTION = "lock";
-    private static final String UNLOCK_ACTION = "unlock";
     private String amount = "1";
     private String unit = "l";
 

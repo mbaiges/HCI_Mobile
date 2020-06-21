@@ -62,4 +62,10 @@
     <string name="dev_tap_hint">Cuanto?</string>
     <string name="dev_tap_amount">Cantindad</string>
 
+    <!-- Persianas -->
+    <string name="dev_blind_state_closed">Cerrada</string>
+    <string name="dev_blind_state_opened">Abierta</string>
+    <string name="dev_blind_level">Nivel</string>
+
+
 </resources>

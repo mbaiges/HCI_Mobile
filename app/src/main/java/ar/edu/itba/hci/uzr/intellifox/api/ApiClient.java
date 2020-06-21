@@ -151,7 +151,7 @@ public class ApiClient {
     }
 
 
- public Call<Result<BlindDeviceState>> getBlindsDeviceState(String deviceId, Callback<Result<BlindDeviceState>> callback) {
+ public Call<Result<BlindDeviceState>> getBlindDeviceState(String deviceId, Callback<Result<BlindDeviceState>> callback) {
         Call<Result<BlindDeviceState>> call = this.service.getBlindDeviceState(deviceId);
         call.enqueue(callback);
         return call;
