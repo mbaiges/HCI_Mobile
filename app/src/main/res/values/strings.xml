@@ -45,12 +45,19 @@
     <string name="group_name">Notifications Group Name</string>
 
 
-    <!-- Puerta -->
+    <!-- Dor -->
     <string name="dev_door_state_lock_locked">Locked</string>
     <string name="dev_door_state_lock_unlocked">Unlocked</string>
     <string name="dev_door_button_lock">Lock</string>
     <string name="dev_door_button_unlock">Unlock</string>
     <string name="dev_door_state_open">Opened</string>
     <string name="dev_door_state_closed">Closed</string>
+
+    <!-- Tap -->
+    <string name="dev_tap_state_closed">Closed</string>
+    <string name="dev_tap_state_opened">Opened</string>
+    <string name="dev_tap_button_dispense">Dispense</string>
+    <string name="dev_tap_hint">How many?</string>
+    <string name="dev_tap_amount">Amount</string>
 
 </resources>

@@ -58,10 +58,13 @@ public class TapDeviceObserver extends DeviceObserver {
 
             String status = s.getStatus();
 
+
             if (status != null) {
-                String aux = status;
-                if (h.description != null) {
-                    h.description.setText(status);
+                String closed = contextView.getResources().getString(R.string.dev_tap_state_closed);
+                String opened = contextView.getResources().getString(R.string.dev_tap_state_opened);
+                String aux = status.equals("closed") ? closed : opened ;
+                if (h.description != null){
+                    h.description.setText(aux);
                 }
             }
         }
@@ -214,47 +217,6 @@ public class TapDeviceObserver extends DeviceObserver {
             });
         }
 
-
-//        if (h.lockBtn != null) {
-//            h.lockBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    DoorDevice d = (DoorDevice) h.device;
-//                    if (d != null) {
-//                        DoorDeviceState s = (DoorDeviceState) d.getState();
-//                        if (s != null) {
-//                            String lockStatus = s.getLock();
-//                            String actionName = LOCK_ACTION;
-//                            if (lockStatus.equals("locked")) {
-//                                actionName = UNLOCK_ACTION;
-//                            }
-//                            ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, new String[0], new Callback<Result<Object>>() {
-//                                @Override
-//                                public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
-//                                    if (response.isSuccessful()) {
-//                                        Result<Object> result = response.body();
-//
-//                                        if (result != null) {
-//                                            Boolean success = (Boolean) result.getResult();
-//                                            if (success != null) {
-//                                                Log.v("ACTION_SUCCESS", success.toString());
-//                                            }
-//                                        } else {
-//                                            handleError(response);
-//                                        }
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
-//                                    handleUnexpectedError(t);
-//                                }
-//                            });
-//                        }
-//                    }
-//                }
-//            });
-//        }
     }
 
     @Override
