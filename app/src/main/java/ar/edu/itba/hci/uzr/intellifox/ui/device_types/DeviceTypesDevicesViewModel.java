@@ -41,7 +41,6 @@ public class DeviceTypesDevicesViewModel extends ViewModel {
     public void init(String typeName) {
         this.typeName = typeName;
         fetchDeviceTypeDevices();
-        scheduleFetching();
     }
 
     public LiveData<Set<Device>> getDevices() {

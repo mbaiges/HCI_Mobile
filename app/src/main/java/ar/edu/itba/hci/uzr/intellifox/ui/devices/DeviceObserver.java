@@ -95,10 +95,7 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                                     Result<Object> result = response.body();
 
                                     if (result != null) {
-                                        Boolean success = (Boolean) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        Log.v("RESULT", result.toString());
                                     } else {
                                         handleError(response);
                                     }
