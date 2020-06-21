@@ -60,5 +60,15 @@ public class DeviceFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        deviceViewModel.scheduleUpdating();
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        deviceViewModel.stopUpdating();
+    }
 }

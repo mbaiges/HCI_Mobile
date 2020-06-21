@@ -52,4 +52,10 @@ public class RoomsFragment extends Fragment {
 
         return root;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        roomsViewModel.stopFetching();
+    }
 }
