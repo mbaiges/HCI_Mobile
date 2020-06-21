@@ -100,9 +100,13 @@ public class DeviceTypesViewModel extends ViewModel {
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);
     }
 
+    public void stopFetching() {
+        fetcherHandler.cancel(true);
+    }
+
     @Override
     public void onCleared() {
-        fetcherHandler.cancel(true);
+        stopFetching();
     }
 
     private <T> void handleError(Response<T> response) {

@@ -33,7 +33,6 @@ public class RoutinesViewModel extends ViewModel {
     public RoutinesViewModel() {
         mRoutines = new MutableLiveData<>();
         fetchRoutines();
-        scheduleFetching();
     }
 
     public LiveData<Set<Routine>> getRoutines() {
@@ -79,9 +78,13 @@ public class RoutinesViewModel extends ViewModel {
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);
     }
 
+    public void stopFetching() {
+        fetcherHandler.cancel(true);
+    }
+
     @Override
     public void onCleared() {
-        fetcherHandler.cancel(true);
+        stopFetching();
     }
 
     private <T> void handleError(Response<T> response) {

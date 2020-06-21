@@ -49,7 +49,6 @@ public class DeviceViewModel extends ViewModel {
     public void init(String deviceId) {
         this.deviceId = deviceId;
         fetchDevice();
-        scheduleUpdating();
     }
 
     public LiveData<Device> getDevice() {
@@ -141,9 +140,13 @@ public class DeviceViewModel extends ViewModel {
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);
     }
 
+    public void stopUpdating() {
+        fetcherHandler.cancel(true);
+    }
+
     @Override
     public void onCleared() {
-        fetcherHandler.cancel(true);
+        stopUpdating();
     }
 
     private <T> void handleError(Response<T> response) {

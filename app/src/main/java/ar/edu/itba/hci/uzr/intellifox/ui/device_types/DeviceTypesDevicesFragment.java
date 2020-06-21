@@ -69,4 +69,16 @@ public class DeviceTypesDevicesFragment extends Fragment {
 
         return root;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        deviceTypesDevicesViewModel.scheduleFetching();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        deviceTypesDevicesViewModel.stopFetching();
+    }
 }

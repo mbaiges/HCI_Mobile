@@ -42,18 +42,7 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
             init(newDevice);
 
         if (newDevice != null) {
-            DeviceState state = newDevice.getState();
-            if (state != null) {
-                String status = state.getStatus();
-                if (status != null) {
-                    if (holder.onSwitch != null) {
-                        holder.onSwitch.setChecked(status.equals("opened"));
-                    }
-                }
-            }
-
             deviceChanged(newDevice);
-
             holder.device = newDevice;
         }
     }
