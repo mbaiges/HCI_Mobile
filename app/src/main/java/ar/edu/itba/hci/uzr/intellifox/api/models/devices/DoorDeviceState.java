@@ -29,6 +29,14 @@ public class DoorDeviceState extends DeviceState {
     }
 
     @Override
+    public String toString() {
+        return "DoorDeviceState{" +
+                "lock='" + lock + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

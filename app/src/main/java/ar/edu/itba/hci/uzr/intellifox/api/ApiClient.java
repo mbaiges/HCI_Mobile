@@ -14,6 +14,15 @@ import ar.edu.itba.hci.uzr.intellifox.api.ErrorResult;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceDeserializer;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.LightDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import okhttp3.ResponseBody;
@@ -116,4 +125,60 @@ public class ApiClient {
         call.enqueue(callback);
         return call;
     }
+
+    public Call<Result<Object>> executeDeviceAction(String deviceId, String actionName, String[] params, Callback<Result<Object>> callback) {
+        Call<Result<Object>> call = this.service.executeDeviceAction(deviceId, actionName, params);
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Call<Result<DoorDeviceState>> getDoorDeviceState(String deviceId, Callback<Result<DoorDeviceState>> callback) {
+        Call<Result<DoorDeviceState>> call = this.service.getDoorDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
+//
+//    public Call<Result<OvenDeviceState>> getOvenDeviceState(String deviceId, Callback<Result<OvenDeviceState>> callback) {
+//        Call<Result<OvenDeviceState>> call = this.service.getOvenDeviceState(deviceId);
+//        call.enqueue(callback);
+//        return call;
+//    }
+//
+//    public Call<Result<AcDeviceState>> getAcDeviceState(String deviceId, Callback<Result<AcDeviceState>> callback) {
+//        Call<Result<AcDeviceState>> call = this.service.getAcDeviceState(deviceId);
+//        call.enqueue(callback);
+//        return call;
+//    }
+//
+//
+// public Call<Result<BlindDeviceState>> getBlindsDeviceState(String deviceId, Callback<Result<BlindDeviceState>> callback) {
+//        Call<Result<BlindDeviceState>> call = this.service.getBlindDeviceState(deviceId);
+//        call.enqueue(callback);
+//        return call;
+//    }
+//
+//public Call<Result<LightDeviceState>> getLightDeviceState(String deviceId, Callback<Result<LightDeviceState>> callback) {
+//        Call<Result<LightDeviceState>> call = this.service.getLightDeviceState(deviceId);
+//        call.enqueue(callback);
+//        return call;
+//    }
+//
+//public Call<Result<SpeakerDeviceState>> getSpeakerDeviceState(String deviceId, Callback<Result<SpeakerDeviceState>> callback) {
+//        Call<Result<SpeakerDeviceState>> call = this.service.getSpeakerDeviceState(deviceId);
+//        call.enqueue(callback);
+//        return call;
+//    }
+//
+//public Call<Result<TapDeviceState>> getTapDeviceState(String deviceId, Callback<Result<TapDeviceState>> callback) {
+//        Call<Result<TapDeviceState>> call = this.service.getTapDeviceState(deviceId);
+//        call.enqueue(callback);
+//        return call;
+//    }
+//
+//public Call<Result<VacuumDeviceState>> getVacuumDeviceState(String deviceId, Callback<Result<VacuumDeviceState>> callback) {
+//        Call<Result<VacuumDeviceState>> call = this.service.getVacuumDeviceState(deviceId);
+//        call.enqueue(callback);
+//        return call;
+//    }
+//
 }

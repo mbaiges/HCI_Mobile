@@ -7,21 +7,28 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DeviceViewModel extends ViewModel {
 
+    private HashMap<String, Function<Void, Void>> functionHashMap;
+    private Function<Void, Void> deviceUpdater;
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> fetcherHandler;
@@ -29,13 +36,20 @@ public class DeviceViewModel extends ViewModel {
     private MutableLiveData<Device> mDevice;
 
     public DeviceViewModel() {
+        functionHashMap = new HashMap<String, Function<Void, Void>>() {{
+            put("door", (t) -> {
+                updateDoorDevice();
+                return null;
+            });
+
+        }};
         mDevice = new MutableLiveData<>();
     }
 
     public void init(String deviceId) {
         this.deviceId = deviceId;
         fetchDevice();
-        scheduleFetching();
+        scheduleUpdating();
     }
 
     public LiveData<Device> getDevice() {
@@ -69,10 +83,59 @@ public class DeviceViewModel extends ViewModel {
         });
     }
 
-    public void scheduleFetching() {
+    private void updateDevice() {
+        if (deviceUpdater == null) {
+            Device device = mDevice.getValue();
+            if (device != null) {
+                DeviceType deviceType = device.getType();
+                if (deviceType != null) {
+                    Function<Void, Void> updaterFunction = functionHashMap.get(deviceType.getName());
+                    if (updaterFunction != null) {
+                        deviceUpdater = updaterFunction;
+                    }
+                }
+            }
+        }
+        if (deviceUpdater != null) {
+            deviceUpdater.apply(null);
+        }
+    }
+
+    private void updateDoorDevice() {
+        Log.v("UPDATE_DOOR", "Running");
+        ApiClient.getInstance().getDoorDeviceState(deviceId, new Callback<Result<DoorDeviceState>>() {
+            @Override
+            public void onResponse(@NonNull Call<Result<DoorDeviceState>> call, @NonNull Response<Result<DoorDeviceState>> response) {
+                if (response.isSuccessful()) {
+                    Result<DoorDeviceState> result = response.body();
+                    if (result != null) {
+                        DoorDeviceState actualDeviceState = result.getResult();
+                        if (actualDeviceState != null) {
+                            DoorDevice device = (DoorDevice) mDevice.getValue();
+
+                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
+                                device.setState(actualDeviceState);
+                                mDevice.postValue(device);
+                                Log.v("UPDATED_DOOR", device.toString());
+                            }
+                        }
+                    } else {
+                        handleError(response);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Result<DoorDeviceState>> call, @NonNull Throwable t) {
+                handleUnexpectedError(t);
+            }
+        });
+    }
+
+    public void scheduleUpdating() {
         final Runnable fetcher = new Runnable() {
             public void run() {
-                fetchDevice();
+                updateDevice();
             }
         };
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);

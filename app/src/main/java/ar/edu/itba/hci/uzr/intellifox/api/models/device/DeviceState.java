@@ -10,12 +10,21 @@ public abstract class DeviceState {
     @Expose
     protected String status;
 
+    public DeviceState() {}
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "DeviceState{" +
+                "status='" + status + '\'' +
+                '}';
     }
 
     @Override

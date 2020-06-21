@@ -19,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DoorDeviceObserver extends DeviceObserver {
+public class DDeviceObserver extends DeviceObserver {
 
     private static final String LOCK_ACTION = "lock";
     private static final String UNLOCK_ACTION = "unlock";

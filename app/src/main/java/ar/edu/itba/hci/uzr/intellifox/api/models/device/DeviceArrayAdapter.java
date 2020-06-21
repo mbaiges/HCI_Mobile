@@ -14,9 +14,12 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 
+import java.lang.reflect.InvocationTargetException;
+
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceObserverViewFactoryContainer;
 
 public class DeviceArrayAdapter extends ArrayAdapter<Device> {
 
@@ -48,10 +51,10 @@ public class DeviceArrayAdapter extends ArrayAdapter<Device> {
 
         Device device = getItem(position);
         if (device != null) {
+            DeviceType dt = device.getType();
             if (holder.arrowBtn != null) {
                 Bundle args = new Bundle();
                 args.putString(DEVICE_ID_ARG, device.getId());
-                DeviceType dt = device.getType();
                 if (dt != null) {
                     args.putString(DEVICE_TYPE_NAME_ARG, device.getType().getName());
                     holder.arrowBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_device, args));
@@ -60,6 +63,14 @@ public class DeviceArrayAdapter extends ArrayAdapter<Device> {
             //ColorFilter filter = new PorterDuffColorFilter(Color.parseColor(device.getColor()), PorterDuff.Mode.SRC_IN);
             //holder.imageView.setColorFilter(filter);
             holder.nameTextView.setText(device.getName());
+            if (dt != null) {
+                try {
+                    holder.observer = DeviceObserverViewFactoryContainer.getInstance().getObserver(dt.getName(), convertView);
+                    holder.observer.onChanged(device);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return convertView;

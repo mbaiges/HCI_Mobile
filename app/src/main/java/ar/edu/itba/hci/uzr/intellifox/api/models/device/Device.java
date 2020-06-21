@@ -88,6 +88,8 @@ public class Device<T extends DeviceState>{
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", type=" + type +
+                ", room=" + room +
+                ", state=" + state +
                 ", meta=" + meta +
                 '}';
     }

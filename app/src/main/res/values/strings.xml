@@ -34,4 +34,23 @@
     <string name="get_rooms">Get Rooms</string>
     <string name="result">Result: %1$s</string>
     <string name="error_message">Something went wrong: %1$s [%2$d]</string>
+
+    <string name="show_notification">Show Notification</string>
+    <string name="notification_title">Uso del API.pdf</string>
+    <string name="notification_text">Download complete</string>
+    <string name="title_activity_secondary">Secondary Activity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="channel_name">Notifications</string>
+    <string name="channel_description">Notifications Description</string>
+    <string name="group_name">Notifications Group Name</string>
+
+
+    <!-- Puerta -->
+    <string name="dev_door_state_lock_locked">Locked</string>
+    <string name="dev_door_state_lock_unlocked">Unlocked</string>
+    <string name="dev_door_button_lock">Lock</string>
+    <string name="dev_door_button_unlock">Unlock</string>
+    <string name="dev_door_state_open">Opened</string>
+    <string name="dev_door_state_closed">Closed</string>
+
 </resources>
