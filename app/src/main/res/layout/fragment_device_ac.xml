@@ -93,40 +93,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vRotationTitle">
 
-        <Button
+        <ToggleButton
             android:id="@+id/vRotationButton1"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Auto" />
+            android:textOn="Auto"
+            android:textOff="Auto"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/vRotationButton2"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="22" />
+            android:textOn="22"
+            android:textOff="22"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/vRotationButton3"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="45" />
+            android:textOn="45"
+            android:textOff="45"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/vRotationButton4"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="67" />
+            android:textOn="67"
+            android:textOff="67"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/vRotationButton5"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="90" />
+            android:textOn="90"
+            android:textOff="90"/>
     </LinearLayout>
 
     <LinearLayout
@@ -139,26 +144,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modeTitle">
 
-        <Button
+        <ToggleButton
             android:id="@+id/coolButton"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Cool" />
+            android:textOn="Cool"
+            android:textOff="Cool"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/heatButton"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Heat" />
+            android:textOn="Heat"
+            android:textOff="Heat"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/fanButton"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Fan" />
+            android:textOn="Fan"
+            android:textOff="Fan"/>
 
     </LinearLayout>
 
@@ -173,46 +181,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hRotationTitle">
 
-        <Button
+        <ToggleButton
             android:id="@+id/hRotationButton1"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Auto" />
+            android:textOn="Auto"
+            android:textOff="Auto"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/hRotationButton2"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="-90" />
+            android:textOn="-90"
+            android:textOff="-90"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/hRotationButton3"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="-45" />
+            android:textOn="-45"
+            android:textOff="-45"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/hRotationButton4"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:textOn="0"
+            android:textOff="0"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/hRotationButton5"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="45" />
-        <Button
+            android:textOn="45"
+            android:textOff="45"/>
+        <ToggleButton
             android:id="@+id/hRotationButton6"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="90" />
+            android:textOn="90"
+            android:textOff="90"/>
     </LinearLayout>
 
     <LinearLayout
@@ -226,36 +240,41 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11">
 
 
-        <Button
+        <ToggleButton
             android:id="@+id/fanButton1"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Auto" />
-        <Button
+            android:textOn="Auto"
+            android:textOff="Auto"/>
+        <ToggleButton
             android:id="@+id/fanButton2"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="25" />
-        <Button
+            android:textOn="25"
+            android:textOff="25"/>
+        <ToggleButton
             android:id="@+id/fanButton3"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="50" />
-        <Button
+            android:textOn="50"
+            android:textOff="50"/>
+        <ToggleButton
             android:id="@+id/fanButton4"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="75" />
-        <Button
+            android:textOn="75"
+            android:textOff="75"/>
+        <ToggleButton
             android:id="@+id/fanButton5"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="100" />
+            android:textOn="100"
+            android:textOff="100"/>
 
     </LinearLayout>
 
