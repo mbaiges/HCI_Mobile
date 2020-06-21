@@ -1,7 +1,6 @@
 package ar.edu.itba.hci.uzr.intellifox.ui.routines;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
-import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
-import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceArrayAdapter;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.RoutineArrayAdapter;
-import ar.edu.itba.hci.uzr.intellifox.ui.device_types.DeviceTypesDevicesViewModel;
 
 public class RoutinesFragment extends Fragment {
 
@@ -53,5 +47,17 @@ public class RoutinesFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        routinesViewModel.scheduleFetching();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        routinesViewModel.stopFetching();
     }
 }

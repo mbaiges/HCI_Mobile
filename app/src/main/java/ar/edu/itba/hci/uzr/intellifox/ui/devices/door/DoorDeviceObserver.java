@@ -65,7 +65,12 @@ public class DoorDeviceObserver extends DeviceObserver {
         if (state != null) {
             DoorDeviceState s = (DoorDeviceState) state;
             DoorDeviceViewHolder h = (DoorDeviceViewHolder) holder;
-
+            String status = state.getStatus();
+            if (status != null) {
+                if (holder.onSwitch != null) {
+                    holder.onSwitch.setChecked(status.equals("opened"));
+                }
+            }
             if (h.lockBtn != null && s.getLock() != null) {
                 h.lockBtn.setText((s.getLock().equals("locked"))?R.string.dev_door_button_unlock:R.string.dev_door_button_lock);
             }

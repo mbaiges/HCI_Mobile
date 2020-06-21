@@ -79,9 +79,13 @@ public class RoomsViewModel extends ViewModel {
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);
     }
 
-    @Override
-    public void onCleared() {
+    public void stopFetching() {
         fetcherHandler.cancel(true);
+    }
+
+    @Override
+    protected void onCleared() {
+        stopFetching();
     }
 
     private <T> void handleError(Response<T> response) {
