@@ -9,8 +9,6 @@ import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceObserver;
@@ -38,12 +36,12 @@ public class TapDeviceObserver extends DeviceObserver {
         TapDeviceViewHolder h = (TapDeviceViewHolder) holder;
 
         h.btnML = contextView.findViewById(R.id.btn0);
-        h.btnCL = contextView.findViewById(R.id.btn1);
-        h.btnDL = contextView.findViewById(R.id.btn2);
+        h.btnCL = contextView.findViewById(R.id.btn5);
+        h.btnDL = contextView.findViewById(R.id.btn5);
         h.btnL = contextView.findViewById(R.id.btn3);
-        h.btnDAL = contextView.findViewById(R.id.btn4);
-        h.btnHL = contextView.findViewById(R.id.btn5);
-        h.btnKL = contextView.findViewById(R.id.btn6);
+        h.btnDAL = contextView.findViewById(R.id.btn5);
+        h.btnHL = contextView.findViewById(R.id.btn3);
+        h.btnKL = contextView.findViewById(R.id.btn5);
         h.amount = contextView.findViewById(R.id.howMany);
         h.btnDispence = contextView.findViewById(R.id.btnDispense);
     }

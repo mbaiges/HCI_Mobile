@@ -13,6 +13,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerSong;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceObserver;
@@ -39,15 +40,19 @@ public class SpeakerDeviceObserver extends DeviceObserver {
         h.progressBar = contextView.findViewById(R.id.progressBar);
         h.txtProgressHigh = contextView.findViewById(R.id.txtProgressHigh);
         h.txtProgressLow = contextView.findViewById(R.id.txtProgressLow);
-        h.txtSongName = contextView.findViewById(R.id.txtSongName);
-        h.txtSongGenre = contextView.findViewById(R.id.txtSongGenre);
-        h.txtSongPlaylist = contextView.findViewById(R.id.txtSongPlaylist);
         h.btnPlay = contextView.findViewById(R.id.btnPlay);
         h.btnPrevSong = contextView.findViewById(R.id.btnPrevSong);
         h.btnNextSong = contextView.findViewById(R.id.btnNextSong);
         h.txtVolume = contextView.findViewById(R.id.txtVolume);
         h.btnVolumeDown = contextView.findViewById(R.id.btnVolumeDown);
         h.btnVolumeUp = contextView.findViewById(R.id.btnVolumeUp);
+
+        h.btnClassical = contextView.findViewById(R.id.btnClassical);
+        h.btnCountry = contextView.findViewById(R.id.btnCountry);
+        h.btnDance = contextView.findViewById(R.id.btnDance);
+        h.btnLatina = contextView.findViewById(R.id.btnLatina);
+        h.btnPop = contextView.findViewById(R.id.btnPop);
+        h.btnRock = contextView.findViewById(R.id.btnRock);
     }
 
     @Override
@@ -56,16 +61,49 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             SpeakerDeviceState s = (SpeakerDeviceState) state;
             SpeakerDeviceViewHolder h = (SpeakerDeviceViewHolder) holder;
 
-            String status = s.getStatus();
+            Log.v("INFO:", "Setting Description");
 
-//            if (status != null) {
-//                String closed = contextView.getResources().getString(R.string.dev_tap_state_closed);
-//                String opened = contextView.getResources().getString(R.string.dev_tap_state_opened);
-//                String aux = status.equals("closed") ? closed : opened ;
-//                if (h.description != null){
-//                    h.description.setText(aux);
-//                }
-//            }
+            String status = s.getStatus();
+            String stateStatus;
+
+            switch (status){
+                case "closed":
+                    stateStatus = "status: " + contextView.getResources().getString(R.string.dev_blind_state_closed) + "\n";
+                    break;
+                case "opened":
+                    stateStatus = "status: " + contextView.getResources().getString(R.string.dev_blind_state_opened) + "\n";
+                    break;
+                case "opening":
+                    stateStatus = "status: " + contextView.getResources().getString(R.string.dev_blind_state_opening) + "\n";
+                    break;
+                case "closing":
+                    stateStatus = "status: " + contextView.getResources().getString(R.string.dev_blind_state_closing) + "\n";
+                    break;
+                default:
+                    stateStatus = "Null";
+                    break;
+            }
+
+            SpeakerSong stateSong = s.getSong();
+            String stateGenre = s.getGenre();
+            String stateVolume = s.getVolume();
+
+
+
+            String stateSongDuration = stateSong.getDuration();
+            String stateSongProgress = stateSong.getProgress();
+
+            String auxDec = stateStatus;
+            if(stateSong != null){
+                String stateSongTitle = " Title: " + stateSong.getTitle() + "\n";
+                String stateSongAlbum = " Album: " + stateSong.getAlbum() + "\n";
+                String stateSongArtist = " Artist: " + stateSong.getArtist() + "\n";
+                auxDec = auxDec + stateSongTitle + stateSongAlbum + stateSongArtist;
+            }
+
+            if (h.description != null){
+                h.description.setText(auxDec);
+            }
         }
     }
 

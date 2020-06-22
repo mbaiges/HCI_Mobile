@@ -88,6 +88,11 @@
     <string name="dev_speaker_state_paused">Pausado</string>
     <string name="dev_speaker_state_resumed">Sonando</string>
     <string name="dev_speaker_genre">Genero:</string>
-    <string name="dev_speaker_playlist">Lista De Reproduccion:</string>
+    <string name="dev_speaker_genre_clasical">Clasica</string>
+    <string name="dev_speaker_genre_country">Country</string>
+    <string name="dev_speaker_genre_dance">Baile</string>
+    <string name="dev_speaker_genre_latina">Latina</string>
+    <string name="dev_speaker_genre_pop">Pop</string>
+    <string name="dev_speaker_genre_rock">Rock</string>
     <string name="dev_speaker_volume">Volumen:</string>
 </resources>

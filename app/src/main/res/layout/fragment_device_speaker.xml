@@ -11,10 +11,10 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="274dp"
         android:layout_height="21dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSongName" />
+        app:layout_constraintTop_toBottomOf="@+id/desc" />
 
     <TextView
         android:id="@+id/txtProgressHigh"
@@ -80,16 +80,6 @@
         app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
     <TextView
-        android:id="@+id/txtSongName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="songName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/desc" />
-
-    <TextView
         android:id="@+id/genre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,36 +88,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
-
-    <TextView
-        android:id="@+id/playlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/dev_speaker_playlist"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSongGenre" />
-
-    <TextView
-        android:id="@+id/txtSongGenre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="some genre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genre" />
-
-    <TextView
-        android:id="@+id/txtSongPlaylist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="some play list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playlist" />
 
     <ImageButton
         android:id="@+id/btnPlay"
@@ -168,9 +128,9 @@
         android:layout_marginTop="32dp"
         android:text="@string/dev_speaker_volume"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSongPlaylist" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDance" />
 
     <TextView
         android:id="@+id/txtVolume"
@@ -204,5 +164,80 @@
         app:layout_constraintTop_toTopOf="@+id/txtVolume"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_chevron_up" />
+
+
+    <ToggleButton
+        android:id="@+id/btnClassical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:textOff="@string/dev_speaker_genre_clasical"
+        android:textOn="@string/dev_speaker_genre_clasical"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCountry"
+        app:layout_constraintStart_toEndOf="@+id/btnCountry"
+        app:layout_constraintTop_toTopOf="@+id/btnCountry" />
+
+    <ToggleButton
+        android:id="@+id/btnCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:textOff="@string/dev_speaker_genre_country"
+        android:textOn="@string/dev_speaker_genre_country"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genre" />
+
+    <ToggleButton
+        android:id="@+id/btnDance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:textOff="@string/dev_speaker_genre_dance"
+        android:textOn="@string/dev_speaker_genre_dance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCountry" />
+
+    <ToggleButton
+        android:id="@+id/btnLatina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="8dp"
+        android:textOff="@string/dev_speaker_genre_latina"
+        android:textOn="@string/dev_speaker_genre_latina"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCountry"
+        app:layout_constraintEnd_toStartOf="@+id/btnCountry"
+        app:layout_constraintTop_toTopOf="@+id/btnCountry" />
+
+    <ToggleButton
+        android:id="@+id/btnPop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:textOff="@string/dev_speaker_genre_pop"
+        android:textOn="@string/dev_speaker_genre_pop"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDance"
+        app:layout_constraintStart_toEndOf="@+id/btnDance"
+        app:layout_constraintTop_toTopOf="@+id/btnDance" />
+
+    <ToggleButton
+        android:id="@+id/btnRock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="8dp"
+        android:textOff="@string/dev_speaker_genre_rock"
+        android:textOn="@string/dev_speaker_genre_rock"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDance"
+        app:layout_constraintEnd_toStartOf="@+id/btnDance"
+        app:layout_constraintTop_toTopOf="@+id/btnDance" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

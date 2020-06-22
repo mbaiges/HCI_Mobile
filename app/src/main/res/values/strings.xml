@@ -85,7 +85,12 @@
     <string name="dev_speaker_state_paused">Paused</string>
     <string name="dev_speaker_state_resumed">Resumed</string>
     <string name="dev_speaker_genre">Genre:</string>
-    <string name="dev_speaker_playlist">Playlist:</string>
+    <string name="dev_speaker_genre_clasical">Classical</string>
+    <string name="dev_speaker_genre_country">Country</string>
+    <string name="dev_speaker_genre_dance">Dance</string>
+    <string name="dev_speaker_genre_latina">Latina</string>
+    <string name="dev_speaker_genre_pop">Pop</string>
+    <string name="dev_speaker_genre_rock">Rock</string>
     <string name="dev_speaker_volume">Volume:</string>
 
 </resources>
