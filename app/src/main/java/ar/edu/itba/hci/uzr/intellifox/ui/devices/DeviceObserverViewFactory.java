@@ -13,6 +13,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.ac.ACDeviceObserver;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.door.DoorDeviceObserver;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.tap.TapDeviceObserver;
+import ar.edu.itba.hci.uzr.intellifox.ui.devices.vacuum.VacuumDeviceObserver;
 
 public class DeviceObserverViewFactory {
 
@@ -24,7 +25,7 @@ public class DeviceObserverViewFactory {
             put("blinds", new Pair<>(R.layout.fragment_device_blinds, ACDeviceObserver.class));
             put("faucet", new Pair<>(R.layout.fragment_device_tap, TapDeviceObserver.class));
             put("door", new Pair<>(R.layout.fragment_device_door, DoorDeviceObserver.class));
-            put("vacuum", new Pair<>(R.layout.fragment_device_vacuum, ACDeviceObserver.class));
+            put("vacuum", new Pair<>(R.layout.fragment_device_vacuum, VacuumDeviceObserver.class));
             put("speaker", new Pair<>(R.layout.fragment_device_speaker, ACDeviceObserver.class));
             put("oven", new Pair<>(R.layout.fragment_device_oven, ACDeviceObserver.class));
             put("light", new Pair<>(R.layout.fragment_device_light, ACDeviceObserver.class));

@@ -59,6 +59,15 @@
     <string name="dev_door_state_open">Abierto</string>
     <string name="dev_door_state_closed">Cerrado</string>
 
+    <!-- Aspiradora -->
+    <string name="dev_vacuum_state_docked">Cargando</string>
+    <string name="dev_vacuum_button_mop">Barrer</string>
+    <string name="dev_vacuum_button_vacuum">Aspirar</string>
+    <string name="dev_vacuum_button_dock">Cargar</string>
+    <string name="dev_vacuum_button_docked">Cargando</string>
+    <string name="dev_vacuum_state_active">Activo</string>
+    <string name="dev_vacuum_state_inactive">Inactivo</string>
+
     <!-- Canilla -->
     <string name="dev_tap_state_closed">Cerrada</string>
     <string name="dev_tap_state_opened">Abierta</string>

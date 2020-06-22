@@ -24,6 +24,8 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import retrofit2.Call;
@@ -46,14 +48,7 @@ public class DeviceViewModel extends ViewModel {
                 updateDoorDevice();
                 return null;
             });
-            put("faucet", (t) -> {
-                updateTapDevice();
-                return null;
-            });
-            put("blind", (t) -> {
-                updateBlindDevice();
-                return null;
-            });
+
         }};
         mDevice = new MutableLiveData<>();
     }
@@ -142,69 +137,6 @@ public class DeviceViewModel extends ViewModel {
             }
         });
     }
-
-
-    private void updateTapDevice() {
-        Log.v("UPDATE_TAP", "Running");
-        ApiClient.getInstance().getTapDeviceState(deviceId, new Callback<Result<TapDeviceState>>() {
-            @Override
-            public void onResponse(@NonNull Call<Result<TapDeviceState>> call, @NonNull Response<Result<TapDeviceState>> response) {
-                if (response.isSuccessful()) {
-                    Result<TapDeviceState> result = response.body();
-                    if (result != null) {
-                        TapDeviceState actualDeviceState = result.getResult();
-                        if (actualDeviceState != null) {
-                            TapDevice device = (TapDevice) mDevice.getValue();
-
-                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
-                                device.setState(actualDeviceState);
-                                mDevice.postValue(device);
-                                Log.v("UPDATED_TAP", device.toString());
-                            }
-                        }
-                    } else {
-                        handleError(response);
-                    }
-                }
-            }
-            @Override
-            public void onFailure(@NonNull Call<Result<TapDeviceState>> call, @NonNull Throwable t) {
-                handleUnexpectedError(t);
-            }
-        });
-    }
-
-
-    private void updateBlindDevice() {
-        Log.v("UPDATE_TAP", "Running");
-        ApiClient.getInstance().getBlindDeviceState(deviceId, new Callback<Result<BlindDeviceState>>() {
-            @Override
-            public void onResponse(@NonNull Call<Result<BlindDeviceState>> call, @NonNull Response<Result<BlindDeviceState>> response) {
-                if (response.isSuccessful()) {
-                    Result<BlindDeviceState> result = response.body();
-                    if (result != null) {
-                        BlindDeviceState actualDeviceState = result.getResult();
-                        if (actualDeviceState != null) {
-                            BlindDevice device = (BlindDevice) mDevice.getValue();
-
-                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
-                                device.setState(actualDeviceState);
-                                mDevice.postValue(device);
-                                Log.v("UPDATED_TAP", device.toString());
-                            }
-                        }
-                    } else {
-                        handleError(response);
-                    }
-                }
-            }
-            @Override
-            public void onFailure(@NonNull Call<Result<BlindDeviceState>> call, @NonNull Throwable t) {
-                handleUnexpectedError(t);
-            }
-        });
-    }
-
 
     public void scheduleUpdating() {
         final Runnable fetcher = new Runnable() {

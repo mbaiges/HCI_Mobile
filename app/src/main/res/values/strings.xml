@@ -57,6 +57,15 @@
     <string name="dev_door_state_open">Opened</string>
     <string name="dev_door_state_closed">Closed</string>
 
+    <!-- Aspiradora -->
+    <string name="dev_vacuum_state_docked">Docked</string>
+    <string name="dev_vacuum_button_mop">Mop</string>
+    <string name="dev_vacuum_button_vacuum">Vacuum</string>
+    <string name="dev_vacuum_button_dock">Dock</string>
+    <string name="dev_vacuum_button_docked">Docked</string>
+    <string name="dev_vacuum_state_active">Active</string>
+    <string name="dev_vacuum_state_inactive">Inactive</string>
+
     <!-- Tap -->
     <string name="dev_tap_state_closed">Closed</string>
     <string name="dev_tap_state_opened">Opened</string>
