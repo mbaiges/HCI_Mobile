@@ -70,8 +70,8 @@ public interface ApiService {
     @GET("devices/{deviceId}/state")
     Call<Result<DoorDeviceState>> getDoorDeviceState(@Path("deviceId") String deviceId);
 
-//    @GET("devices/{deviceId}/state")
-//    Call<Result<OvenDeviceState>> getOvenDeviceState(@Path("deviceId") String deviceId);
+    @GET("devices/{deviceId}/state")
+    Call<Result<OvenDeviceState>> getOvenDeviceState(@Path("deviceId") String deviceId);
 
     @GET("devices/{deviceId}/state")
     Call<Result<AcDeviceState>> getAcDeviceState(@Path("deviceId") String deviceId);

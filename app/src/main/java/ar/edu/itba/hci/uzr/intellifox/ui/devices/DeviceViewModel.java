@@ -48,6 +48,10 @@ public class DeviceViewModel extends ViewModel {
                 updateDoorDevice();
                 return null;
             });
+            put("vacuum", (t) -> {
+               updateVacuumDevice();
+               return null;
+            });
 
         }};
         mDevice = new MutableLiveData<>();
@@ -133,6 +137,37 @@ public class DeviceViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<Result<DoorDeviceState>> call, @NonNull Throwable t) {
+                handleUnexpectedError(t);
+            }
+        });
+    }
+
+    private void updateVacuumDevice() {
+        Log.v("UPDATE_DOOR", "Running");
+        ApiClient.getInstance().getVacuumDeviceState(deviceId, new Callback<Result<VacuumDeviceState>>() {
+            @Override
+            public void onResponse(@NonNull Call<Result<VacuumDeviceState>> call, @NonNull Response<Result<VacuumDeviceState>> response) {
+                if (response.isSuccessful()) {
+                    Result<VacuumDeviceState> result = response.body();
+                    if (result != null) {
+                        VacuumDeviceState actualDeviceState = result.getResult();
+                        if (actualDeviceState != null) {
+                            VacuumDevice device = (VacuumDevice) mDevice.getValue();
+
+                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
+                                device.setState(actualDeviceState);
+                                mDevice.postValue(device);
+                                Log.v("UPDATED_DOOR", device.toString());
+                            }
+                        }
+                    } else {
+                        handleError(response);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Result<VacuumDeviceState>> call, @NonNull Throwable t) {
                 handleUnexpectedError(t);
             }
         });
