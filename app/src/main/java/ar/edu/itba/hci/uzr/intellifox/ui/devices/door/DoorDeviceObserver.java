@@ -48,11 +48,15 @@ public class DoorDeviceObserver extends DeviceObserver {
             DoorDeviceViewHolder h = (DoorDeviceViewHolder) holder;
 
             String status = s.getStatus();
+            String statusText = contextView.getResources().getString(status.equals("closed")?R.string.dev_door_state_closed:R.string.dev_door_state_open);
             String lock = s.getLock();
+            String lockText = "";
+            if (lock != null) {
+                lockText = contextView.getResources().getString(status.equals("locked")?R.string.dev_door_state_lock_locked:R.string.dev_door_state_lock_unlocked);
+            }
 
             if (status != null && lock != null) {
-                String statusDesc;
-                String aux = status + "-" + lock;
+                String aux = statusText + " - " + lockText;
                 if (h.description != null) {
                     h.description.setText(aux);
                 }
