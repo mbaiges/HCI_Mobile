@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CreateNotificationChannel();
-        ShowNotification();
+        //CreateNotificationChannel();
+        //ShowNotification();
 
 //        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
 //                .setSmallIcon(R.drawable.ic_heart_outline)

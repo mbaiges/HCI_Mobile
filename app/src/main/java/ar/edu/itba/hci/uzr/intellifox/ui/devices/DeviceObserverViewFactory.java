@@ -11,6 +11,7 @@ import java.util.HashMap;
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.ac.ACDeviceObserver;
+import ar.edu.itba.hci.uzr.intellifox.ui.devices.blind.BlindDeviceObserver;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.door.DoorDeviceObserver;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.tap.TapDeviceObserver;
 
@@ -21,7 +22,7 @@ public class DeviceObserverViewFactory {
     public DeviceObserverViewFactory() {
         map = new HashMap<String, Pair<Integer, Class>>() {{
             put("ac", new Pair<>(R.layout.fragment_device_ac, ACDeviceObserver.class));
-            put("blinds", new Pair<>(R.layout.fragment_device_blinds, ACDeviceObserver.class));
+            put("blinds", new Pair<>(R.layout.fragment_device_blinds, BlindDeviceObserver.class));
             put("faucet", new Pair<>(R.layout.fragment_device_tap, TapDeviceObserver.class));
             put("door", new Pair<>(R.layout.fragment_device_door, DoorDeviceObserver.class));
             put("vacuum", new Pair<>(R.layout.fragment_device_vacuum, ACDeviceObserver.class));

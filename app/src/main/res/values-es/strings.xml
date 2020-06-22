@@ -69,6 +69,8 @@
     <!-- Persianas -->
     <string name="dev_blind_state_closed">Cerrada</string>
     <string name="dev_blind_state_opened">Abierta</string>
+    <string name="dev_blind_state_closing">Cerrrando</string>
+    <string name="dev_blind_state_opening">Abriendo</string>
     <string name="dev_blind_level">Nivel</string>
 
 

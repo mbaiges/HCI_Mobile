@@ -48,7 +48,6 @@
     <string name="channel_description">Notifications Description</string>
     <string name="group_name">Notifications Group Name</string>
 
-
     <!-- Door -->
     <string name="dev_door_state_lock_locked">Locked</string>
     <string name="dev_door_state_lock_unlocked">Unlocked</string>
@@ -65,8 +64,10 @@
     <string name="dev_tap_amount">Amount</string>
 
     <!-- Blind -->
-    <string name="dev_blind_state_closed">Cerrada</string>
-    <string name="dev_blind_state_opened">Abierta</string>
+    <string name="dev_blind_state_closed">Closed</string>
+    <string name="dev_blind_state_opened">Opened</string>
+    <string name="dev_blind_state_closing">Closing</string>
+    <string name="dev_blind_state_opening">Opening</string>
     <string name="dev_blind_level">Level</string>
 
 </resources>

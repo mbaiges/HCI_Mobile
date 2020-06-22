@@ -50,7 +50,7 @@ public class DeviceViewModel extends ViewModel {
                 updateTapDevice();
                 return null;
             });
-            put("blind", (t) -> {
+            put("blinds", (t) -> {
                 updateBlindDevice();
                 return null;
             });
@@ -190,7 +190,7 @@ public class DeviceViewModel extends ViewModel {
                             if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
                                 device.setState(actualDeviceState);
                                 mDevice.postValue(device);
-                                Log.v("UPDATED_TAP", device.toString());
+                                Log.v("UPDATED_BLIND", device.toString());
                             }
                         }
                     } else {

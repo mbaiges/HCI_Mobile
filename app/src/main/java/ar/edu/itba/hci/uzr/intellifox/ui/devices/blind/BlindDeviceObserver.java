@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.DialogCompat;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
@@ -11,8 +12,6 @@ import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceObserver;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +23,7 @@ public class BlindDeviceObserver extends DeviceObserver {
 
     public BlindDeviceObserver(View contextView) {
         super(contextView);
+        Log.v("INFO:", "Initializing");
     }
 
     @Override
@@ -36,9 +36,13 @@ public class BlindDeviceObserver extends DeviceObserver {
         super.findElements();
         BlindDeviceViewHolder h = (BlindDeviceViewHolder) holder;
 
-        h.btnUp = contextView.findViewById(R.id.up);
-        h.btnDown = contextView.findViewById(R.id.down);
+        Log.v("INFO:", "Setting Elements");
+
+        h.btnUp = contextView.findViewById(R.id.btnUp);
+        h.btnDown = contextView.findViewById(R.id.btnDown);
         h.level = contextView.findViewById(R.id.number);
+
+
     }
 
     @Override
@@ -47,15 +51,32 @@ public class BlindDeviceObserver extends DeviceObserver {
             BlindDeviceState s = (BlindDeviceState) state;
             BlindDeviceViewHolder h = (BlindDeviceViewHolder) holder;
 
-            String status = s.getStatus();
+            Log.v("INFO:", "Setting Description");
 
-            if (status != null) {
-                String closed = contextView.getResources().getString(R.string.dev_blind_state_closed);
-                String opened = contextView.getResources().getString(R.string.dev_blind_state_opened);
-                String aux = status.equals("closed") ? closed : opened ;
-                if (h.description != null){
-                    h.description.setText(aux);
-                }
+            String status = s.getStatus();
+            String stateStatus;
+
+            switch (status){
+                case "closed":
+                    stateStatus = contextView.getResources().getString(R.string.dev_blind_state_closed);
+                    break;
+                case "opened":
+                    stateStatus = contextView.getResources().getString(R.string.dev_blind_state_opened);
+                    break;
+                case "opening":
+                    stateStatus = contextView.getResources().getString(R.string.dev_blind_state_opening);
+                    break;
+                case "closing":
+                    stateStatus = contextView.getResources().getString(R.string.dev_blind_state_closing);
+                    break;
+            }
+
+            Integer stateLevel = s.getLevel() ;
+            Integer stateCurrentLevel = s.getCurrentLevel();
+
+            String auxDec = status + " Level: " + stateCurrentLevel + "/" + stateLevel;
+            if (h.description != null){
+                h.description.setText(auxDec);
             }
         }
     }
@@ -64,13 +85,16 @@ public class BlindDeviceObserver extends DeviceObserver {
     protected void setUI(DeviceState state) {
         super.setUI(state);
         if (state != null) {
-            TapDeviceState s = (TapDeviceState) state;
+            BlindDeviceState s = (BlindDeviceState) state;
             BlindDeviceViewHolder h = (BlindDeviceViewHolder) holder;
 
-//            if(h.btnL != null){
-//                clearSelections();
-//                h.btnL.setChecked(true);
-//            }
+            if(h != null){
+                level = s.getLevel();
+                if(h.level != null){
+                    h.level.setText(level.toString());
+                }
+            }
+
         }
     }
 
@@ -83,14 +107,13 @@ public class BlindDeviceObserver extends DeviceObserver {
             h.btnUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Log.v("PRESSED", "btnUp");
                     BlindDevice d = (BlindDevice) h.device;
                     if (d != null) {
                         BlindDeviceState s = (BlindDeviceState) d.getState();
                         if (s != null) {
-                            String aux = h.level.getText().toString();
                             if(level+5 <= 100){
-                                level = Integer.parseInt(aux) + 5;
+                                level += 5;
                                 h.level.setText(level.toString());
                                 String[] args = new String[1];
                                 args[0] = level.toString();
@@ -102,9 +125,9 @@ public class BlindDeviceObserver extends DeviceObserver {
                                             Result<Object> result = response.body();
 
                                             if (result != null) {
-                                                Boolean success = (Boolean) result.getResult();
-                                                if (success != null) {
-                                                    Log.v("ACTION_SUCCESS", success.toString());
+                                                Object lastVal = (Object) result.getResult();
+                                                if (lastVal != null) {
+                                                    Log.v("ACTION_SUCCESS", lastVal.toString());
                                                 }
                                             } else {
                                                 handleError(response);
@@ -128,14 +151,13 @@ public class BlindDeviceObserver extends DeviceObserver {
             h.btnDown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Log.v("PRESSED", "btnDown");
                     BlindDevice d = (BlindDevice) h.device;
                     if (d != null) {
                         BlindDeviceState s = (BlindDeviceState) d.getState();
                         if (s != null) {
-                            String aux = h.level.getText().toString();
                             if(level-5 >= 0){
-                                level = Integer.parseInt(aux) - 5;
+                                level -= 5;
                                 h.level.setText(level.toString());
                                 String[] args = new String[1];
                                 args[0] = level.toString();
@@ -147,9 +169,9 @@ public class BlindDeviceObserver extends DeviceObserver {
                                             Result<Object> result = response.body();
 
                                             if (result != null) {
-                                                Boolean success = (Boolean) result.getResult();
-                                                if (success != null) {
-                                                    Log.v("ACTION_SUCCESS", success.toString());
+                                                Object lastVal = (Object) result.getResult();
+                                                if (lastVal != null) {
+                                                    Log.v("ACTION_SUCCESS", lastVal.toString());
                                                 }
                                             } else {
                                                 handleError(response);
