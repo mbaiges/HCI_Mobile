@@ -176,4 +176,9 @@ public class ApiClient {
         call.enqueue(callback);
         return call;
     }
+    public Call<Result<SpeakerDeviceState>> getSpeakerDeviceState(String deviceId, Callback<Result<SpeakerDeviceState>> callback) {
+        Call<Result<SpeakerDeviceState>> call = this.service.getSpeakerDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
 }
