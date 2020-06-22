@@ -51,8 +51,8 @@
 
     <Button
         android:id="@+id/arrowBtnDown"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginStart="48dp"
         android:background="@drawable/ic_chevron_down"
         app:layout_constraintBottom_toBottomOf="@+id/temperatureTitle"

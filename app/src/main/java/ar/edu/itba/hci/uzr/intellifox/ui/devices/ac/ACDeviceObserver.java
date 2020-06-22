@@ -122,7 +122,7 @@ public class ACDeviceObserver extends DeviceObserver {
         if (state != null) {
             AcDeviceState s = (AcDeviceState) state;
             ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
-
+            Log.v("ENTROOO", "SET UI");
             String status = state.getStatus();
             if (status != null) {
                 if (h.onSwitch != null) {
