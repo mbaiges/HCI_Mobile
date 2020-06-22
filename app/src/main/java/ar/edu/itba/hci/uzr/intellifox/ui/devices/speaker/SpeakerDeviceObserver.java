@@ -2,6 +2,9 @@ package ar.edu.itba.hci.uzr.intellifox.ui.devices.speaker;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -33,15 +36,18 @@ public class SpeakerDeviceObserver extends DeviceObserver {
         super.findElements();
         SpeakerDeviceViewHolder h = (SpeakerDeviceViewHolder) holder;
 
-//        h.btnML = contextView.findViewById(R.id.btn0);
-//        h.btnCL = contextView.findViewById(R.id.btn1);
-//        h.btnDL = contextView.findViewById(R.id.btn2);
-//        h.btnL = contextView.findViewById(R.id.btn3);
-//        h.btnDAL = contextView.findViewById(R.id.btn4);
-//        h.btnHL = contextView.findViewById(R.id.btn5);
-//        h.btnKL = contextView.findViewById(R.id.btn6);
-//        h.amount = contextView.findViewById(R.id.howMany);
-//        h.btnDispence = contextView.findViewById(R.id.btnDispense);
+        h.progressBar = contextView.findViewById(R.id.progressBar);
+        h.txtProgressHigh = contextView.findViewById(R.id.txtProgressHigh);
+        h.txtProgressLow = contextView.findViewById(R.id.txtProgressLow);
+        h.txtSongName = contextView.findViewById(R.id.txtSongName);
+        h.txtSongGenre = contextView.findViewById(R.id.txtSongGenre);
+        h.txtSongPlaylist = contextView.findViewById(R.id.txtSongPlaylist);
+        h.btnPlay = contextView.findViewById(R.id.btnPlay);
+        h.btnPrevSong = contextView.findViewById(R.id.btnPrevSong);
+        h.btnNextSong = contextView.findViewById(R.id.btnNextSong);
+        h.txtVolume = contextView.findViewById(R.id.txtVolume);
+        h.btnVolumeDown = contextView.findViewById(R.id.btnVolumeDown);
+        h.btnVolumeUp = contextView.findViewById(R.id.btnVolumeUp);
     }
 
     @Override
