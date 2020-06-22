@@ -9,6 +9,7 @@
 
     <string name="menu_favourites">Favourites</string>
     <string name="menu_rooms">Rooms</string>
+    <string name="menu_room">Room</string>
     <string name="menu_devices">Devices</string>
     <string name="menu_routines">Routines</string>
     <string name="menu_electrical_cons">Electrical Consumption</string>

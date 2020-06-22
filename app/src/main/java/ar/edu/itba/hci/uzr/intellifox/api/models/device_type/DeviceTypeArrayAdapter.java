@@ -61,8 +61,9 @@ public class DeviceTypeArrayAdapter extends ArrayAdapter<DeviceType> {
         if (deviceType != null) {
             Bundle args = new Bundle();
             args.putString(DEVICE_TYPE_NAME, deviceType.getName());
-            if (holder.card != null)
+            if (holder.card != null) {
                 holder.card.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_device_types_devices, args));
+            }
             Pair<Integer, Integer> info = typeInfo.get(deviceType.getName());
             if (info != null) {
                 if (info.second != null) {
