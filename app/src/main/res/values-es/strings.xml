@@ -94,4 +94,43 @@
     <string name="dev_speaker_genre_pop">Pop</string>
     <string name="dev_speaker_genre_rock">Rock</string>
     <string name="dev_speaker_volume">Volumen:</string>
+    <!-- Horno -->
+    <string name="dev_oven_status_on">Encendido</string>
+    <string name="dev_oven_status_off">Apagado</string>
+
+    <string name="dev_oven_title_temperature">Temperatura:</string>
+    <string name="dev_oven_title_heat">Fuente de Calor:</string>
+    <string name="dev_oven_title_grill">Modo Parrilla:</string>
+    <string name="dev_oven_title_convection">Modo convección:</string>
+
+    <string name="dev_oven_button_heat_conventional">Conveccion</string>
+    <string name="dev_oven_button_heat_bottom">Inferior</string>
+    <string name="dev_oven_button_heat_top">Superior</string>
+
+    <string name="dev_oven_button_grill_large">Grande</string>
+    <string name="dev_oven_button_grill_eco">Eco</string>
+    <string name="dev_oven_button_grill_off">Apagado</string>
+
+    <string name="dev_oven_button_convection_normal">Normal</string>
+    <string name="dev_oven_button_convection_eco">Eco</string>
+    <string name="dev_oven_button_convection_off">Apagado</string>
+
+    <!-- AC -->
+    <string name="dev_ac_status_on">Encendido</string>
+    <string name="dev_ac_status_off">Apagado</string>
+
+    <string name="dev_ac_title_temperature">Temperatura:</string>
+    <string name="dev_ac_title_mode">Modo:</string>
+    <string name="dev_ac_title_vSwing">Movimiento vertical:</string>
+    <string name="dev_ac_title_hSwing">Movimiento horizontal:</string>
+    <string name="dev_ac_title_fan">Velocidad del ventilador:</string>
+
+    <string name="dev_ac_button_mode_cool">Frio</string>
+    <string name="dev_ac_button_mode_heat">Calor</string>
+    <string name="dev_ac_button_mode_fan">Ventilacion</string>
+
+    <string name="dev_ac_button_hSwing_auto">Auto</string>
+    <string name="dev_ac_button_vSwing_auto">Auto</string>
+    <string name="dev_ac_button_fan_auto">Auto</string>
+
 </resources>
