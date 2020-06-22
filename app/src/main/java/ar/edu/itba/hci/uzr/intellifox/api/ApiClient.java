@@ -166,4 +166,14 @@ public class ApiClient {
         call.enqueue(callback);
         return call;
     }
+    public Call<Result<TapDeviceState>> getTapDeviceState(String deviceId, Callback<Result<TapDeviceState>> callback) {
+        Call<Result<TapDeviceState>> call = this.service.getTapDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
+    public Call<Result<BlindDeviceState>> getBlindDeviceState(String deviceId, Callback<Result<BlindDeviceState>> callback) {
+        Call<Result<BlindDeviceState>> call = this.service.getBlindDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
 }

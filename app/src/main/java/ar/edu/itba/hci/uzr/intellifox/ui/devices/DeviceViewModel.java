@@ -55,12 +55,13 @@ public class DeviceViewModel extends ViewModel {
             put("blinds", (t) -> {
                 updateBlindDevice();
                 return null;
-            put("vacuum", (t) -> {
-               updateVacuumDevice();
-               return null;
             });
-
-        }};
+            put("vacuum", (t) -> {
+                updateVacuumDevice();
+                return null;
+            });
+            }
+        };
         mDevice = new MutableLiveData<>();
     }
 
@@ -179,6 +180,68 @@ public class DeviceViewModel extends ViewModel {
             }
         });
     }
+
+        private void updateTapDevice() {
+            Log.v("UPDATE_DOOR", "Running");
+            ApiClient.getInstance().getTapDeviceState(deviceId, new Callback<Result<TapDeviceState>>() {
+                @Override
+                public void onResponse(@NonNull Call<Result<TapDeviceState>> call, @NonNull Response<Result<TapDeviceState>> response) {
+                    if (response.isSuccessful()) {
+                        Result<TapDeviceState> result = response.body();
+                        if (result != null) {
+                            TapDeviceState actualDeviceState = result.getResult();
+                            if (actualDeviceState != null) {
+                                TapDevice device = (TapDevice) mDevice.getValue();
+
+                                if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
+                                    device.setState(actualDeviceState);
+                                    mDevice.postValue(device);
+                                    Log.v("UPDATED_TAP", device.toString());
+                                }
+                            }
+                        } else {
+                            handleError(response);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Result<TapDeviceState>> call, @NonNull Throwable t) {
+                    handleUnexpectedError(t);
+                }
+            });
+        }
+
+        private void updateBlindDevice() {
+            Log.v("UPDATE_DOOR", "Running");
+            ApiClient.getInstance().getBlindDeviceState(deviceId, new Callback<Result<BlindDeviceState>>() {
+                @Override
+                public void onResponse(@NonNull Call<Result<BlindDeviceState>> call, @NonNull Response<Result<BlindDeviceState>> response) {
+                    if (response.isSuccessful()) {
+                        Result<BlindDeviceState> result = response.body();
+                        if (result != null) {
+                            BlindDeviceState actualDeviceState = result.getResult();
+                            if (actualDeviceState != null) {
+                                BlindDevice device = (BlindDevice) mDevice.getValue();
+
+                                if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
+                                    device.setState(actualDeviceState);
+                                    mDevice.postValue(device);
+                                    Log.v("UPDATED_DOOR", device.toString());
+                                }
+                            }
+                        } else {
+                            handleError(response);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Result<BlindDeviceState>> call, @NonNull Throwable t) {
+                    handleUnexpectedError(t);
+                }
+            });
+        }
 
     public void scheduleUpdating() {
         final Runnable fetcher = new Runnable() {
