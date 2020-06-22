@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textOff="@string/dev_vacuum_button_mop"
-            android:textOn="Mop" />
+            android:textOn="@string/dev_vacuum_button_mop" />
 
         <ToggleButton
             android:id="@+id/vacuumBtn"
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textOff="@string/dev_vacuum_button_vacuum"
-            android:textOn="Vacuum" />
+            android:textOn="@string/dev_vacuum_button_vacuum" />
 
 
     </LinearLayout>
