@@ -82,5 +82,12 @@
     <string name="dev_blind_state_opening">Abriendo</string>
     <string name="dev_blind_level">Nivel</string>
 
-
+    <!-- Parlante -->
+    <string name="dev_speaker_state_playing">Prendido</string>
+    <string name="dev_speaker_state_stopped">Apagado</string>
+    <string name="dev_speaker_state_paused">Pausado</string>
+    <string name="dev_speaker_state_resumed">Sonando</string>
+    <string name="dev_speaker_genre">Genero:</string>
+    <string name="dev_speaker_playlist">Lista De Reproduccion:</string>
+    <string name="dev_speaker_volume">Volumen:</string>
 </resources>

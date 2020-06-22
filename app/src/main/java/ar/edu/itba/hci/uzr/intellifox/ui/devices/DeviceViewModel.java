@@ -24,6 +24,8 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
@@ -242,6 +244,37 @@ public class DeviceViewModel extends ViewModel {
                 }
             });
         }
+
+    private void updateSpeakerDevice() {
+        Log.v("UPDATE_DOOR", "Running");
+        ApiClient.getInstance().getSpeakerDeviceState(deviceId, new Callback<Result<SpeakerDeviceState>>() {
+            @Override
+            public void onResponse(@NonNull Call<Result<SpeakerDeviceState>> call, @NonNull Response<Result<SpeakerDeviceState>> response) {
+                if (response.isSuccessful()) {
+                    Result<SpeakerDeviceState> result = response.body();
+                    if (result != null) {
+                        SpeakerDeviceState actualDeviceState = result.getResult();
+                        if (actualDeviceState != null) {
+                            SpeakerDevice device = (SpeakerDevice) mDevice.getValue();
+
+                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
+                                device.setState(actualDeviceState);
+                                mDevice.postValue(device);
+                                Log.v("UPDATED_DOOR", device.toString());
+                            }
+                        }
+                    } else {
+                        handleError(response);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Result<SpeakerDeviceState>> call, @NonNull Throwable t) {
+                handleUnexpectedError(t);
+            }
+        });
+    }
 
     public void scheduleUpdating() {
         final Runnable fetcher = new Runnable() {
