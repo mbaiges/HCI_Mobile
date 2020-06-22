@@ -38,7 +38,7 @@ public class VacuumDeviceObserver extends DeviceObserver {
         super.findElements();
         VacuumDeviceViewHolder h = (VacuumDeviceViewHolder) holder;
 
-        h.dockBtn = contextView.findViewById(R.id.lockBtn);
+        h.dockBtn = contextView.findViewById(R.id.dock);
         h.modeBtn[0] = new Pair<String, View>("mop", contextView.findViewById(R.id.mopBtn));
         h.modeBtn[1] = new Pair<String, View>("vacuum", contextView.findViewById(R.id.vacuumBtn));
     }
@@ -50,10 +50,14 @@ public class VacuumDeviceObserver extends DeviceObserver {
             VacuumDeviceViewHolder h = (VacuumDeviceViewHolder) holder;
 
             String status = s.getStatus();
-            Integer battLevel = s.getBatteryLever();
+            String statusText = "";
+            if (status.equals("docked")) {
+//                status = contextView.getResources().getString()
+            }
+            Integer battLevel = s.getBatteryLevel();
             String bat = "";
             if (battLevel != null) {
-                bat = s.getBatteryLever().toString();
+                bat = s.getBatteryLevel().toString();
             }
             String mode = s.getMode();
 
@@ -151,11 +155,11 @@ public class VacuumDeviceObserver extends DeviceObserver {
         }
 
 
-
         if (h.dockBtn != null) {
             h.dockBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.v("VACUUM", "Trying to dock");
                     VacuumDevice d = (VacuumDevice) h.device;
                     if (d != null) {
                         VacuumDeviceState s = (VacuumDeviceState) d.getState();
