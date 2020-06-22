@@ -1,5 +1,6 @@
 package ar.edu.itba.hci.uzr.intellifox.ui.devices;
 
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 
@@ -45,6 +46,7 @@ public class DeviceObserverViewFactory {
     public Observer<Device> getObserver(String typeName, View contextView) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Pair<Integer, Class> p =  map.get(typeName);
         if (p != null) {
+            Log.v("FACTORY", typeName);
             return (Observer<Device>) p.second.getDeclaredConstructor(View.class).newInstance(contextView);
         }
         return null;

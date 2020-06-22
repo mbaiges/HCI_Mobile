@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 
+import java.util.List;
+
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
@@ -32,15 +34,10 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
     protected DeviceViewHolder holder;
 
     public DeviceObserver(View contextView) {
-        Log.v("INFO:", "0");
         this.contextView = contextView;
-        Log.v("INFO:", "1");
         createHolder();
-        Log.v("INFO:", "2");
         findElements();
-        Log.v("INFO:", "3");
         attachFunctions();
-        Log.v("INFO:", "4");
     }
 
     protected void createHolder() {
@@ -69,9 +66,6 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
         holder.description = contextView.findViewById(R.id.desc);
         holder.favourite = contextView.findViewById(R.id.favourite);
         holder.onSwitch = contextView.findViewById(R.id.switch1);
-        if(holder.icon == null){
-            Log.v("INFO:", "asdasd");
-        }
     }
 
     protected void init(Device<? extends DeviceState> device) {
@@ -80,11 +74,6 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
         if (state != null) {
             String status = state.getStatus();
 
-            if (status != null) {
-                if (holder.onSwitch != null) {
-                    holder.onSwitch.setChecked(status.equals("opened"));
-                }
-            }
             setFavourite(device);
             setUI(state);
         }
@@ -212,6 +201,13 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
 
     protected <T> void handleError(Response<T> response) {
         Error error = ApiClient.getInstance().getError(response.errorBody());
+        List<String> descList = error.getDescription();
+        String desc = "";
+        if (descList != null) {
+            desc = descList.get(0);
+        }
+        String code = "Code " + String.valueOf(error.getCode());
+        Log.e("ERROR", code + " - " + desc);
         /*
         String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
         Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();

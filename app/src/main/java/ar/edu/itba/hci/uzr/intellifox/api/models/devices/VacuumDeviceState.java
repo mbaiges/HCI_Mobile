@@ -11,9 +11,9 @@ public class VacuumDeviceState extends DeviceState {
     @SerializedName("mode")
     @Expose
     private String mode;
-    @SerializedName("batteryLever")
+    @SerializedName("batteryLevel")
     @Expose
-    private Integer batteryLever;
+    private Integer batteryLevel;
     @SerializedName("location")
     @Expose
     private VacuumLocation location;
@@ -34,12 +34,12 @@ public class VacuumDeviceState extends DeviceState {
         this.mode = mode;
     }
 
-    public Integer getBatteryLever() {
-        return batteryLever;
+    public Integer getBatteryLevel() {
+        return batteryLevel;
     }
 
-    public void setBatteryLever(Integer batteryLever) {
-        this.batteryLever = batteryLever;
+    public void setBatteryLever(Integer batteryLevel) {
+        this.batteryLevel = batteryLevel;
     }
 
     public VacuumLocation getLocation() {
@@ -57,12 +57,12 @@ public class VacuumDeviceState extends DeviceState {
         VacuumDeviceState that = (VacuumDeviceState) o;
         return Objects.equals(status, that.status) &&
                 Objects.equals(mode, that.mode) &&
-                Objects.equals(batteryLever, that.batteryLever) &&
+                Objects.equals(batteryLevel, that.batteryLevel) &&
                 Objects.equals(location, that.location);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(status, mode, batteryLever, location);
+        return Objects.hash(status, mode, batteryLevel, location);
     }
 }
