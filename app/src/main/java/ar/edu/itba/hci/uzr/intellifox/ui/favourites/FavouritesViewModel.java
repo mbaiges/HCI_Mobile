@@ -37,12 +37,8 @@ public class FavouritesViewModel extends ViewModel {
     public FavouritesViewModel() {
         mDevices = new MutableLiveData<>();
         mRoutines = new MutableLiveData<>();
-    }
-
-    public void init(String roomName) {
-        this.roomName = roomName;
-        fetchDevices();
         fetchRoutines();
+        fetchDevices();
     }
 
     public LiveData<Set<Device>> getDevices() {
