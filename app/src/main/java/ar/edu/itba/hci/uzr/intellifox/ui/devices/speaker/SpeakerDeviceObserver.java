@@ -112,6 +112,14 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             SpeakerDeviceState s = (SpeakerDeviceState) state;
             SpeakerDeviceViewHolder h = (SpeakerDeviceViewHolder) holder;
 
+            String status = state.getStatus();
+            if (status != null) {
+                if (holder.onSwitch != null) {
+                    holder.onSwitch.setChecked(status.equals("playing") || status.equals("paused"));
+                }
+            }
+
+
             if(h.btnPlay != null){
                 playing = s.getStatus().equals("playing");
                 if(playing){

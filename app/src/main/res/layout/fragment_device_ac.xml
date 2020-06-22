@@ -1,332 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.devices.DeviceFragment">
-
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="51dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/favourite"
-        android:layout_width="41dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/switch1"
-        app:layout_constraintStart_toEndOf="@+id/bell"
-        app:layout_constraintTop_toTopOf="@+id/switch1"
-        app:srcCompat="@drawable/ic_menu_heart"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/bell"
-        android:layout_width="41dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/favourite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/favourite"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_bell_off" />
-
-    <Button
-        android:id="@+id/arrowBtnDown"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="48dp"
-        android:background="@drawable/ic_chevron_down"
-        app:layout_constraintBottom_toBottomOf="@+id/temperatureTitle"
-        app:layout_constraintStart_toEndOf="@+id/temperatureTitle"
-        app:layout_constraintTop_toTopOf="@+id/temperatureTitle"
-        app:layout_constraintVertical_bias="0.454" />
-
-    <TextView
-        android:id="@+id/temperatureTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
-        android:text="@string/dev_ac_title_temperature"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bell" />
-
-    <Button
-        android:id="@+id/arrowBtnUp"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/ic_chevron_up"
-        app:layout_constraintBottom_toBottomOf="@+id/temperatureValue"
-        app:layout_constraintStart_toEndOf="@+id/temperatureValue"
-        app:layout_constraintTop_toTopOf="@+id/temperatureValue"
-        app:layout_constraintVertical_bias="0.454" />
-
-    <TextView
-        android:id="@+id/temperatureValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="100"
-        app:layout_constraintBottom_toBottomOf="@+id/arrowBtnDown"
-        app:layout_constraintStart_toEndOf="@+id/arrowBtnDown"
-        app:layout_constraintTop_toTopOf="@+id/arrowBtnDown"
-        app:layout_constraintVertical_bias="0.454" />
-
+    android:layout_height="match_parent">
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="65dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.devices.DeviceFragment">
 
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vRotationTitle">
 
-        <ToggleButton
-            android:id="@+id/vRotationButton1"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_ac_button_hSwing_auto"
-            android:textOff="@string/dev_ac_button_hSwing_auto"/>
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="51dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
 
-        <ToggleButton
-            android:id="@+id/vRotationButton2"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="22"
-            android:textOff="22"/>
+            <ImageView
+                android:id="@+id/favourite"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/switch1"
+                app:layout_constraintStart_toEndOf="@+id/bell"
+                app:layout_constraintTop_toTopOf="@+id/switch1"
+                app:srcCompat="@drawable/ic_menu_heart"
+                tools:ignore="MissingConstraints" />
 
-        <ToggleButton
-            android:id="@+id/vRotationButton3"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="45"
-            android:textOff="45"/>
+            <ImageView
+                android:id="@+id/bell"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/favourite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/favourite"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_bell_off" />
 
-        <ToggleButton
-            android:id="@+id/vRotationButton4"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="67"
-            android:textOff="67"/>
+            <Button
+                android:id="@+id/arrowBtnDown"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="48dp"
+                android:background="@drawable/ic_chevron_down"
+                app:layout_constraintBottom_toBottomOf="@+id/temperatureTitle"
+                app:layout_constraintStart_toEndOf="@+id/temperatureTitle"
+                app:layout_constraintTop_toTopOf="@+id/temperatureTitle"
+                app:layout_constraintVertical_bias="0.454" />
 
-        <ToggleButton
-            android:id="@+id/vRotationButton5"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="90"
-            android:textOff="90"/>
+            <TextView
+                android:id="@+id/temperatureTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="80dp"
+                android:text="@string/dev_ac_title_temperature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bell" />
+
+            <Button
+                android:id="@+id/arrowBtnUp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/ic_chevron_up"
+                app:layout_constraintBottom_toBottomOf="@+id/temperatureValue"
+                app:layout_constraintStart_toEndOf="@+id/temperatureValue"
+                app:layout_constraintTop_toTopOf="@+id/temperatureValue"
+                app:layout_constraintVertical_bias="0.454" />
+
+            <TextView
+                android:id="@+id/temperatureValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="100"
+                app:layout_constraintBottom_toBottomOf="@+id/arrowBtnDown"
+                app:layout_constraintStart_toEndOf="@+id/arrowBtnDown"
+                app:layout_constraintTop_toTopOf="@+id/arrowBtnDown"
+                app:layout_constraintVertical_bias="0.454" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+
+                android:gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vRotationTitle">
+
+                <ToggleButton
+                    android:id="@+id/vRotationButton1"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_ac_button_hSwing_auto"
+                    android:textOff="@string/dev_ac_button_hSwing_auto"/>
+
+                <ToggleButton
+                    android:id="@+id/vRotationButton2"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="22"
+                    android:textOff="22"/>
+
+                <ToggleButton
+                    android:id="@+id/vRotationButton3"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="45"
+                    android:textOff="45"/>
+
+                <ToggleButton
+                    android:id="@+id/vRotationButton4"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="67"
+                    android:textOff="67"/>
+
+                <ToggleButton
+                    android:id="@+id/vRotationButton5"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="90"
+                    android:textOff="90"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+
+                android:gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/modeTitle">
+
+                <ToggleButton
+                    android:id="@+id/coolButton"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_ac_button_mode_cool"
+                    android:textOff="@string/dev_ac_button_mode_cool"/>
+
+                <ToggleButton
+                    android:id="@+id/heatButton"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_ac_button_mode_heat"
+                    android:textOff="@string/dev_ac_button_mode_heat"/>
+
+                <ToggleButton
+                    android:id="@+id/fanButton"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_ac_button_mode_fan"
+                    android:textOff="@string/dev_ac_button_mode_fan"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+
+                android:layout_marginTop="0dp"
+                android:gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hRotationTitle">
+
+                <ToggleButton
+                    android:id="@+id/hRotationButton1"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOff="@string/dev_ac_button_vSwing_auto"
+                    android:textOn="@string/dev_ac_button_vSwing_auto" />
+
+                <ToggleButton
+                    android:id="@+id/hRotationButton2"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="-90"
+                    android:textOff="-90"/>
+
+                <ToggleButton
+                    android:id="@+id/hRotationButton3"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="-45"
+                    android:textOff="-45"/>
+
+                <ToggleButton
+                    android:id="@+id/hRotationButton4"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="0"
+                    android:textOff="0"/>
+
+                <ToggleButton
+                    android:id="@+id/hRotationButton5"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="45"
+                    android:textOff="45"/>
+                <ToggleButton
+                    android:id="@+id/hRotationButton6"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="90"
+                    android:textOff="90"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+
+                android:gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+
+                <ToggleButton
+                    android:id="@+id/fanButton1"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_ac_button_fan_auto"
+                    android:textOff="@string/dev_ac_button_fan_auto"/>
+                <ToggleButton
+                    android:id="@+id/fanButton2"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="25"
+                    android:textOff="25"/>
+                <ToggleButton
+                    android:id="@+id/fanButton3"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="50"
+                    android:textOff="50"/>
+                <ToggleButton
+                    android:id="@+id/fanButton4"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="75"
+                    android:textOff="75"/>
+                <ToggleButton
+                    android:id="@+id/fanButton5"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="100"
+                    android:textOff="100"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/modeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/dev_ac_title_mode"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/temperatureTitle" />
+
+            <TextView
+                android:id="@+id/vRotationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/dev_ac_title_vSwing"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+            <TextView
+                android:id="@+id/hRotationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/dev_ac_title_hSwing"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/dev_ac_title_fan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="desc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bell" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="65dp"
-
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modeTitle">
-
-        <ToggleButton
-            android:id="@+id/coolButton"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_ac_button_mode_cool"
-            android:textOff="@string/dev_ac_button_mode_cool"/>
-
-        <ToggleButton
-            android:id="@+id/heatButton"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_ac_button_mode_heat"
-            android:textOff="@string/dev_ac_button_mode_heat"/>
-
-        <ToggleButton
-            android:id="@+id/fanButton"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_ac_button_mode_fan"
-            android:textOff="@string/dev_ac_button_mode_fan"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="65dp"
-
-        android:layout_marginTop="0dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hRotationTitle">
-
-        <ToggleButton
-            android:id="@+id/hRotationButton1"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOff="@string/dev_ac_button_vSwing_auto"
-            android:textOn="@string/dev_ac_button_vSwing_auto" />
-
-        <ToggleButton
-            android:id="@+id/hRotationButton2"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="-90"
-            android:textOff="-90"/>
-
-        <ToggleButton
-            android:id="@+id/hRotationButton3"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="-45"
-            android:textOff="-45"/>
-
-        <ToggleButton
-            android:id="@+id/hRotationButton4"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="0"
-            android:textOff="0"/>
-
-        <ToggleButton
-            android:id="@+id/hRotationButton5"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="45"
-            android:textOff="45"/>
-        <ToggleButton
-            android:id="@+id/hRotationButton6"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="90"
-            android:textOff="90"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="wrap_content"
-        android:layout_height="65dp"
-
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11">
-
-
-        <ToggleButton
-            android:id="@+id/fanButton1"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_ac_button_fan_auto"
-            android:textOff="@string/dev_ac_button_fan_auto"/>
-        <ToggleButton
-            android:id="@+id/fanButton2"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="25"
-            android:textOff="25"/>
-        <ToggleButton
-            android:id="@+id/fanButton3"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="50"
-            android:textOff="50"/>
-        <ToggleButton
-            android:id="@+id/fanButton4"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="75"
-            android:textOff="75"/>
-        <ToggleButton
-            android:id="@+id/fanButton5"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="100"
-            android:textOff="100"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/modeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/dev_ac_title_mode"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temperatureTitle" />
-
-    <TextView
-        android:id="@+id/vRotationTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/dev_ac_title_vSwing"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-
-    <TextView
-        android:id="@+id/hRotationTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/dev_ac_title_hSwing"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/dev_ac_title_fan"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="desc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bell" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

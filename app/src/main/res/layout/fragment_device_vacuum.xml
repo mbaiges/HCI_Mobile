@@ -1,126 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="51dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/favourite"
-        android:layout_width="41dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/switch1"
-        app:layout_constraintStart_toEndOf="@+id/bell"
-        app:layout_constraintTop_toTopOf="@+id/switch1"
-        app:srcCompat="@drawable/ic_menu_heart"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/bell"
-        android:layout_width="41dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/favourite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/favourite"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_bell_off" />
-
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="desc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bell" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text"
-        android:text="Select mode:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/buttons"
-        android:textSize="20dp"
-        android:textColor="@color/text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:padding="15dp"
-
-        />
-
+    android:layout_height="match_parent">
     <LinearLayout
-        android:id="@+id/buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text"
-        android:gravity="center_horizontal"
-        android:padding="15dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         >
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOn="Mop"
-            android:textOff="Mop"
-            android:id="@+id/mopBtn"
-            android:layout_gravity="center_vertical"
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="51dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/favourite"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/switch1"
+                app:layout_constraintStart_toEndOf="@+id/bell"
+                app:layout_constraintTop_toTopOf="@+id/switch1"
+                app:srcCompat="@drawable/ic_menu_heart"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/bell"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/favourite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/favourite"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_bell_off" />
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="desc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bell" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text"
+                android:text="Select mode:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/buttons"
+                android:textSize="20dp"
+                android:textColor="@color/text"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:padding="15dp"
+
+                />
+
+            <LinearLayout
+                android:id="@+id/buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text"
+                android:gravity="center_horizontal"
+                android:padding="15dp"
+                >
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOn="Mop"
+                    android:textOff="Mop"
+                    android:id="@+id/mopBtn"
+                    android:layout_gravity="center_vertical"
+                    />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOn="Vacuum"
+                    android:textOff="Vacuum"
+                    android:id="@+id/vacuumBtn"
+                    android:layout_gravity="center_vertical" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/dock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/selectRoom"
+                app:layout_constraintTop_toBottomOf="@id/text"
+                android:layout_marginTop="50dp"
+                android:text="Dock"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/text"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+
+            <Button
+                android:id="@+id/selectRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Room"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/text"
+                app:layout_constraintTop_toBottomOf="@id/text"
+                android:layout_marginTop="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/dock"
             />
-
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOn="Vacuum"
-            android:textOff="Vacuum"
-            android:id="@+id/vacuumBtn"
-            android:layout_gravity="center_vertical" />
-
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/dock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/selectRoom"
-        app:layout_constraintTop_toBottomOf="@id/text"
-        android:layout_marginTop="50dp"
-        android:text="Dock"
-        android:backgroundTint="@color/primary"
-        android:textColor="@color/text"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-
-    <Button
-        android:id="@+id/selectRoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Room"
-        android:backgroundTint="@color/primary"
-        android:textColor="@color/text"
-        app:layout_constraintTop_toBottomOf="@id/text"
-        android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/dock"
-    />
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
