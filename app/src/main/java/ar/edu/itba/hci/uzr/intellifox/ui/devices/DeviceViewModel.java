@@ -20,6 +20,8 @@ import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
@@ -53,6 +55,10 @@ public class DeviceViewModel extends ViewModel {
             put("blind", (t) -> {
                 updateBlindDevice();
                 return null;
+            });
+            put("ac", (t) -> {
+               updateACDevice();
+               return null;
             });
         }};
         mDevice = new MutableLiveData<>();
@@ -200,6 +206,36 @@ public class DeviceViewModel extends ViewModel {
             }
             @Override
             public void onFailure(@NonNull Call<Result<BlindDeviceState>> call, @NonNull Throwable t) {
+                handleUnexpectedError(t);
+            }
+        });
+    }
+
+    private void updateACDevice() {
+        Log.v("UPDATE_AC", "Running");
+        ApiClient.getInstance().getAcDeviceState(deviceId, new Callback<Result<AcDeviceState>>() {
+            @Override
+            public void onResponse(@NonNull Call<Result<AcDeviceState>> call, @NonNull Response<Result<AcDeviceState>> response) {
+                if (response.isSuccessful()) {
+                    Result<AcDeviceState> result = response.body();
+                    if (result != null) {
+                        AcDeviceState actualDeviceState = result.getResult();
+                        if (actualDeviceState != null) {
+                            AcDevice device = (AcDevice) mDevice.getValue();
+
+                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
+                                device.setState(actualDeviceState);
+                                mDevice.postValue(device);
+                                Log.v("UPDATED_AC", device.toString());
+                            }
+                        }
+                    } else {
+                        handleError(response);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Result<AcDeviceState>> call, @NonNull Throwable t) {
                 handleUnexpectedError(t);
             }
         });
