@@ -80,6 +80,11 @@
     <string name="dev_blind_level">Level</string>
 
     <!-- Speaker -->
+    <string name="dev_speaker_stateName_status">Status</string>
+    <string name="dev_speaker_stateName_artist">Artist</string>
+    <string name="dev_speaker_stateName_title">Title</string>
+    <string name="dev_speaker_stateName_album">Album</string>
+
     <string name="dev_speaker_state_playing">Playing</string>
     <string name="dev_speaker_state_stopped">Stopped</string>
     <string name="dev_speaker_state_paused">Paused</string>

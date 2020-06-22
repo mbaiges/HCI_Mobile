@@ -76,13 +76,13 @@ public class SpeakerDeviceObserver extends DeviceObserver {
 
             switch (status){
                 case "stopped":
-                    stateStatus = "status: " + contextView.getResources().getString(R.string.dev_speaker_state_stopped) + "\n";
+                    stateStatus = contextView.getResources().getString(R.string.dev_speaker_stateName_status) + ": " +  contextView.getResources().getString(R.string.dev_speaker_state_stopped) + "\n";
                     break;
                 case "playing":
-                    stateStatus = "status: " + contextView.getResources().getString(R.string.dev_speaker_state_playing) + "\n";
+                    stateStatus = contextView.getResources().getString(R.string.dev_speaker_stateName_status) + ": " +  contextView.getResources().getString(R.string.dev_speaker_state_playing) + "\n";
                     break;
                 case "paused":
-                    stateStatus = "status: " + contextView.getResources().getString(R.string.dev_speaker_state_paused) + "\n";
+                    stateStatus = contextView.getResources().getString(R.string.dev_speaker_stateName_status) + ": " +  contextView.getResources().getString(R.string.dev_speaker_state_paused) + "\n";
                     break;
                 default:
                     stateStatus = "Null \n";
@@ -92,9 +92,9 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             SpeakerSong stateSong = s.getSong();
             String auxDec = stateStatus;
             if(stateSong != null){
-                String stateSongTitle = "Title: " + stateSong.getTitle() + "\n";
-                String stateSongAlbum = "Album: " + stateSong.getAlbum() + "\n";
-                String stateSongArtist = "Artist: " + stateSong.getArtist() + "\n";
+                String stateSongTitle = contextView.getResources().getString(R.string.dev_speaker_stateName_title) + ": " +  stateSong.getTitle() + "\n";
+                String stateSongAlbum = contextView.getResources().getString(R.string.dev_speaker_stateName_album) + ": " +  stateSong.getAlbum() + "\n";
+                String stateSongArtist = contextView.getResources().getString(R.string.dev_speaker_stateName_artist) + ": " +  stateSong.getArtist() + "\n";
                 auxDec = auxDec + stateSongTitle + stateSongAlbum + stateSongArtist;
             }
 
@@ -159,50 +159,6 @@ public class SpeakerDeviceObserver extends DeviceObserver {
         super.attachFunctions();
         SpeakerDeviceViewHolder h = (SpeakerDeviceViewHolder) holder;
 
-//        if (h.btnDispence != null) {
-//            h.btnDispence.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    TapDevice d = (TapDevice) h.device;
-//                    if (d != null) {
-//                        TapDeviceState s = (TapDeviceState) d.getState();
-//                        if (s != null) {
-//                            amount = h.amount.getText().toString();
-//                            if(!amount.equals("")) {
-//                                String[] args = new String[2];
-//                                args[0] = amount;
-//                                args[1] = unit;
-//                                Log.v("Dispensing", amount + unit);
-//                                ApiClient.getInstance().executeDeviceAction(d.getId(), "dispense", args, new Callback<Result<Object>>() {
-//                                    @Override
-//                                    public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
-//                                        if (response.isSuccessful()) {
-//                                            Result<Object> result = response.body();
-//
-//                                            if (result != null) {
-//                                                Boolean success = (Boolean) result.getResult();
-//                                                if (success != null) {
-//                                                    Log.v("ACTION_SUCCESS", success.toString());
-//                                                    h.amount.setText("");
-//                                                }
-//                                            } else {
-//                                                handleError(response);
-//                                            }
-//                                        }
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
-//                                        handleUnexpectedError(t);
-//                                    }
-//                                });
-//                            }
-//                        }
-//                    }
-//                }
-//            });
-//        }
-//
         if (h.btnClassical != null) {
             h.btnClassical.setOnClickListener(new View.OnClickListener() {
                 @Override
