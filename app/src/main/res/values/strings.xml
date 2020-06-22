@@ -143,5 +143,6 @@
     <!-- light-->
     <string name="dev_light_status_on">On</string>
     <string name="dev_light_status_off">Off</string>
+    <string name="dev_light_color">Actual color</string>
 
 </resources>

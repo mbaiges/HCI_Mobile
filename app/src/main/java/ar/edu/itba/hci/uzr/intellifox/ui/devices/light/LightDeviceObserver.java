@@ -1,9 +1,18 @@
 package ar.edu.itba.hci.uzr.intellifox.ui.devices.light;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
+import com.skydoves.colorpickerview.ActionMode;
+import com.skydoves.colorpickerview.ColorEnvelope;
+import com.skydoves.colorpickerview.ColorPickerView;
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
+import com.skydoves.colorpickerview.listeners.ColorListener;
+import com.skydoves.colorpickerview.preference.ColorPickerPreferenceManager;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
@@ -36,7 +45,15 @@ public class LightDeviceObserver extends DeviceObserver {
         super.findElements();
         LightDeviceViewHolder h = (LightDeviceViewHolder) holder;
 
-        //FIND ELEEEMEEEEENETTSSSSSSS
+        h.colorPickerView = contextView.findViewById(R.id.colorPickerView);
+        if (h.colorPickerView != null) {
+            h.colorPickerView.setPreferenceName("LightColorPicker");
+            h.brightnessSlideBar = contextView.findViewById(R.id.brightnessSlide);
+            if (h.brightnessSlideBar != null) {
+                h.colorPickerView.attachBrightnessSlider(h.brightnessSlideBar);
+            }
+        }
+        h.lightIcon = contextView.findViewById(R.id.lightIcon);
     }
 
     @Override
@@ -46,7 +63,6 @@ public class LightDeviceObserver extends DeviceObserver {
             LightDeviceViewHolder h = (LightDeviceViewHolder) holder;
 
             String status = s.getStatus();
-
 
             if (status != null) {
                 if(status.equals("on")){
@@ -70,8 +86,17 @@ public class LightDeviceObserver extends DeviceObserver {
             LightDeviceViewHolder h = (LightDeviceViewHolder) holder;
             String status = state.getStatus();
             if (status != null) {
-                if (holder.onSwitch != null) {
-                    holder.onSwitch.setChecked(status.equals("on"));
+                if (h.onSwitch != null) {
+                    h.onSwitch.setChecked(status.equals("on"));
+                }
+            }
+            String color = s.getColor();
+            if (color != null && h.colorPickerView != null) {
+                ColorPickerPreferenceManager manager = ColorPickerPreferenceManager.getInstance(h.colorPickerView.getContext());
+                Log.v("LIGHT_COLOR", color);
+                manager.setColor("LightColorPicker", Color.parseColor(color)); // manipulates the saved color data.
+                if (h.lightIcon != null) {
+                    h.lightIcon.setColorFilter(Color.parseColor(color));
                 }
             }
         }
@@ -81,6 +106,16 @@ public class LightDeviceObserver extends DeviceObserver {
     protected void attachFunctions() {
         super.attachFunctions();
         LightDeviceViewHolder h = (LightDeviceViewHolder) holder;
+
+        if (h.colorPickerView != null) {
+            h.colorPickerView.setColorListener(new ColorEnvelopeListener() {
+                @Override
+                public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
+                    Log.v("COLOR_PICKER", envelope.getHexCode());
+                }
+            });
+            h.colorPickerView.setActionMode(ActionMode.LAST);
+        }
 
 //        if (h. .................  != null) {
 //            h. ................. setOnClickListener(new View.OnClickListener() {

@@ -144,5 +144,6 @@
     <!-- luz -->
     <string name="dev_light_status_on">Encendido</string>
     <string name="dev_light_status_off">Apagado</string>
+    <string name="dev_light_color">Color actual</string>
 
 </resources>
