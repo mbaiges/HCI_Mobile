@@ -79,4 +79,13 @@
     <string name="dev_blind_state_opening">Opening</string>
     <string name="dev_blind_level">Level</string>
 
+    <!-- Speaker -->
+    <string name="dev_speaker_state_playing">On</string>
+    <string name="dev_speaker_state_stopped">Off</string>
+    <string name="dev_speaker_state_paused">Paused</string>
+    <string name="dev_speaker_state_resumed">Resumed</string>
+    <string name="dev_speaker_genre">Genre:</string>
+    <string name="dev_speaker_playlist">Playlist:</string>
+    <string name="dev_speaker_volume">Volume:</string>
+
 </resources>
