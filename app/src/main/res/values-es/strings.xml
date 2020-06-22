@@ -67,6 +67,9 @@
     <string name="dev_vacuum_button_docked">Cargando</string>
     <string name="dev_vacuum_state_active">Activo</string>
     <string name="dev_vacuum_state_inactive">Inactivo</string>
+    <string name="dev_vacuum_select_mode">Seleccionar modo</string>
+    <string name="dev_vacuum_select_room">Seleccionar cuarto</string>
+    <string name="dev_vacuum_battery">Bateria</string>
 
     <!-- Canilla -->
     <string name="dev_tap_state_closed">Cerrada</string>

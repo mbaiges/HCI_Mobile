@@ -3,6 +3,7 @@ package ar.edu.itba.hci.uzr.intellifox.ui.devices.vacuum;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -11,16 +12,24 @@ import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
+
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceObserver;
+
+import ar.edu.itba.hci.uzr.intellifox.ui.devices.ac.ACDeviceViewHolder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class VacuumDeviceObserver extends DeviceObserver {
 
-    private static final String DOCKED_ACTION = "dock";
+
+    private static final String DOCK= "dock";
 
     public VacuumDeviceObserver(View contextView) {
         super(contextView);
@@ -39,8 +48,10 @@ public class VacuumDeviceObserver extends DeviceObserver {
         VacuumDeviceViewHolder h = (VacuumDeviceViewHolder) holder;
 
         h.dockBtn = contextView.findViewById(R.id.dock);
-        h.modeBtn[0] = new Pair<String, View>("mop", contextView.findViewById(R.id.mopBtn));
-        h.modeBtn[1] = new Pair<String, View>("vacuum", contextView.findViewById(R.id.vacuumBtn));
+
+        h.modeBtn[0] = new Pair<>(contextView.findViewById(R.id.mopBtn), "mop");
+        h.modeBtn[1] = new Pair<>(contextView.findViewById(R.id.vacuumBtn), "vacuum");
+
     }
 
     @Override
@@ -50,32 +61,37 @@ public class VacuumDeviceObserver extends DeviceObserver {
             VacuumDeviceViewHolder h = (VacuumDeviceViewHolder) holder;
 
             String status = s.getStatus();
-            String statusText = "";
-            if (status.equals("docked")) {
-//                status = contextView.getResources().getString()
+            if(status.equals("active")){
+                status = contextView.getResources().getString(R.string.dev_vacuum_state_active);
             }
-            Integer battLevel = s.getBatteryLevel();
-            String bat = "";
-            if (battLevel != null) {
-                bat = s.getBatteryLevel().toString();
+            else if(status.equals("inactive")){
+                status = contextView.getResources().getString(R.string.dev_vacuum_state_inactive);
             }
-            String mode = s.getMode();
+            else if(status.equals("docked")) {
+                status = contextView.getResources().getString(R.string.dev_vacuum_state_docked);
+            }
 
-            if (status != null && mode != null) {
-                String aux = new String();
-                if(status.equals("docked"))
-                    aux = "docked + battery:" + bat;
-                else if(status.equals("inactive"))
-                    aux = "inactive";
-                else
-                    aux = status + "- battery: " + bat + "mode:" + mode;
+
+            String bat = s.getBatteryLevel().toString();
+
+            String mode = s.getMode();
+            if(mode.equals("mop")){
+                mode = contextView.getResources().getString(R.string.dev_vacuum_button_mop);
+            }
+            else if (mode.equals("vacuum")){
+                mode = contextView.getResources().getString(R.string.dev_vacuum_button_vacuum);
+            }
+
+
+            if (status != null && bat != null && mode != null ) {
+
+                String aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%" ;
                 if (h.description != null) {
                     h.description.setText(aux);
                 }
             }
         }
     }
-
 
     @Override
     protected void setUI(DeviceState state) {
@@ -89,19 +105,17 @@ public class VacuumDeviceObserver extends DeviceObserver {
                     holder.onSwitch.setChecked(status.equals("active"));
                 }
             }
-            Pair<String, ToggleButton> p0 = (Pair<String, ToggleButton>) h.modeBtn[0];
-            if (p0.second != null && s.getMode().equals("mop")) {
-                p0.second.setChecked(true);
-                p0.second.setText(R.string.dev_vacuum_button_mop);
+            Pair<ToggleButton, String> p0 = (Pair<ToggleButton, String>) h.modeBtn[0];
+            if (p0.first != null && s.getMode().equals("mop")) {
+                p0.first.setChecked(true);
             }
-            Pair<String, ToggleButton> p1 = (Pair<String, ToggleButton>) h.modeBtn[1];
-            if(p1.second != null && s.getMode().equals("vacuum")) {
-                p1.second.setText(R.string.dev_vacuum_button_vacuum);
-                p1.second.setChecked(true);
+            Pair<ToggleButton, String> p1 = (Pair<ToggleButton, String>) h.modeBtn[1];
+            if (p1.first != null && s.getMode().equals("vacuum")) {
+                p1.first.setChecked(true);
             }
 
             if (h.dockBtn != null && s.getStatus() != null) {
-                h.dockBtn.setText((s.getStatus().equals("docked"))?R.string.dev_vacuum_button_docked:R.string.dev_vacuum_button_dock);
+                h.dockBtn.setText((s.getStatus().equals("docked")) ? R.string.dev_vacuum_button_docked : R.string.dev_vacuum_button_dock);
             }
         }
     }
@@ -111,61 +125,58 @@ public class VacuumDeviceObserver extends DeviceObserver {
         super.attachFunctions();
         VacuumDeviceViewHolder h = (VacuumDeviceViewHolder) holder;
 
+        if(h.modeBtn != null){
+            for(int i = 0 ; i < 2 ; i++){
+                if(h.modeBtn[i] != null){
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.modeBtn[i];
+                    if(aux.first != null){
+                        aux.first.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                VacuumDevice d = (VacuumDevice) h.device;
+                                if(d != null){
+                                    VacuumDeviceState s = d.getState();
+                                    if(s != null){
+                                        String[] args = {aux.second};
+                                        ApiClient.getInstance().executeDeviceAction(d.getId(), "setMode", args, new Callback<Result<Object>>() {
+                                            @Override
+                                            public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
+                                                if(response.isSuccessful()){
+                                                    Result<Object> result = response.body();
+                                                    if(result != null){
+                                                        Object success =  result.getResult();
+                                                        if(success != null){
+                                                            Log.v("ACTION_SUCCESS", success.toString());
+                                                            clearModeSelections();
+                                                            aux.first.setChecked(true);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            @Override
+                                            public void onFailure(Call<Result<Object>> call, Throwable t) {
+                                                handleUnexpectedError(t);
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    }
 
-        for(int i = 0; i < 2; i++){
-           if(h.modeBtn[i] != null){
-               Pair<String, View> btn = (Pair<String, View>)h.modeBtn[i] ;
-               if(btn.second != null)
-               btn.second.setOnClickListener(new View.OnClickListener(){
-                   @Override
-                   public void onClick(View v) {
-                       VacuumDevice d = (VacuumDevice) h.device;
-                       if (d != null) {
-                           VacuumDeviceState s = (VacuumDeviceState) d.getState();
-                           if (s != null) {
-                               String[] params = new String[1];
-                               params[0] = btn.first;
-                               ApiClient.getInstance().executeDeviceAction(d.getId(), "setMode", params, new Callback<Result<Object>>() {
-                                   @Override
-                                   public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
-                                       if (response.isSuccessful()) {
-                                           Result<Object> result = response.body();
-
-                                           if (result != null) {
-                                               Object lastVal = (Object) result.getResult();
-                                               if (lastVal != null) {
-                                                   Log.v("ACTION_SUCCESS", lastVal.toString());
-                                               }
-                                           } else {
-                                               handleError(response);
-                                           }
-                                       }
-                                   }
-
-                                   @Override
-                                   public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
-                                       handleUnexpectedError(t);
-                                   }
-                               });
-                           }
-                       }
-                   }
-               });
-           }
+                }
+            }
         }
-
 
         if (h.dockBtn != null) {
             h.dockBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.v("VACUUM", "Trying to dock");
                     VacuumDevice d = (VacuumDevice) h.device;
                     if (d != null) {
                         VacuumDeviceState s = (VacuumDeviceState) d.getState();
                         if (s != null) {
-                            String dockStatus = s.getStatus();
-                            String actionName = DOCKED_ACTION;
+                            String actionName = DOCK;
                             ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, new String[0], new Callback<Result<Object>>() {
                                 @Override
                                 public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
@@ -195,18 +206,26 @@ public class VacuumDeviceObserver extends DeviceObserver {
         }
     }
 
-    private void clearModeSelections(){
-        VacuumDeviceViewHolder h = (VacuumDeviceViewHolder) holder;
-        for (int i = 0 ; i<h.modeBtn.length ; i++) {
-            Pair<String, ToggleButton> btn = (Pair<String, ToggleButton>) h.modeBtn[i];
-            if (btn.second != null) {
-                btn.second.setChecked(false);
-            }
-        }
-    }
+
+
 
     @Override
     protected String getOnSwitchActionName(Boolean switchStatus) {
         return switchStatus?"start":"pause";
     }
+
+    private void clearModeSelections(){
+        VacuumDeviceViewHolder h = (VacuumDeviceViewHolder) holder;
+        for (int i = 0 ; i<h.modeBtn.length ; i++){
+            if(h.modeBtn[i] != null){
+                Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.modeBtn[i];
+                if(aux.first != null){
+                    aux.first.setChecked(false);
+                }
+
+            }
+        }
+    }
+
+
 }
