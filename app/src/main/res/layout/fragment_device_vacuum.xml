@@ -112,7 +112,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:textOff="@string/dev_vacuum_button_vacuum"
-                android:textOn="Vacuum"
+                android:textOn="@string/dev_vacuum_button_vacuum"
                 app:layout_constraintBottom_toBottomOf="@+id/mopBtn"
                 app:layout_constraintStart_toEndOf="@+id/mopBtn"
                 app:layout_constraintTop_toTopOf="@+id/mopBtn" />
@@ -124,7 +124,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:textOff="@string/dev_vacuum_button_mop"
-                android:textOn="Mop"
+                android:textOn="@string/dev_vacuum_button_mop"
                 app:layout_constraintBottom_toBottomOf="@+id/text"
                 app:layout_constraintStart_toEndOf="@+id/text"
                 app:layout_constraintTop_toTopOf="@+id/text" />
