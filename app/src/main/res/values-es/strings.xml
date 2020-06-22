@@ -83,6 +83,11 @@
     <string name="dev_blind_level">Nivel</string>
 
     <!-- Parlante -->
+    <string name="dev_speaker_stateName_status">Estado</string>
+    <string name="dev_speaker_stateName_artist">Artista</string>
+    <string name="dev_speaker_stateName_title">Titulo</string>
+    <string name="dev_speaker_stateName_album">Album</string>
+
     <string name="dev_speaker_state_playing">Sonando</string>
     <string name="dev_speaker_state_stopped">Parado</string>
     <string name="dev_speaker_state_paused">Pausado</string>
