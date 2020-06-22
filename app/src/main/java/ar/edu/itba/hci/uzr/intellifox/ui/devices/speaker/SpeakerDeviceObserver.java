@@ -31,6 +31,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
 
     private Integer volume;
     private String genre;
+    private boolean playing;
 
     @Override
     protected void createHolder() {
@@ -111,6 +112,15 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             SpeakerDeviceState s = (SpeakerDeviceState) state;
             SpeakerDeviceViewHolder h = (SpeakerDeviceViewHolder) holder;
 
+            if(h.btnPlay != null){
+                playing = s.getStatus().equals("playing");
+                if(playing){
+                    h.btnPlay.setImageResource(R.drawable.ic_pause);
+                }else{
+                    h.btnPlay.setImageResource(R.drawable.ic_play);
+                }
+            }
+
             SpeakerSong stateSong = s.getSong();
             if(stateSong != null){
                 String stateSongDuration = stateSong.getDuration();
@@ -122,7 +132,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             if(h.btnLatina != null){
                 clearSelections();
                 switch (stateGenre){
-                    case "Classical":
+                    case "classical":
                         h.btnClassical.setChecked(true);
                         break;
                     case "cuntry":
@@ -159,14 +169,142 @@ public class SpeakerDeviceObserver extends DeviceObserver {
         super.attachFunctions();
         SpeakerDeviceViewHolder h = (SpeakerDeviceViewHolder) holder;
 
+        if (h.btnPlay != null) {
+            h.btnPlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SpeakerDevice d = (SpeakerDevice) h.device;
+                    String action;
+                    if (d != null) {
+                        if(playing){
+                            action = "pause";
+                        }else{
+                            action = "resume";
+                        }
+                        Log.v("SONG", "togglePlay");
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), action, new String[0], new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                if (response.isSuccessful()) {
+                                    Result<Object> result = response.body();
+                                    if (result != null) {
+                                        Object success = (Object) result.getResult();
+                                        if (success != null) {
+                                            Log.v("ACTION_SUCCESS", success.toString());
+                                        }
+                                    } else {
+                                        handleError(response);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        if (h.btnPrevSong != null) {
+            h.btnPrevSong.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SpeakerDevice d = (SpeakerDevice) h.device;
+                    if (d != null) {
+                        Log.v("SONG", "previous");
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "previousSong", new String[0], new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                if (response.isSuccessful()) {
+                                    Result<Object> result = response.body();
+                                    if (result != null) {
+                                        Object success = (Object) result.getResult();
+                                        if (success != null) {
+                                            Log.v("ACTION_SUCCESS", success.toString());
+                                        }
+                                    } else {
+                                        handleError(response);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        if (h.btnNextSong != null) {
+            h.btnNextSong.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SpeakerDevice d = (SpeakerDevice) h.device;
+                    if (d != null) {
+                        Log.v("SONG", "next");
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "nextSong", new String[0], new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                if (response.isSuccessful()) {
+                                    Result<Object> result = response.body();
+                                    if (result != null) {
+                                        Object success = (Object) result.getResult();
+                                        if (success != null) {
+                                            Log.v("ACTION_SUCCESS", success.toString());
+                                        }
+                                    } else {
+                                        handleError(response);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
         if (h.btnClassical != null) {
             h.btnClassical.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clearSelections();
-                    h.btnClassical.setChecked(true);
-                    genre = "Classical";
-                    Log.v("GENRE", "Classical");
+                    SpeakerDevice d = (SpeakerDevice) h.device;
+                    if (d != null) {
+                        clearSelections();
+                        genre = "classical";
+                        Log.v("GENRE", "Classical");
+                        String[] args = new String[1];
+                        args[0] = genre;
+                        h.btnClassical.setChecked(true);
+
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "setGenre", args, new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                if (response.isSuccessful()) {
+                                    Result<Object> result = response.body();
+                                    if (result != null) {
+                                        Object success = (Object) result.getResult();
+                                        if (success != null) {
+                                            Log.v("ACTION_SUCCESS", success.toString());
+                                        }
+                                    } else {
+                                        handleError(response);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -175,10 +313,36 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             h.btnCountry.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clearSelections();
-                    h.btnCountry.setChecked(true);
-                    genre = "country";
-                    Log.v("GENRE", "Country");
+                    SpeakerDevice d = (SpeakerDevice) h.device;
+                    if (d != null) {
+                        clearSelections();
+                        genre = "country";
+                        Log.v("GENRE", "Country");
+                        String[] args = new String[1];
+                        args[0] = genre;
+                        h.btnCountry.setChecked(true);
+
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "setGenre", args, new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                if (response.isSuccessful()) {
+                                    Result<Object> result = response.body();
+                                    if (result != null) {
+                                        Object success = (Object) result.getResult();
+                                        if (success != null) {
+                                            Log.v("ACTION_SUCCESS", success.toString());
+                                        }
+                                    } else {
+                                        handleError(response);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -187,10 +351,36 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             h.btnDance.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clearSelections();
-                    h.btnDance.setChecked(true);
-                    genre = "dance";
-                    Log.v("GENRE", "Dance");
+                    SpeakerDevice d = (SpeakerDevice) h.device;
+                    if (d != null) {
+                        clearSelections();
+                        genre = "dance";
+                        Log.v("GENRE", "Dance");
+                        String[] args = new String[1];
+                        args[0] = genre;
+                        h.btnDance.setChecked(true);
+
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "setGenre", args, new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                if (response.isSuccessful()) {
+                                    Result<Object> result = response.body();
+                                    if (result != null) {
+                                        Object success = (Object) result.getResult();
+                                        if (success != null) {
+                                            Log.v("ACTION_SUCCESS", success.toString());
+                                        }
+                                    } else {
+                                        handleError(response);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -199,10 +389,36 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             h.btnLatina.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clearSelections();
-                    h.btnLatina.setChecked(true);
-                    genre = "latina";
-                    Log.v("GENRE", "Latina");
+                    SpeakerDevice d = (SpeakerDevice) h.device;
+                    if (d != null) {
+                        clearSelections();
+                        genre = "latina";
+                        Log.v("GENRE", "Latina");
+                        String[] args = new String[1];
+                        args[0] = genre;
+                        h.btnLatina.setChecked(true);
+
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "setGenre", args, new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                if (response.isSuccessful()) {
+                                    Result<Object> result = response.body();
+                                    if (result != null) {
+                                        Object success = (Object) result.getResult();
+                                        if (success != null) {
+                                            Log.v("ACTION_SUCCESS", success.toString());
+                                        }
+                                    } else {
+                                        handleError(response);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -211,10 +427,36 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             h.btnPop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clearSelections();
-                    h.btnPop.setChecked(true);
-                    genre = "pop";
-                    Log.v("GENRE", "Pop");
+                    SpeakerDevice d = (SpeakerDevice) h.device;
+                    if (d != null) {
+                        clearSelections();
+                        genre = "pop";
+                        Log.v("GENRE", "Pop");
+                        String[] args = new String[1];
+                        args[0] = genre;
+                        h.btnPop.setChecked(true);
+
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "setGenre", args, new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                if (response.isSuccessful()) {
+                                    Result<Object> result = response.body();
+                                    if (result != null) {
+                                        Object success = (Object) result.getResult();
+                                        if (success != null) {
+                                            Log.v("ACTION_SUCCESS", success.toString());
+                                        }
+                                    } else {
+                                        handleError(response);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -223,10 +465,37 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             h.btnRock.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clearSelections();
-                    h.btnRock.setChecked(true);
-                    genre = "rock";
-                    Log.v("GENRE", "Rock");
+                    SpeakerDevice d = (SpeakerDevice) h.device;
+                    if (d != null) {
+
+                        clearSelections();
+                        genre = "rock";
+                        Log.v("GENRE", "Rock");
+                        String[] args = new String[1];
+                        args[0] = genre;
+                        h.btnRock.setChecked(true);
+
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "setGenre", args, new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                if (response.isSuccessful()) {
+                                    Result<Object> result = response.body();
+                                    if (result != null) {
+                                        Object success = (Object) result.getResult();
+                                        if (success != null) {
+                                            Log.v("ACTION_SUCCESS", success.toString());
+                                        }
+                                    } else {
+                                        handleError(response);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+                    }
                 }
             });
         }
