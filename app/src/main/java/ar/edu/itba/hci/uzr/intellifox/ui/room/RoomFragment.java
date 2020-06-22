@@ -1,11 +1,13 @@
 package ar.edu.itba.hci.uzr.intellifox.ui.room;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.GridView;
 import android.widget.ListView;
 
 
@@ -28,7 +30,7 @@ public class RoomFragment extends Fragment {
 
     static final String ROOM_ID_ARG = "room_id";
     RoomViewModel roomViewModel;
-    ListView listView;
+    View listView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -58,7 +60,14 @@ public class RoomFragment extends Fragment {
                         devicesArray[i++] = r;
                     }
                     DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), devicesArray);
-                    listView.setAdapter(adapter);
+                    int orientation = getResources().getConfiguration().orientation;
+                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        // In landscape
+                        ((GridView) listView).setAdapter(adapter);
+                    } else {
+                        // In portrait
+                        ((ListView) listView).setAdapter(adapter);
+                    }
                 }
             }
         });

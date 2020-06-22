@@ -38,7 +38,7 @@ public class DeviceTypesFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_devices, container, false);
+        View root = inflater.inflate(R.layout.fragment_device_types, container, false);
 
         deviceTypesViewModel =
                 ViewModelProviders.of(this).get(DeviceTypesViewModel.class);

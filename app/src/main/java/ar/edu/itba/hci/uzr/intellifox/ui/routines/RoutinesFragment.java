@@ -1,9 +1,11 @@
 package ar.edu.itba.hci.uzr.intellifox.ui.routines;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +23,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.routine.RoutineArrayAdapter;
 public class RoutinesFragment extends Fragment {
 
     RoutinesViewModel routinesViewModel;
-    ListView listView;
+    View listView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -41,7 +43,14 @@ public class RoutinesFragment extends Fragment {
                         routinesArray[i++] = r;
                     }
                     RoutineArrayAdapter adapter = new RoutineArrayAdapter(getActivity(), routinesArray);
-                    listView.setAdapter(adapter);
+                    int orientation = getResources().getConfiguration().orientation;
+                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        // In landscape
+                        ((GridView) listView).setAdapter(adapter);
+                    } else {
+                        // In portrait
+                        ((ListView) listView).setAdapter(adapter);
+                    }
                 }
             }
         });
