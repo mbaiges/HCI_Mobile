@@ -1,243 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="274dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/desc" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="274dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desc" />
 
-    <TextView
-        android:id="@+id/txtProgressHigh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="0:00"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-        app:layout_constraintStart_toEndOf="@+id/progressBar"
-        app:layout_constraintTop_toTopOf="@+id/progressBar" />
+            <TextView
+                android:id="@+id/txtProgressHigh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="0:00"
+                app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+                app:layout_constraintStart_toEndOf="@+id/progressBar"
+                app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="51dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="51dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/favourite"
-        android:layout_width="41dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/switch1"
-        app:layout_constraintStart_toEndOf="@+id/bell"
-        app:layout_constraintTop_toTopOf="@+id/switch1"
-        app:srcCompat="@drawable/ic_menu_heart"
-        tools:ignore="MissingConstraints" />
+            <ImageView
+                android:id="@+id/favourite"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/switch1"
+                app:layout_constraintStart_toEndOf="@+id/bell"
+                app:layout_constraintTop_toTopOf="@+id/switch1"
+                app:srcCompat="@drawable/ic_menu_heart"
+                tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/bell"
-        android:layout_width="41dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/favourite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/favourite"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_bell_off" />
-        app:srcCompat="@drawable/ic_bell_off" />
+            <ImageView
+                android:id="@+id/bell"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/favourite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/favourite"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_bell_off" />
+            app:srcCompat="@drawable/ic_bell_off" />
 
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="desc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bell" />
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="desc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bell" />
 
-    <TextView
-        android:id="@+id/txtProgressLow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="0:00"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-        app:layout_constraintEnd_toStartOf="@+id/progressBar"
-        app:layout_constraintTop_toTopOf="@+id/progressBar" />
+            <TextView
+                android:id="@+id/txtProgressLow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="0:00"
+                app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+                app:layout_constraintEnd_toStartOf="@+id/progressBar"
+                app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
-    <TextView
-        android:id="@+id/genre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/dev_speaker_genre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
+            <TextView
+                android:id="@+id/genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/dev_speaker_genre"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
 
-    <ImageButton
-        android:id="@+id/btnPlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar"
-        app:srcCompat="@drawable/ic_play" />
+            <ImageButton
+                android:id="@+id/btnPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar"
+                app:srcCompat="@drawable/ic_play" />
 
-    <ImageButton
-        android:id="@+id/btnPrevSong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
-        app:layout_constraintEnd_toStartOf="@+id/btnPlay"
-        app:layout_constraintTop_toTopOf="@+id/btnPlay"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_skip_previous" />
+            <ImageButton
+                android:id="@+id/btnPrevSong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
+                app:layout_constraintEnd_toStartOf="@+id/btnPlay"
+                app:layout_constraintTop_toTopOf="@+id/btnPlay"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_skip_previous" />
 
-    <ImageButton
-        android:id="@+id/btnNextSong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
-        app:layout_constraintStart_toEndOf="@+id/btnPlay"
-        app:layout_constraintTop_toTopOf="@+id/btnPlay"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_skip_next" />
+            <ImageButton
+                android:id="@+id/btnNextSong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
+                app:layout_constraintStart_toEndOf="@+id/btnPlay"
+                app:layout_constraintTop_toTopOf="@+id/btnPlay"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_skip_next" />
 
-    <TextView
-        android:id="@+id/volume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/dev_speaker_volume"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDance" />
+            <TextView
+                android:id="@+id/volume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/dev_speaker_volume"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnDance" />
 
-    <TextView
-        android:id="@+id/txtVolume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="8"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/volume"
-        app:layout_constraintStart_toStartOf="@+id/volume"
-        app:layout_constraintTop_toBottomOf="@+id/volume" />
+            <TextView
+                android:id="@+id/txtVolume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="8"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/volume"
+                app:layout_constraintStart_toStartOf="@+id/volume"
+                app:layout_constraintTop_toBottomOf="@+id/volume" />
 
-    <ImageButton
-        android:id="@+id/btnVolumeDown"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtVolume"
-        app:layout_constraintEnd_toStartOf="@+id/txtVolume"
-        app:layout_constraintTop_toTopOf="@+id/txtVolume"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_chevron_down" />
+            <ImageButton
+                android:id="@+id/btnVolumeDown"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtVolume"
+                app:layout_constraintEnd_toStartOf="@+id/txtVolume"
+                app:layout_constraintTop_toTopOf="@+id/txtVolume"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/ic_chevron_down" />
 
-    <ImageButton
-        android:id="@+id/btnVolumeUp"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtVolume"
-        app:layout_constraintStart_toEndOf="@+id/txtVolume"
-        app:layout_constraintTop_toTopOf="@+id/txtVolume"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_chevron_up" />
-
-
-    <ToggleButton
-        android:id="@+id/btnClassical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="8dp"
-        android:textOff="@string/dev_speaker_genre_clasical"
-        android:textOn="@string/dev_speaker_genre_clasical"
-        app:layout_constraintBottom_toBottomOf="@+id/btnCountry"
-        app:layout_constraintStart_toEndOf="@+id/btnCountry"
-        app:layout_constraintTop_toTopOf="@+id/btnCountry" />
-
-    <ToggleButton
-        android:id="@+id/btnCountry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="16dp"
-        android:textOff="@string/dev_speaker_genre_country"
-        android:textOn="@string/dev_speaker_genre_country"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genre" />
-
-    <ToggleButton
-        android:id="@+id/btnDance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="16dp"
-        android:textOff="@string/dev_speaker_genre_dance"
-        android:textOn="@string/dev_speaker_genre_dance"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCountry" />
-
-    <ToggleButton
-        android:id="@+id/btnLatina"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginEnd="8dp"
-        android:textOff="@string/dev_speaker_genre_latina"
-        android:textOn="@string/dev_speaker_genre_latina"
-        app:layout_constraintBottom_toBottomOf="@+id/btnCountry"
-        app:layout_constraintEnd_toStartOf="@+id/btnCountry"
-        app:layout_constraintTop_toTopOf="@+id/btnCountry" />
-
-    <ToggleButton
-        android:id="@+id/btnPop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="8dp"
-        android:textOff="@string/dev_speaker_genre_pop"
-        android:textOn="@string/dev_speaker_genre_pop"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDance"
-        app:layout_constraintStart_toEndOf="@+id/btnDance"
-        app:layout_constraintTop_toTopOf="@+id/btnDance" />
-
-    <ToggleButton
-        android:id="@+id/btnRock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginEnd="8dp"
-        android:textOff="@string/dev_speaker_genre_rock"
-        android:textOn="@string/dev_speaker_genre_rock"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDance"
-        app:layout_constraintEnd_toStartOf="@+id/btnDance"
-        app:layout_constraintTop_toTopOf="@+id/btnDance" />
+            <ImageButton
+                android:id="@+id/btnVolumeUp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtVolume"
+                app:layout_constraintStart_toEndOf="@+id/txtVolume"
+                app:layout_constraintTop_toTopOf="@+id/txtVolume"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_chevron_up" />
 
 
+            <ToggleButton
+                android:id="@+id/btnClassical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:textOff="@string/dev_speaker_genre_clasical"
+                android:textOn="@string/dev_speaker_genre_clasical"
+                app:layout_constraintBottom_toBottomOf="@+id/btnCountry"
+                app:layout_constraintStart_toEndOf="@+id/btnCountry"
+                app:layout_constraintTop_toTopOf="@+id/btnCountry" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ToggleButton
+                android:id="@+id/btnCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:textOff="@string/dev_speaker_genre_country"
+                android:textOn="@string/dev_speaker_genre_country"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genre" />
+
+            <ToggleButton
+                android:id="@+id/btnDance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:textOff="@string/dev_speaker_genre_dance"
+                android:textOn="@string/dev_speaker_genre_dance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnCountry" />
+
+            <ToggleButton
+                android:id="@+id/btnLatina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:textOff="@string/dev_speaker_genre_latina"
+                android:textOn="@string/dev_speaker_genre_latina"
+                app:layout_constraintBottom_toBottomOf="@+id/btnCountry"
+                app:layout_constraintEnd_toStartOf="@+id/btnCountry"
+                app:layout_constraintTop_toTopOf="@+id/btnCountry" />
+
+            <ToggleButton
+                android:id="@+id/btnPop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:textOff="@string/dev_speaker_genre_pop"
+                android:textOn="@string/dev_speaker_genre_pop"
+                app:layout_constraintBottom_toBottomOf="@+id/btnDance"
+                app:layout_constraintStart_toEndOf="@+id/btnDance"
+                app:layout_constraintTop_toTopOf="@+id/btnDance" />
+
+            <ToggleButton
+                android:id="@+id/btnRock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:textOff="@string/dev_speaker_genre_rock"
+                android:textOn="@string/dev_speaker_genre_rock"
+                app:layout_constraintBottom_toBottomOf="@+id/btnDance"
+                app:layout_constraintEnd_toStartOf="@+id/btnDance"
+                app:layout_constraintTop_toTopOf="@+id/btnDance" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

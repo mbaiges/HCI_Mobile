@@ -1,235 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="51dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/favourite"
-        android:layout_width="41dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/switch1"
-        app:layout_constraintStart_toEndOf="@+id/bell"
-        app:layout_constraintTop_toTopOf="@+id/switch1"
-        app:srcCompat="@drawable/ic_menu_heart"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/bell"
-        android:layout_width="41dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/favourite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/favourite"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_bell_off" />
-
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="desc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bell" />
-
-
-    <Button
-        android:id="@+id/arrowBtnDown"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="48dp"
-        android:background="@drawable/ic_chevron_down"
-        app:layout_constraintBottom_toBottomOf="@+id/temperatureTitle"
-        app:layout_constraintStart_toEndOf="@+id/temperatureTitle"
-        app:layout_constraintTop_toTopOf="@+id/temperatureTitle"
-        app:layout_constraintVertical_bias="0.454" />
-
-    <TextView
-        android:id="@+id/temperatureTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="70dp"
-        android:text="@string/dev_oven_title_temperature"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bell" />
-
-    <Button
-        android:id="@+id/arrowBtnUp"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/ic_chevron_up"
-        app:layout_constraintBottom_toBottomOf="@+id/temperatureValue"
-        app:layout_constraintStart_toEndOf="@+id/temperatureValue"
-        app:layout_constraintTop_toTopOf="@+id/temperatureValue"
-        app:layout_constraintVertical_bias="0.454" />
-
-    <TextView
-        android:id="@+id/temperatureValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="100"
-        app:layout_constraintBottom_toBottomOf="@+id/arrowBtnDown"
-        app:layout_constraintStart_toEndOf="@+id/arrowBtnDown"
-        app:layout_constraintTop_toTopOf="@+id/arrowBtnDown"
-        app:layout_constraintVertical_bias="0.454" />
-
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="65dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/grillTitle">
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="51dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
 
-        <ToggleButton
-            android:id="@+id/largeButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_oven_button_grill_large"
-            android:textOff="@string/dev_oven_button_grill_large"/>
+            <ImageView
+                android:id="@+id/favourite"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/switch1"
+                app:layout_constraintStart_toEndOf="@+id/bell"
+                app:layout_constraintTop_toTopOf="@+id/switch1"
+                app:srcCompat="@drawable/ic_menu_heart"
+                tools:ignore="MissingConstraints" />
 
-        <ToggleButton
-            android:id="@+id/ecoButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_oven_button_grill_eco"
-            android:textOff="@string/dev_oven_button_grill_eco"/>
+            <ImageView
+                android:id="@+id/bell"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/favourite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/favourite"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_bell_off" />
 
-        <ToggleButton
-            android:id="@+id/offButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_oven_button_grill_off"
-            android:textOff="@string/dev_oven_button_grill_off"/>
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="desc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bell" />
 
+
+            <Button
+                android:id="@+id/arrowBtnDown"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="48dp"
+                android:background="@drawable/ic_chevron_down"
+                app:layout_constraintBottom_toBottomOf="@+id/temperatureTitle"
+                app:layout_constraintStart_toEndOf="@+id/temperatureTitle"
+                app:layout_constraintTop_toTopOf="@+id/temperatureTitle"
+                app:layout_constraintVertical_bias="0.454" />
+
+            <TextView
+                android:id="@+id/temperatureTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="70dp"
+                android:text="@string/dev_oven_title_temperature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bell" />
+
+            <Button
+                android:id="@+id/arrowBtnUp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/ic_chevron_up"
+                app:layout_constraintBottom_toBottomOf="@+id/temperatureValue"
+                app:layout_constraintStart_toEndOf="@+id/temperatureValue"
+                app:layout_constraintTop_toTopOf="@+id/temperatureValue"
+                app:layout_constraintVertical_bias="0.454" />
+
+            <TextView
+                android:id="@+id/temperatureValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="100"
+                app:layout_constraintBottom_toBottomOf="@+id/arrowBtnDown"
+                app:layout_constraintStart_toEndOf="@+id/arrowBtnDown"
+                app:layout_constraintTop_toTopOf="@+id/arrowBtnDown"
+                app:layout_constraintVertical_bias="0.454" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+
+                android:gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/grillTitle">
+
+                <ToggleButton
+                    android:id="@+id/largeButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_oven_button_grill_large"
+                    android:textOff="@string/dev_oven_button_grill_large"/>
+
+                <ToggleButton
+                    android:id="@+id/ecoButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_oven_button_grill_eco"
+                    android:textOff="@string/dev_oven_button_grill_eco"/>
+
+                <ToggleButton
+                    android:id="@+id/offButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_oven_button_grill_off"
+                    android:textOff="@string/dev_oven_button_grill_off"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+
+                android:gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/heatSourceTitle">
+
+                <ToggleButton
+                    android:id="@+id/conventionalButton"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_oven_button_heat_conventional"
+                    android:textOff="@string/dev_oven_button_heat_conventional"
+                    android:textSize="11dp"/>
+
+                <ToggleButton
+                    android:id="@+id/bottomButton"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_oven_button_heat_bottom"
+                    android:textOff="@string/dev_oven_button_heat_bottom"/>
+
+                <ToggleButton
+                    android:id="@+id/topButton"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_oven_button_heat_top"
+                    android:textOff="@string/dev_oven_button_heat_top"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+
+                android:gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/convectionTitle">
+
+                <ToggleButton
+                    android:id="@+id/normalButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_oven_button_convection_normal"
+                    android:textOff="@string/dev_oven_button_convection_normal"/>
+
+                <ToggleButton
+                    android:id="@+id/ecoConvectionButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_oven_button_convection_eco"
+                    android:textOff="@string/dev_oven_button_convection_eco"/>
+
+                <ToggleButton
+                    android:id="@+id/offConvectionButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOn="@string/dev_oven_button_convection_off"
+                    android:textOff="@string/dev_oven_button_convection_off"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/heatSourceTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/dev_oven_title_heat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/temperatureTitle" />
+
+            <TextView
+                android:id="@+id/grillTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/dev_oven_title_grill"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+            <TextView
+                android:id="@+id/convectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/dev_oven_title_convection"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="65dp"
-
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heatSourceTitle">
-
-        <ToggleButton
-            android:id="@+id/conventionalButton"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_oven_button_heat_conventional"
-            android:textOff="@string/dev_oven_button_heat_conventional"
-            android:textSize="11dp"/>
-
-        <ToggleButton
-            android:id="@+id/bottomButton"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_oven_button_heat_bottom"
-            android:textOff="@string/dev_oven_button_heat_bottom"/>
-
-        <ToggleButton
-            android:id="@+id/topButton"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_oven_button_heat_top"
-            android:textOff="@string/dev_oven_button_heat_top"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="65dp"
-
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/convectionTitle">
-
-        <ToggleButton
-            android:id="@+id/normalButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_oven_button_convection_normal"
-            android:textOff="@string/dev_oven_button_convection_normal"/>
-
-        <ToggleButton
-            android:id="@+id/ecoConvectionButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_oven_button_convection_eco"
-            android:textOff="@string/dev_oven_button_convection_eco"/>
-
-        <ToggleButton
-            android:id="@+id/offConvectionButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOn="@string/dev_oven_button_convection_off"
-            android:textOff="@string/dev_oven_button_convection_off"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/heatSourceTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/dev_oven_title_heat"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temperatureTitle" />
-
-    <TextView
-        android:id="@+id/grillTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/dev_oven_title_grill"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-
-    <TextView
-        android:id="@+id/convectionTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/dev_oven_title_convection"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

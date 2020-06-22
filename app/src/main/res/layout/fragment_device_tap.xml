@@ -1,159 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="51dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/favourite"
-        android:layout_width="41dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/switch1"
-        app:layout_constraintStart_toEndOf="@+id/bell"
-        app:layout_constraintTop_toTopOf="@+id/switch1"
-        app:srcCompat="@drawable/ic_menu_heart"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/bell"
-        android:layout_width="41dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/favourite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/favourite"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_bell_off" />
-
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="desc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bell" />
-
-
-    <EditText
-        android:id="@+id/howMany"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="40dp"
-        android:hint="@string/dev_tap_hint"
-        android:padding="15dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
-
     <LinearLayout
-        android:id="@+id/buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center_horizontal"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAmmount">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ToggleButton
-            android:id="@+id/btn0"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOff="ML"
-            android:textOn="ML" />
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="51dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
 
-        <ToggleButton
-            android:id="@+id/btn5"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOff="CL"
-            android:textOn="CL" />
+            <ImageView
+                android:id="@+id/favourite"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/switch1"
+                app:layout_constraintStart_toEndOf="@+id/bell"
+                app:layout_constraintTop_toTopOf="@+id/switch1"
+                app:srcCompat="@drawable/ic_menu_heart"
+                tools:ignore="MissingConstraints" />
 
-        <ToggleButton
-            android:id="@+id/btn5"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOff="DL"
-            android:textOn="DL" />
+            <ImageView
+                android:id="@+id/bell"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/favourite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/favourite"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_bell_off" />
 
-        <ToggleButton
-            android:id="@+id/btn3"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOff="L"
-            android:textOn="L" />
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="desc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bell" />
 
-        <ToggleButton
-            android:id="@+id/btn5"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOff="DAL"
-            android:textOn="DAL" />
 
-        <ToggleButton
-            android:id="@+id/btn3"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOff="HL"
-            android:textOn="HL" />
+            <EditText
+                android:id="@+id/howMany"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="40dp"
+                android:hint="@string/dev_tap_hint"
+                android:padding="15dp"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
-        <ToggleButton
-            android:id="@+id/btn5"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOff="KL"
-            android:textOn="KL" />
+            <LinearLayout
+                android:id="@+id/buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center_horizontal"
+                android:padding="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtAmmount">
+
+                <ToggleButton
+                    android:id="@+id/btn0"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOff="ML"
+                    android:textOn="ML" />
+
+                <ToggleButton
+                    android:id="@+id/btn5"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOff="CL"
+                    android:textOn="CL" />
+
+                <ToggleButton
+                    android:id="@+id/btn5"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOff="DL"
+                    android:textOn="DL" />
+
+                <ToggleButton
+                    android:id="@+id/btn3"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOff="L"
+                    android:textOn="L" />
+
+                <ToggleButton
+                    android:id="@+id/btn5"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOff="DAL"
+                    android:textOn="DAL" />
+
+                <ToggleButton
+                    android:id="@+id/btn3"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOff="HL"
+                    android:textOn="HL" />
+
+                <ToggleButton
+                    android:id="@+id/btn5"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textOff="KL"
+                    android:textOn="KL" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnDispense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/primary"
+                android:text="@string/dev_tap_button_dispense"
+                android:textColor="@color/text"
+                app:layout_constraintEnd_toEndOf="@+id/buttons"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="@+id/buttons"
+                app:layout_constraintTop_toBottomOf="@+id/buttons" />
+
+            <TextView
+                android:id="@+id/txtAmmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="56dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/dev_tap_amount"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/howMany"
+                app:layout_constraintEnd_toStartOf="@+id/howMany"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/howMany"
+                app:layout_constraintVertical_bias="0.454" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnDispense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/primary"
-        android:text="@string/dev_tap_button_dispense"
-        android:textColor="@color/text"
-        app:layout_constraintEnd_toEndOf="@+id/buttons"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="@+id/buttons"
-        app:layout_constraintTop_toBottomOf="@+id/buttons" />
-
-    <TextView
-        android:id="@+id/txtAmmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/dev_tap_amount"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/howMany"
-        app:layout_constraintEnd_toStartOf="@+id/howMany"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/howMany"
-        app:layout_constraintVertical_bias="0.454" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
