@@ -151,7 +151,7 @@ public class DeviceViewModel extends ViewModel {
     }
 
     private void updateVacuumDevice() {
-        Log.v("UPDATE_DOOR", "Running");
+        Log.v("UPDATE_VACUUM", "Running");
         ApiClient.getInstance().getVacuumDeviceState(deviceId, new Callback<Result<VacuumDeviceState>>() {
             @Override
             public void onResponse(@NonNull Call<Result<VacuumDeviceState>> call, @NonNull Response<Result<VacuumDeviceState>> response) {
@@ -165,7 +165,7 @@ public class DeviceViewModel extends ViewModel {
                             if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
                                 device.setState(actualDeviceState);
                                 mDevice.postValue(device);
-                                Log.v("UPDATED_DOOR", device.toString());
+                                Log.v("UPDATED_VACUUM", device.toString());
                             }
                         }
                     } else {

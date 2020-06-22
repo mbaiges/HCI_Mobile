@@ -20,7 +20,6 @@ import retrofit2.Response;
 
 public class VacuumDeviceObserver extends DeviceObserver {
 
-    private static final String DOCK_ACTION = "docked";
     private static final String DOCKED_ACTION = "dock";
 
     public VacuumDeviceObserver(View contextView) {
@@ -106,28 +105,30 @@ public class VacuumDeviceObserver extends DeviceObserver {
         super.attachFunctions();
         VacuumDeviceViewHolder h = (VacuumDeviceViewHolder) holder;
 
-        /*
+
         for(int i = 0; i < 2; i++){
            if(h.modeBtn[i] != null){
-               int finalI = i;
-               h.modeBtn[i].second.setOnClickListener(new View.OnClickListener(){
+               Pair<String, View> btn = (Pair<String, View>)h.modeBtn[i] ;
+               if(btn.second != null)
+               btn.second.setOnClickListener(new View.OnClickListener(){
                    @Override
                    public void onClick(View v) {
                        VacuumDevice d = (VacuumDevice) h.device;
                        if (d != null) {
                            VacuumDeviceState s = (VacuumDeviceState) d.getState();
                            if (s != null) {
-                               String actionName = h.modeBtn[finalI].first;
-                               ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, new String[0], new Callback<Result<Object>>() {
+                               String[] params = new String[1];
+                               params[0] = btn.first;
+                               ApiClient.getInstance().executeDeviceAction(d.getId(), "setMode", params, new Callback<Result<Object>>() {
                                    @Override
                                    public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
                                        if (response.isSuccessful()) {
                                            Result<Object> result = response.body();
 
                                            if (result != null) {
-                                               Boolean success = (Boolean) result.getResult();
-                                               if (success != null) {
-                                                   Log.v("ACTION_SUCCESS", success.toString());
+                                               Object lastVal = (Object) result.getResult();
+                                               if (lastVal != null) {
+                                                   Log.v("ACTION_SUCCESS", lastVal.toString());
                                                }
                                            } else {
                                                handleError(response);
@@ -147,7 +148,7 @@ public class VacuumDeviceObserver extends DeviceObserver {
            }
         }
 
-        */
+
 
         if (h.dockBtn != null) {
             h.dockBtn.setOnClickListener(new View.OnClickListener() {
@@ -158,10 +159,7 @@ public class VacuumDeviceObserver extends DeviceObserver {
                         VacuumDeviceState s = (VacuumDeviceState) d.getState();
                         if (s != null) {
                             String dockStatus = s.getStatus();
-                            String actionName = DOCK_ACTION;
-                            if (dockStatus.equals("docked")) {
-                                actionName = DOCKED_ACTION;
-                            }
+                            String actionName = DOCKED_ACTION;
                             ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, new String[0], new Callback<Result<Object>>() {
                                 @Override
                                 public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
