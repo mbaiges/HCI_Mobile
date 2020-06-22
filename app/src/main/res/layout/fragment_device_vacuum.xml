@@ -49,17 +49,17 @@
 
 
     <TextView
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/text"
-        android:text="Select mode:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/buttons"
-        android:textSize="20dp"
-        android:textColor="@color/text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:padding="15dp"
+        android:text="@string/dev_vacuum_select_mode"
+        android:textColor="@color/text"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttons"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
 
         />
 
@@ -75,21 +75,20 @@
         >
 
         <ToggleButton
+            android:id="@+id/mopBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOn="Mop"
-            android:textOff="Mop"
-            android:id="@+id/mopBtn"
             android:layout_gravity="center_vertical"
-            />
+            android:textOff="@string/dev_vacuum_button_mop"
+            android:textOn="Mop" />
 
         <ToggleButton
+            android:id="@+id/vacuumBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOn="Vacuum"
-            android:textOff="Vacuum"
-            android:id="@+id/vacuumBtn"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:textOff="@string/dev_vacuum_button_vacuum"
+            android:textOn="Vacuum" />
 
 
     </LinearLayout>
@@ -98,28 +97,26 @@
         android:id="@+id/dock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/selectRoom"
-        app:layout_constraintTop_toBottomOf="@id/text"
         android:layout_marginTop="50dp"
-        android:text="Dock"
         android:backgroundTint="@color/primary"
+        android:text="@string/dev_vacuum_button_dock"
         android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toEndOf="@id/selectRoom"
+        app:layout_constraintTop_toBottomOf="@id/text" />
 
 
     <Button
         android:id="@+id/selectRoom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Room"
-        android:backgroundTint="@color/primary"
-        android:textColor="@color/text"
-        app:layout_constraintTop_toBottomOf="@id/text"
         android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/primary"
+        android:text="@string/dev_vacuum_select_room"
+        android:textColor="@color/text"
         app:layout_constraintEnd_toStartOf="@id/dock"
-    />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text" />
 
 
 

@@ -64,6 +64,9 @@
     <string name="dev_vacuum_button_docked">Docked</string>
     <string name="dev_vacuum_state_active">Active</string>
     <string name="dev_vacuum_state_inactive">Inactive</string>
+    <string name="dev_vacuum_select_mode">Select mode</string>
+    <string name="dev_vacuum_select_room">Select room</string>
+    <string name="dev_vacuum_battery">Battery</string>
 
     <!-- Tap -->
     <string name="dev_tap_state_closed">Closed</string>
