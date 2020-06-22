@@ -76,16 +76,16 @@ public class DeviceViewModel extends ViewModel {
                 updateVacuumDevice();
                 return null;
             });
-<<<<<<< HEAD
+
             put("light", (t) -> {
                 updateLightDevice();
                 return null;
-=======
+
             put("speaker", (t) -> {
                updateSpeakerDevice();
                return null;
->>>>>>> c729bbb0dcb0bde8ac7d5d93f1dfea8bf24ba451
             });
+
         }};
         mDevice = new MutableLiveData<>();
     }
