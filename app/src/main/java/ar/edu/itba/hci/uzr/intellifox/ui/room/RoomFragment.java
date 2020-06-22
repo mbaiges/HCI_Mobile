@@ -50,14 +50,14 @@ public class RoomFragment extends Fragment {
 
         roomViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<Device>>() {
             @Override
-            public void onChanged(@Nullable Set<Device> deviceTypesDevices) {
-                if (deviceTypesDevices != null) {
-                    Device[] deviceTypesDevicesArray = new Device[deviceTypesDevices.size()];
+            public void onChanged(@Nullable Set<Device> devices) {
+                if (devices != null) {
+                    Device[] devicesArray = new Device[devices.size()];
                     int i = 0;
-                    for (Device r : deviceTypesDevices) {
-                        deviceTypesDevicesArray[i++] = r;
+                    for (Device r : devices) {
+                        devicesArray[i++] = r;
                     }
-                    DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), deviceTypesDevicesArray);
+                    DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), devicesArray);
                     listView.setAdapter(adapter);
                 }
             }

@@ -46,11 +46,20 @@ public interface ApiService {
     @GET("devices/{deviceId}")
     Call<Result<Device>> getDevice(@Path("deviceId") String deviceId);
 
+    @PUT("devices/{deviceId}")
+    Call<Result<Device>> modifyDevice(@Path("deviceId") String deviceId, @Body Device device);
+
     @GET("devices")
     Call<Result<List<Device>>> getDevices();
 
     @PUT("devices/{deviceId}/{actionName}")
     Call<Result<Object>> executeDeviceAction(@Path("deviceId") String deviceId, @Path("actionName") String actionName, @Body String[] params);
+
+    @GET("routines/{routineId}")
+    Call<Result<Routine>> getRoutine(@Path("routineId") String routineId);
+
+    @PUT("routines/{routineId}")
+    Call<Result<Routine>> modifyRoutine(@Path("routineId") String routineId, @Body Routine routine);
 
     @GET("routines")
     Call<Result<List<Routine>>> getRoutines();

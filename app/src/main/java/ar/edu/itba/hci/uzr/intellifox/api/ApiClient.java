@@ -108,6 +108,24 @@ public class ApiClient {
         return call;
     }
 
+    public Call<Result<Device>> modifyDevice(String deviceId, Device device, Callback<Result<Device>> callback) {
+        Call<Result<Device>> call = this.service.modifyDevice(deviceId, device);
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Call<Result<Routine>> getRoutine(String routineId, Callback<Result<Routine>> callback) {
+        Call<Result<Routine>> call = this.service.getRoutine(routineId);
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Call<Result<Routine>> modifyRoutine(String routineId, Routine routine, Callback<Result<Routine>> callback) {
+        Call<Result<Routine>> call = this.service.modifyRoutine(routineId, routine);
+        call.enqueue(callback);
+        return call;
+    }
+
     public Call<Result<List<Device>>> getDevices(Callback<Result<List<Device>>> callback) {
         Call<Result<List<Device>>> call = this.service.getDevices();
         call.enqueue(callback);

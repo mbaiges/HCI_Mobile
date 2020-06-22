@@ -38,14 +38,14 @@ public class RoomViewModel extends ViewModel {
 
     public void init(String roomName) {
         this.roomName = roomName;
-        fetchDeviceTypeDevices();
+        fetchDevices();
     }
 
     public LiveData<Set<Device>> getDevices() {
         return mDevices;
     }
 
-    private void fetchDeviceTypeDevices() {
+    private void fetchDevices() {
         ApiClient.getInstance().getDevices(new Callback<Result<List<Device>>>() {
             @Override
             public void onResponse(@NonNull Call<Result<List<Device>>> call, @NonNull Response<Result<List<Device>>> response) {
@@ -77,7 +77,7 @@ public class RoomViewModel extends ViewModel {
     public void scheduleFetching() {
         final Runnable fetcher = new Runnable() {
             public void run() {
-                fetchDeviceTypeDevices();
+                fetchDevices();
             }
         };
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);
