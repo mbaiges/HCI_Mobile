@@ -54,8 +54,14 @@ public class RoomsFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onResume() {
+        super.onResume();
+        roomsViewModel.scheduleFetching();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         roomsViewModel.stopFetching();
     }
 }

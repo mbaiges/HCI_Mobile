@@ -108,6 +108,24 @@ public class ApiClient {
         return call;
     }
 
+    public Call<Result<Device>> modifyDevice(String deviceId, Device device, Callback<Result<Device>> callback) {
+        Call<Result<Device>> call = this.service.modifyDevice(deviceId, device);
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Call<Result<Routine>> getRoutine(String routineId, Callback<Result<Routine>> callback) {
+        Call<Result<Routine>> call = this.service.getRoutine(routineId);
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Call<Result<Routine>> modifyRoutine(String routineId, Routine routine, Callback<Result<Routine>> callback) {
+        Call<Result<Routine>> call = this.service.modifyRoutine(routineId, routine);
+        call.enqueue(callback);
+        return call;
+    }
+
     public Call<Result<List<Device>>> getDevices(Callback<Result<List<Device>>> callback) {
         Call<Result<List<Device>>> call = this.service.getDevices();
         call.enqueue(callback);
@@ -137,48 +155,48 @@ public class ApiClient {
         call.enqueue(callback);
         return call;
     }
-//
-//    public Call<Result<OvenDeviceState>> getOvenDeviceState(String deviceId, Callback<Result<OvenDeviceState>> callback) {
-//        Call<Result<OvenDeviceState>> call = this.service.getOvenDeviceState(deviceId);
-//        call.enqueue(callback);
-//        return call;
-//    }
-//
-//    public Call<Result<AcDeviceState>> getAcDeviceState(String deviceId, Callback<Result<AcDeviceState>> callback) {
-//        Call<Result<AcDeviceState>> call = this.service.getAcDeviceState(deviceId);
-//        call.enqueue(callback);
-//        return call;
-//    }
-//
-//
-// public Call<Result<BlindDeviceState>> getBlindsDeviceState(String deviceId, Callback<Result<BlindDeviceState>> callback) {
-//        Call<Result<BlindDeviceState>> call = this.service.getBlindDeviceState(deviceId);
-//        call.enqueue(callback);
-//        return call;
-//    }
-//
-//public Call<Result<LightDeviceState>> getLightDeviceState(String deviceId, Callback<Result<LightDeviceState>> callback) {
-//        Call<Result<LightDeviceState>> call = this.service.getLightDeviceState(deviceId);
-//        call.enqueue(callback);
-//        return call;
-//    }
-//
-//public Call<Result<SpeakerDeviceState>> getSpeakerDeviceState(String deviceId, Callback<Result<SpeakerDeviceState>> callback) {
-//        Call<Result<SpeakerDeviceState>> call = this.service.getSpeakerDeviceState(deviceId);
-//        call.enqueue(callback);
-//        return call;
-//    }
-//
-//public Call<Result<TapDeviceState>> getTapDeviceState(String deviceId, Callback<Result<TapDeviceState>> callback) {
-//        Call<Result<TapDeviceState>> call = this.service.getTapDeviceState(deviceId);
-//        call.enqueue(callback);
-//        return call;
-//    }
-//
-//public Call<Result<VacuumDeviceState>> getVacuumDeviceState(String deviceId, Callback<Result<VacuumDeviceState>> callback) {
-//        Call<Result<VacuumDeviceState>> call = this.service.getVacuumDeviceState(deviceId);
-//        call.enqueue(callback);
-//        return call;
-//    }
-//
+
+    public Call<Result<OvenDeviceState>> getOvenDeviceState(String deviceId, Callback<Result<OvenDeviceState>> callback) {
+        Call<Result<OvenDeviceState>> call = this.service.getOvenDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Call<Result<AcDeviceState>> getAcDeviceState(String deviceId, Callback<Result<AcDeviceState>> callback) {
+        Call<Result<AcDeviceState>> call = this.service.getAcDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
+
+
+ public Call<Result<BlindDeviceState>> getBlindDeviceState(String deviceId, Callback<Result<BlindDeviceState>> callback) {
+        Call<Result<BlindDeviceState>> call = this.service.getBlindDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
+
+public Call<Result<LightDeviceState>> getLightDeviceState(String deviceId, Callback<Result<LightDeviceState>> callback) {
+        Call<Result<LightDeviceState>> call = this.service.getLightDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
+
+public Call<Result<SpeakerDeviceState>> getSpeakerDeviceState(String deviceId, Callback<Result<SpeakerDeviceState>> callback) {
+        Call<Result<SpeakerDeviceState>> call = this.service.getSpeakerDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
+
+public Call<Result<TapDeviceState>> getTapDeviceState(String deviceId, Callback<Result<TapDeviceState>> callback) {
+        Call<Result<TapDeviceState>> call = this.service.getTapDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
+
+public Call<Result<VacuumDeviceState>> getVacuumDeviceState(String deviceId, Callback<Result<VacuumDeviceState>> callback) {
+        Call<Result<VacuumDeviceState>> call = this.service.getVacuumDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
+
 }

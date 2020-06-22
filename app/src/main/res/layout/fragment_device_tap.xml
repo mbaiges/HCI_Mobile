@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <Switch
         android:id="@+id/switch1"
@@ -48,106 +48,112 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
 
-    <TextView
-        android:id="@+id/dispense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Dispense"
-        android:textColor="@color/text"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/button"
-        app:layout_constraintEnd_toStartOf="@id/howMany"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
-
     <EditText
         android:id="@+id/howMany"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="40dp"
+        android:hint="@string/dev_tap_hint"
         android:padding="15dp"
-        android:text="How many?"
-        app:layout_constraintBottom_toTopOf="@id/button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/dispense"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.502" />
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/howMany"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="32dp"
         android:gravity="center_horizontal"
         android:padding="15dp"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAmmount">
 
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:text="ML"
+        <ToggleButton
             android:id="@+id/btn0"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            />
+            android:textOff="ML"
+            android:textOn="ML" />
 
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:text="CL"
+        <ToggleButton
             android:id="@+id/btn1"
-            android:layout_gravity="center_vertical" />
-
-        <Button
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="DL"
+            android:layout_gravity="center_vertical"
+            android:textOff="CL"
+            android:textOn="CL" />
+
+        <ToggleButton
             android:id="@+id/btn2"
-            android:layout_gravity="center_vertical" />
-
-        <Button
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="L"
+            android:layout_gravity="center_vertical"
+            android:textOff="DL"
+            android:textOn="DL" />
+
+        <ToggleButton
             android:id="@+id/btn3"
-            android:layout_gravity="center_vertical" />
-
-        <Button
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="DAL"
+            android:layout_gravity="center_vertical"
+            android:textOff="L"
+            android:textOn="L" />
+
+        <ToggleButton
             android:id="@+id/btn4"
-            android:layout_gravity="center_vertical" />
-
-        <Button
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="HL"
+            android:layout_gravity="center_vertical"
+            android:textOff="DAL"
+            android:textOn="DAL" />
+
+        <ToggleButton
             android:id="@+id/btn5"
-            android:layout_gravity="center_vertical" />
-
-        <Button
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="KL"
+            android:layout_gravity="center_vertical"
+            android:textOff="HL"
+            android:textOn="HL" />
+
+        <ToggleButton
             android:id="@+id/btn6"
-            android:layout_gravity="center_vertical" />
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textOff="KL"
+            android:textOn="KL" />
     </LinearLayout>
 
     <Button
-        android:id="@id/button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/btnDispense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/buttons"
-        android:text="Dispense"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/primary"
+        android:text="@string/dev_tap_button_dispense"
         android:textColor="@color/text"
+        app:layout_constraintEnd_toEndOf="@+id/buttons"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/buttons"
+        app:layout_constraintTop_toBottomOf="@+id/buttons" />
+
+    <TextView
+        android:id="@+id/txtAmmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/dev_tap_amount"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/howMany"
+        app:layout_constraintEnd_toStartOf="@+id/howMany"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="@+id/howMany"
+        app:layout_constraintVertical_bias="0.454" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

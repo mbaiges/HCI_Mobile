@@ -142,7 +142,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
-                android:id="@+id/icon2"
+                android:id="@+id/favourite"
                 android:layout_width="40dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="36dp"
@@ -157,10 +157,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/icon2"
+                app:layout_constraintBottom_toBottomOf="@+id/favourite"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon2"
-                app:layout_constraintTop_toTopOf="@+id/icon2" />
+                app:layout_constraintStart_toEndOf="@+id/favourite"
+                app:layout_constraintTop_toTopOf="@+id/favourite" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

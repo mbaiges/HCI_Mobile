@@ -10,6 +10,7 @@
 
     <string name="menu_favourites">Favoritos</string>
     <string name="menu_rooms">Cuartos</string>
+    <string name="menu_room">Cuarto</string>
     <string name="menu_devices">Dispositivos</string>
     <string name="menu_routines">Rutinas</string>
     <string name="menu_electrical_cons">Consumo Eléctrico</string>
@@ -37,6 +38,9 @@
     <string name="result">Resultado: %1$s</string>
     <string name="error_message">Ocurrió un error: %1$s [%2$d]</string>
 
+    <string name="favourites_title_routines">Rutinas</string>
+    <string name="favourites_title_devices">Dispositivos</string>
+
     <!-- Noificaciones -->
     <string name="show_notification">Mostrar Notificacion</string>
     <string name="notification_title">Uso del API.pdf</string>
@@ -54,5 +58,18 @@
     <string name="dev_door_button_unlock">Desbloquear</string>
     <string name="dev_door_state_open">Abierto</string>
     <string name="dev_door_state_closed">Cerrado</string>
+
+    <!-- Canilla -->
+    <string name="dev_tap_state_closed">Cerrada</string>
+    <string name="dev_tap_state_opened">Abierta</string>
+    <string name="dev_tap_button_dispense">Dispensar</string>
+    <string name="dev_tap_hint">Cuanto?</string>
+    <string name="dev_tap_amount">Cantindad</string>
+
+    <!-- Persianas -->
+    <string name="dev_blind_state_closed">Cerrada</string>
+    <string name="dev_blind_state_opened">Abierta</string>
+    <string name="dev_blind_level">Nivel</string>
+
 
 </resources>

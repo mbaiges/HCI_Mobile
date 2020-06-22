@@ -7,5 +7,6 @@ import android.widget.TextView;
 public class RoutineViewHolder {
     public ImageView iconView;
     public TextView nameTextView;
+    public ImageView favourite;
     public ImageView executeIconView;
 }

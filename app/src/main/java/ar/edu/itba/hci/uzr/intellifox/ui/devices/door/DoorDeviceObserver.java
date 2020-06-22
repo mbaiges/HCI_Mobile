@@ -51,6 +51,7 @@ public class DoorDeviceObserver extends DeviceObserver {
             String lock = s.getLock();
 
             if (status != null && lock != null) {
+                String statusDesc;
                 String aux = status + "-" + lock;
                 if (h.description != null) {
                     h.description.setText(aux);
