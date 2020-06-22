@@ -80,10 +80,9 @@
     <string name="dev_blind_level">Level</string>
 
     <!-- Speaker -->
-    <string name="dev_speaker_state_playing">On</string>
-    <string name="dev_speaker_state_stopped">Off</string>
+    <string name="dev_speaker_state_playing">Playing</string>
+    <string name="dev_speaker_state_stopped">Stopped</string>
     <string name="dev_speaker_state_paused">Paused</string>
-    <string name="dev_speaker_state_resumed">Resumed</string>
     <string name="dev_speaker_genre">Genre:</string>
     <string name="dev_speaker_genre_clasical">Classical</string>
     <string name="dev_speaker_genre_country">Country</string>

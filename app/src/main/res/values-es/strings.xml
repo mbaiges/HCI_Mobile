@@ -83,10 +83,9 @@
     <string name="dev_blind_level">Nivel</string>
 
     <!-- Parlante -->
-    <string name="dev_speaker_state_playing">Prendido</string>
-    <string name="dev_speaker_state_stopped">Apagado</string>
+    <string name="dev_speaker_state_playing">Sonando</string>
+    <string name="dev_speaker_state_stopped">Parado</string>
     <string name="dev_speaker_state_paused">Pausado</string>
-    <string name="dev_speaker_state_resumed">Sonando</string>
     <string name="dev_speaker_genre">Genero:</string>
     <string name="dev_speaker_genre_clasical">Clasica</string>
     <string name="dev_speaker_genre_country">Country</string>
