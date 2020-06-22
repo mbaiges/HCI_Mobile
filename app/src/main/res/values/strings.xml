@@ -64,6 +64,9 @@
     <string name="dev_vacuum_button_docked">Docked</string>
     <string name="dev_vacuum_state_active">Active</string>
     <string name="dev_vacuum_state_inactive">Inactive</string>
+    <string name="dev_vacuum_select_mode">Select mode</string>
+    <string name="dev_vacuum_select_room">Select room</string>
+    <string name="dev_vacuum_battery">Battery</string>
 
     <!-- Tap -->
     <string name="dev_tap_state_closed">Closed</string>
@@ -80,10 +83,14 @@
     <string name="dev_blind_level">Level</string>
 
     <!-- Speaker -->
-    <string name="dev_speaker_state_playing">On</string>
-    <string name="dev_speaker_state_stopped">Off</string>
+    <string name="dev_speaker_stateName_status">Status</string>
+    <string name="dev_speaker_stateName_artist">Artist</string>
+    <string name="dev_speaker_stateName_title">Title</string>
+    <string name="dev_speaker_stateName_album">Album</string>
+
+    <string name="dev_speaker_state_playing">Playing</string>
+    <string name="dev_speaker_state_stopped">Stopped</string>
     <string name="dev_speaker_state_paused">Paused</string>
-    <string name="dev_speaker_state_resumed">Resumed</string>
     <string name="dev_speaker_genre">Genre:</string>
     <string name="dev_speaker_genre_clasical">Classical</string>
     <string name="dev_speaker_genre_country">Country</string>
@@ -132,5 +139,9 @@
     <string name="dev_ac_button_hSwing_auto">Auto</string>
     <string name="dev_ac_button_vSwing_auto">Auto</string>
     <string name="dev_ac_button_fan_auto">Auto</string>
+
+    <!-- light-->
+    <string name="dev_light_status_on">On</string>
+    <string name="dev_light_status_off">Off</string>
 
 </resources>

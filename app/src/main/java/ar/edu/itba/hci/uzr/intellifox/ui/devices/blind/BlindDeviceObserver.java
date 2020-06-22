@@ -69,12 +69,16 @@ public class BlindDeviceObserver extends DeviceObserver {
                 case "closing":
                     stateStatus = contextView.getResources().getString(R.string.dev_blind_state_closing);
                     break;
+                default:
+                    stateStatus = "";
             }
 
             Integer stateLevel = s.getLevel() ;
             Integer stateCurrentLevel = s.getCurrentLevel();
 
-            String auxDec = status + " Level: " + stateCurrentLevel + "/" + stateLevel;
+            String levelText = contextView.getResources().getString(R.string.dev_blind_level);
+
+            String auxDec = stateStatus + " - " +  levelText + ": " + stateCurrentLevel + "/" + stateLevel;
             if (h.description != null){
                 h.description.setText(auxDec);
             }
@@ -89,6 +93,10 @@ public class BlindDeviceObserver extends DeviceObserver {
             BlindDeviceViewHolder h = (BlindDeviceViewHolder) holder;
 
             if(h != null){
+                String status = s.getStatus();
+                if (status != null && holder.onSwitch != null) {
+                    holder.onSwitch.setChecked(status.equals("opened") || status.equals("opening"));
+                }
                 level = s.getLevel();
                 if(h.level != null){
                     h.level.setText(level.toString());

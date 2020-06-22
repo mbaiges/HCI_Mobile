@@ -49,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    private static final String CHANNEL_ID = "NOTIFICATIONS";
+    private static final int MY_NOTIFICATION_ID = 1;
+
+    public static final String MESSAGE_ID = "ar.edu.itba.MESSAGE_ID";
     public static final String MyPREFERENCES = "nightModePrefs";
     public static final String KEY_ISNIGHTMODE = "isNightMode";
     SharedPreferences sharedPreferences;
@@ -105,24 +109,6 @@ public class MainActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
-/*
-    private void setAppLocale(String localeCode){
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.setLocale(new Locale(localeCode.toLowerCase()));
-        res.updateConfiguration(conf,dm);
-    }
-
-    public void checkLanguage() {
-        if(sharedPreferences.getBoolean(KEY_ISNIGHTMODE, true)){
-            setAppLocale("en");
-        }else {
-            setAppLocale("sp");
-        }
-    }
-
- */
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -132,11 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    private static final String CHANNEL_ID = "NOTIFICATIONS";
-    private static final int MY_NOTIFICATION_ID = 1;
-
-    private void CreateNotificationChannel() {
+    private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -158,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void ShowNotification() {
+    private void showNotification() {
         // Create the intent to start Activity when notification in action bar is
         // clicked.
         Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);

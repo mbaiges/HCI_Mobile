@@ -67,6 +67,9 @@
     <string name="dev_vacuum_button_docked">Cargando</string>
     <string name="dev_vacuum_state_active">Activo</string>
     <string name="dev_vacuum_state_inactive">Inactivo</string>
+    <string name="dev_vacuum_select_mode">Seleccionar modo</string>
+    <string name="dev_vacuum_select_room">Seleccionar cuarto</string>
+    <string name="dev_vacuum_battery">Bateria</string>
 
     <!-- Canilla -->
     <string name="dev_tap_state_closed">Cerrada</string>
@@ -83,10 +86,14 @@
     <string name="dev_blind_level">Nivel</string>
 
     <!-- Parlante -->
-    <string name="dev_speaker_state_playing">Prendido</string>
-    <string name="dev_speaker_state_stopped">Apagado</string>
+    <string name="dev_speaker_stateName_status">Estado</string>
+    <string name="dev_speaker_stateName_artist">Artista</string>
+    <string name="dev_speaker_stateName_title">Titulo</string>
+    <string name="dev_speaker_stateName_album">Album</string>
+
+    <string name="dev_speaker_state_playing">Sonando</string>
+    <string name="dev_speaker_state_stopped">Parado</string>
     <string name="dev_speaker_state_paused">Pausado</string>
-    <string name="dev_speaker_state_resumed">Sonando</string>
     <string name="dev_speaker_genre">Genero:</string>
     <string name="dev_speaker_genre_clasical">Clasica</string>
     <string name="dev_speaker_genre_country">Country</string>
@@ -133,5 +140,9 @@
     <string name="dev_ac_button_hSwing_auto">Auto</string>
     <string name="dev_ac_button_vSwing_auto">Auto</string>
     <string name="dev_ac_button_fan_auto">Auto</string>
+
+    <!-- luz -->
+    <string name="dev_light_status_on">Encendido</string>
+    <string name="dev_light_status_off">Apagado</string>
 
 </resources>
