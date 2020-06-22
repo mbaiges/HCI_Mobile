@@ -191,6 +191,6 @@ public class VacuumDeviceObserver extends DeviceObserver {
 
     @Override
     protected String getOnSwitchActionName(Boolean switchStatus) {
-        return switchStatus?"active":"inactive";
+        return switchStatus?"start":"pause";
     }
 }
