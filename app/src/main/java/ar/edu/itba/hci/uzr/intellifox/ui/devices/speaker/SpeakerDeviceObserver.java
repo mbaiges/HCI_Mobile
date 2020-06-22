@@ -133,7 +133,17 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             if(stateSong != null){
                 String stateSongDuration = stateSong.getDuration();
                 String stateSongProgress = stateSong.getProgress();
+                Integer minsTotal = calculateEquivalentProgress(stateSongDuration);
+                Integer minsPassed = calculateEquivalentProgress(stateSongProgress);
+                Log.v("PASSED", minsPassed.toString());
+                Log.v("TOTAL", minsTotal.toString());
 
+                if(h.txtProgressLow != null){
+                    h.progressBar.setMax(minsTotal);
+                    h.txtProgressLow.setText(stateSongProgress);
+                    h.txtProgressHigh.setText(stateSongDuration);
+                    h.progressBar.setProgress(minsPassed);
+                }
             }
 
             String stateGenre = s.getGenre();
@@ -594,6 +604,13 @@ public class SpeakerDeviceObserver extends DeviceObserver {
         h.btnLatina.setChecked(false);
         h.btnPop.setChecked(false);
         h.btnRock.setChecked(false);
+    }
+
+    private Integer calculateEquivalentProgress(String TimeMark){
+        String[] time = TimeMark.split(":");
+        Integer mins = Integer.parseInt(time[0]);
+        Integer secs = Integer.parseInt(time[1]);
+        return mins * 60 + mins;
     }
 
 }
