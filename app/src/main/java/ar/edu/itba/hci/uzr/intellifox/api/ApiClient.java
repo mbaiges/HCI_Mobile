@@ -161,42 +161,9 @@ public class ApiClient {
         call.enqueue(callback);
         return call;
     }
-
-    public Call<Result<AcDeviceState>> getAcDeviceState(String deviceId, Callback<Result<AcDeviceState>> callback) {
-        Call<Result<AcDeviceState>> call = this.service.getAcDeviceState(deviceId);
-        call.enqueue(callback);
-        return call;
-    }
-
-
- public Call<Result<BlindDeviceState>> getBlindDeviceState(String deviceId, Callback<Result<BlindDeviceState>> callback) {
-        Call<Result<BlindDeviceState>> call = this.service.getBlindDeviceState(deviceId);
-        call.enqueue(callback);
-        return call;
-    }
-
-public Call<Result<LightDeviceState>> getLightDeviceState(String deviceId, Callback<Result<LightDeviceState>> callback) {
-        Call<Result<LightDeviceState>> call = this.service.getLightDeviceState(deviceId);
-        call.enqueue(callback);
-        return call;
-    }
-
-public Call<Result<SpeakerDeviceState>> getSpeakerDeviceState(String deviceId, Callback<Result<SpeakerDeviceState>> callback) {
-        Call<Result<SpeakerDeviceState>> call = this.service.getSpeakerDeviceState(deviceId);
-        call.enqueue(callback);
-        return call;
-    }
-
-public Call<Result<TapDeviceState>> getTapDeviceState(String deviceId, Callback<Result<TapDeviceState>> callback) {
-        Call<Result<TapDeviceState>> call = this.service.getTapDeviceState(deviceId);
-        call.enqueue(callback);
-        return call;
-    }
-
-public Call<Result<VacuumDeviceState>> getVacuumDeviceState(String deviceId, Callback<Result<VacuumDeviceState>> callback) {
+    public Call<Result<VacuumDeviceState>> getVacuumDeviceState(String deviceId, Callback<Result<VacuumDeviceState>> callback) {
         Call<Result<VacuumDeviceState>> call = this.service.getVacuumDeviceState(deviceId);
         call.enqueue(callback);
         return call;
     }
-
 }

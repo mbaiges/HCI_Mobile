@@ -74,19 +74,21 @@
         android:padding="15dp"
         >
 
-        <Button
+        <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mop"
-            android:id="@+id/btn0"
+            android:textOn="Mop"
+            android:textOff="Mop"
+            android:id="@+id/mopBtn"
             android:layout_gravity="center_vertical"
             />
 
-        <Button
+        <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vacuum"
-            android:id="@+id/btn1"
+            android:textOn="Vacuum"
+            android:textOff="Vacuum"
+            android:id="@+id/vacuumBtn"
             android:layout_gravity="center_vertical" />
 
 
