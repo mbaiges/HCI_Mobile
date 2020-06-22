@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -54,7 +55,7 @@ public class FavouritesViewModel extends ViewModel {
                     if (result != null) {
                         List<Device> comingDevicesList = result.getResult();
                         if (comingDevicesList != null) {
-                            Set<Device> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getMeta() != null && d.getMeta().getFavourites() != null && d.getMeta().getFavourites()).collect(Collectors.toSet());
+                            Set<Device> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getMeta() != null && d.getMeta().getFavourites() != null && d.getMeta().getFavourites()).sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
                             Set<Device> devicesSet = mDevices.getValue();
 
                             if (devicesSet == null || !devicesSet.equals(actualDevicesSet)) {

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -68,6 +69,29 @@ public class FavouritesFragment extends Fragment {
                 }
             }
         });
+
+        /*
+        favouritesViewModel.getRoutines().observe(getViewLifecycleOwner(), new Observer<Set<Routine>>() {
+            @Override
+            public void onChanged(@Nullable Set<Routine> routines) {
+                if (routines != null && routinesListView != null) {
+                    ListAdapter a = routinesListView.getAdapter();
+                    if (routinesListView.getAdapter() == null) {
+                        Routine[] routinesArray = new Routine[routines.size()];
+                        int i = 0;
+                        for (Routine r : routines) {
+                            routinesArray[i++] = r;
+                        }
+                        RoutineArrayAdapter adapter = new RoutineArrayAdapter(getActivity(), routinesArray);
+                        routinesListView.setAdapter(adapter);
+                    }
+                    else {
+                        int i = 0;
+                    }
+                }
+            }
+        });
+*/
 
         return root;
     }

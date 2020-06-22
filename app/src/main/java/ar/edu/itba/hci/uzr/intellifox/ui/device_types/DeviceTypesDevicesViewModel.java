@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -56,7 +57,7 @@ public class DeviceTypesDevicesViewModel extends ViewModel {
                     if (result != null) {
                         List<Device> comingDevicesList = result.getResult();
                         if (comingDevicesList != null) {
-                            Set<Device> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getType().getName().equals(typeName)).collect(Collectors.toSet());
+                            Set<Device> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getType().getName().equals(typeName)).sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
                             Set<Device> devicesSet = mDevices.getValue();
 
                             if (devicesSet == null || !devicesSet.equals(actualDevicesSet)) {
