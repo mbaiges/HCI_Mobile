@@ -87,11 +87,13 @@ public class VacuumDeviceObserver extends DeviceObserver {
             }
             Pair<String, ToggleButton> p0 = (Pair<String, ToggleButton>) h.modeBtn[0];
             if (p0.second != null && s.getMode().equals("mop")) {
+                p0.second.setChecked(true);
                 p0.second.setText(R.string.dev_vacuum_button_mop);
             }
             Pair<String, ToggleButton> p1 = (Pair<String, ToggleButton>) h.modeBtn[1];
             if(p1.second != null && s.getMode().equals("vacuum")) {
                 p1.second.setText(R.string.dev_vacuum_button_vacuum);
+                p1.second.setChecked(true);
             }
 
             if (h.dockBtn != null && s.getStatus() != null) {
@@ -186,6 +188,16 @@ public class VacuumDeviceObserver extends DeviceObserver {
                     }
                 }
             });
+        }
+    }
+
+    private void clearModeSelections(){
+        VacuumDeviceViewHolder h = (VacuumDeviceViewHolder) holder;
+        for (int i = 0 ; i<h.modeBtn.length ; i++) {
+            Pair<String, ToggleButton> btn = (Pair<String, ToggleButton>) h.modeBtn[i];
+            if (btn.second != null) {
+                btn.second.setChecked(false);
+            }
         }
     }
 
