@@ -33,7 +33,7 @@ public class DeviceObserverViewFactory {
             put("vacuum", new Pair<>(R.layout.fragment_device_vacuum, VacuumDeviceObserver.class));
             put("speaker", new Pair<>(R.layout.fragment_device_speaker, SpeakerDeviceObserver.class));
             put("oven", new Pair<>(R.layout.fragment_device_oven, OvenDeviceObserver.class));
-            put("light", new Pair<>(R.layout.fragment_device_light, LightDeviceObserver.class));
+            put("lamp", new Pair<>(R.layout.fragment_device_light, LightDeviceObserver.class));
         }};
     }
 

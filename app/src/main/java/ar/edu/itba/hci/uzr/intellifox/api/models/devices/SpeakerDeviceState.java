@@ -57,7 +57,8 @@ public class SpeakerDeviceState extends DeviceState {
         SpeakerDeviceState that = (SpeakerDeviceState) o;
         return Objects.equals(status, that.status) &&
                 Objects.equals(volume, that.volume) &&
-                Objects.equals(genre, that.genre);
+                Objects.equals(genre, that.genre) &&
+                Objects.equals(song, that.song);
     }
 
     @Override

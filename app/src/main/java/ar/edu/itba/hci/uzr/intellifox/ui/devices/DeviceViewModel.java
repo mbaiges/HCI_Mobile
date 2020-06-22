@@ -77,9 +77,10 @@ public class DeviceViewModel extends ViewModel {
                 return null;
             });
 
-            put("light", (t) -> {
+            put("lamp", (t) -> {
                 updateLightDevice();
                 return null;
+            });
 
             put("speaker", (t) -> {
                updateSpeakerDevice();
@@ -268,38 +269,6 @@ public class DeviceViewModel extends ViewModel {
         });
     }
 
-    private void updateLightDevice() {
-        Log.v("UPDATE_LIGHT", "Running");
-        ApiClient.getInstance().getLightDeviceState(deviceId, new Callback<Result<LightDeviceState>>() {
-            @Override
-            public void onResponse(@NonNull Call<Result<LightDeviceState>> call, @NonNull Response<Result<LightDeviceState>> response) {
-                if (response.isSuccessful()) {
-                    Result<LightDeviceState> result = response.body();
-                    if (result != null) {
-                        LightDeviceState actualDeviceState = result.getResult();
-                        if (actualDeviceState != null) {
-                            LightDevice device = (LightDevice) mDevice.getValue();
-
-                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
-                                device.setState(actualDeviceState);
-                                mDevice.postValue(device);
-                                Log.v("UPDATED_DOOR", device.toString());
-                            }
-                        }
-                    } else {
-                        handleError(response);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Result<LightDeviceState>> call, @NonNull Throwable t) {
-                handleUnexpectedError(t);
-            }
-        });
-    }
-
-
     private void updateSpeakerDevice() {
         Log.v("UPDATE_DOOR", "Running");
         ApiClient.getInstance().getSpeakerDeviceState(deviceId, new Callback<Result<SpeakerDeviceState>>() {
@@ -386,6 +355,36 @@ public class DeviceViewModel extends ViewModel {
             }
             @Override
             public void onFailure(@NonNull Call<Result<OvenDeviceState>> call, @NonNull Throwable t) {
+                handleUnexpectedError(t);
+            }
+        });
+    }
+
+    private void updateLightDevice() {
+        Log.v("UPDATE_LIGHT", "Running");
+        ApiClient.getInstance().getLightDeviceState(deviceId, new Callback<Result<LightDeviceState>>() {
+            @Override
+            public void onResponse(@NonNull Call<Result<LightDeviceState>> call, @NonNull Response<Result<LightDeviceState>> response) {
+                if (response.isSuccessful()) {
+                    Result<LightDeviceState> result = response.body();
+                    if (result != null) {
+                        LightDeviceState actualDeviceState = result.getResult();
+                        if (actualDeviceState != null) {
+                            LightDevice device = (LightDevice) mDevice.getValue();
+
+                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
+                                device.setState(actualDeviceState);
+                                mDevice.postValue(device);
+                                Log.v("UPDATED_LIGHT", device.toString());
+                            }
+                        }
+                    } else {
+                        handleError(response);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Result<LightDeviceState>> call, @NonNull Throwable t) {
                 handleUnexpectedError(t);
             }
         });

@@ -62,13 +62,14 @@
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="30dp"
+
                 android:padding="15dp"
                 android:text="@string/dev_vacuum_select_mode"
                 android:textColor="@color/text"
-
                 android:textSize="20dp"
-                app:layout_constraintStart_toStartOf="@+id/bell"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/desc" />
 
             <LinearLayout
@@ -84,25 +85,28 @@
                 android:id="@+id/dock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
                 android:backgroundTint="@color/primary"
                 android:text="@string/dev_vacuum_button_dock"
                 android:textColor="@color/text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/selectRoom"
-                app:layout_constraintTop_toBottomOf="@id/text" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/vacuumBtn"
+                app:layout_constraintStart_toEndOf="@+id/mopBtn"
+                app:layout_constraintTop_toTopOf="@+id/selectRoom" />
 
 
             <Button
                 android:id="@+id/selectRoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="21dp"
                 android:backgroundTint="@color/primary"
                 android:text="@string/dev_vacuum_select_room"
                 android:textColor="@color/text"
-                app:layout_constraintEnd_toStartOf="@id/dock"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/text"
+                app:layout_constraintEnd_toStartOf="@+id/mopBtn"
+                app:layout_constraintStart_toStartOf="@+id/text"
                 app:layout_constraintTop_toBottomOf="@id/text" />
 
             <ToggleButton

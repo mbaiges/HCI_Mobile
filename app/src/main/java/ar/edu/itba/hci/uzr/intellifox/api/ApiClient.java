@@ -156,12 +156,6 @@ public class ApiClient {
         return call;
     }
 
-    public Call<Result<AcDeviceState>> getAcDeviceState(String deviceId, Callback<Result<AcDeviceState>> callback) {
-        Call<Result<AcDeviceState>> call = this.service.getAcDeviceState(deviceId);
-        call.enqueue(callback);
-        return call;
-    }
-
     public Call<Result<OvenDeviceState>> getOvenDeviceState(String deviceId, Callback<Result<OvenDeviceState>> callback) {
         Call<Result<OvenDeviceState>> call = this.service.getOvenDeviceState(deviceId);
         call.enqueue(callback);
