@@ -1,5 +1,6 @@
 package ar.edu.itba.hci.uzr.intellifox.ui.device_types;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -32,7 +33,7 @@ public class DeviceTypesDevicesFragment extends Fragment {
 
     static final String DEVICE_TYPE_NAME = "device_type_name";
     DeviceTypesDevicesViewModel deviceTypesDevicesViewModel;
-    ListView listView;
+    View listView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -62,7 +63,14 @@ public class DeviceTypesDevicesFragment extends Fragment {
                         deviceTypesDevicesArray[i++] = r;
                     }
                     DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), deviceTypesDevicesArray);
-                    listView.setAdapter(adapter);
+                    int orientation = getResources().getConfiguration().orientation;
+                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        // In landscape
+                        ((GridView) listView).setAdapter(adapter);
+                    } else {
+                        // In portrait
+                        ((ListView) listView).setAdapter(adapter);
+                    }
                 }
             }
         });

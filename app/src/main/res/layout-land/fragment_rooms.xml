@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.device_types.DeviceTypesFragment">
+    tools:context=".ui.rooms.RoomsFragment">
 
     <GridView
-        android:id="@+id/device_types_grid_view"
+        android:id="@+id/rooms_grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:listSelector="@android:color/transparent"
-        android:numColumns="2" />
+        android:numColumns="3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
