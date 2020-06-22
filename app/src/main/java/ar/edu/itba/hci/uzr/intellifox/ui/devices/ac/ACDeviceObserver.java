@@ -1,21 +1,18 @@
-package ar.edu.itba.hci.uzr.intellifox.ui.devices.door;
+package ar.edu.itba.hci.uzr.intellifox.ui.devices.ac;
 
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
-
-import androidx.annotation.NonNull;
+import android.widget.ToggleButton;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
-import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceObserver;
 
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.ac.ACDeviceViewHolder;
@@ -24,6 +21,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ACDeviceObserver extends DeviceObserver {
+
+
+
 
     private static final String MODE_COOL_ACTION = "cool";
     private static final String MODE_HEAT_ACTION = "heat";
@@ -64,7 +64,7 @@ public class ACDeviceObserver extends DeviceObserver {
 
         h.tempDecBtn = contextView.findViewById(R.id.arrowBtnDown);
         h.tempIncBtn = contextView.findViewById(R.id.arrowBtnUp);
-
+        h.temperatureValue = contextView.findViewById(R.id.temperatureValue);
 
         h.ModeBtn[0] = new Pair<>(contextView.findViewById(R.id.coolButton),MODE_COOL_ACTION);
         h.ModeBtn[1] = new Pair<>(contextView.findViewById(R.id.heatButton),MODE_HEAT_ACTION);
@@ -74,7 +74,7 @@ public class ACDeviceObserver extends DeviceObserver {
         h.VBladesBtn[1] = new Pair<>(contextView.findViewById(R.id.vRotationButton2), VERTICAL_22_ACTION);
         h.VBladesBtn[2] = new Pair<>(contextView.findViewById(R.id.vRotationButton3), VERTICAL_45_ACTION);
         h.VBladesBtn[3] = new Pair<>(contextView.findViewById(R.id.vRotationButton4), VERTICAL_67_ACTION);
-        h.VBladesBtn[4] = new Pair<>(contextView.findViewById(R.id.vRotationButton5), VERTICAL_90_ACTION;
+        h.VBladesBtn[4] = new Pair<>(contextView.findViewById(R.id.vRotationButton5), VERTICAL_90_ACTION);
 
         h.HBladesBtn[0] = new Pair<>(contextView.findViewById(R.id.hRotationButton1),HORIZONTAL_AUTO_ACTION);
         h.HBladesBtn[1] = new Pair<>(contextView.findViewById(R.id.hRotationButton2),HORIZONTAL_MINUS90_ACTION);
@@ -88,6 +88,7 @@ public class ACDeviceObserver extends DeviceObserver {
         h.FanSpeedBtn[2] = new Pair<>(contextView.findViewById(R.id.fanButton3),FAN_50_ACTION);
         h.FanSpeedBtn[3] = new Pair<>(contextView.findViewById(R.id.fanButton4),FAN_75_ACTION);
         h.FanSpeedBtn[4] = new Pair<>(contextView.findViewById(R.id.fanButton5),FAN_100_ACTION);
+
 
     }
 
@@ -122,8 +123,79 @@ public class ACDeviceObserver extends DeviceObserver {
             AcDeviceState s = (AcDeviceState) state;
             ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
 
-            if (h.lockBtn != null && s.getLock() != null) {
-                h.lockBtn.setText((s.getLock().equals("locked"))?R.string.dev_door_button_unlock:R.string.dev_door_button_lock);
+            String status = state.getStatus();
+            if (status != null) {
+                if (h.onSwitch != null) {
+                    h.onSwitch.setChecked(status.equals("turnOn"));
+                }
+            }
+
+
+            if(h.temperatureValue != null){
+                Integer temp = s.getTemperature();
+                String aux = temp.toString();
+                h.temperatureValue.setText(aux);
+            }
+            if(h.ModeBtn != null){
+                String mode = s.getMode();
+                clearModeSelections();
+                if(mode.equals("cool")){
+                    h.ModeBtn[0].first.setChecked(true);
+                } else if(mode.equals("heat")){
+                    h.ModeBtn[1].first.setChecked(true);
+                } else if(mode.equals("fan")){
+                    h.ModeBtn[2].first.setChecked(true);
+                }
+            }
+
+            if(h.VBladesBtn != null){
+                String vertical = s.getVerticalSwing();
+                clearVBladesSelections();
+                if(vertical.equals("auto")){
+                    h.VBladesBtn[0].first.setChecked(true);
+                }else if(vertical.equals("22")){
+                    h.VBladesBtn[1].first.setChecked(true);
+                }else if(vertical.equals("45")){
+                    h.VBladesBtn[2].first.setChecked(true);
+                }else if(vertical.equals("67")){
+                    h.VBladesBtn[3].first.setChecked(true);
+                }else if(vertical.equals("90")){
+                    h.VBladesBtn[4].first.setChecked(true);
+                }
+            }
+
+            if(h.HBladesBtn != null){
+                String horizontal = s.getHorizontalSwing();
+                clearHBladesSelections();
+                if(horizontal.equals("auto")){
+                    h.HBladesBtn[0].first.setChecked(true);
+                }else if(horizontal.equals("-90")){
+                    h.HBladesBtn[1].first.setChecked(true);
+                }else if(horizontal.equals("-45")){
+                    h.HBladesBtn[2].first.setChecked(true);
+                }else if(horizontal.equals("0")){
+                    h.HBladesBtn[3].first.setChecked(true);
+                }else if(horizontal.equals("45")){
+                    h.HBladesBtn[4].first.setChecked(true);
+                }else if(horizontal.equals("90")){
+                    h.HBladesBtn[5].first.setChecked(true);
+                }
+            }
+
+            if(h.FanSpeedBtn != null){
+                String fan = s.getFanSpeed();
+                clearFanSpeedSelections();
+                if(fan.equals("auto")){
+                    h.FanSpeedBtn[0].first.setChecked(true);
+                }else if(fan.equals("25")){
+                     h.FanSpeedBtn[1].first.setChecked(true);
+                }else  if(fan.equals("50")){
+                    h.FanSpeedBtn[2].first.setChecked(true);
+                }else  if(fan.equals("75")){
+                    h.FanSpeedBtn[3].first.setChecked(true);
+                }else  if(fan.equals("100")){
+                    h.FanSpeedBtn[4].first.setChecked(true);
+                }
             }
         }
     }
@@ -133,41 +205,105 @@ public class ACDeviceObserver extends DeviceObserver {
         super.attachFunctions();
         ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
 
-        if (h.lockBtn != null) {
-            h.lockBtn.setOnClickListener(new View.OnClickListener() {
+        toggleButtonsWork(h.ModeBtn, h, "setMode");
+        toggleButtonsWork(h.VBladesBtn, h, "setVerticalSwing");
+        toggleButtonsWork(h.HBladesBtn, h, "setHorizontalSwing");
+        toggleButtonsWork(h.FanSpeedBtn, h, "setFanSpeed");
+
+        upButtonWork(h.tempIncBtn, h);
+        downButtonWork(h.tempDecBtn, h);
+
+    }
+
+    public void toggleButtonsWork(Pair<ToggleButton,String>[] array, ACDeviceViewHolder h, String functionType){
+        if(h.VBladesBtn != null && h.HBladesBtn != null && h.ModeBtn != null && h.FanSpeedBtn != null){
+            for(int i = 0 ; i < array.length ; i++){
+                if(array[i] != null){
+                    final Integer aux = i;
+                    array[i].first.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AcDevice d = (AcDevice) h.device;
+                            if(d != null){
+                                AcDeviceState s = d.getState();
+                                if(s != null){
+                                    String[] args = {array[aux].second};
+                                    ApiClient.getInstance().executeDeviceAction(d.getId(), functionType, args, new Callback<Result<Object>>() {
+                                        @Override
+                                        public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
+                                            if(response.isSuccessful()){
+                                                Result<Object> result = response.body();
+                                                if(result != null){
+                                                    Object success =  result.getResult();
+                                                    if(success != null){
+                                                        Log.v("ACTION_SUCCESS", success.toString());
+                                                        if(functionType.equals("setMode"))
+                                                            clearModeSelections();
+                                                        else if(functionType.equals("setVerticalSwing"))
+                                                            clearVBladesSelections();
+                                                        else if(functionType.equals("setHorizontalSwing"))
+                                                            clearHBladesSelections();
+                                                        else if(functionType.equals("setFanSpeed"))
+                                                            clearFanSpeedSelections();
+
+                                                        array[aux].first.setChecked(true);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        @Override
+                                        public void onFailure(Call<Result<Object>> call, Throwable t) {
+                                            handleUnexpectedError(t);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+    }
+
+
+    public void upButtonWork(Button button, ACDeviceViewHolder h){
+        if(button != null){
+            button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DoorDevice d = (DoorDevice) h.device;
-                    if (d != null) {
-                        DoorDeviceState s = (DoorDeviceState) d.getState();
-                        if (s != null) {
-                            String lockStatus = s.getLock();
-                            String actionName = LOCK_ACTION;
-                            if (lockStatus.equals("locked")) {
-                                actionName = UNLOCK_ACTION;
-                            }
-                            ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, new String[0], new Callback<Result<Object>>() {
-                                @Override
-                                public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
-                                    if (response.isSuccessful()) {
-                                        Result<Object> result = response.body();
-
-                                        if (result != null) {
-                                            Boolean success = (Boolean) result.getResult();
-                                            if (success != null) {
-                                                Log.v("ACTION_SUCCESS", success.toString());
+                    AcDevice d = (AcDevice) h.device;
+                    if(d != null){
+                        AcDeviceState s = d.getState();
+                        if(s != null){
+                            String actionName = "setTemperature";
+                            Integer newTemperature = s.getTemperature();
+                            if(newTemperature >= 38){
+                                return;
+                            }else{
+                                newTemperature++;
+                                String[] args = {newTemperature.toString()};
+                                ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, args , new Callback<Result<Object>>() {
+                                    @Override
+                                    public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
+                                        if(response.isSuccessful()){
+                                            Result<Object> result = response.body();
+                                            if(result != null){
+                                                Object success =  result.getResult();
+                                                if(success != null){
+                                                    Log.v("ACTION_SUCCESS", success.toString());
+                                                    h.temperatureValue.setText(args[0]);
+                                                }
                                             }
-                                        } else {
-                                            handleError(response);
                                         }
                                     }
-                                }
+                                    @Override
+                                    public void onFailure(Call<Result<Object>> call, Throwable t) {
+                                        handleUnexpectedError(t);
+                                    }
+                                });
+                            }
 
-                                @Override
-                                public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
-                                    handleUnexpectedError(t);
-                                }
-                            });
                         }
                     }
                 }
@@ -175,8 +311,85 @@ public class ACDeviceObserver extends DeviceObserver {
         }
     }
 
+    public void downButtonWork(Button button, ACDeviceViewHolder h){
+        if(button != null){
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AcDevice d = (AcDevice) h.device;
+                    if(d != null){
+                        AcDeviceState s = d.getState();
+                        if(s != null){
+                            String actionName = "setTemperature";
+                            Integer newTemperature = s.getTemperature();
+                            if(newTemperature <= 18){
+                                return;
+                            }else{
+                                newTemperature--;
+                                String[] args = {newTemperature.toString()};
+                                ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, args , new Callback<Result<Object>>() {
+                                    @Override
+                                    public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
+                                        if(response.isSuccessful()){
+                                            Result<Object> result = response.body();
+                                            if(result != null){
+                                                Object success =  result.getResult();
+                                                if(success != null){
+                                                    Log.v("ACTION_SUCCESS", success.toString());
+                                                    h.temperatureValue.setText(args[0]);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(Call<Result<Object>> call, Throwable t) {
+                                        handleUnexpectedError(t);
+                                    }
+                                });
+                            }
+
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+
     @Override
     protected String getOnSwitchActionName(Boolean switchStatus) {
         return switchStatus?"turnOn":"turnOff";
+    }
+
+    private void clearModeSelections(){
+        ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
+        for (int i = 0 ; i<h.ModeBtn.length ; i++){
+            if(h.ModeBtn[i] != null)
+                h.ModeBtn[i].first.setChecked(false);
+        }
+    }
+
+    private void clearVBladesSelections(){
+        ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
+        for (int i = 0 ; i<h.VBladesBtn.length ; i++){
+            if(h.VBladesBtn[i] != null)
+                h.VBladesBtn[i].first.setChecked(false);
+        }
+    }
+
+    private void clearHBladesSelections(){
+        ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
+        for (int i = 0 ; i<h.HBladesBtn.length ; i++){
+            if(h.HBladesBtn[i] != null)
+                h.HBladesBtn[i].first.setChecked(false);
+        }
+    }
+
+    private void clearFanSpeedSelections(){
+        ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
+        for (int i = 0 ; i<h.FanSpeedBtn.length ; i++){
+            if(h.FanSpeedBtn[i] != null)
+                h.FanSpeedBtn[i].first.setChecked(false);
+        }
     }
 }
