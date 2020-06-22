@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="80dp"
-        android:text="Temperature"
+        android:text="@string/dev_ac_title_temperature"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
@@ -98,8 +98,8 @@
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textOn="Auto"
-            android:textOff="Auto"/>
+            android:textOn="@string/dev_ac_button_hSwing_auto"
+            android:textOff="@string/dev_ac_button_hSwing_auto"/>
 
         <ToggleButton
             android:id="@+id/vRotationButton2"
@@ -149,24 +149,24 @@
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textOn="Cool"
-            android:textOff="Cool"/>
+            android:textOn="@string/dev_ac_button_mode_cool"
+            android:textOff="@string/dev_ac_button_mode_cool"/>
 
         <ToggleButton
             android:id="@+id/heatButton"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textOn="Heat"
-            android:textOff="Heat"/>
+            android:textOn="@string/dev_ac_button_mode_heat"
+            android:textOff="@string/dev_ac_button_mode_heat"/>
 
         <ToggleButton
             android:id="@+id/fanButton"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textOn="Fan"
-            android:textOff="Fan"/>
+            android:textOn="@string/dev_ac_button_mode_fan"
+            android:textOff="@string/dev_ac_button_mode_fan"/>
 
     </LinearLayout>
 
@@ -186,8 +186,8 @@
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textOn="Auto"
-            android:textOff="Auto"/>
+            android:textOff="@string/dev_ac_button_vSwing_auto"
+            android:textOn="@string/dev_ac_button_vSwing_auto" />
 
         <ToggleButton
             android:id="@+id/hRotationButton2"
@@ -245,8 +245,8 @@
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textOn="Auto"
-            android:textOff="Auto"/>
+            android:textOn="@string/dev_ac_button_fan_auto"
+            android:textOff="@string/dev_ac_button_fan_auto"/>
         <ToggleButton
             android:id="@+id/fanButton2"
             android:layout_width="65dp"
@@ -284,7 +284,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Mode:"
+        android:text="@string/dev_ac_title_mode"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/temperatureTitle" />
 
@@ -294,7 +294,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Grill mode:"
+        android:text="@string/dev_ac_title_vSwing"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
@@ -304,7 +304,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Convection mode:"
+        android:text="@string/dev_ac_title_hSwing"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
@@ -314,7 +314,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Fan speed"
+        android:text="@string/dev_ac_title_fan"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 

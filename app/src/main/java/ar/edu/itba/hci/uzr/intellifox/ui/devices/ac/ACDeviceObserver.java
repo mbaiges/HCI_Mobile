@@ -23,8 +23,6 @@ import retrofit2.Response;
 public class ACDeviceObserver extends DeviceObserver {
 
 
-
-
     private static final String MODE_COOL_ACTION = "cool";
     private static final String MODE_HEAT_ACTION = "heat";
     private static final String MODE_FAN_ACTION = "fan";
@@ -55,6 +53,11 @@ public class ACDeviceObserver extends DeviceObserver {
     @Override
     protected void createHolder() {
         this.holder = new ACDeviceViewHolder();
+        ACDeviceViewHolder h = (ACDeviceViewHolder) this.holder;
+        h.ModeBtn = new Object[3];
+        h.VBladesBtn = new Object[5];
+        h.HBladesBtn = new Object[6];
+        h.FanSpeedBtn = new Object[5];
     }
 
     @Override
@@ -66,9 +69,11 @@ public class ACDeviceObserver extends DeviceObserver {
         h.tempIncBtn = contextView.findViewById(R.id.arrowBtnUp);
         h.temperatureValue = contextView.findViewById(R.id.temperatureValue);
 
+
         h.ModeBtn[0] = new Pair<>(contextView.findViewById(R.id.coolButton),MODE_COOL_ACTION);
         h.ModeBtn[1] = new Pair<>(contextView.findViewById(R.id.heatButton),MODE_HEAT_ACTION);
         h.ModeBtn[2] = new Pair<>(contextView.findViewById(R.id.fanButton),MODE_FAN_ACTION);
+
 
         h.VBladesBtn[0] = new Pair<>(contextView.findViewById(R.id.vRotationButton1), VERTICAL_AUTO_ACTION);
         h.VBladesBtn[1] = new Pair<>(contextView.findViewById(R.id.vRotationButton2), VERTICAL_22_ACTION);
@@ -76,12 +81,14 @@ public class ACDeviceObserver extends DeviceObserver {
         h.VBladesBtn[3] = new Pair<>(contextView.findViewById(R.id.vRotationButton4), VERTICAL_67_ACTION);
         h.VBladesBtn[4] = new Pair<>(contextView.findViewById(R.id.vRotationButton5), VERTICAL_90_ACTION);
 
+
         h.HBladesBtn[0] = new Pair<>(contextView.findViewById(R.id.hRotationButton1),HORIZONTAL_AUTO_ACTION);
         h.HBladesBtn[1] = new Pair<>(contextView.findViewById(R.id.hRotationButton2),HORIZONTAL_MINUS90_ACTION);
         h.HBladesBtn[2] = new Pair<>(contextView.findViewById(R.id.hRotationButton3),HORIZONTAL_MINUS45_ACTION);
         h.HBladesBtn[3] = new Pair<>(contextView.findViewById(R.id.hRotationButton4),HORIZONTAL_0_ACTION);
         h.HBladesBtn[4] = new Pair<>(contextView.findViewById(R.id.hRotationButton5),HORIZONTAL_45_ACTION);
         h.HBladesBtn[5] = new Pair<>(contextView.findViewById(R.id.hRotationButton6),HORIZONTAL_90_ACTION);
+
 
         h.FanSpeedBtn[0] = new Pair<>(contextView.findViewById(R.id.fanButton1),FAN_AUTO_ACTION);
         h.FanSpeedBtn[1] = new Pair<>(contextView.findViewById(R.id.fanButton2),FAN_25_ACTION);
@@ -99,16 +106,48 @@ public class ACDeviceObserver extends DeviceObserver {
             ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
 
             String status = s.getStatus();
+            if(status.equals("on")){
+                status = contextView.getResources().getString(R.string.dev_ac_status_on);
+            }else{
+                status = contextView.getResources().getString(R.string.dev_ac_status_off);
+            }
+
+            String tempTitle = contextView.getResources().getString(R.string.dev_ac_title_temperature);
+            String modeTitle = contextView.getResources().getString(R.string.dev_ac_title_mode);
+            String vBladesTitle = contextView.getResources().getString(R.string.dev_ac_title_vSwing);
+            String hBladesTitle = contextView.getResources().getString(R.string.dev_ac_title_hSwing);
+            String fanTitle = contextView.getResources().getString(R.string.dev_ac_title_fan);
+
             String temp = s.getTemperature().toString();
+
             String mode = s.getMode();
+            if(mode.equals("cool")){
+                mode = contextView.getResources().getString(R.string.dev_ac_button_mode_cool);
+            }else if (mode.equals("heat")){
+                mode = contextView.getResources().getString(R.string.dev_ac_button_mode_heat);
+            }else if (mode.equals("fan")){
+                mode = contextView.getResources().getString(R.string.dev_ac_button_mode_fan);
+            }
+
             String vBlades = s.getVerticalSwing();
+            if(vBlades.equals("auto")){
+                vBlades = contextView.getResources().getString(R.string.dev_ac_button_vSwing_auto);
+            }
+
             String hBlades = s.getHorizontalSwing();
+            if(hBlades.equals("auto")){
+                hBlades = contextView.getResources().getString(R.string.dev_ac_button_hSwing_auto);
+            }
+
             String fanSpeed = s.getFanSpeed();
+            if(fanSpeed.equals("auto")){
+                fanSpeed = contextView.getResources().getString(R.string.dev_ac_button_fan_auto);
+            }
 
 
+            if (status != null && temp != null && mode != null && vBlades != null && hBlades != null && fanSpeed != null && tempTitle != null && modeTitle != null && vBladesTitle != null && hBladesTitle != null && fanTitle != null) {
 
-            if (status != null && temp != null && mode != null && vBlades != null && hBlades != null && fanSpeed != null) {
-                String aux = status + "-" + temp + "-" + mode + "-" + vBlades + "-" + hBlades + "-" + fanSpeed ;
+                String aux = status + "-" + tempTitle + temp + "-" + modeTitle + mode + "-" + vBladesTitle + vBlades + "-" + hBladesTitle + hBlades + "-" + fanTitle + fanSpeed ;
                 if (h.description != null) {
                     h.description.setText(aux);
                 }
@@ -126,25 +165,41 @@ public class ACDeviceObserver extends DeviceObserver {
             String status = state.getStatus();
             if (status != null) {
                 if (h.onSwitch != null) {
-                    h.onSwitch.setChecked(status.equals("turnOn"));
+                    Log.v("asdawdwd",status);
+                    h.onSwitch.setChecked(status.equals("on"));
                 }
             }
 
 
             if(h.temperatureValue != null){
                 Integer temp = s.getTemperature();
-                String aux = temp.toString();
-                h.temperatureValue.setText(aux);
+                if(temp != null){
+
+                    String aux = temp.toString();
+                    h.temperatureValue.setText(aux);
+                }else{
+                    Log.v("TEMP"," ES NULL");
+                }
+
             }
             if(h.ModeBtn != null){
                 String mode = s.getMode();
                 clearModeSelections();
                 if(mode.equals("cool")){
-                    h.ModeBtn[0].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.ModeBtn[0];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 } else if(mode.equals("heat")){
-                    h.ModeBtn[1].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.ModeBtn[1];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 } else if(mode.equals("fan")){
-                    h.ModeBtn[2].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.ModeBtn[2];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }
             }
 
@@ -152,15 +207,30 @@ public class ACDeviceObserver extends DeviceObserver {
                 String vertical = s.getVerticalSwing();
                 clearVBladesSelections();
                 if(vertical.equals("auto")){
-                    h.VBladesBtn[0].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.VBladesBtn[0];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else if(vertical.equals("22")){
-                    h.VBladesBtn[1].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.VBladesBtn[1];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else if(vertical.equals("45")){
-                    h.VBladesBtn[2].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.VBladesBtn[2];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else if(vertical.equals("67")){
-                    h.VBladesBtn[3].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.VBladesBtn[3];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else if(vertical.equals("90")){
-                    h.VBladesBtn[4].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.VBladesBtn[4];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }
             }
 
@@ -168,17 +238,35 @@ public class ACDeviceObserver extends DeviceObserver {
                 String horizontal = s.getHorizontalSwing();
                 clearHBladesSelections();
                 if(horizontal.equals("auto")){
-                    h.HBladesBtn[0].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.HBladesBtn[0];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else if(horizontal.equals("-90")){
-                    h.HBladesBtn[1].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.HBladesBtn[1];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else if(horizontal.equals("-45")){
-                    h.HBladesBtn[2].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.HBladesBtn[2];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else if(horizontal.equals("0")){
-                    h.HBladesBtn[3].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.HBladesBtn[3];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else if(horizontal.equals("45")){
-                    h.HBladesBtn[4].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.HBladesBtn[4];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else if(horizontal.equals("90")){
-                    h.HBladesBtn[5].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.HBladesBtn[5];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }
             }
 
@@ -186,17 +274,34 @@ public class ACDeviceObserver extends DeviceObserver {
                 String fan = s.getFanSpeed();
                 clearFanSpeedSelections();
                 if(fan.equals("auto")){
-                    h.FanSpeedBtn[0].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.FanSpeedBtn[0];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else if(fan.equals("25")){
-                     h.FanSpeedBtn[1].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.FanSpeedBtn[1];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else  if(fan.equals("50")){
-                    h.FanSpeedBtn[2].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.FanSpeedBtn[2];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else  if(fan.equals("75")){
-                    h.FanSpeedBtn[3].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.FanSpeedBtn[3];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }else  if(fan.equals("100")){
-                    h.FanSpeedBtn[4].first.setChecked(true);
+                    Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.FanSpeedBtn[4];
+                    if(aux.first != null){
+                        aux.first.setChecked(true);
+                    }
                 }
             }
+        }else{
+            Log.v("SET UI", "STATE ES NULL");
         }
     }
 
@@ -215,51 +320,55 @@ public class ACDeviceObserver extends DeviceObserver {
 
     }
 
-    public void toggleButtonsWork(Pair<ToggleButton,String>[] array, ACDeviceViewHolder h, String functionType){
+    public void toggleButtonsWork(Object[] array, ACDeviceViewHolder h, String functionType){
         if(h.VBladesBtn != null && h.HBladesBtn != null && h.ModeBtn != null && h.FanSpeedBtn != null){
             for(int i = 0 ; i < array.length ; i++){
                 if(array[i] != null){
                     final Integer aux = i;
-                    array[i].first.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            AcDevice d = (AcDevice) h.device;
-                            if(d != null){
-                                AcDeviceState s = d.getState();
-                                if(s != null){
-                                    String[] args = {array[aux].second};
-                                    ApiClient.getInstance().executeDeviceAction(d.getId(), functionType, args, new Callback<Result<Object>>() {
-                                        @Override
-                                        public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
-                                            if(response.isSuccessful()){
-                                                Result<Object> result = response.body();
-                                                if(result != null){
-                                                    Object success =  result.getResult();
-                                                    if(success != null){
-                                                        Log.v("ACTION_SUCCESS", success.toString());
-                                                        if(functionType.equals("setMode"))
-                                                            clearModeSelections();
-                                                        else if(functionType.equals("setVerticalSwing"))
-                                                            clearVBladesSelections();
-                                                        else if(functionType.equals("setHorizontalSwing"))
-                                                            clearHBladesSelections();
-                                                        else if(functionType.equals("setFanSpeed"))
-                                                            clearFanSpeedSelections();
+                    Pair<ToggleButton,String> pairAux = (Pair<ToggleButton, String>) array[i];
+                    if(pairAux.first != null){
+                        pairAux.first.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                AcDevice d = (AcDevice) h.device;
+                                if(d != null){
+                                    AcDeviceState s = d.getState();
+                                    if(s != null){
+                                        String[] args = {pairAux.second};
+                                        ApiClient.getInstance().executeDeviceAction(d.getId(), functionType, args, new Callback<Result<Object>>() {
+                                            @Override
+                                            public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
+                                                if(response.isSuccessful()){
+                                                    Result<Object> result = response.body();
+                                                    if(result != null){
+                                                        Object success =  result.getResult();
+                                                        if(success != null){
+                                                            Log.v("ACTION_SUCCESS", success.toString());
+                                                            if(functionType.equals("setMode"))
+                                                                clearModeSelections();
+                                                            else if(functionType.equals("setVerticalSwing"))
+                                                                clearVBladesSelections();
+                                                            else if(functionType.equals("setHorizontalSwing"))
+                                                                clearHBladesSelections();
+                                                            else if(functionType.equals("setFanSpeed"))
+                                                                clearFanSpeedSelections();
 
-                                                        array[aux].first.setChecked(true);
+                                                            pairAux.first.setChecked(true);
+                                                        }
                                                     }
                                                 }
                                             }
-                                        }
-                                        @Override
-                                        public void onFailure(Call<Result<Object>> call, Throwable t) {
-                                            handleUnexpectedError(t);
-                                        }
-                                    });
+                                            @Override
+                                            public void onFailure(Call<Result<Object>> call, Throwable t) {
+                                                handleUnexpectedError(t);
+                                            }
+                                        });
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
+
                 }
             }
         }
@@ -364,32 +473,49 @@ public class ACDeviceObserver extends DeviceObserver {
     private void clearModeSelections(){
         ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
         for (int i = 0 ; i<h.ModeBtn.length ; i++){
-            if(h.ModeBtn[i] != null)
-                h.ModeBtn[i].first.setChecked(false);
+            if(h.ModeBtn[i] != null){
+                Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.ModeBtn[i];
+                if(aux.first != null){
+                    aux.first.setChecked(false);
+                }
+
+            }
         }
     }
 
     private void clearVBladesSelections(){
         ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
         for (int i = 0 ; i<h.VBladesBtn.length ; i++){
-            if(h.VBladesBtn[i] != null)
-                h.VBladesBtn[i].first.setChecked(false);
+            if(h.VBladesBtn[i] != null) {
+                Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.VBladesBtn[i];
+                if(aux.first != null){
+                    aux.first.setChecked(false);
+                }
+            }
         }
     }
 
     private void clearHBladesSelections(){
         ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
         for (int i = 0 ; i<h.HBladesBtn.length ; i++){
-            if(h.HBladesBtn[i] != null)
-                h.HBladesBtn[i].first.setChecked(false);
+            if(h.HBladesBtn[i] != null) {
+                Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.HBladesBtn[i];
+                if(aux.first != null){
+                    aux.first.setChecked(false);
+                }
+            }
         }
     }
 
     private void clearFanSpeedSelections(){
         ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
         for (int i = 0 ; i<h.FanSpeedBtn.length ; i++){
-            if(h.FanSpeedBtn[i] != null)
-                h.FanSpeedBtn[i].first.setChecked(false);
+            if(h.FanSpeedBtn[i] != null) {
+                Pair<ToggleButton,String> aux = (Pair<ToggleButton, String>) h.FanSpeedBtn[i];
+                if(aux.first != null){
+                    aux.first.setChecked(false);
+                }
+            }
         }
     }
 }

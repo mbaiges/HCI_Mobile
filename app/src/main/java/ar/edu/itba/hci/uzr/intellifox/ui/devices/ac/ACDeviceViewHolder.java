@@ -13,14 +13,20 @@ public class ACDeviceViewHolder extends DeviceViewHolder {
     public Button tempIncBtn;
 
     public TextView temperatureValue;
+//
+//    public Pair<ToggleButton,String>[] ModeBtn;
+//
+//    public Pair<ToggleButton,String>[] VBladesBtn;
+//
+//    public Pair<ToggleButton,String>[] HBladesBtn;
+//
+//    public Pair<ToggleButton,String>[] FanSpeedBtn;
 
-    public Pair<ToggleButton,String>[] ModeBtn;
+    public Object[] ModeBtn;
 
-    public Pair<ToggleButton,String>[] VBladesBtn;
+    public Object[] VBladesBtn;
 
-    public Pair<ToggleButton,String>[] HBladesBtn;
+    public Object[] HBladesBtn;
 
-    public Pair<ToggleButton,String>[] FanSpeedBtn;
-
-
+    public Object[] FanSpeedBtn;
 }

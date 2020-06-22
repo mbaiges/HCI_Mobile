@@ -26,6 +26,8 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import retrofit2.Call;
@@ -57,8 +59,12 @@ public class DeviceViewModel extends ViewModel {
                 return null;
             });
             put("ac", (t) -> {
-               updateACDevice();
-               return null;
+                updateACDevice();
+                return null;
+            });
+            put("oven", (t) -> {
+                updateOvenDevice();
+                return null;
             });
         }};
         mDevice = new MutableLiveData<>();
@@ -236,6 +242,36 @@ public class DeviceViewModel extends ViewModel {
             }
             @Override
             public void onFailure(@NonNull Call<Result<AcDeviceState>> call, @NonNull Throwable t) {
+                handleUnexpectedError(t);
+            }
+        });
+    }
+
+    private void updateOvenDevice() {
+        Log.v("UPDATE_OVEN", "Running");
+        ApiClient.getInstance().getOvenDeviceState(deviceId, new Callback<Result<OvenDeviceState>>() {
+            @Override
+            public void onResponse(@NonNull Call<Result<OvenDeviceState>> call, @NonNull Response<Result<OvenDeviceState>> response) {
+                if (response.isSuccessful()) {
+                    Result<OvenDeviceState> result = response.body();
+                    if (result != null) {
+                        OvenDeviceState actualDeviceState = result.getResult();
+                        if (actualDeviceState != null) {
+                            OvenDevice device = (OvenDevice) mDevice.getValue();
+
+                            if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
+                                device.setState(actualDeviceState);
+                                mDevice.postValue(device);
+                                Log.v("UPDATED_OVEN", device.toString());
+                            }
+                        }
+                    } else {
+                        handleError(response);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Result<OvenDeviceState>> call, @NonNull Throwable t) {
                 handleUnexpectedError(t);
             }
         });
