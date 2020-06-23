@@ -64,6 +64,7 @@ public class RoutineFragment extends Fragment {
                         if (routineActions != null) {
                             RoutineActionArrayAdapter adapter = new RoutineActionArrayAdapter(getActivity(), routineActions);
                             int orientation = getResources().getConfiguration().orientation;
+                            /*
                             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                                 // In landscape
                                 ((GridView) listView).setAdapter(adapter);
@@ -71,6 +72,8 @@ public class RoutineFragment extends Fragment {
                                 // In portrait
                                 ((ListView) listView).setAdapter(adapter);
                             }
+                            */
+                            ((ListView) listView).setAdapter(adapter);
                         }
                     }
                 }

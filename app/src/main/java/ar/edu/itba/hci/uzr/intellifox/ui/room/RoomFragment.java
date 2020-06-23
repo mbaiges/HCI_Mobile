@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -29,6 +30,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceArrayAdapter;
 public class RoomFragment extends Fragment {
 
     static final String ROOM_ID_ARG = "room_id";
+    static final String ROOM_NAME_ARG = "room_name";
     RoomViewModel roomViewModel;
     View listView;
 
@@ -45,9 +47,16 @@ public class RoomFragment extends Fragment {
         if (bundle != null) {
             typeName = bundle.getString(ROOM_ID_ARG, null);
         }
+        String roomName = null;
+        if (bundle != null) {
+            roomName = bundle.getString(ROOM_NAME_ARG, null);
+        }
 
         if (typeName != null) {
             roomViewModel.init(typeName);
+        }
+        if (roomName != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(roomName);
         }
 
         roomViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<Device>>() {

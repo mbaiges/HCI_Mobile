@@ -47,8 +47,54 @@ public class RoutineActionArrayAdapter extends ArrayAdapter<RoutineAction> {
 
         if (actionNameMap == null) {
             actionNameMap = new HashMap<String, Integer>() {{
-               put("setTemperature", R.string.routine_action_ac_set_temperature);
+               put("speaker_setTemperature", R.string.routine_action_speaker_set_volume);
+               put("speaker_play", R.string.routine_action_speaker_play);
+               put("speaker_stop", R.string.routine_action_speaker_stop);
+               put("speaker_pause", R.string.routine_action_speaker_pause);
+               put("speaker_resume", R.string.routine_action_speaker_resume);
+               put("speaker_nextSong", R.string.routine_action_speaker_next_song);
+               put("speaker_previousSong", R.string.routine_action_speaker_previous_song);
+               put("speaker_setGenre", R.string.routine_action_speaker_set_genre);
+               put("speaker_getPlaylist", R.string.routine_action_speaker_get_playlist);
 
+               put("faucet_open", R.string.routine_action_faucet_open);
+               put("faucet_close", R.string.routine_action_faucet_close);
+               put("faucet_dispense", R.string.routine_action_faucet_dispense);
+
+               put("blinds_open", R.string.routine_action_blinds_open);
+               put("blinds_close", R.string.routine_action_blinds_close);
+               put("blinds_setLevel", R.string.routine_action_blinds_set_level);
+
+               put("lamp_turnOn", R.string.routine_action_lamp_turn_on);
+               put("lamp_turnOff", R.string.routine_action_lamp_turn_off);
+               put("lamp_setColor", R.string.routine_action_lamp_set_color);
+               put("lamp_setBrightness", R.string.routine_action_lamp_set_brightness);
+
+               put("oven_turnOn", R.string.routine_action_oven_turn_on);
+               put("oven_turnOff", R.string.routine_action_oven_turn_off);
+               put("oven_setTemperature", R.string.routine_action_oven_set_temperature);
+               put("oven_setHeat", R.string.routine_action_oven_set_heat);
+               put("oven_setGrill", R.string.routine_action_oven_set_grill);
+               put("oven_setConvection", R.string.routine_action_oven_set_convection);
+
+               put("ac_turnOn", R.string.routine_action_ac_turn_on);
+               put("ac_turnOff", R.string.routine_action_ac_turn_off);
+               put("ac_setTemperature", R.string.routine_action_ac_set_temperature);
+               put("ac_setMode", R.string.routine_action_ac_set_mode);
+               put("ac_setVerticalSwing", R.string.routine_action_ac_set_vertical_swing);
+               put("ac_setHorizontalSwing", R.string.routine_action_ac_set_horizontal_swing);
+               put("ac_setFanSpeed", R.string.routine_action_ac_set_fan_speed);
+
+               put("door_open", R.string.routine_action_door_open);
+               put("door_close", R.string.routine_action_door_close);
+               put("door_lock", R.string.routine_action_door_lock);
+               put("door_unlock", R.string.routine_action_door_unlock);
+
+               put("vacuum_start", R.string.routine_action_vacuum_start);
+               put("vacuum_pause", R.string.routine_action_vacuum_pause);
+               put("vacuum_dock", R.string.routine_action_vacuum_dock);
+               put("vacuum_setMode", R.string.routine_action_vacuum_set_mode);
+               put("vacuum_setLocation", R.string.routine_action_vacuum_set_location);
             }};
         }
 
@@ -92,13 +138,7 @@ public class RoutineActionArrayAdapter extends ArrayAdapter<RoutineAction> {
                 String deviceId = device.getId();
                 updateDeviceInfo(deviceId, convertView);
             }
-            if (holder.actionNameTextView != null) {
-                String actionName = holder.actionNameTextView.getText().toString();
-                Integer actionNameTextResource = actionNameMap.get(actionName);
-                if (actionNameTextResource != null) {
-                    holder.actionNameTextView.setText(actionNameTextResource);
-                }
-            }
+            holder.actionName = routineAction.getActionName();
             if (holder.paramsTextView != null) {
                 String[] params = routineAction.getParams();
                 if (params != null) {
@@ -111,7 +151,7 @@ public class RoutineActionArrayAdapter extends ArrayAdapter<RoutineAction> {
                                 stringBuilder.append(", ");
                             }
                         }
-                        stringBuilder.append("]");
+                        stringBuilder.append(" ]");
                     }
                     final String paramsText = stringBuilder.toString();
                     holder.paramsTextView.setText(paramsText);
@@ -145,6 +185,18 @@ public class RoutineActionArrayAdapter extends ArrayAdapter<RoutineAction> {
                                         if (iconRef != null && holder.iconView != null) {
                                             holder.iconView.setImageResource(iconRef);
                                             holder.iconView.setColorFilter(ContextCompat.getColor(convertView.getContext(), R.color.icon));
+                                        }
+
+                                        if (holder.actionNameTextView != null) {
+                                            if (holder.actionName != null) {
+                                                String actionName = holder.actionName;
+                                                String resName = typeName + "_" + actionName;
+                                                Log.d("RESOURCE_NAME", resName);
+                                                Integer actionNameTextResource = actionNameMap.get(resName);
+                                                if (actionNameTextResource != null) {
+                                                    holder.actionNameTextView.setText(actionNameTextResource);
+                                                }
+                                            }
                                         }
                                     }
                                 }

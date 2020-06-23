@@ -9,4 +9,6 @@ public class RoutineActionViewHolder {
     public TextView deviceNameTextView;
     public TextView actionNameTextView;
     public TextView paramsTextView;
+
+    public String actionName;
 }

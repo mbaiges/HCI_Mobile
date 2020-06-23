@@ -1,5 +1,6 @@
 package ar.edu.itba.hci.uzr.intellifox;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -17,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaCodecInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -56,13 +58,22 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    static final String DEVICE_ID_ARG = "DEVICE_ID";
+    static final String DEVICE_TYPE_NAME_ARG = "DEVICE_TYPE_NAME";
+
     private static final String CHANNEL_ID = "NOTIFICATIONS";
-    private static final int MY_NOTIFICATION_ID = 1;
+
 
     public static final String MESSAGE_ID = "ar.edu.itba.MESSAGE_ID";
     public static final String MyPREFERENCES = "nightModePrefs";
     public static final String KEY_ISNIGHTMODE = "isNightMode";
     SharedPreferences sharedPreferences;
+
+    private AlarmManager alarmManager;
+    private PendingIntent alarmBroadcastReceiverPendingIntent;
+    private final static int INTERVAL = 60000;
+    public final static String TAG = "Alarm";
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,10 +124,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        //CreateNotificationChannel();
-        //ShowNotification();
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        Intent alarmNotificationReceiverIntent = new Intent(MainActivity.this, AlarmBroadcastReceiver.class);
+        alarmBroadcastReceiverPendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmNotificationReceiverIntent, 0);
+        createNotificationChannel();
+
 
 //        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
 //                .setSmallIcon(R.drawable.ic_heart_outline)
@@ -153,6 +169,25 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            String value = extras.getString(MESSAGE_ID);
+            if (value != null) {
+                treatNotification(value);
+            }
+        }
+    }
+
+    private void treatNotification(String info) {
+        String[] params = info.split(",");
+        String deviceType = params[0];
+        String deviceId = params[1];
+
+        Bundle args = new Bundle();
+        args.putString(DEVICE_ID_ARG, deviceId);
+        args.putString(DEVICE_TYPE_NAME_ARG, deviceType);
+        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_device, args);
     }
 
     public void checkNightModeActivated() {
@@ -163,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -170,6 +206,20 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + INTERVAL,
+                INTERVAL,
+                alarmBroadcastReceiverPendingIntent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        alarmManager.cancel(alarmBroadcastReceiverPendingIntent);
+    }
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
@@ -181,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             channel.enableLights(true);
-            channel.setLightColor(Color.RED);
+            channel.setLightColor(R.color.primary);
             channel.enableVibration(true);
             channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
@@ -191,35 +241,6 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
-
-    private void showNotification() {
-        // Create the intent to start Activity when notification in action bar is
-        // clicked.
-        Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
-
-        // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(MainActivity.class);
-        stackBuilder.addNextIntent(notificationIntent);
-        // Create the pending intent granting the Operating System to launch activity
-        // when notification in action bar is clicked.
-        final PendingIntent contentIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
-                .setContentTitle(getResources().getString(R.string.notification_title))
-                .setContentText(getResources().getString(R.string.notification_text))
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), android.R.drawable.stat_sys_download_done))
-                .setSmallIcon(android.R.drawable.stat_sys_download_done)
-                .setAutoCancel(true)
-                .setContentIntent(contentIntent);
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(MY_NOTIFICATION_ID, builder.build());
     }
 
     private void handleQRScanBtn(){

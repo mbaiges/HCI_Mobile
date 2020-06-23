@@ -149,8 +149,53 @@
 
 
     <!-- Routine Detail -->
+    <string name="routine_action_speaker_set_volume">Set Volume</string>
+    <string name="routine_action_speaker_play">Play</string>
+    <string name="routine_action_speaker_stop">Stop</string>
+    <string name="routine_action_speaker_pause">Pause</string>
+    <string name="routine_action_speaker_resume">Resume</string>
+    <string name="routine_action_speaker_next_song">Next Song</string>
+    <string name="routine_action_speaker_previous_song">Previous Song</string>
+    <string name="routine_action_speaker_set_genre">Set Genre</string>
+    <string name="routine_action_speaker_get_playlist">Get Playlist</string>
 
-    <!-- ac-->
+    <string name="routine_action_faucet_open">Open</string>
+    <string name="routine_action_faucet_close">Close</string>
+    <string name="routine_action_faucet_dispense">Dispense</string>
+
+    <string name="routine_action_blinds_open">Open</string>
+    <string name="routine_action_blinds_close">Close</string>
+    <string name="routine_action_blinds_set_level">Set Level</string>
+
+    <string name="routine_action_lamp_turn_on">Turn On</string>
+    <string name="routine_action_lamp_turn_off">Turn Off</string>
+    <string name="routine_action_lamp_set_color">Set Color</string>
+    <string name="routine_action_lamp_set_brightness">Set Brightness</string>
+
+    <string name="routine_action_oven_turn_on">Turn On</string>
+    <string name="routine_action_oven_turn_off">Turn Off</string>
+    <string name="routine_action_oven_set_temperature">Set Temperature</string>
+    <string name="routine_action_oven_set_heat">Set Heat</string>
+    <string name="routine_action_oven_set_grill">Set Grill</string>
+    <string name="routine_action_oven_set_convection">Set Convection</string>
+
+    <string name="routine_action_ac_turn_on">Turn On</string>
+    <string name="routine_action_ac_turn_off">Turn Off</string>
     <string name="routine_action_ac_set_temperature">Set Temperature</string>
+    <string name="routine_action_ac_set_mode">Set Mode</string>
+    <string name="routine_action_ac_set_vertical_swing">Set Vertical Swing</string>
+    <string name="routine_action_ac_set_horizontal_swing">Set Horizontal Swing</string>
+    <string name="routine_action_ac_set_fan_speed">Fan Speed</string>
+
+    <string name="routine_action_door_open">Open</string>
+    <string name="routine_action_door_close">Close</string>
+    <string name="routine_action_door_lock">Lock</string>
+    <string name="routine_action_door_unlock">Unlock</string>
+
+    <string name="routine_action_vacuum_start">Start</string>
+    <string name="routine_action_vacuum_pause">Pause</string>
+    <string name="routine_action_vacuum_dock">Dock</string>
+    <string name="routine_action_vacuum_set_mode">Set Mode</string>
+    <string name="routine_action_vacuum_set_location">Set Location</string>
 
 </resources>
