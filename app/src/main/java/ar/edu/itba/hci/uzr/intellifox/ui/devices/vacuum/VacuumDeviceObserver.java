@@ -141,20 +141,36 @@ public class VacuumDeviceObserver extends DeviceObserver {
                 if (response.isSuccessful()) {
                     Result<List<Room>> result = response.body();
                     if (result != null) {
-                        Set<Room> actualRoomsSet = new HashSet<>(result.getResult());
-                        Set<Room> roomsSet = (Set<Room>) mRooms.getValue();
 
                         // Spinner element
                         Spinner spinner = contextView.findViewById(R.id.rooms_spinner);
-                        
-                        // Creating adapter for spinner
-                        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomsSet);
 
-                        // Drop down layout style - list view with radio button
-                        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Spinner click listener
+                        // spinner.setOnItemSelectedListener();
 
-                        // attaching data adapter to spinner
-                        spinner.setAdapter(dataAdapter);
+                        //spinner.setOnItemClickListener(contextView.getContext());
+
+                        Set<Room> actualRoomsSet = new HashSet<>(result.getResult());
+                        Log.v("ROOMS", actualRoomsSet.toString());
+                        Object[] rooms = actualRoomsSet.toArray();
+                        Log.v("ROOM 1", ((Room)rooms[0]).getName());
+
+                        String[] roomNames = new String[actualRoomsSet.size()];
+                        for (int i =0; i< actualRoomsSet.size(); i++){
+                            roomNames[i] = ((Room)rooms[i]).getName();
+                        }
+//
+//                      List<String> categories = new ArrayList<String>();
+//
+//                      Creating adapter for spinner
+
+                        //ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(contextView.getContext(), android.R.layout.simple_spinner_item, roomNames);
+//
+//                        // Drop down layout style - list view with radio button
+                        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                        // attaching data adapter to spinner
+                        //spinner.setAdapter(dataAdapter);
 
 //                        if (roomsSet == null || !(roomsSet.equals(actualRoomsSet))) {
 //                            mRooms.postValue(actualRoomsSet);
