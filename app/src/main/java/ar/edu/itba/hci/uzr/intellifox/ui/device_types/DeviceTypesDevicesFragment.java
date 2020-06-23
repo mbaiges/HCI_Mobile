@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -32,6 +33,8 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 public class DeviceTypesDevicesFragment extends Fragment {
 
     static final String DEVICE_TYPE_NAME = "device_type_name";
+    static final String DEVICE_TYPE_TITLE = "device_type_title";
+
     DeviceTypesDevicesViewModel deviceTypesDevicesViewModel;
     View listView;
 
@@ -45,14 +48,19 @@ public class DeviceTypesDevicesFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         String typeName = null;
+        String typeTitle = null;
         if (bundle != null) {
             typeName = bundle.getString(DEVICE_TYPE_NAME, null);
+            typeTitle = bundle.getString(DEVICE_TYPE_TITLE, null);
         }
 
         if (typeName != null) {
             deviceTypesDevicesViewModel.init(typeName);
         }
-
+        if (typeTitle != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(typeTitle);
+        }
+        
         deviceTypesDevicesViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<Device>>() {
             @Override
             public void onChanged(@Nullable Set<Device> deviceTypesDevices) {
