@@ -96,7 +96,6 @@ public class ACDeviceObserver extends DeviceObserver {
         h.FanSpeedBtn[3] = new Pair<>(contextView.findViewById(R.id.fanButton4),FAN_75_ACTION);
         h.FanSpeedBtn[4] = new Pair<>(contextView.findViewById(R.id.fanButton5),FAN_100_ACTION);
 
-
     }
 
     @Override
