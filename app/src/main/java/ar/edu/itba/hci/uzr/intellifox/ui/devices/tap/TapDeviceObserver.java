@@ -36,12 +36,12 @@ public class TapDeviceObserver extends DeviceObserver {
         TapDeviceViewHolder h = (TapDeviceViewHolder) holder;
 
         h.btnML = contextView.findViewById(R.id.btn0);
-        h.btnCL = contextView.findViewById(R.id.btn5);
-        h.btnDL = contextView.findViewById(R.id.btn5);
+        h.btnCL = contextView.findViewById(R.id.btn1);
+        h.btnDL = contextView.findViewById(R.id.btn2);
         h.btnL = contextView.findViewById(R.id.btn3);
-        h.btnDAL = contextView.findViewById(R.id.btn5);
-        h.btnHL = contextView.findViewById(R.id.btn3);
-        h.btnKL = contextView.findViewById(R.id.btn5);
+        h.btnDAL = contextView.findViewById(R.id.btn4);
+        h.btnHL = contextView.findViewById(R.id.btn5);
+        h.btnKL = contextView.findViewById(R.id.btn6);
         h.amount = contextView.findViewById(R.id.howMany);
         h.btnDispence = contextView.findViewById(R.id.btnDispense);
     }
