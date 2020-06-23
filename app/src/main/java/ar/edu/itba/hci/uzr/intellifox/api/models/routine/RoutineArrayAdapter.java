@@ -31,22 +31,24 @@ import retrofit2.Response;
 
 public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
 
+    static final String ROUTINE_ID_ARG = "routine_id";
+
     private final static Integer FAVOURITE_ICON = R.drawable.ic_heart_filled;
     private final static Integer NON_FAVOURITE_ICON = R.drawable.ic_heart_outline;
 
     public RoutineArrayAdapter(Activity context, Routine[] objects) {
-        super(context, R.layout.device_card_item, objects);
+        super(context, R.layout.routine_card_item, objects);
     }
 
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         RoutineViewHolder holder;
-        RoutineViewHolder holder2;
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.routine_card_item, parent, false);
             holder = new RoutineViewHolder();
             holder.iconView = convertView.findViewById(R.id.icon);
             holder.nameTextView = convertView.findViewById(R.id.name);
+            holder.arrowBtn = convertView.findViewById(R.id.arrowBtn);
             holder.favourite = convertView.findViewById(R.id.favourite);
             holder.executeIconView = convertView.findViewById(R.id.executeIcon);
             convertView.setTag(holder);
@@ -57,6 +59,11 @@ public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
         Routine routine = getItem(position);
         if (routine != null) {
             RoutineMeta meta = routine.getMeta();
+            if (holder.arrowBtn != null) {
+                Bundle args = new Bundle();
+                args.putString(ROUTINE_ID_ARG, routine.getId());
+                holder.arrowBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_routine, args));
+            }
             if (meta != null) {
                 Boolean fav = meta.getFavourites();
                 if (fav != null) {

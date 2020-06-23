@@ -10,15 +10,17 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import java.util.Set;
-
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceArrayAdapter;
+import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
+import ar.edu.itba.hci.uzr.intellifox.api.models.routine_action.RoutineAction;
+import ar.edu.itba.hci.uzr.intellifox.api.models.routine_action.RoutineActionArrayAdapter;
 
 
 public class RoutineFragment extends Fragment {
@@ -29,56 +31,53 @@ public class RoutineFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_room, container, false);
-        listView = root.findViewById(R.id.routines_routine_detail);
+        View root = inflater.inflate(R.layout.fragment_routine, container, false);
+        listView = root.findViewById(R.id.routines_routine_detail_list);
 
         routineViewModel =
                 ViewModelProviders.of(this).get(RoutineViewModel.class);
 
         Bundle bundle = this.getArguments();
-        String typeName = null;
+        String routineId = null;
         if (bundle != null) {
-            typeName = bundle.getString(ROUTINE_ID_ARG, null);
+            routineId = bundle.getString(ROUTINE_ID_ARG, null);
         }
 
-        if (typeName != null) {
-            routineViewModel.init(typeName);
-        }
-
-        routineViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<Device>>() {
+        routineViewModel.getRoutine().observe(getViewLifecycleOwner(), new Observer<Routine>() {
             @Override
-            public void onChanged(@Nullable Set<Device> devices) {
-                if (devices != null) {
-                    Device[] devicesArray = new Device[devices.size()];
-                    int i = 0;
-                    for (Device r : devices) {
-                        devicesArray[i++] = r;
-                    }
-                    DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), devicesArray);
-                    int orientation = getResources().getConfiguration().orientation;
-                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                        // In landscape
-                        ((GridView) listView).setAdapter(adapter);
-                    } else {
-                        // In portrait
-                        ((ListView) listView).setAdapter(adapter);
+            public void onChanged(Routine routine) {
+                if (routine != null) {
+                    String routineName = routine.getName();
+                    if (routineName != null) {
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(routineName);
                     }
                 }
             }
         });
 
+        if (routineId != null) {
+            routineViewModel.getRoutine().observe(getViewLifecycleOwner(), new Observer<Routine>() {
+                @Override
+                public void onChanged(@Nullable Routine routine) {
+                    if (routine != null) {
+                        RoutineAction[] routineActions = routine.getActions();
+                        if (routineActions != null) {
+                            RoutineActionArrayAdapter adapter = new RoutineActionArrayAdapter(getActivity(), routineActions);
+                            int orientation = getResources().getConfiguration().orientation;
+                            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                                // In landscape
+                                ((GridView) listView).setAdapter(adapter);
+                            } else {
+                                // In portrait
+                                ((ListView) listView).setAdapter(adapter);
+                            }
+                        }
+                    }
+                }
+            });
+            routineViewModel.init(routineId);
+        }
+
         return root;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        routineViewModel.scheduleFetching();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        routineViewModel.stopFetching();
     }
 }

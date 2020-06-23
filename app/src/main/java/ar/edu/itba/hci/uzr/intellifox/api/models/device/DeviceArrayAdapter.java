@@ -30,25 +30,27 @@ public class DeviceArrayAdapter extends ArrayAdapter<Device> {
     static final String DEVICE_ID_ARG = "DEVICE_ID";
     static final String DEVICE_TYPE_NAME_ARG = "DEVICE_TYPE_NAME";
 
-    private Map<String, Integer> typeInfo;
+    static Map<String, Integer> typeInfo;
 
     public DeviceArrayAdapter(Activity context, Device[] objects) {
         super(context, R.layout.device_card_item, objects);
 
-        typeInfo = new HashMap<String, Integer>() {
-            {
-                put("faucet", R.drawable.ic_device_water_pump);
-                put("ac", R.drawable.ic_device_air_conditioner);
-                put("alarm", R.drawable.ic_device_alarm_light_outline);
-                put("blinds", R.drawable.ic_device_blinds);
-                put("door", R.drawable.ic_device_door);
-                put("refrigerator", R.drawable.ic_device_fridge_outline);
-                put("lamp", R.drawable.ic_device_lightbulb_outline);
-                put("vacuum", R.drawable.ic_device_robot_vacuum);
-                put("speaker", R.drawable.ic_device_speaker);
-                put("oven", R.drawable.ic_device_toaster_oven);
-            }
-        };
+        if (typeInfo == null) {
+            typeInfo = new HashMap<String, Integer>() {
+                {
+                    put("faucet", R.drawable.ic_device_water_pump);
+                    put("ac", R.drawable.ic_device_air_conditioner);
+                    put("alarm", R.drawable.ic_device_alarm_light_outline);
+                    put("blinds", R.drawable.ic_device_blinds);
+                    put("door", R.drawable.ic_device_door);
+                    put("refrigerator", R.drawable.ic_device_fridge_outline);
+                    put("lamp", R.drawable.ic_device_lightbulb_outline);
+                    put("vacuum", R.drawable.ic_device_robot_vacuum);
+                    put("speaker", R.drawable.ic_device_speaker);
+                    put("oven", R.drawable.ic_device_toaster_oven);
+                }
+            };
+        }
     }
 
     @Override
