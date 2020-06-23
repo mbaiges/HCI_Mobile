@@ -19,6 +19,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.LightDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.LightDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceObserver;
@@ -54,6 +55,10 @@ public class LightDeviceObserver extends DeviceObserver {
             }
         }
         h.lightIcon = contextView.findViewById(R.id.lightIcon);
+
+
+
+
     }
 
     @Override
@@ -91,12 +96,15 @@ public class LightDeviceObserver extends DeviceObserver {
                 }
             }
             String color = s.getColor();
+            String auxColor = "#FF" + color;
             if (color != null && h.colorPickerView != null) {
                 ColorPickerPreferenceManager manager = ColorPickerPreferenceManager.getInstance(h.colorPickerView.getContext());
                 Log.v("LIGHT_COLOR", color);
-                manager.setColor("LightColorPicker", Color.parseColor(color)); // manipulates the saved color data.
+                Log.v("LIGHT_COLOR_AUX", auxColor);
+
+                manager.setColor("LightColorPicker", Color.parseColor(auxColor)); // manipulates the saved color data.
                 if (h.lightIcon != null) {
-                    h.lightIcon.setColorFilter(Color.parseColor(color));
+                    h.lightIcon.setColorFilter(Color.parseColor(auxColor));
                 }
             }
         }
@@ -112,6 +120,58 @@ public class LightDeviceObserver extends DeviceObserver {
                 @Override
                 public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
                     Log.v("COLOR_PICKER", envelope.getHexCode());
+                    String[] newColor = {envelope.getHexCode().substring(2)};
+                    Log.v("COLOR_PICKER_TO_API", newColor[0]);
+
+                    LightDevice d = (LightDevice) h.device;
+                    if(d != null){
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "setColor", newColor, new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
+                                if(response.isSuccessful()){
+                                    Result<Object> result = response.body();
+                                    if(result != null){
+                                        Object success =  result.getResult();
+                                        if(success != null){
+                                            Log.v("ACTION_SUCCESS", success.toString());
+                                            if (h.lightIcon != null) {
+                                                String auxColor = "#FF" + newColor[0];
+                                                h.lightIcon.setColorFilter(Color.parseColor(auxColor));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<Result<Object>> call, Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+
+                        String[] auxBrightness = {"255"};
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "setBrightness", auxBrightness , new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
+                                if(response.isSuccessful()){
+                                    Result<Object> result = response.body();
+                                    if(result != null){
+                                        Object success =  result.getResult();
+                                        if(success != null){
+                                            //Log.v("ACTION_SUCCESS", success.toString());
+                                            //COMPLETAR TODOOOOO
+                                        }
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<Result<Object>> call, Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+
+                    }
+
+
                 }
             });
             h.colorPickerView.setActionMode(ActionMode.LAST);
@@ -160,5 +220,17 @@ public class LightDeviceObserver extends DeviceObserver {
     @Override
     protected String getOnSwitchActionName(Boolean switchStatus) {
         return switchStatus?"turnOn":"turnOff";
+    }
+
+    @Override
+    protected int getIconColor(Boolean turnedOn, DeviceState state) {
+        Log.v("LIGHT_COLOR", "ASKED FOR LIGHT COLOR");
+        if (turnedOn && state != null) {
+            LightDeviceState s = (LightDeviceState) state;
+            Log.v("LIGHT_COLOR", s.getColor());
+            String color = s.getColor();
+            return Color.parseColor("#FF" + color);
+        }
+        return super.getIconColor(turnedOn,state);
     }
 }
