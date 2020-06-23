@@ -140,7 +140,12 @@ public class OvenDeviceObserver extends DeviceObserver {
 
             if (status != null && temp != null && heat != null && grill != null && convection != null && tempTitle != null && heatTitle != null && grillTitle != null && convectionTitle != null) {
 
-                String aux = status + "-" + tempTitle + temp + "-" + heatTitle + heat + "-" + grillTitle + grill + "-" + convectionTitle + convection  ;
+                String aux;
+                if(h.icon != null) {  //si esta el icono
+                    aux = status;
+                }
+                else
+                    aux= status + "-" + tempTitle + temp + "-" + heatTitle + heat + "-" + grillTitle + grill + "-" + convectionTitle + convection  ;
                 if (h.description != null) {
                     h.description.setText(aux);
                 }

@@ -146,8 +146,13 @@ public class ACDeviceObserver extends DeviceObserver {
 
 
             if (status != null && temp != null && mode != null && vBlades != null && hBlades != null && fanSpeed != null && tempTitle != null && modeTitle != null && vBladesTitle != null && hBladesTitle != null && fanTitle != null) {
-
-                String aux = status + "-" + tempTitle + temp + "-" + modeTitle + mode + "-" + vBladesTitle + vBlades + "-" + hBladesTitle + hBlades + "-" + fanTitle + fanSpeed ;
+                String aux;
+                if(h.icon != null) {  //si esta el icono
+                    aux = status;
+                }
+                else {
+                    aux = status + "-" + tempTitle + temp + "-" + modeTitle + mode + "-" + vBladesTitle + vBlades + "-" + hBladesTitle + hBlades + "-" + fanTitle + fanSpeed;
+                }
                 if (h.description != null) {
                     h.description.setText(aux);
                 }

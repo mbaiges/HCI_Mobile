@@ -84,8 +84,12 @@ public class VacuumDeviceObserver extends DeviceObserver {
 
 
             if (status != null && bat != null && mode != null ) {
-
-                String aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%" ;
+                String aux;
+                if(h.icon != null) {  //si esta el icono
+                    aux = status;
+                }
+                else
+                    aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%" ;
                 if (h.description != null) {
                     h.description.setText(aux);
                 }

@@ -78,7 +78,12 @@ public class BlindDeviceObserver extends DeviceObserver {
 
             String levelText = contextView.getResources().getString(R.string.dev_blind_level);
 
-            String auxDec = stateStatus + " - " +  levelText + ": " + stateCurrentLevel + "/" + stateLevel;
+            String auxDec;
+            if(h.icon != null) {  //si esta el icono
+                auxDec = status;
+            }
+            else
+                auxDec = stateStatus + " - " +  levelText + ": " + stateCurrentLevel + "/" + stateLevel;
             if (h.description != null){
                 h.description.setText(auxDec);
             }

@@ -77,13 +77,13 @@ public class SpeakerDeviceObserver extends DeviceObserver {
 
             switch (status){
                 case "stopped":
-                    stateStatus = contextView.getResources().getString(R.string.dev_speaker_stateName_status) + ": " +  contextView.getResources().getString(R.string.dev_speaker_state_stopped) + "\n";
+                    stateStatus =  contextView.getResources().getString(R.string.dev_speaker_state_stopped);
                     break;
                 case "playing":
-                    stateStatus = contextView.getResources().getString(R.string.dev_speaker_stateName_status) + ": " +  contextView.getResources().getString(R.string.dev_speaker_state_playing) + "\n";
+                    stateStatus =contextView.getResources().getString(R.string.dev_speaker_state_playing);
                     break;
                 case "paused":
-                    stateStatus = contextView.getResources().getString(R.string.dev_speaker_stateName_status) + ": " +  contextView.getResources().getString(R.string.dev_speaker_state_paused) + "\n";
+                    stateStatus = contextView.getResources().getString(R.string.dev_speaker_state_paused);
                     break;
                 default:
                     stateStatus = "Null \n";
@@ -91,18 +91,26 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             }
 
             SpeakerSong stateSong = s.getSong();
-            String auxDec = stateStatus;
-            if(stateSong != null){
-                String stateSongTitle = contextView.getResources().getString(R.string.dev_speaker_stateName_title) + ": " +  stateSong.getTitle() + "\n";
-                String stateSongAlbum = contextView.getResources().getString(R.string.dev_speaker_stateName_album) + ": " +  stateSong.getAlbum() + "\n";
-                String stateSongArtist = contextView.getResources().getString(R.string.dev_speaker_stateName_artist) + ": " +  stateSong.getArtist() + "\n";
-                auxDec = auxDec + stateSongTitle + stateSongAlbum + stateSongArtist;
+
+
+                String auxDec = "";
+                if (h.icon != null) {  //si esta el icono
+                    auxDec = stateStatus;
+                } else {
+                    if (stateSong != null) {
+                        String stateSongTitle = contextView.getResources().getString(R.string.dev_speaker_stateName_title) + ": " + stateSong.getTitle() + "\n";
+                        String stateSongAlbum = contextView.getResources().getString(R.string.dev_speaker_stateName_album) + ": " + stateSong.getAlbum() + "\n";
+                        String stateSongArtist = contextView.getResources().getString(R.string.dev_speaker_stateName_artist) + ": " + stateSong.getArtist() + "\n";
+                        auxDec = stateStatus + stateSongTitle + stateSongAlbum + stateSongArtist;
+                    }
+                    else
+                        auxDec = stateStatus;
+                }
+                if (h.description != null) {
+                    h.description.setText(auxDec);
+                }
             }
 
-            if (h.description != null){
-                h.description.setText(auxDec);
-            }
-        }
     }
 
     @Override
