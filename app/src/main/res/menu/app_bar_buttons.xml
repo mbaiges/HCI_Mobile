@@ -5,11 +5,11 @@
 
     <item
         android:id="@+id/btnMicrophone"
-        android:title=""
-        app:showAsAction="ifRoom"
-        android:theme="@style/AppTheme.ActionBar"
         android:icon="@drawable/ic_microphone"
-        />
+        android:theme="@style/AppTheme.ActionBar"
+        android:title=""
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/btnQrScann"
         android:title=""
