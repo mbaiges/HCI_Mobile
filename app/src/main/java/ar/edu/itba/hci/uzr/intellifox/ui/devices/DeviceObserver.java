@@ -106,7 +106,7 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
 
     private void setIconColor(DeviceState state) {
         if (holder.icon != null && holder.onSwitch != null) {
-            holder.icon.setColorFilter(ContextCompat.getColor(contextView.getContext(), getIconColor(holder.onSwitch.isChecked())));
+            holder.icon.setColorFilter(getIconColor(holder.onSwitch.isChecked(), state));
         }
     }
 
@@ -118,7 +118,7 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                     Device<? extends DeviceState> device = holder.device;
                     if (device != null) {
                         if (holder.icon != null) {
-                            holder.icon.setColorFilter(ContextCompat.getColor(contextView.getContext(), getIconColor(isChecked)));
+                            holder.icon.setColorFilter(getIconColor(isChecked, device.getState()));
                         }
                         ApiClient.getInstance().executeDeviceAction(device.getId(), getOnSwitchActionName(isChecked), new String[0], new Callback<Result<Object>>() {
                             @Override
@@ -191,7 +191,11 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
         });
     }
 
-    private Integer getIconColor(Boolean turnedOn) {
+    protected int getIconColor(Boolean turnedOn, DeviceState state) {
+        return ContextCompat.getColor(contextView.getContext(), getIconColorResource(turnedOn));
+    }
+
+    private Integer getIconColorResource(Boolean turnedOn) {
         return turnedOn?DEFAULT_ON_DEVICE_COLOR:DEFAULT_OFF_DEVICE_COLOR;
     }
 
