@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Routine {
 
     @SerializedName("id")
-    @Expose
+    @Expose(serialize = false)
     private String id;
     @SerializedName("name")
     @Expose

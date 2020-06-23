@@ -8,16 +8,19 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,16 +49,18 @@ public class RoutinesViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     Result<List<Routine>> result = response.body();
                     if (result != null) {
-                        Set<Routine> actualRoutinesSet = new HashSet<>(result.getResult());
-                        Set<Routine> routinesSet = mRoutines.getValue();
+                        List<Routine> comingRoutinesList = result.getResult();
+                        if (comingRoutinesList != null) {
+                            Set<Routine> actualRoutinesSet = comingRoutinesList.stream().sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
+                            Set<Routine> routinesSet = mRoutines.getValue();
 
-                        if (routinesSet == null || !(routinesSet.equals(actualRoutinesSet))) {
-                            mRoutines.postValue(actualRoutinesSet);
-                            for (Routine r: actualRoutinesSet) {
-                                Log.v("ROUTINE", r.toString());
+                            if (routinesSet == null || !(routinesSet.equals(actualRoutinesSet))) {
+                                mRoutines.postValue(actualRoutinesSet);
+                                for (Routine r: actualRoutinesSet) {
+                                    Log.v("ROUTINE", r.toString());
+                                }
                             }
                         }
-
                     } else {
                         handleError(response);
                     }
