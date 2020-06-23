@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:theme="@style/AppTheme.ActionBar">
+    >
 
     <item
         android:id="@+id/btnMicrophone"
-        android:icon="@drawable/ic_microphone"
-        android:theme="@style/AppTheme.ActionBar"
-        android:title=""
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/menu_microphone"
+        app:showAsAction="ifRoom"
+        />
 
     <item
         android:id="@+id/btnQrScann"
-        android:title=""
+        android:icon="@drawable/menu_qr_scan"
         app:showAsAction="ifRoom"
-        android:theme="@style/AppTheme.ActionBar"
-        android:icon="@drawable/ic_qr_scan"
         />
 
 </menu>
