@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -52,6 +53,14 @@ public class DeviceFragment extends Fragment {
                 ;
                 if (o != null && deviceId != null) {
                     deviceViewModel.getDevice().observe(getViewLifecycleOwner(), o);
+                    deviceViewModel.getDevice().observe(getViewLifecycleOwner(), new Observer<Device>() {
+                        @Override
+                        public void onChanged(Device device) {
+                            if (device != null) {
+                                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(device.getName());
+                            }
+                        }
+                    });
                     deviceViewModel.init(deviceId);
                 }
             }

@@ -21,7 +21,8 @@ import java.util.Map;
 import ar.edu.itba.hci.uzr.intellifox.R;
 
 public class DeviceTypeArrayAdapter extends ArrayAdapter<DeviceType> {
-    private final String DEVICE_TYPE_NAME = "device_type_name";
+    static final String DEVICE_TYPE_NAME = "device_type_name";
+    static final String DEVICE_TYPE_TITLE = "device_type_title";
     private Map<String, Pair<Integer, Integer>> typeInfo;
 
     public DeviceTypeArrayAdapter(Activity context, DeviceType[] objects) {
@@ -61,6 +62,14 @@ public class DeviceTypeArrayAdapter extends ArrayAdapter<DeviceType> {
         if (deviceType != null) {
             Bundle args = new Bundle();
             args.putString(DEVICE_TYPE_NAME, deviceType.getName());
+            Pair<Integer, Integer> p = typeInfo.get(deviceType.getName());
+            String devTitle = "";
+            if (p != null) {
+                if (p.first != null) {
+                    devTitle = convertView.getResources().getString(p.first);
+                }
+            }
+            args.putString(DEVICE_TYPE_TITLE, devTitle);
             if (holder.card != null) {
                 holder.card.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_device_types_devices, args));
             }
