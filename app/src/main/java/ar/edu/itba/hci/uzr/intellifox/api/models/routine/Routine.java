@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Arrays;
 import java.util.Objects;
 
+import ar.edu.itba.hci.uzr.intellifox.api.models.routine_action.RoutineAction;
+
 public class Routine {
 
     @SerializedName("id")

@@ -42,6 +42,13 @@
         tools:layout="@layout/fragment_routines" />
 
     <fragment
+        android:id="@+id/nav_routine"
+        android:name="ar.edu.itba.hci.uzr.intellifox.ui.routine.RoutineFragment"
+        android:label="@string/menu_routine"
+        tools:layout="@layout/fragment_routines" />
+
+
+    <fragment
         android:id="@+id/nav_device"
         android:name="ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceFragment"
         android:label="Devices"

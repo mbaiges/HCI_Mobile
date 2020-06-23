@@ -148,13 +148,13 @@ public class VacuumDeviceObserver extends DeviceObserver {
                         Spinner spinner = contextView.findViewById(R.id.rooms_spinner);
                         
                         // Creating adapter for spinner
-                        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomsSet);
+                        //ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomsSet);
 
                         // Drop down layout style - list view with radio button
-                        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                         // attaching data adapter to spinner
-                        spinner.setAdapter(dataAdapter);
+                        //spinner.setAdapter(dataAdapter);
 
 //                        if (roomsSet == null || !(roomsSet.equals(actualRoomsSet))) {
 //                            mRooms.postValue(actualRoomsSet);

@@ -1,12 +1,10 @@
-package ar.edu.itba.hci.uzr.intellifox.api.models.routine;
+package ar.edu.itba.hci.uzr.intellifox.api.models.routine_action;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 import java.util.Objects;
-
-import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 
 public class RoutineAction {
     @SerializedName("device")
@@ -17,10 +15,42 @@ public class RoutineAction {
     private String actionName;
     @SerializedName("params")
     @Expose
-    private List<String> params;
+    private String[] params;
     @SerializedName("meta")
     @Expose
     private RoutineActionMeta meta;
+
+    public RoutineActionDevice getDevice() {
+        return device;
+    }
+
+    public void setDevice(RoutineActionDevice device) {
+        this.device = device;
+    }
+
+    public String getActionName() {
+        return actionName;
+    }
+
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
+    }
+
+    public String[] getParams() {
+        return params;
+    }
+
+    public void setParams(String[] params) {
+        this.params = params;
+    }
+
+    public RoutineActionMeta getMeta() {
+        return meta;
+    }
+
+    public void setMeta(RoutineActionMeta meta) {
+        this.meta = meta;
+    }
 
     @Override
     public boolean equals(Object o) {

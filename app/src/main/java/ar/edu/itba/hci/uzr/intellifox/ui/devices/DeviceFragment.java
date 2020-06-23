@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,6 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
+import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 
 public class DeviceFragment extends Fragment {
 
@@ -52,6 +54,17 @@ public class DeviceFragment extends Fragment {
                 ;
                 if (o != null && deviceId != null) {
                     deviceViewModel.getDevice().observe(getViewLifecycleOwner(), o);
+                    deviceViewModel.getDevice().observe(getViewLifecycleOwner(), new Observer<Device>() {
+                        @Override
+                        public void onChanged(Device device) {
+                            if (device != null) {
+                                String deviceName = device.getName();
+                                if (deviceName != null) {
+                                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(deviceName);
+                                }
+                            }
+                        }
+                    });
                     deviceViewModel.init(deviceId);
                 }
             }

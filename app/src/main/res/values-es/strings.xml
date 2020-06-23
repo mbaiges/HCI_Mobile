@@ -12,6 +12,7 @@
     <string name="menu_rooms">Cuartos</string>
     <string name="menu_room">Cuarto</string>
     <string name="menu_devices">Dispositivos</string>
+    <string name="menu_routine">Routine</string>
     <string name="menu_routines">Rutinas</string>
     <string name="menu_electrical_cons">Consumo Eléctrico</string>
     <string name="menu_history">Historial</string>
@@ -146,5 +147,10 @@
     <string name="dev_light_status_on">Encendido</string>
     <string name="dev_light_status_off">Apagado</string>
     <string name="dev_light_color">Color actual</string>
+
+    <!-- Routine Detail -->
+
+    <!-- ac-->
+    <string name="routine_action_ac_set_temperature">Set Temperature</string>
 
 </resources>
