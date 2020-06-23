@@ -222,11 +222,11 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(MY_NOTIFICATION_ID, builder.build());
     }
 
-    private void handleQrScannBtn(){
+    private void handleQRScanBtn(){
         
     }
 
-    private void hanndleMicrophoneBtn(){
+    private void handleMicrophoneBtn(){
 
     }
 
