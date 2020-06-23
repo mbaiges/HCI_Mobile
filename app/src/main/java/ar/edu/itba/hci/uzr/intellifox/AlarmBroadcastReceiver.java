@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,14 +69,24 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         // when notification in action bar is clicked.
         final PendingIntent contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        String eventName = "action";
+        String title = device.getName();
+        String text = "an " + eventName + "was performed on device " + device.getName();
+        Bitmap icon = getIcon(device, context);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setContentTitle(context.getResources().getString(R.string.notification_title))
-                .setContentText(context.getResources().getString(R.string.notification_text))
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_menu_remote))
+                .setContentTitle(title)
+                .setContentText(text)
+                .setLargeIcon(icon)
                 .setSmallIcon(R.drawable.ic_menu_remote)
                 .setContentIntent(contentIntent);
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(MY_NOTIFICATION_ID, builder.build());
+    }
+
+    private Bitmap getIcon(Device device, Context context){
+        //get the icon 
+        return BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_menu_remote);
     }
 }
