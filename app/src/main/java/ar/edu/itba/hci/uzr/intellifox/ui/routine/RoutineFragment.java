@@ -23,14 +23,14 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceArrayAdapter;
 
 public class RoutineFragment extends Fragment {
 
-    static final String ROOM_ID_ARG = "room_id";
+    static final String ROUTINE_ID_ARG = "routine_id";
     RoutineViewModel routineViewModel;
     View listView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_room, container, false);
-        listView = root.findViewById(R.id.room_devices_list_view);
+        listView = root.findViewById(R.id.routines_routine_detail);
 
         routineViewModel =
                 ViewModelProviders.of(this).get(RoutineViewModel.class);
@@ -38,7 +38,7 @@ public class RoutineFragment extends Fragment {
         Bundle bundle = this.getArguments();
         String typeName = null;
         if (bundle != null) {
-            typeName = bundle.getString(ROOM_ID_ARG, null);
+            typeName = bundle.getString(ROUTINE_ID_ARG, null);
         }
 
         if (typeName != null) {
