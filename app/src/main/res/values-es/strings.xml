@@ -70,6 +70,7 @@
     <string name="dev_vacuum_select_mode">Seleccionar modo</string>
     <string name="dev_vacuum_select_room">Seleccionar cuarto</string>
     <string name="dev_vacuum_battery">Bateria</string>
+    <string name="dev_vacuum_none">Ninguno</string>
 
     <!-- Canilla -->
     <string name="dev_tap_state_closed">Cerrada</string>
