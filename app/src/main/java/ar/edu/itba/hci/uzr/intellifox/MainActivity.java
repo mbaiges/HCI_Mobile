@@ -12,10 +12,14 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.media.MediaCodecInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -59,12 +64,24 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY_ISNIGHTMODE = "isNightMode";
     SharedPreferences sharedPreferences;
 
-//   create an action bar button
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
-        // If you don't have res/menu, just create a directory named "menu" inside res
+
         getMenuInflater().inflate(R.menu.app_bar_buttons, menu);
+
+        Drawable drawable = menu.findItem(R.id.btnMicrophone).getIcon();
+        if (drawable != null) {
+            int c = ContextCompat.getColor(this.getBaseContext(), R.color.background1);
+            drawable.mutate();
+            drawable.setColorFilter(c,PorterDuff.Mode.SRC_ATOP);
+        }
+
+        Drawable drawable2 = menu.findItem(R.id.btnQrScann).getIcon();
+        if (drawable2 != null) {
+            int c = ContextCompat.getColor(this.getBaseContext(), R.color.background1);
+            drawable2.mutate();
+            drawable2.setColorFilter(c,PorterDuff.Mode.SRC_ATOP);
+        }
 
         MenuItem appBtn1 = menu.findItem(R.id.btnMicrophone);
         if (appBtn1 != null) {
@@ -92,17 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
-    // handle button activities
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if (id == R.id.mybutton) {
-//            // do something here
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
