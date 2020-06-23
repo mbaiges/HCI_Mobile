@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     Log.v("BTN", "Microphone Clicked");
-                    hanndleMicrophoneBtn();
+                    handleMicrophoneBtn();
                     return true;
                 }
             });
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     Log.v("BTN", "Qr Scann Clicked");
-                    handleQrScannBtn();
+                    handleQRScanBtn();
                     return true;
                 }
             });
