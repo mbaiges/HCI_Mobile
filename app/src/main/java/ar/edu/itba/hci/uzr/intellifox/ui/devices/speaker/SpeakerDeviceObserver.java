@@ -101,7 +101,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                         String stateSongTitle = contextView.getResources().getString(R.string.dev_speaker_stateName_title) + ": " + stateSong.getTitle() + "\n";
                         String stateSongAlbum = contextView.getResources().getString(R.string.dev_speaker_stateName_album) + ": " + stateSong.getAlbum() + "\n";
                         String stateSongArtist = contextView.getResources().getString(R.string.dev_speaker_stateName_artist) + ": " + stateSong.getArtist() + "\n";
-                        auxDec = stateStatus + stateSongTitle + stateSongAlbum + stateSongArtist;
+                        auxDec = stateStatus + " - " + stateSongTitle + stateSongAlbum + stateSongArtist;
                     }
                     else
                         auxDec = stateStatus;
