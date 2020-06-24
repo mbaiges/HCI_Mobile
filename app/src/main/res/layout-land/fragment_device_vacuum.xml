@@ -62,21 +62,20 @@
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="30dp"
 
-                android:padding="15dp"
+                android:padding="16dp"
                 android:text="@string/dev_vacuum_select_mode"
                 android:textColor="@color/text"
                 android:textSize="20dp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/bell"
                 app:layout_constraintTop_toBottomOf="@+id/desc" />
 
             <LinearLayout
+                android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
 
             </LinearLayout>
@@ -86,49 +85,44 @@
                 android:id="@+id/dock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginStart="32dp"
                 android:backgroundTint="@color/primary"
                 android:text="@string/dev_vacuum_button_dock"
                 android:textColor="@color/text"
-                app:layout_constraintEnd_toEndOf="@+id/mopBtn"
-                app:layout_constraintStart_toStartOf="@+id/mopBtn"
-                app:layout_constraintTop_toBottomOf="@+id/mopBtn" />
+                app:layout_constraintBottom_toBottomOf="@+id/vacuumBtn"
+                app:layout_constraintStart_toEndOf="@+id/vacuumBtn"
+                app:layout_constraintTop_toTopOf="@+id/vacuumBtn" />
 
             <TextView
                 android:id="@+id/selectRoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="21dp"
+                android:layout_marginTop="48dp"
+                android:padding="16dp"
                 android:text="@string/dev_vacuum_select_room"
                 android:textColor="@color/text"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toStartOf="@+id/mopBtn"
                 app:layout_constraintStart_toStartOf="@+id/text"
-                app:layout_constraintTop_toBottomOf="@+id/dock" />
+                app:layout_constraintTop_toBottomOf="@id/text" />
 
             <Spinner
                 android:id="@+id/rooms_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
                 android:prompt="@string/dev_vacuum_none"
-                app:layout_constraintBottom_toBottomOf="@+id/selectRoom"
                 app:layout_constraintStart_toEndOf="@+id/selectRoom"
-                app:layout_constraintTop_toTopOf="@+id/selectRoom" />
+                app:layout_constraintTop_toTopOf="@id/selectRoom" />
 
             <ToggleButton
                 android:id="@+id/vacuumBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="32dp"
                 android:textOff="@string/dev_vacuum_button_vacuum"
                 android:textOn="@string/dev_vacuum_button_vacuum"
                 app:layout_constraintBottom_toBottomOf="@+id/mopBtn"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/mopBtn"
                 app:layout_constraintTop_toTopOf="@+id/mopBtn" />
 

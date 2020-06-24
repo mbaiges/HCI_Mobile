@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -19,12 +20,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
+import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceTypeArrayAdapter;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
@@ -66,7 +70,7 @@ public class VacuumDeviceObserver extends DeviceObserver {
 
         h.modeBtn[0] = new Pair<>(contextView.findViewById(R.id.mopBtn), "mop");
         h.modeBtn[1] = new Pair<>(contextView.findViewById(R.id.vacuumBtn), "vacuum");
-
+        h.spinner = contextView.findViewById(R.id.rooms_spinner);
     }
 
     @Override
@@ -133,64 +137,6 @@ public class VacuumDeviceObserver extends DeviceObserver {
                 h.dockBtn.setText((s.getStatus().equals("docked")) ? R.string.dev_vacuum_button_docked : R.string.dev_vacuum_button_dock);
             }
         }
-
-        ApiClient.getInstance().getRooms(new Callback<Result<List<Room>>>() {
-            @Override
-            public void onResponse(@NonNull Call<Result<List<Room>>> call, @NonNull Response<Result<List<Room>>> response) {
-                MutableLiveData<Object> mRooms = new MutableLiveData<>();
-                if (response.isSuccessful()) {
-                    Result<List<Room>> result = response.body();
-                    if (result != null) {
-
-                        // Spinner element
-                        Spinner spinner = contextView.findViewById(R.id.rooms_spinner);
-
-                        // Spinner click listener
-                        // spinner.setOnItemSelectedListener();
-
-                        //spinner.setOnItemClickListener(contextView.getContext());
-
-//                        Set<Room> actualRoomsSet = new HashSet<>(result.getResult());
-//                        Log.v("ROOMS", actualRoomsSet.toString());
-//                        Object[] rooms = actualRoomsSet.toArray();
-//                        Log.v("ROOM 1", ((Room)rooms[0]).getName());
-//
-//                        String[] roomNames = new String[actualRoomsSet.size()];
-//                        for (int i =0; i< actualRoomsSet.size(); i++){
-//                            roomNames[i] = ((Room)rooms[i]).getName();
-//                        }
-//
-//                      List<String> categories = new ArrayList<String>();
-//
-//                      Creating adapter for spinner
-
-                        //ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(contextView.getContext(), android.R.layout.simple_spinner_item, roomNames);
-//
-//                        // Drop down layout style - list view with radio button
-                        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//                        // attaching data adapter to spinner
-                        //spinner.setAdapter(dataAdapter);
-
-//                        if (roomsSet == null || !(roomsSet.equals(actualRoomsSet))) {
-//                            mRooms.postValue(actualRoomsSet);
-//                            VacuumDeviceViewHolder h = (VacuumDeviceViewHolder) holder;
-//                            for (Room r : actualRoomsSet) {
-//                                contextView.findViewById(R.id.rooms_spinner).
-//                            }
-//                        }
-
-                    } else {
-                        handleError(response);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Result<List<Room>>> call, @NonNull Throwable t) {
-                handleUnexpectedError(t);
-            }
-        });
     }
 
 
@@ -276,6 +222,56 @@ public class VacuumDeviceObserver extends DeviceObserver {
                             });
                         }
                     }
+                }
+            });
+        }
+
+        if (h.spinner != null) {
+            ApiClient.getInstance().getRooms(new Callback<Result<List<Room>>>() {
+                @Override
+                public void onResponse(@NonNull Call<Result<List<Room>>> call, @NonNull Response<Result<List<Room>>> response) {
+                    if (response.isSuccessful()) {
+                        Result<List<Room>> result = response.body();
+                        if (result != null) {
+
+                            if (result.getResult() != null) {
+                                List<Room> actualRoomsList = result.getResult().stream().sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toList());
+
+
+                                Room[] actualRoomsArray = new Room[actualRoomsList.size()];
+                                int i = 0;
+                                for (Room r : actualRoomsList) {
+                                    actualRoomsArray[i++] = r;
+                                }
+                                RoomSpinnerAdapter adapter = new RoomSpinnerAdapter(contextView.getContext(),
+                                        android.R.layout.simple_spinner_item,
+                                        actualRoomsArray);
+
+                                h.spinner.setAdapter(adapter);
+                                h.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view,
+                                                               int position, long id) {
+                                        // Here you get the current item (a User object) that is selected by its position
+                                        Room user = adapter.getItem(position);
+                                        // Here you can do the action you want to...
+                                        Toast.makeText(contextView.getContext(), "ID: " + user.getId() + "\nName: " + user.getName(),
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapter) {  }
+                                });
+                            }
+                        } else {
+                            handleError(response);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Result<List<Room>>> call, @NonNull Throwable t) {
+                    handleUnexpectedError(t);
                 }
             });
         }
