@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
                                         Result<Device> result = response.body();
                                         if (result != null) {
                                             Log.d("DEVICE_BELLED", result.getResult().toString());
-                                            //addToDatabase(typeName, deviceId);
+                                            db.addDeviceToDatabase(typeName, deviceId);
                                         } else {
                                             handleError(response);
                                         }
