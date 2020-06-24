@@ -42,7 +42,7 @@
 
     <!-- Speech Recognition -->
 
-    <string name="prompt">Hi speak something</string>
+    <string name="prompt">Hi, Say something</string>
 
     <!-- Notifications -->
     <string name="show_notification">Show Notification</string>
