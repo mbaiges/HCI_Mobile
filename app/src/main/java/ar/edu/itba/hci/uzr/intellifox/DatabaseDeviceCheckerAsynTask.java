@@ -103,10 +103,14 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        DeviceState deviceState = actualDevice.getState();
+        OvenDeviceState deviceState = (OvenDeviceState)actualDevice.getState();
         if (deviceState != null) {
             OvenDeviceState state = new OvenDeviceState();
             state.setStatus(deviceState.getStatus());
+            state.setConvection(deviceState.getConvection());
+            state.setGrill(deviceState.getGrill());
+            state.setHeat(deviceState.getHeat());
+            state.setTemperature(deviceState.getTemperature());
             device.setState(state);
         }
         return device;
@@ -118,10 +122,11 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        DeviceState deviceState = actualDevice.getState();
+        SpeakerDeviceState deviceState = (SpeakerDeviceState) actualDevice.getState();
         if (deviceState != null) {
             SpeakerDeviceState state = new SpeakerDeviceState();
             state.setStatus(deviceState.getStatus());
+            state.setGenre(deviceState.getGenre());
             device.setState(state);
         }
         return device;
@@ -133,10 +138,13 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        DeviceState deviceState = actualDevice.getState();
+        VacuumDeviceState deviceState = (VacuumDeviceState)actualDevice.getState();
         if (deviceState != null) {
             VacuumDeviceState state = new VacuumDeviceState();
             state.setStatus(deviceState.getStatus());
+            state.setLocation(deviceState.getLocation());
+            state.setBatteryLevel(deviceState.getBatteryLevel());
+            state.setMode(deviceState.getMode());
             device.setState(state);
         }
         return device;
@@ -148,10 +156,12 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        DeviceState deviceState = actualDevice.getState();
+        LightDeviceState deviceState = (LightDeviceState)actualDevice.getState();
         if (deviceState != null) {
             LightDeviceState state = new LightDeviceState();
             state.setStatus(deviceState.getStatus());
+            state.setBrightness(deviceState.getBrightness());
+            state.setColor(deviceState.getColor());
             device.setState(state);
         }
         return device;
@@ -163,11 +173,13 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        DeviceState deviceState = actualDevice.getState();
+        DoorDeviceState deviceState = (DoorDeviceState)actualDevice.getState();
         if (deviceState != null) {
             DoorDeviceState state = new DoorDeviceState();
             state.setStatus(deviceState.getStatus());
+            state.setLock(deviceState.getLock());
             device.setState(state);
+
         }
         return device;
     }
@@ -178,11 +190,12 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        DeviceState deviceState = actualDevice.getState();
+        BlindDeviceState deviceState = (BlindDeviceState)actualDevice.getState();
         if (deviceState != null) {
             BlindDeviceState state = new BlindDeviceState();
             state.setStatus(deviceState.getStatus());
             device.setState(state);
+            state.setLevel(deviceState.getLevel());
         }
         return device;
     }
@@ -193,10 +206,15 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        DeviceState deviceState = actualDevice.getState();
+        AcDeviceState deviceState = (AcDeviceState)actualDevice.getState();
         if (deviceState != null) {
             AcDeviceState state = new AcDeviceState();
             state.setStatus(deviceState.getStatus());
+            state.setTemperature(deviceState.getTemperature());
+            state.setFanSpeed(deviceState.getFanSpeed());
+            state.setHorizontalSwing(deviceState.getHorizontalSwing());
+            state.setVerticalSwing(deviceState.getVerticalSwing());
+            state.setMode(deviceState.getMode());
             device.setState(state);
         }
         return device;
@@ -208,7 +226,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        DeviceState deviceState = actualDevice.getState();
+        TapDeviceState deviceState = (TapDeviceState)actualDevice.getState();
         if (deviceState != null) {
             TapDeviceState state = new TapDeviceState();
             state.setStatus(deviceState.getStatus());
@@ -216,8 +234,6 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         }
         return device;
     }
-
-
 
     @Override
     protected Device doInBackground(Void... params) {
