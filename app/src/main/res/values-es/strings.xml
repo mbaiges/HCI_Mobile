@@ -198,4 +198,52 @@
     <string name="routine_action_vacuum_set_mode">Establecer Modo</string>
     <string name="routine_action_vacuum_set_location">Espablecer Ubicación</string>
 
+
+    <!-- Notifications -->
+    <string name="notif_tap_title">La canilla </string>
+    <string name="notif_tap_opened"> fue abierta</string>
+    <string name="notif_tap_closed"> fue cerrada</string>
+
+    <string name="notif_ac_title">El Aire Acondicionado </string>
+    <string name="notif_ac_turned_on"> fue encendido.</string>
+    <string name="notif_ac_turned_off"> fue apagado.</string>
+    <string name="notif_ac_changed_temperature">  cambió su temperatura.</string>
+    <string name="notif_ac_changed_fan_speed">  cambió su ventilador.</string>
+    <string name="notif_ac_changed_horizontal_swing"> cambió su swing vertical.</string>
+    <string name="notif_ac_changed_vertical_swing"> cambiósu swing horizontal.</string>
+
+    <string name="notif_light_title">La luz </string>
+    <string name="notif_light_turned_on"> fue encendida.</string>
+    <string name="notif_light_turned_off"> fue apagada.</string>
+    <string name="notif_light_color"> cambio de color.</string>
+
+    <string name="notif_oven_title">El horno </string>
+    <string name="notif_oven_turned_on"> fue encendido.</string>
+    <string name="notif_oven_turned_off"> fue apagado.</string>
+    <string name="notif_oven_changed_temperature"> cambió de temperatura.</string>
+    <string name="notif_oven_changed_convection"> cambió su modo de conveccion.</string>
+    <string name="notif_oven_changed_grill"> cambió su modo de parrilla.</string>
+    <string name="notif_oven_changed_heat"> cambió su modo de calor.</string>
+
+    <string name="notif_speaker_title">El parlante </string>
+    <string name="notif_speaker_turned_on"> fue encendido.</string>
+    <string name="notif_speaker_turned_off"> fue apagado.</string>
+    <string name="notif_speaker_genre"> cambió su genero.</string>
+
+    <string name="notif_blind_title">La persiana</string>
+    <string name="notif_blind_opened"> fue abierta.</string>
+    <string name="notif_blind_closed"> fue cerrada.</string>
+
+    <string name="notif_door_title">La puerta</string>
+    <string name="notif_door_turned_opened"> fue abierta.</string>
+    <string name="notif_door_turned_closed"> fue cerrada.</string>
+    <string name="notif_door_unlocked"> fue desbloqueada.</string>
+    <string name="notif_door_locked"> fue bloqueada.</string>
+
+    <string name="notif_vacuum_title">La aspiradora </string>
+    <string name="notif_vacuum_turned_on"> fue encendida.</string>
+    <string name="notif_vacuum_turned_off"> fue apagada.</string>
+    <string name="notif_vacuum_mode"> cambió su modo.</string>
+    <string name="notif_vacuum_location"> cambió su ubicación</string>
+    <string name="notif_vacuum_battery"> tiene baja bateria.</string>
 </resources>

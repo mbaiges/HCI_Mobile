@@ -19,18 +19,18 @@ public class OvenDeviceDB {
     public String status;
 
     @ColumnInfo(name = "temperature")
-    public String temperature;
+    public int temperature;
 
     @ColumnInfo(name = "mode")
     public String mode;
 
-    @ColumnInfo(name = "verticalSwing")
-    public String verticalSwing;
+    @ColumnInfo(name = "heat")
+    public String heat;
 
-    @ColumnInfo(name = "horizontalSwing")
-    public String horizontalSwing;
+    @ColumnInfo(name = "grill")
+    public String grill;
 
-    @ColumnInfo(name = "fanSpeed")
-    public String fanSpeed;
+    @ColumnInfo(name = "convection")
+    public String convection;
 
 }

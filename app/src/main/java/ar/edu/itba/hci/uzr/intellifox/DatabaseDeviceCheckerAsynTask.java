@@ -21,14 +21,21 @@ import java.util.Map;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.LightDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.LightDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDevice;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 
 public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device> {
@@ -72,7 +79,113 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
         if (typeName.equals("faucet")) {
             this.actualDevice = createComparableTap(actualDevice);
+        }else if (typeName.equals("ac")) {
+            this.actualDevice = createComparableAc(actualDevice);
+        }else if (typeName.equals("blinds")) {
+            this.actualDevice = createComparableBlind(actualDevice);
+        }else if (typeName.equals("door")) {
+            this.actualDevice = createComparableDoor(actualDevice);
+        }else if (typeName.equals("lamp")) {
+            this.actualDevice = createComparableLight(actualDevice);
+        }else if (typeName.equals("vacuum")) {
+            this.actualDevice = createComparableVacuum(actualDevice);
+        }else if (typeName.equals("speaker")) {
+            this.actualDevice = createComparableSpeaker(actualDevice);
+        }else if (typeName.equals("oven")) {
+            this.actualDevice = createComparableOven(actualDevice);
         }
+
+    }
+
+    private Device createComparableOven(Device actualDevice) {
+        OvenDevice device = new OvenDevice();
+        device.setMeta(null);
+        device.setRoom(null);
+        DeviceState deviceState = actualDevice.getState();
+        if (deviceState != null) {
+            OvenDeviceState state = new OvenDeviceState();
+            state.setStatus(deviceState.getStatus());
+            device.setState(state);
+        }
+        return device;
+    }
+
+    private Device createComparableSpeaker(Device actualDevice) {
+        SpeakerDevice device = new SpeakerDevice();
+        device.setMeta(null);
+        device.setRoom(null);
+        DeviceState deviceState = actualDevice.getState();
+        if (deviceState != null) {
+            SpeakerDeviceState state = new SpeakerDeviceState();
+            state.setStatus(deviceState.getStatus());
+            device.setState(state);
+        }
+        return device;
+    }
+
+    private Device createComparableVacuum(Device actualDevice) {
+        VacuumDevice device = new VacuumDevice();
+        device.setMeta(null);
+        device.setRoom(null);
+        DeviceState deviceState = actualDevice.getState();
+        if (deviceState != null) {
+            VacuumDeviceState state = new VacuumDeviceState();
+            state.setStatus(deviceState.getStatus());
+            device.setState(state);
+        }
+        return device;
+    }
+
+    private Device createComparableLight(Device actualDevice) {
+        LightDevice device = new LightDevice();
+        device.setMeta(null);
+        device.setRoom(null);
+        DeviceState deviceState = actualDevice.getState();
+        if (deviceState != null) {
+            LightDeviceState state = new LightDeviceState();
+            state.setStatus(deviceState.getStatus());
+            device.setState(state);
+        }
+        return device;
+    }
+
+    private Device createComparableDoor(Device actualDevice) {
+        DoorDevice device = new DoorDevice();
+        device.setMeta(null);
+        device.setRoom(null);
+        DeviceState deviceState = actualDevice.getState();
+        if (deviceState != null) {
+            DoorDeviceState state = new DoorDeviceState();
+            state.setStatus(deviceState.getStatus());
+            device.setState(state);
+        }
+        return device;
+    }
+
+    private Device createComparableBlind(Device actualDevice) {
+        BlindDevice device = new BlindDevice();
+        device.setMeta(null);
+        device.setRoom(null);
+        DeviceState deviceState = actualDevice.getState();
+        if (deviceState != null) {
+            BlindDeviceState state = new BlindDeviceState();
+            state.setStatus(deviceState.getStatus());
+            device.setState(state);
+        }
+        return device;
+    }
+
+    private Device createComparableAc(Device actualDevice) {
+        AcDevice device = new AcDevice();
+        device.setMeta(null);
+        device.setRoom(null);
+        DeviceState deviceState = actualDevice.getState();
+        if (deviceState != null) {
+            AcDeviceState state = new AcDeviceState();
+            state.setStatus(deviceState.getStatus());
+            device.setState(state);
+        }
+        return device;
     }
 
     private Device createComparableTap(Device actualDevice) {
@@ -87,6 +200,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         }
         return device;
     }
+
+
 
     @Override
     protected Device doInBackground(Void... params) {
@@ -132,6 +247,11 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             Context context = weakContext.get();
             if (context != null) {
                 String message = "";
+                if(actualDevice.getState().getStatus().equals("opened")){
+                    message = message + R.string.notif_tap_title + actualDevice.getName() + R.string.notif_tap_opened + "\n";
+                }else{
+                    message = message + R.string.notif_tap_title + actualDevice.getName() + R.string.notif_tap_closed + "\n";
+                }
                 // Tell the user
                 showNotification(context, typeName, device, message);
             }
@@ -141,42 +261,101 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
     private void checkAcChanges(AcDevice device) {
         if (!actualDevice.equals(device)) {
             Log.d("DEVICE_CHANGED", actualDevice.toString());
+            AcDevice actualAcDevice = (AcDevice) actualDevice;
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, device);
             task.execute();
             Context context = weakContext.get();
+
             if (context != null) {
                 String message = "";
-                // Tell the user
+
+                if(!actualAcDevice.getState().getStatus().equals(device.getState().getStatus())){
+                    if(actualAcDevice.getState().getStatus().equals("on")){
+                        message = message + R.string.notif_ac_title + actualDevice.getName() + R.string.notif_ac_turned_on + "\n";
+                    }else{
+                        message = message + R.string.notif_ac_title + actualDevice.getName() + R.string.notif_ac_turned_off + "\n";
+                    }
+                }
+
+                if(!actualAcDevice.getState().getTemperature().equals(device.getState().getTemperature())){
+                    message = message + R.string.notif_ac_changed_temperature + "\n";
+                }
+                if(!actualAcDevice.getState().getFanSpeed().equals(device.getState().getFanSpeed())){
+                    message = message + R.string.notif_ac_changed_fan_speed + "\n";
+                }
+                if(!actualAcDevice.getState().getHorizontalSwing().equals(device.getState().getHorizontalSwing())){
+                    message = message + R.string.notif_ac_changed_horizontal_swing + "\n";
+                }
+                if(!actualAcDevice.getState().getVerticalSwing().equals(device.getState().getVerticalSwing())){
+                    message = message + R.string.notif_ac_changed_vertical_swing + "\n";
+                }
+
                 showNotification(context, typeName, device, message);
             }
+
         };
     }
 
     private void checkLightChanges(LightDevice device) {
         if (!actualDevice.equals(device)) {
             Log.d("DEVICE_CHANGED", actualDevice.toString());
+
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, device);
             task.execute();
             Context context = weakContext.get();
             if (context != null) {
                 String message = "";
-                // Tell the user
+                if(!actualDevice.getState().getStatus().equals(device.getState().getStatus())){
+                    if(actualDevice.getState().getStatus().equals("on")){
+                        message = message + R.string.notif_light_title + actualDevice.getName() + R.string.notif_light_turned_on + "\n";
+                    }else{
+                        message = message + R.string.notif_light_title + actualDevice.getName() + R.string.notif_light_turned_off + "\n";
+                    }
+                }
+
+                if( !(((LightDevice)actualDevice).getState().getColor().equals(device.getState().getColor())) ||
+                        (((LightDevice)actualDevice).getState().getBrightness().equals(device.getState().getBrightness()))){
+                    message = message + R.string.notif_light_title + actualDevice.getName() + R.string.notif_light_color + "\n";
+                }
                 showNotification(context, typeName, device, message);
             }
-        };
+        }
     }
 
     private void checkOvenChanges(OvenDevice device) {
         if (!actualDevice.equals(device)) {
             Log.d("DEVICE_CHANGED", actualDevice.toString());
+            OvenDevice actualOvenDevice = (OvenDevice) actualDevice;
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, device);
             task.execute();
             Context context = weakContext.get();
             if (context != null) {
                 String message = "";
-                // Tell the user
+
+                if(!actualOvenDevice.getState().getStatus().equals(device.getState().getStatus())){
+                    if(actualOvenDevice.getState().getStatus().equals("on")){
+                        message = message + R.string.notif_oven_title + actualDevice.getName() + R.string.notif_oven_turned_on + "\n";
+                    }else{
+                        message = message + R.string.notif_oven_title + actualDevice.getName() + R.string.notif_oven_turned_off + "\n";
+                    }
+                }
+
+                if(!actualOvenDevice.getState().getTemperature().equals(device.getState().getTemperature())){
+                    message = message + R.string.notif_oven_changed_temperature + "\n";
+                }
+                if(!actualOvenDevice.getState().getConvection().equals(device.getState().getConvection())){
+                    message = message + R.string.notif_oven_changed_convection + "\n";
+                }
+                if(!actualOvenDevice.getState().getGrill().equals(device.getState().getGrill())){
+                    message = message + R.string.notif_oven_changed_grill + "\n";
+                }
+                if(!actualOvenDevice.getState().getHeat().equals(device.getState().getHeat())){
+                    message = message + R.string.notif_oven_changed_heat + "\n";
+                }
+
                 showNotification(context, typeName, device, message);
             }
+
         };
     }
 
@@ -188,7 +367,17 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             Context context = weakContext.get();
             if (context != null) {
                 String message = "";
-                // Tell the user
+                if(!actualDevice.getState().getStatus().equals(device.getState().getStatus())){
+                    if(actualDevice.getState().getStatus().equals("playing")){
+                        message = message + R.string.notif_speaker_title + actualDevice.getName() + R.string.notif_speaker_turned_on + "\n";
+                    }else{
+                        message = message + R.string.notif_speaker_title + actualDevice.getName() + R.string.notif_speaker_turned_off + "\n";
+                    }
+                }
+
+                if(!((SpeakerDevice)actualDevice).getState().getGenre().equals(device.getState().getGenre())){
+                    message = message + R.string.notif_speaker_genre + ((SpeakerDevice)actualDevice).getState().getGenre() + "\n";
+                }
                 showNotification(context, typeName, device, message);
             }
         };
@@ -197,25 +386,21 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
     private void checkBlindChanges(BlindDevice device) {
         if (!actualDevice.equals(device)) {
             Log.d("DEVICE_CHANGED", actualDevice.toString());
+            BlindDevice actualBlindDevice = (BlindDevice) actualDevice;
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, device);
             task.execute();
             Context context = weakContext.get();
             if (context != null) {
                 String message = "";
-                // Tell the user
-                showNotification(context, typeName, device, message);
-            }
-        };
-    }
 
-    private void checkVacuumChanges(VacuumDevice device) {
-        if (!actualDevice.equals(device)) {
-            DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, device);
-            task.execute();
-            Context context = weakContext.get();
-            if (context != null) {
-                String message = "";
-                // Tell the user
+                if(!actualBlindDevice.getState().getStatus().equals(device.getState().getStatus())){
+                    if(actualBlindDevice.getState().getStatus().equals("opened") && device.getState().getStatus().equals("closed")){
+                        message = message + R.string.notif_blind_title + actualDevice.getName() + R.string.notif_blind_opened + "\n";
+                    }else if(actualBlindDevice.getState().getStatus().equals("closed") && device.getState().getStatus().equals("opened")) {
+                        message = message + R.string.notif_blind_title + actualDevice.getName() + R.string.notif_blind_closed + "\n";
+                    }
+                }
+
                 showNotification(context, typeName, device, message);
             }
         };
@@ -229,11 +414,62 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             Context context = weakContext.get();
             if (context != null) {
                 String message = "";
-                // Tell the user
+                if(!actualDevice.getState().getStatus().equals(device.getState().getStatus())){
+                    if(actualDevice.getState().getStatus().equals("opened")){
+                        message = message + R.string.notif_door_title + actualDevice.getName() + R.string.notif_door_turned_opened + "\n";
+                    }else{
+                        message = message + R.string.notif_door_title + actualDevice.getName() + R.string.notif_door_turned_closed + "\n";
+                    }
+                }
+                showNotification(context, typeName, device, message);
+                if(!((DoorDevice)actualDevice).getState().getLock().equals(device.getState().getLock())){
+                    if(((DoorDevice)actualDevice).getState().getLock().equals("unlocked")){
+                        message = message + R.string.notif_door_title + actualDevice.getName() + R.string.notif_door_unlocked + "\n";
+                    }else{
+                        message = message + R.string.notif_door_title + actualDevice.getName() + R.string.notif_door_locked + "\n";
+                    }
+                }
+            }
+        };
+    }
+
+    private void checkVacuumChanges(VacuumDevice device) {
+        if (!actualDevice.equals(device)) {
+            DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, device);
+            task.execute();
+            Context context = weakContext.get();
+            VacuumDevice actualVacuumDevice = (VacuumDevice) actualDevice;
+            if (context != null) {
+                String message = "";
+
+                if(!actualVacuumDevice.getState().getStatus().equals(device.getState().getStatus())){
+                    if(actualVacuumDevice.getState().getStatus().equals("on")){
+                        message = message + R.string.notif_vacuum_title + actualVacuumDevice.getName() + R.string.notif_vacuum_turned_on + "\n";
+                    }else{
+                        message = message + R.string.notif_vacuum_title + actualVacuumDevice.getName() + R.string.notif_vacuum_turned_off + "\n";
+                    }
+                }
+
+                if(!actualVacuumDevice.getState().getMode().equals(device.getState().getMode())){
+                    message = message + R.string.notif_vacuum_title + actualVacuumDevice.getName() + R.string.notif_vacuum_mode + "\n";
+                }
+
+                if(!actualVacuumDevice.getState().getLocation().equals(device.getState().getLocation())){
+                    message = message + R.string.notif_vacuum_title + actualVacuumDevice.getName() + R.string.notif_vacuum_location + "\n";
+                }
+
+                if( (!actualVacuumDevice.getState().getBatteryLevel().equals(device.getState().getBatteryLevel())) &&
+                        actualVacuumDevice.getState().getBatteryLevel() <= 6 && device.getState().getBatteryLevel() > 6){
+                    message = message + R.string.notif_vacuum_title + actualVacuumDevice.getName() + R.string.notif_vacuum_battery + "\n";
+                }
+
+
                 showNotification(context, typeName, device, message);
             }
         };
     }
+
+
 
     private void showNotification(Context context, String deviceType, Device device, String message) {
         // Create the intent to start Activity when notification in action bar is
@@ -248,9 +484,9 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         notificationIntent.putExtra(MainActivity.MESSAGE_ID, deviceType + "," + device.getId());
 
         // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
+        //        // started Activity.
+        //        // This ensures that navigating backward from the Activity leads out of
+        //        // your application to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(notificationIntent);

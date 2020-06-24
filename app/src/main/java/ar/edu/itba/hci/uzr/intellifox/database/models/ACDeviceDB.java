@@ -19,7 +19,7 @@ public class ACDeviceDB {
     public String status;
 
     @ColumnInfo(name = "temperature")
-    public String temperature;
+    public int temperature;
 
     @ColumnInfo(name = "mode")
     public String mode;

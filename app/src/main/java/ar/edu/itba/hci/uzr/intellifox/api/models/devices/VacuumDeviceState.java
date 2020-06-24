@@ -38,7 +38,7 @@ public class VacuumDeviceState extends DeviceState {
         return batteryLevel;
     }
 
-    public void setBatteryLever(Integer batteryLevel) {
+    public void setBatteryLevel(Integer batteryLevel) {
         this.batteryLevel = batteryLevel;
     }
 
