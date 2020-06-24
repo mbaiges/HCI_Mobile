@@ -72,10 +72,12 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                         String deviceId = tadi.getDeviceId();
                         String typeName = tadi.getTypeName();
                         if (deviceId != null && typeName != null) {
+                            Log.d("DEVICE", "Processing");
                             ApiClient.getInstance().getDevice(deviceId, new Callback<Result<Device>>() {
                                 @Override
                                 public void onResponse(Call<Result<Device>> call, Response<Result<Device>> response) {
                                     if (response.isSuccessful()) {
+                                        Log.d("GET_DEVICE", "Processing");
                                         Result<Device> result = response.body();
                                         if (result != null) {
                                             Device device = result.getResult();
@@ -84,7 +86,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                                                 device.setRoom(null);
                                                 DeviceState deviceState = device.getState();
                                                 if (deviceState != null) {
-                                                    DeviceState state = new DeviceState();
+                                                    DeviceState state = new TapDeviceState();
                                                     state.setStatus(deviceState.getStatus());
                                                     device.setState(state);
                                                 }
@@ -92,7 +94,16 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                                                 if (deviceType != null) {
                                                     String typeName = deviceType.getName();
                                                     if (typeName != null) {
-                                                        db.addDevice(typeName, device);
+                                                        Log.d("UPDATE_BD", "Processing");
+
+                                                        Device savedDevice = db.getDevice(typeName, deviceId);
+                                                        Log.d("BD_GET_DEVICE", savedDevice.toString());
+                                                        if (!device.equals(savedDevice)) {
+                                                            Log.d("DEVICE_CHANGED", device.toString());
+                                                            showNotification(context, device);
+                                                            db.updateDevice(typeName, device);
+
+                                                        };
                                                     }
                                                 }
                                             }
@@ -137,8 +148,14 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     private void showNotification(Context context, Device device) {
         // Create the intent to start Activity when notification in action bar is
         // clicked.
+
+        String eventName = "action";
+        String title = device.getName();
+        String text = "an " + eventName + " was performed on device " + device.getName();
+        Bitmap icon = getIcon(device, context);
+
         Intent notificationIntent = new Intent(context, MainActivity.class);
-        notificationIntent.putExtra(MainActivity.MESSAGE_ID, "speaker,018113fde104afe9");
+        notificationIntent.putExtra(MainActivity.MESSAGE_ID, device.getType().getName() + "," + device.getId());
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
@@ -151,10 +168,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         // when notification in action bar is clicked.
         final PendingIntent contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        String eventName = "action";
-        String title = device.getName();
-        String text = "an " + eventName + "was performed on device " + device.getName();
-        Bitmap icon = getIcon(device, context);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle(title)

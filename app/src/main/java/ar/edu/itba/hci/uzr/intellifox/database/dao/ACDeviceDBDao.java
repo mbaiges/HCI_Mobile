@@ -11,7 +11,6 @@ import java.util.List;
 import ar.edu.itba.hci.uzr.intellifox.database.models.ACDeviceDB;
 
 
-
 @Dao
 public interface ACDeviceDBDao {
     @Query("SELECT * FROM acdevicedb")

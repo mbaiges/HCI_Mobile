@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferencesGetter.setInstance(sharedPreferences);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, DATABASE_NAME).build();
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
 
         DatabaseGetter.setInstance(db);
 

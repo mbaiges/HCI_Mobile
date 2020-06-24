@@ -1,5 +1,6 @@
 package ar.edu.itba.hci.uzr.intellifox.database.dao;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -8,7 +9,10 @@ import androidx.room.Update;
 import java.util.List;
 
 import ar.edu.itba.hci.uzr.intellifox.database.models.BlindDeviceDB;
+import ar.edu.itba.hci.uzr.intellifox.database.models.TapDeviceDB;
 
+
+@Dao
 public interface BlindDeviceDBDao {
     @Query("SELECT * FROM blinddevicedb")
     List<BlindDeviceDB> getAll();
@@ -20,11 +24,11 @@ public interface BlindDeviceDBDao {
     List<BlindDeviceDB> loadAllByIds(String[] ids);
 
     @Insert
-    void insertAll(BlindDeviceDB... users);
+    void insertAll(TapDeviceDB... devices);
 
     @Delete
-    void delete(BlindDeviceDB user);
+    void delete(TapDeviceDB device);
 
     @Update
-    void update(BlindDeviceDB device);
+    void update(TapDeviceDB device);
 }

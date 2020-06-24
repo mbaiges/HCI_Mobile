@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class BlindDeviceDB {
+public class DoorDeviceDB {
     @PrimaryKey
     @NonNull
     public String id;
@@ -17,9 +17,6 @@ public class BlindDeviceDB {
     @ColumnInfo(name = "status")
     public String status;
 
-    @ColumnInfo(name = "level")
-    public int level;
-
-    @ColumnInfo(name = "currentlevel")
-    public int currentLevel;
+    @ColumnInfo(name = "lock")
+        public String lock;
 }
