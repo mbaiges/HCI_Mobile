@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -20,10 +21,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -32,7 +35,11 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -56,6 +63,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashSet;
@@ -94,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAKE_PHOTO_TAG = "Take Photo";
     private static final int REQUEST_TAKE_PHOTO = 1;
     private Uri photoUri;
+    public Bitmap bitmap;
+    BarcodeDetector detector;
 
     public static final String MESSAGE_ID = "ar.edu.itba.MESSAGE_ID";
     public static final String MyPREFERENCES = "intellifoxPrefs";
@@ -116,14 +127,14 @@ public class MainActivity extends AppCompatActivity {
         if (drawable != null) {
             int c = ContextCompat.getColor(this.getBaseContext(), R.color.background1);
             drawable.mutate();
-            drawable.setColorFilter(c,PorterDuff.Mode.SRC_ATOP);
+            drawable.setColorFilter(c, PorterDuff.Mode.SRC_ATOP);
         }
 
         Drawable drawable2 = menu.findItem(R.id.btnQrScann).getIcon();
         if (drawable2 != null) {
             int c = ContextCompat.getColor(this.getBaseContext(), R.color.background1);
             drawable2.mutate();
-            drawable2.setColorFilter(c,PorterDuff.Mode.SRC_ATOP);
+            drawable2.setColorFilter(c, PorterDuff.Mode.SRC_ATOP);
         }
 
         MenuItem appBtn1 = menu.findItem(R.id.btnMicrophone);
@@ -144,7 +155,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     Log.v("BTN", "Qr Scann Clicked");
-                    handleQRScanBtn();
+                    try {
+                        handleQRScanBtn();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     return true;
                 }
             });
@@ -157,6 +172,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        //QRS--------------------------------------------------
+        detector =
+                new BarcodeDetector.Builder(getApplicationContext())
+                        .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                        .build();
+
+        waitUntilBarcodeDetectorIsOperational(detector, 10);
+        //----------------------------------------------------
         setContentView(R.layout.activity_main);
 
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -209,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             String value = extras.getString(MESSAGE_ID);
             if (value != null) {
                 treatNotification(value);
@@ -229,9 +253,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkNightModeActivated() {
-        if(sharedPreferences.getBoolean(KEY_ISNIGHTMODE, true)){
+        if (sharedPreferences.getBoolean(KEY_ISNIGHTMODE, true)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else {
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
@@ -262,11 +286,11 @@ public class MainActivity extends AppCompatActivity {
         if (!json.equals("")) {
             BelledDevices belledDevices = gson.fromJson(json, BelledDevices.class);
             if (belledDevices != null) {
-                HashSet<TypeAndDeviceId> tadis =  belledDevices.getBelledDevices();
+                HashSet<TypeAndDeviceId> tadis = belledDevices.getBelledDevices();
                 if (tadis != null) {
                     DatabaseTruncateTablesAsyncTask task = new DatabaseTruncateTablesAsyncTask();
                     task.execute();
-                    for (TypeAndDeviceId tadi: tadis) {
+                    for (TypeAndDeviceId tadi : tadis) {
                         String deviceId = tadi.getDeviceId();
                         String typeName = tadi.getTypeName();
                         if (deviceId != null && typeName != null) {
@@ -350,11 +374,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void handleQRScanBtn(){
+
+    private void handleQRScanBtn() throws FileNotFoundException {
         takePhoto();
+        FileDescriptor fd = getContentResolver().openFileDescriptor(photoUri, "w").getFileDescriptor();
+        bitmap = BitmapFactory.decodeFileDescriptor(fd);
+        if(bitmap != null){
+            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+//            SparseArray<Barcode> barcodeArray = detector.detect(frame);
+//
+//            // Decode the barcode
+//            Barcode barcode = barcodeArray.valueAt(0);
+//            Log.v("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", barcode.rawValue);
+            Log.v("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "ENTROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        }else{
+            Log.v("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "El BITMAP ES NULL");
+        }
+
+
     }
 
-    private void takePhoto() {
+    private void takePhoto(){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
@@ -373,8 +413,11 @@ public class MainActivity extends AppCompatActivity {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
+
         }
     }
+
+
 
     private File createImageFile() throws IOException {
         // Create an image file name
@@ -385,6 +428,22 @@ public class MainActivity extends AppCompatActivity {
                 ".jpg",   /* suffix */
                 storageDir      /* directory */
         );
+    }
+
+    private void waitUntilBarcodeDetectorIsOperational(BarcodeDetector detector, int retries) {
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Log.d(TAG, "Waiting for barcode detector to be operational...");
+            if (retries > 0) {
+                if(detector.isOperational()) {
+                    Log.v("BARCODE DETECTOR", "LLego a ser operacional");
+                } else {
+                    waitUntilBarcodeDetectorIsOperational(detector, retries - 1);
+                }
+            } else {
+                Log.e("BARCODE DETECTOR", "Nunca llego a ser operacional");
+            }
+        }, 10000);
     }
 
     private void handleMicrophoneBtn(){

@@ -41,7 +41,7 @@ import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device> {
 
     private static final String CHANNEL_ID = "NOTIFICATIONS";
-    private static final int MY_NOTIFICATION_ID = 1;
+    private static int notification_id = 1;
 
     static AppDatabase db;
     static private Map<String, Integer> typeInfo;
@@ -278,14 +278,14 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             task.execute();
             Context context = weakContext.get();
             if (context != null) {
-                String message = "";
+                StringBuilder messageBuilder = new StringBuilder("");
                 if(actualDevice.getState().getStatus().equals("opened")){
-                    message = message + context.getResources().getString(R.string.notif_tap_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_tap_opened) + "\n";
+                    messageBuilder.append(context.getResources().getString(R.string.notif_tap_opened));
                 }else{
-                    message = message + context.getResources().getString(R.string.notif_tap_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_tap_closed) + "\n";
+                    messageBuilder.append(context.getResources().getString(R.string.notif_tap_closed));
                 }
                 // Tell the user
-                showNotification(context, typeName, device, message);
+                showNotification(context, typeName, device, messageBuilder.toString());
             }
         };
     }
@@ -297,32 +297,61 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualAcDevice);
             task.execute();
             Context context = weakContext.get();
+            boolean first = true, stateChanged = false;
 
             if (context != null) {
-                String message = "";
+                StringBuilder messageBuilder = new StringBuilder("");
 
                 if(!actualAcDevice.getState().getStatus().equals(device.getState().getStatus())){
                     if(actualAcDevice.getState().getStatus().equals("on")){
-                        message = message + context.getResources().getString(R.string.notif_ac_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_ac_turned_on) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_ac_turned_on));
                     }else{
-                        message = message + context.getResources().getString(R.string.notif_ac_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_ac_turned_off) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_ac_turned_off));
                     }
+                    stateChanged = true;
                 }
-
                 if(!actualAcDevice.getState().getTemperature().equals(device.getState().getTemperature())){
-                    message = message + context.getResources().getString(R.string.notif_ac_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_ac_changed_temperature) + "\n";
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(" ");
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_ac_changed_temperature));
                 }
                 if(!actualAcDevice.getState().getFanSpeed().equals(device.getState().getFanSpeed())){
-                    message = message + context.getResources().getString(R.string.notif_ac_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_ac_changed_fan_speed) + "\n";
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(" ");
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_ac_changed_fan_speed));
                 }
                 if(!actualAcDevice.getState().getHorizontalSwing().equals(device.getState().getHorizontalSwing())){
-                    message = message + context.getResources().getString(R.string.notif_ac_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_ac_changed_horizontal_swing) + "\n";
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(" ");
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_ac_changed_horizontal_swing));
                 }
                 if(!actualAcDevice.getState().getVerticalSwing().equals(device.getState().getVerticalSwing())){
-                    message = message + context.getResources().getString(R.string.notif_ac_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_ac_changed_vertical_swing) + "\n";
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_ac_changed_vertical_swing));
                 }
-
-                showNotification(context, typeName, device, message);
+                if (!first) {
+                    messageBuilder.append(".");
+                }
+                showNotification(context, typeName, device, messageBuilder.toString());
             }
 
         };
@@ -335,21 +364,30 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
             Context context = weakContext.get();
+            boolean first = true, stateChanged = false;
+
             if (context != null) {
-                String message = "";
+                StringBuilder messageBuilder = new StringBuilder("");
                 if(!actualDevice.getState().getStatus().equals(device.getState().getStatus())){
                     if(actualDevice.getState().getStatus().equals("on")){
-                        message = message + context.getResources().getString(R.string.notif_light_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_light_turned_on) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_light_turned_on));
                     }else{
-                        message = message + context.getResources().getString(R.string.notif_light_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_light_turned_off) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_light_turned_off));
                     }
+                    stateChanged = true;
                 }
 
                 if( !(((LightDevice)actualDevice).getState().getColor().equals(device.getState().getColor())) ||
                         (((LightDevice)actualDevice).getState().getBrightness().equals(device.getState().getBrightness()))){
-                    message = message + context.getResources().getString(R.string.notif_light_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_light_color) + "\n";
+                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                    messageBuilder.append(" ");
+                    messageBuilder.append(context.getResources().getString(R.string.notif_light_color));
+                    first = false;
                 }
-                showNotification(context, typeName, device, message);
+                if (!first) {
+                    messageBuilder.append(".");
+                }
+                showNotification(context, typeName, device, messageBuilder.toString());
             }
         }
     }
@@ -361,31 +399,64 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
             Context context = weakContext.get();
+            boolean first = true, stateChanged = false;
+
             if (context != null) {
-                String message = "";
+                StringBuilder messageBuilder = new StringBuilder("");
 
                 if(!actualOvenDevice.getState().getStatus().equals(device.getState().getStatus())){
                     if(actualOvenDevice.getState().getStatus().equals("on")){
-                        message = message + context.getResources().getString(R.string.notif_oven_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_oven_turned_on) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_oven_turned_on));
                     }else{
-                        message = message + context.getResources().getString(R.string.notif_oven_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_oven_turned_off) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_oven_turned_off));
                     }
+                    stateChanged = true;
                 }
 
                 if(!actualOvenDevice.getState().getTemperature().equals(device.getState().getTemperature())){
-                    message = message + context.getResources().getString(R.string.notif_oven_title) + context.getResources().getString(R.string.notif_oven_changed_temperature) + "\n";
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(" ");
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_oven_changed_temperature));
                 }
                 if(!actualOvenDevice.getState().getConvection().equals(device.getState().getConvection())){
-                    message = message + context.getResources().getString(R.string.notif_oven_title) + context.getResources().getString(R.string.notif_oven_changed_convection) + "\n";
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(" ");
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_oven_changed_convection));
                 }
                 if(!actualOvenDevice.getState().getGrill().equals(device.getState().getGrill())){
-                    message = message + context.getResources().getString(R.string.notif_oven_title) + context.getResources().getString(R.string.notif_oven_changed_grill) + "\n";
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(" ");
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_oven_changed_grill));
                 }
                 if(!actualOvenDevice.getState().getHeat().equals(device.getState().getHeat())){
-                    message = message + context.getResources().getString(R.string.notif_oven_title) + context.getResources().getString(R.string.notif_oven_changed_heat) + "\n";
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(" ");
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_oven_changed_heat));
                 }
-
-                showNotification(context, typeName, device, message);
+                if (!first) {
+                    messageBuilder.append(".");
+                }
+                showNotification(context, typeName, device, messageBuilder.toString());
             }
 
         };
@@ -397,20 +468,31 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
             Context context = weakContext.get();
+            boolean first = true, stateChanged = false;
+
             if (context != null) {
-                String message = "";
+                StringBuilder messageBuilder = new StringBuilder("");
                 if(!actualDevice.getState().getStatus().equals(device.getState().getStatus())){
                     if(actualDevice.getState().getStatus().equals("playing")){
-                        message = message + context.getResources().getString(R.string.notif_speaker_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_speaker_turned_on) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_speaker_turned_on));
                     }else{
-                        message = message + context.getResources().getString(R.string.notif_speaker_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_speaker_turned_off) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_speaker_turned_off));
                     }
+                    stateChanged = true;
                 }
 
                 if(!((SpeakerDevice)actualDevice).getState().getGenre().equals(device.getState().getGenre())){
-                    message = message + context.getResources().getString(R.string.notif_speaker_genre) + ((SpeakerDevice)actualDevice).getState().getGenre() + "\n";
+                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                    messageBuilder.append(" ");
+                    messageBuilder.append(context.getResources().getString(R.string.notif_speaker_genre));
+                    messageBuilder.append(" ");
+                    messageBuilder.append(((SpeakerDevice)actualDevice).getState().getGenre());
+                    first = false;
                 }
-                showNotification(context, typeName, device, message);
+                if (!first) {
+                    messageBuilder.append(".");
+                }
+                showNotification(context, typeName, device, messageBuilder.toString());
             }
         };
     }
@@ -422,18 +504,18 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
             Context context = weakContext.get();
+
             if (context != null) {
-                String message = "";
+                StringBuilder messageBuilder = new StringBuilder("");
 
                 if(!actualBlindDevice.getState().getStatus().equals(device.getState().getStatus())){
                     if(actualBlindDevice.getState().getStatus().equals("opened") && device.getState().getStatus().equals("closed")){
-                        message = message + context.getResources().getString(R.string.notif_blind_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_blind_opened) + "\n";
-                    }else if(actualBlindDevice.getState().getStatus().equals("closed") && device.getState().getStatus().equals("opened")) {
-                        message = message + context.getResources().getString(R.string.notif_blind_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_blind_closed) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_blind_opened));
+                    }else if(actualBlindDevice.getState().getStatus().equals("closed")&& device.getState().getStatus().equals("opened")) {
+                        messageBuilder.append(context.getResources().getString(R.string.notif_blind_closed));
                     }
                 }
-
-                showNotification(context, typeName, device, message);
+                showNotification(context, typeName, device, messageBuilder.toString());
             }
         };
     }
@@ -444,23 +526,34 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
             Context context = weakContext.get();
+            boolean stateChanged = false;
+            boolean first = true;
+
             if (context != null) {
-                String message = "";
+                StringBuilder messageBuilder = new StringBuilder("");
                 if(!actualDevice.getState().getStatus().equals(device.getState().getStatus())){
                     if(actualDevice.getState().getStatus().equals("opened")){
-                        message = message + context.getResources().getString(R.string.notif_door_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_door_turned_opened) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_door_turned_opened));
                     }else{
-                        message = message + context.getResources().getString(R.string.notif_door_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_door_turned_closed) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_door_turned_closed));
                     }
+                    stateChanged = true;
                 }
-                showNotification(context, typeName, device, message);
+
                 if(!((DoorDevice)actualDevice).getState().getLock().equals(device.getState().getLock())){
+                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                    messageBuilder.append(" ");
                     if(((DoorDevice)actualDevice).getState().getLock().equals("unlocked")){
-                        message = message + context.getResources().getString(R.string.notif_door_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_door_unlocked) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_door_unlocked));
                     }else{
-                        message = message + context.getResources().getString(R.string.notif_door_title) + actualDevice.getName() + context.getResources().getString(R.string.notif_door_locked) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_door_locked));
                     }
+                    first = false;
                 }
+                if (!first) {
+                    messageBuilder.append(".");
+                }
+                showNotification(context, typeName, device, messageBuilder.toString());
             }
         };
     }
@@ -471,32 +564,56 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             task.execute();
             Context context = weakContext.get();
             VacuumDevice actualVacuumDevice = (VacuumDevice) actualDevice;
+            boolean first = true, stateChanged = false;
+
             if (context != null) {
-                String message = "";
+                StringBuilder messageBuilder = new StringBuilder("");
 
                 if(!actualVacuumDevice.getState().getStatus().equals(device.getState().getStatus())){
                     if(actualVacuumDevice.getState().getStatus().equals("on")){
-                        message = message + context.getResources().getString(R.string.notif_vacuum_title) + actualVacuumDevice.getName() + context.getResources().getString(R.string.notif_vacuum_turned_on) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_turned_on));
                     }else{
-                        message = message + context.getResources().getString(R.string.notif_vacuum_title) + actualVacuumDevice.getName() + context.getResources().getString(R.string.notif_vacuum_turned_off) + "\n";
+                        messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_turned_off));
                     }
+                    stateChanged = true;
                 }
 
                 if(!actualVacuumDevice.getState().getMode().equals(device.getState().getMode())){
-                    message = message + context.getResources().getString(R.string.notif_vacuum_title) + actualVacuumDevice.getName() + context.getResources().getString(R.string.notif_vacuum_mode) + "\n";
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(" ");
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_mode));
                 }
 
                 if(!actualVacuumDevice.getState().getLocation().equals(device.getState().getLocation())){
-                    message = message + context.getResources().getString(R.string.notif_vacuum_title) + actualVacuumDevice.getName() + context.getResources().getString(R.string.notif_vacuum_location) + "\n";
+                    if(first){
+                        messageBuilder.append(context.getResources().getString(R.string.notif_additional_changes));
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_location));
                 }
 
                 if( (!actualVacuumDevice.getState().getBatteryLevel().equals(device.getState().getBatteryLevel())) &&
                         actualVacuumDevice.getState().getBatteryLevel() <= 6 && device.getState().getBatteryLevel() > 6){
-                    message = message + context.getResources().getString(R.string.notif_vacuum_title) + actualVacuumDevice.getName() + context.getResources().getString(R.string.notif_vacuum_battery) + "\n";
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(" ");
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_battery));
                 }
-
-
-                showNotification(context, typeName, device, message);
+                if (first) {
+                    messageBuilder.append(".");
+                }
+                showNotification(context, typeName, device, messageBuilder.toString());
             }
         };
     }

@@ -39,7 +39,7 @@ import ar.edu.itba.hci.uzr.intellifox.database.models.TapDeviceDB;
 import ar.edu.itba.hci.uzr.intellifox.database.models.VacuumDeviceDB;
 
 
-@Database(entities = {TapDeviceDB.class, ACDeviceDB.class, LightDeviceDB.class, OvenDeviceDB.class, SpeakerDeviceDB.class, BlindDeviceDB.class, VacuumDeviceDB.class, DoorDeviceDB.class}, version = 1)
+@Database(entities = {TapDeviceDB.class, ACDeviceDB.class, LightDeviceDB.class, OvenDeviceDB.class, SpeakerDeviceDB.class, BlindDeviceDB.class, VacuumDeviceDB.class, DoorDeviceDB.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TapDeviceDBDao tapDeviceDBDao();
@@ -365,6 +365,7 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         TapDeviceState state = new TapDeviceState();
         state.setStatus(dbDevice.status);
+        d.setState(state);
         return d;
     }
 
@@ -374,8 +375,8 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         DoorDeviceState state = new DoorDeviceState();
         state.setStatus(dbDevice.status);
-        d.setState(state);
         state.setLock(dbDevice.lock);
+        d.setState(state);
         return d;
     }
 
@@ -411,9 +412,8 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         SpeakerDeviceState state = new SpeakerDeviceState();
         state.setStatus(dbDevice.status);
-        d.setState(state);
         state.setGenre(dbDevice.genre);
-
+        d.setState(state);
         return d;
     }
 
@@ -423,11 +423,11 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         OvenDeviceState state = new OvenDeviceState();
         state.setStatus(dbDevice.status);
-        d.setState(state);
         state.setConvection(dbDevice.convection);
         state.setGrill(dbDevice.grill);
         state.setHeat(dbDevice.grill);
         state.setTemperature(dbDevice.temperature);
+        d.setState(state);
         return d;
     }
 
@@ -437,12 +437,12 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         AcDeviceState state = new AcDeviceState();
         state.setStatus(dbDevice.status);
-        d.setState(state);
         state.setMode(dbDevice.mode);
         state.setTemperature(dbDevice.temperature);
         state.setFanSpeed(dbDevice.fanSpeed);
         state.setHorizontalSwing(dbDevice.horizontalSwing);
         state.setVerticalSwing(dbDevice.verticalSwing);
+        d.setState(state);
         return d;
     }
 
@@ -452,9 +452,9 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         LightDeviceState state = new LightDeviceState();
         state.setStatus(dbDevice.status);
-        d.setState(state);
         state.setColor(dbDevice.color);
         state.setBrightness(dbDevice.brightness);
+        d.setState(state);
         return d;
     }
 }
