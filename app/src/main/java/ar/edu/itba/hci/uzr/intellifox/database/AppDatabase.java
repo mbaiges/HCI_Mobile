@@ -10,9 +10,14 @@ import ar.edu.itba.hci.uzr.intellifox.database.dao.TapDeviceDBDao;
 import ar.edu.itba.hci.uzr.intellifox.database.models.ACDeviceDB;
 import ar.edu.itba.hci.uzr.intellifox.database.models.LightDeviceDB;
 import ar.edu.itba.hci.uzr.intellifox.database.models.OvenDeviceDB;
+import ar.edu.itba.hci.uzr.intellifox.database.dao.BlindDeviceDBDao;
+import ar.edu.itba.hci.uzr.intellifox.database.dao.TapDeviceDBDao;
+import ar.edu.itba.hci.uzr.intellifox.database.models.BlindDeviceDB;
+import ar.edu.itba.hci.uzr.intellifox.database.models.SpeakerDeviceDB;
 import ar.edu.itba.hci.uzr.intellifox.database.models.TapDeviceDB;
+import ar.edu.itba.hci.uzr.intellifox.database.models.VacuumDeviceDB;
 
-@Database(entities = {TapDeviceDB.class, ACDeviceDB.class, LightDeviceDB.class, OvenDeviceDB.class}, version = 1)
+@Database(entities = {TapDeviceDB.class, ACDeviceDB.class, LightDeviceDB.class, OvenDeviceDB.class, BlindDeviceDB.class, SpeakerDeviceDB.class, VacuumDeviceDB.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract TapDeviceDBDao tapDeviceDBDao();
 
