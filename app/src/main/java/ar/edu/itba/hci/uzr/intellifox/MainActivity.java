@@ -19,6 +19,7 @@ import android.media.MediaCodecInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.speech.RecognizerIntent;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -73,6 +74,8 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    private final int REQ_CODE_SPEECH_INPUT = 100;
 
     private final static String DATABASE_NAME = "intellifox_db";
 
@@ -344,7 +347,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleMicrophoneBtn(){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getResources().getString(R.string.prompt));
 
+        if (intent.resolveActivity(getPackageManager()) != null)
+        {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        }
     }
 
 }

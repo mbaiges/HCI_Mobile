@@ -40,6 +40,11 @@
     <string name="favourites_title_routines">Routines</string>
     <string name="favourites_title_devices">Devices</string>
 
+    <!-- Speech Recognition -->
+
+    <string name="prompt">Hi speak something</string>
+
+    <!-- Notifications -->
     <string name="show_notification">Show Notification</string>
     <string name="notification_title">Uso del API.pdf</string>
     <string name="notification_text">Download complete</string>
