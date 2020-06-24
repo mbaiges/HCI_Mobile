@@ -16,9 +16,12 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.media.MediaCodecInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -52,10 +55,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
@@ -68,6 +74,8 @@ import ar.edu.itba.hci.uzr.intellifox.wrappers.TypeAndDeviceId;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static androidx.core.content.FileProvider.getUriForFile;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -83,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "NOTIFICATIONS";
 
+    private static final String TAKE_PHOTO_TAG = "Take Photo";
+    private static final int REQUEST_TAKE_PHOTO = 1;
+    private Uri photoUri;
 
     public static final String MESSAGE_ID = "ar.edu.itba.MESSAGE_ID";
     public static final String MyPREFERENCES = "intellifoxPrefs";
@@ -340,7 +351,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleQRScanBtn(){
-        
+        takePhoto();
+    }
+
+    private void takePhoto() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                Log.e(TAKE_PHOTO_TAG, ex.toString());
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                photoUri = getUriForFile(this,
+                        getApplicationContext().getPackageName() + ".fileprovider",
+                        photoFile);
+                Log.d(TAKE_PHOTO_TAG, photoUri.toString());
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String imageFileName = "Photo_" + UUID.randomUUID();
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",   /* suffix */
+                storageDir      /* directory */
+        );
     }
 
     private void handleMicrophoneBtn(){

@@ -529,7 +529,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle(title)
-                .setContentText(text)
+                .setContentText(message)
                 .setLargeIcon(icon)
                 .setSmallIcon(R.drawable.ic_menu_remote)
                 .setContentIntent(contentIntent);
