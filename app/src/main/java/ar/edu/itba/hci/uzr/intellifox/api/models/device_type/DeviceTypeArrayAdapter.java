@@ -23,7 +23,7 @@ import ar.edu.itba.hci.uzr.intellifox.R;
 public class DeviceTypeArrayAdapter extends ArrayAdapter<DeviceType> {
     private final String DEVICE_TYPE_NAME = "device_type_name";
     private final String DEVICE_TYPE_TITLE = "device_type_title";
-    private Map<String, Pair<Integer, Integer>> typeInfo;
+    static private Map<String, Pair<Integer, Integer>> typeInfo;
 
     public DeviceTypeArrayAdapter(Activity context, DeviceType[] objects) {
         super(context, R.layout.device_type_card_item, objects);
