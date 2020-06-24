@@ -24,11 +24,14 @@ public interface BlindDeviceDBDao {
     List<BlindDeviceDB> loadAllByIds(String[] ids);
 
     @Insert
-    void insertAll(TapDeviceDB... devices);
+    void insertAll(BlindDeviceDB... devices);
 
     @Delete
-    void delete(TapDeviceDB device);
+    void delete(BlindDeviceDB device);
 
     @Update
-    void update(TapDeviceDB device);
+    void update(BlindDeviceDB device);
+
+    @Query("DELETE FROM blinddevicedb")
+    void deleteAllRows();
 }

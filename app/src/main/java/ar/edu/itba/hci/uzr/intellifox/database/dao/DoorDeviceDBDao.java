@@ -29,4 +29,7 @@ public interface DoorDeviceDBDao {
 
     @Update
     void update(DoorDeviceDB device);
+
+    @Query("DELETE FROM doordevicedb")
+    void deleteAllRows();
 }

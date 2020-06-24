@@ -30,4 +30,7 @@ public interface TapDeviceDBDao {
 
     @Update
     void update(TapDeviceDB device);
+
+    @Query("DELETE FROM tapdevicedb")
+    void deleteAllRows();
 }

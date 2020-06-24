@@ -31,4 +31,7 @@ public interface LightDeviceDBDao {
 
     @Update
     void update(LightDeviceDB device);
+
+    @Query("DELETE FROM lightdevicedb")
+    void deleteAllRows();
 }

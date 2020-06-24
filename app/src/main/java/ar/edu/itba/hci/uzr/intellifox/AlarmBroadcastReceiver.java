@@ -44,7 +44,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "NOTIFICATIONS";
     private static final int MY_NOTIFICATION_ID = 1;
     private static SharedPreferences sharedPreferences;
-    private static AppDatabase db;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -52,9 +51,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         if (sharedPreferences == null) {
             sharedPreferences = SharedPreferencesGetter.getInstance();
-        }
-        if (db == null) {
-            db = DatabaseGetter.getInstance();
         }
 
         checkBelledSavedDevices(context);
@@ -82,30 +78,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                                         if (result != null) {
                                             Device device = result.getResult();
                                             if (device != null) {
-                                                device.setMeta(null);
-                                                device.setRoom(null);
-                                                DeviceState deviceState = device.getState();
-                                                if (deviceState != null) {
-                                                    DeviceState state = new TapDeviceState();
-                                                    state.setStatus(deviceState.getStatus());
-                                                    device.setState(state);
-                                                }
-                                                DeviceType deviceType = device.getType();
-                                                if (deviceType != null) {
-                                                    String typeName = deviceType.getName();
-                                                    if (typeName != null) {
-                                                        Log.d("UPDATE_BD", "Processing");
-
-                                                        Device savedDevice = db.getDevice(typeName, deviceId);
-                                                        Log.d("BD_GET_DEVICE", savedDevice.toString());
-                                                        if (!device.equals(savedDevice)) {
-                                                            Log.d("DEVICE_CHANGED", device.toString());
-                                                            showNotification(context, device);
-                                                            db.updateDevice(typeName, device);
-
-                                                        };
-                                                    }
-                                                }
+                                                DatabaseDeviceCheckerAsynTask task = new DatabaseDeviceCheckerAsynTask(context, typeName, deviceId, device);
+                                                task.execute();
                                             }
                                         } else {
                                             handleError(response);

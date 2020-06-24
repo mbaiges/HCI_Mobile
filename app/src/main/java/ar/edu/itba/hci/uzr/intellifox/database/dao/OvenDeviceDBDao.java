@@ -31,4 +31,7 @@ public interface OvenDeviceDBDao {
 
     @Update
     void update(OvenDeviceDB device);
+
+    @Query("DELETE FROM ovendevicedb")
+    void deleteAllRows();
 }

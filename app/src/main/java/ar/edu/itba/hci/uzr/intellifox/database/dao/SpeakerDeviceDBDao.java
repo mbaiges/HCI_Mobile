@@ -23,11 +23,14 @@ public interface SpeakerDeviceDBDao {
     List<SpeakerDeviceDB> loadAllByIds(String[] ids);
 
     @Insert
-    void insertAll(DoorDeviceDB... devices);
+    void insertAll(SpeakerDeviceDB... devices);
 
     @Delete
-    void delete(DoorDeviceDB device);
+    void delete(SpeakerDeviceDB device);
 
     @Update
-    void update(DoorDeviceDB device);
+    void update(SpeakerDeviceDB device);
+
+    @Query("DELETE FROM speakerdevicedb")
+    void deleteAllRows();
 }

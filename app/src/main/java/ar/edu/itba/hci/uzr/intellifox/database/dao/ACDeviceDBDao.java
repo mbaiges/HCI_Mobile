@@ -30,4 +30,7 @@ public interface ACDeviceDBDao {
 
     @Update
     void update(ACDeviceDB device);
+
+    @Query("DELETE FROM acdevicedb")
+    void deleteAllRows();
 }

@@ -23,11 +23,14 @@ public interface VacuumDeviceDBDao {
     List<VacuumDeviceDB> loadAllByIds(String[] ids);
 
     @Insert
-    void insertAll(TapDeviceDB... devices);
+    void insertAll(VacuumDeviceDB... devices);
 
     @Delete
-    void delete(TapDeviceDB device);
+    void delete(VacuumDeviceDB device);
 
     @Update
-    void update(TapDeviceDB device);
+    void update(VacuumDeviceDB device);
+
+    @Query("DELETE FROM acdevicedb")
+    void deleteAllRows();
 }

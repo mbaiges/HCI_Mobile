@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferencesGetter.setInstance(sharedPreferences);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, DATABASE_NAME).build();
 
         DatabaseGetter.setInstance(db);
 
@@ -253,6 +253,8 @@ public class MainActivity extends AppCompatActivity {
             if (belledDevices != null) {
                 HashSet<TypeAndDeviceId> tadis =  belledDevices.getBelledDevices();
                 if (tadis != null) {
+                    DatabaseTruncateTablesAsyncTask task = new DatabaseTruncateTablesAsyncTask();
+                    task.execute();
                     for (TypeAndDeviceId tadi: tadis) {
                         String deviceId = tadi.getDeviceId();
                         String typeName = tadi.getTypeName();
@@ -266,7 +268,8 @@ public class MainActivity extends AppCompatActivity {
                                             Device device = result.getResult();
                                             if (device != null) {
                                                 Log.d("DEVICE_BELLED", result.getResult().toString());
-                                                db.addDevice(typeName, device);
+                                                DatabaseAddDeviceAsyncTask task = new DatabaseAddDeviceAsyncTask(typeName, device);
+                                                task.execute();
                                             }
                                         } else {
                                             handleError(response);
