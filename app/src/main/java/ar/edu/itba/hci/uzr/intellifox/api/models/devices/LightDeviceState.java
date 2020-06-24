@@ -28,6 +28,15 @@ public class LightDeviceState extends DeviceState {
     public void setBrightness(Integer brightness) { this.brightness = brightness; }
 
     @Override
+    public String toString() {
+        return "LightDeviceState{" +
+                "color='" + color + '\'' +
+                ", brightness=" + brightness +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

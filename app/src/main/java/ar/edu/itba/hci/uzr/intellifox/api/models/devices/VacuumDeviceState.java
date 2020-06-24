@@ -51,6 +51,16 @@ public class VacuumDeviceState extends DeviceState {
     }
 
     @Override
+    public String toString() {
+        return "VacuumDeviceState{" +
+                "mode='" + mode + '\'' +
+                ", batteryLevel=" + batteryLevel +
+                ", location=" + location +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

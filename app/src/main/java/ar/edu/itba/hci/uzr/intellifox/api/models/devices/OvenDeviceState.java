@@ -64,6 +64,17 @@ public class OvenDeviceState extends DeviceState {
     }
 
     @Override
+    public String toString() {
+        return "OvenDeviceState{" +
+                "temperature=" + temperature +
+                ", heat='" + heat + '\'' +
+                ", grill='" + grill + '\'' +
+                ", convection='" + convection + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

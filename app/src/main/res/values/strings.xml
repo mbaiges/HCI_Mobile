@@ -209,7 +209,7 @@
     <string name="notif_ac_changed_temperature">\'s temperature changed.</string>
     <string name="notif_ac_changed_fan_speed">\'s fan speed changed.</string>
     <string name="notif_ac_changed_horizontal_swing">\'s horizontal swing changed.</string>
-    <string name="notif_ac_changed_vertical_swing">\'s vertical swing changed'.</string>
+    <string name="notif_ac_changed_vertical_swing">\'s vertical swing changed.</string>
 
     <string name="notif_light_title">The light </string>
     <string name="notif_light_turned_on"> was turned on.</string>

@@ -51,6 +51,16 @@ public class SpeakerDeviceState extends DeviceState {
     }
 
     @Override
+    public String toString() {
+        return "SpeakerDeviceState{" +
+                "volume='" + volume + '\'' +
+                ", genre='" + genre + '\'' +
+                ", song=" + song +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

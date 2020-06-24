@@ -99,6 +99,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private Device createComparableOven(Device actualDevice) {
         OvenDevice device = new OvenDevice();
+        device.setId(actualDevice.getId());
+        device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
         DeviceState deviceState = actualDevice.getState();
@@ -112,6 +114,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private Device createComparableSpeaker(Device actualDevice) {
         SpeakerDevice device = new SpeakerDevice();
+        device.setId(actualDevice.getId());
+        device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
         DeviceState deviceState = actualDevice.getState();
@@ -125,6 +129,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private Device createComparableVacuum(Device actualDevice) {
         VacuumDevice device = new VacuumDevice();
+        device.setId(actualDevice.getId());
+        device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
         DeviceState deviceState = actualDevice.getState();
@@ -138,6 +144,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private Device createComparableLight(Device actualDevice) {
         LightDevice device = new LightDevice();
+        device.setId(actualDevice.getId());
+        device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
         DeviceState deviceState = actualDevice.getState();
@@ -151,6 +159,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private Device createComparableDoor(Device actualDevice) {
         DoorDevice device = new DoorDevice();
+        device.setId(actualDevice.getId());
+        device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
         DeviceState deviceState = actualDevice.getState();
@@ -164,6 +174,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private Device createComparableBlind(Device actualDevice) {
         BlindDevice device = new BlindDevice();
+        device.setId(actualDevice.getId());
+        device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
         DeviceState deviceState = actualDevice.getState();
@@ -177,6 +189,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private Device createComparableAc(Device actualDevice) {
         AcDevice device = new AcDevice();
+        device.setId(actualDevice.getId());
+        device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
         DeviceState deviceState = actualDevice.getState();
@@ -190,6 +204,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private Device createComparableTap(Device actualDevice) {
         TapDevice device = new TapDevice();
+        device.setId(actualDevice.getId());
+        device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
         DeviceState deviceState = actualDevice.getState();
