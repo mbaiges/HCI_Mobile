@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
-public abstract class DeviceState {
+public class DeviceState {
     @SerializedName("status")
     @Expose
     protected String status;

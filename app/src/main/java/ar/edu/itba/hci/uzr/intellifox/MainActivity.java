@@ -246,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean fetchAndSaveBelledDevices() {
         final Gson gson = new Gson();
+        boolean worked = false;
         String json = sharedPreferences.getString(BELLED_DEVICES, "");
         if (!json.equals("")) {
             BelledDevices belledDevices = gson.fromJson(json, BelledDevices.class);
@@ -262,8 +263,11 @@ public class MainActivity extends AppCompatActivity {
                                     if (response.isSuccessful()) {
                                         Result<Device> result = response.body();
                                         if (result != null) {
-                                            Log.d("DEVICE_BELLED", result.getResult().toString());
-                                            db.addDeviceToDatabase(typeName, deviceId);
+                                            Device device = result.getResult();
+                                            if (device != null) {
+                                                Log.d("DEVICE_BELLED", result.getResult().toString());
+                                                db.addDevice(typeName, device);
+                                            }
                                         } else {
                                             handleError(response);
                                         }
@@ -276,11 +280,12 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
+                        worked = true;
                     }
                 }
             }
         }
-        return false;
+        return worked;
     }
 
     protected <T> void handleError(Response<T> response) {

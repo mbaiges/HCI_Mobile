@@ -12,18 +12,34 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 
+import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
+import ar.edu.itba.hci.uzr.intellifox.api.Error;
+import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
+import ar.edu.itba.hci.uzr.intellifox.wrappers.BelledDevices;
+import ar.edu.itba.hci.uzr.intellifox.wrappers.TypeAndDeviceId;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
+
+    private final static String BELLED_DEVICES = "belled_devices";
 
     private static final String CHANNEL_ID = "NOTIFICATIONS";
     private static final int MY_NOTIFICATION_ID = 1;
@@ -45,7 +61,77 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void checkBelledSavedDevices(Context context) {
+        final Gson gson = new Gson();
+        String json = sharedPreferences.getString(BELLED_DEVICES, "");
+        if (!json.equals("")) {
+            BelledDevices belledDevices = gson.fromJson(json, BelledDevices.class);
+            if (belledDevices != null) {
+                HashSet<TypeAndDeviceId> tadis =  belledDevices.getBelledDevices();
+                if (tadis != null) {
+                    for (TypeAndDeviceId tadi: tadis) {
+                        String deviceId = tadi.getDeviceId();
+                        String typeName = tadi.getTypeName();
+                        if (deviceId != null && typeName != null) {
+                            ApiClient.getInstance().getDevice(deviceId, new Callback<Result<Device>>() {
+                                @Override
+                                public void onResponse(Call<Result<Device>> call, Response<Result<Device>> response) {
+                                    if (response.isSuccessful()) {
+                                        Result<Device> result = response.body();
+                                        if (result != null) {
+                                            Device device = result.getResult();
+                                            if (device != null) {
+                                                device.setMeta(null);
+                                                device.setRoom(null);
+                                                DeviceState deviceState = device.getState();
+                                                if (deviceState != null) {
+                                                    DeviceState state = new DeviceState();
+                                                    state.setStatus(deviceState.getStatus());
+                                                    device.setState(state);
+                                                }
+                                                DeviceType deviceType = device.getType();
+                                                if (deviceType != null) {
+                                                    String typeName = deviceType.getName();
+                                                    if (typeName != null) {
+                                                        db.addDevice(typeName, device);
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            handleError(response);
+                                        }
+                                    }
+                                }
 
+                                @Override
+                                public void onFailure(@NonNull Call<Result<Device>> call, @NonNull Throwable t) {
+                                    handleUnexpectedError(t);
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected <T> void handleError(Response<T> response) {
+        Error error = ApiClient.getInstance().getError(response.errorBody());
+        List<String> descList = error.getDescription();
+        String desc = "";
+        if (descList != null) {
+            desc = descList.get(0);
+        }
+        String code = "Code " + String.valueOf(error.getCode());
+        Log.e("ERROR", code + " - " + desc);
+        /*
+        String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
+        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+        */
+    }
+
+    protected void handleUnexpectedError(Throwable t) {
+        String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
+        Log.e(LOG_TAG, t.toString());
     }
 
     private void showNotification(Context context, Device device) {
