@@ -98,7 +98,7 @@ public class TapDeviceObserver extends DeviceObserver {
                                 String[] args = new String[2];
                                 args[0] = amount;
                                 args[1] = unit;
-                                Log.v("Dispensing", amount + unit);
+                                //Log.v("Dispensing", amount + unit);
                                 ApiClient.getInstance().executeDeviceAction(d.getId(), "dispense", args, new Callback<Result<Object>>() {
                                     @Override
                                     public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {

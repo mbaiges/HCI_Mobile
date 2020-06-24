@@ -223,8 +223,6 @@ public abstract class AppDatabase extends RoomDatabase {
                 status = state.getStatus();
                 batteryLevel = state.getBatteryLevel();
                 mode = state.getMode();
-                VacuumLocation vacLocation = state.getLocation();
-                location = vacLocation.getId();
             }
         }
         VacuumDeviceDB model = new VacuumDeviceDB();
@@ -232,7 +230,6 @@ public abstract class AppDatabase extends RoomDatabase {
         model.name = name;
         model.status = status;
         model.batteryLevel = batteryLevel;
-        model.location = location;
         model.mode = mode;
         return model;
     }
@@ -388,9 +385,6 @@ public abstract class AppDatabase extends RoomDatabase {
         state.setStatus(dbDevice.status);
         state.setBatteryLevel(dbDevice.batteryLevel);
         state.setMode(dbDevice.mode);
-        VacuumLocation vacuumLocation = new VacuumLocation();
-        vacuumLocation.setId(dbDevice.location);
-        state.setLocation(vacuumLocation);
         d.setState(state);
         return d;
     }
@@ -425,7 +419,7 @@ public abstract class AppDatabase extends RoomDatabase {
         state.setStatus(dbDevice.status);
         state.setConvection(dbDevice.convection);
         state.setGrill(dbDevice.grill);
-        state.setHeat(dbDevice.grill);
+        state.setHeat(dbDevice.heat);
         state.setTemperature(dbDevice.temperature);
         d.setState(state);
         return d;

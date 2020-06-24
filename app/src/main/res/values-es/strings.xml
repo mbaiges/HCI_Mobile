@@ -224,8 +224,8 @@
     <string name="notif_oven_changed_grill">cambió su modo de parrilla</string>
     <string name="notif_oven_changed_heat">cambió su modo de calor</string>
 
-    <string name="notif_speaker_turned_on">fue encendido</string>
-    <string name="notif_speaker_turned_off">fue apagado</string>
+    <string name="notif_speaker_turned_on">fue encendido.</string>
+    <string name="notif_speaker_turned_off">Fue apagado.</string>
     <string name="notif_speaker_genre">cambió su genero a</string>
 
     <string name="notif_blind_opened">Fue abierta.</string>

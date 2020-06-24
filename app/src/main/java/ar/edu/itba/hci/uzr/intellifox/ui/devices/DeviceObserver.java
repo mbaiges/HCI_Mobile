@@ -107,7 +107,6 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
             final Gson gson = new Gson();
             String json = sharedPreferences.getString(BELLED_DEVICES, "");
             if (!json.equals("")) {
-                Log.d("JSON", json);
                 BelledDevices belledDevices = gson.fromJson(json, BelledDevices.class);
                 if (belledDevices != null) {
                     HashSet<TypeAndDeviceId> tadis = belledDevices.getBelledDevices();
@@ -236,7 +235,6 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                             belledDevices = new BelledDevices(new HashSet<>());
                         }
                         else {
-                            Log.d("JSON", json);
                             belledDevices = gson.fromJson(json, BelledDevices.class);
                         }
                         if (belledDevices != null) {

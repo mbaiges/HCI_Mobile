@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String CHANNEL_ID = "NOTIFICATIONS";
 
     private static final String TAKE_PHOTO_TAG = "Take Photo";
-    private static final int REQUEST_TAKE_PHOTO = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri photoUri;
     public Bitmap bitmap;
     BarcodeDetector detector;
@@ -173,14 +173,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        //QRS--------------------------------------------------
-        detector =
-                new BarcodeDetector.Builder(getApplicationContext())
-                        .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
-                        .build();
-
-        waitUntilBarcodeDetectorIsOperational(detector, 10);
-        //----------------------------------------------------
         setContentView(R.layout.activity_main);
 
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -209,6 +201,14 @@ public class MainActivity extends AppCompatActivity {
 
         checkNightModeActivated();
         //checkLanguage();
+
+        if (detector == null) {
+            detector = new BarcodeDetector.Builder(getApplicationContext())
+                    .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                    .build();
+        }
+
+        waitUntilBarcodeDetectorIsOperational(detector, 10);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -288,63 +288,15 @@ public class MainActivity extends AppCompatActivity {
             if (belledDevices != null) {
                 HashSet<TypeAndDeviceId> tadis = belledDevices.getBelledDevices();
                 if (tadis != null) {
-                    DatabaseTruncateTablesAsyncTask task = new DatabaseTruncateTablesAsyncTask();
+                    DatabaseReloadTablesAsyncTask task = new DatabaseReloadTablesAsyncTask(tadis);
                     task.execute();
-                    for (TypeAndDeviceId tadi : tadis) {
-                        String deviceId = tadi.getDeviceId();
-                        String typeName = tadi.getTypeName();
-                        if (deviceId != null && typeName != null) {
-                            ApiClient.getInstance().getDevice(deviceId, new Callback<Result<Device>>() {
-                                @Override
-                                public void onResponse(Call<Result<Device>> call, Response<Result<Device>> response) {
-                                    if (response.isSuccessful()) {
-                                        Result<Device> result = response.body();
-                                        if (result != null) {
-                                            Device device = result.getResult();
-                                            if (device != null) {
-                                                Log.d("DEVICE_BELLED", result.getResult().toString());
-                                                DatabaseAddDeviceAsyncTask task = new DatabaseAddDeviceAsyncTask(typeName, device);
-                                                task.execute();
-                                            }
-                                        } else {
-                                            handleError(response);
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(@NonNull Call<Result<Device>> call, @NonNull Throwable t) {
-                                    handleUnexpectedError(t);
-                                }
-                            });
-                        }
-                        worked = true;
-                    }
+                    worked = true;
                 }
             }
         }
         return worked;
     }
 
-    protected <T> void handleError(Response<T> response) {
-        Error error = ApiClient.getInstance().getError(response.errorBody());
-        List<String> descList = error.getDescription();
-        String desc = "";
-        if (descList != null) {
-            desc = descList.get(0);
-        }
-        String code = "Code " + String.valueOf(error.getCode());
-        Log.e("ERROR", code + " - " + desc);
-        /*
-        String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
-        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
-        */
-    }
-
-    protected void handleUnexpectedError(Throwable t) {
-        String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
-        Log.e(LOG_TAG, t.toString());
-    }
 
     @Override
     protected void onResume() {
@@ -373,62 +325,45 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
+//-----------------------------------------------------------------------QRs----------------------------------------------------------------------------
 
     private void handleQRScanBtn() throws FileNotFoundException {
-        takePhoto();
-        FileDescriptor fd = getContentResolver().openFileDescriptor(photoUri, "w").getFileDescriptor();
-        bitmap = BitmapFactory.decodeFileDescriptor(fd);
-        if(bitmap != null){
-            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-//            SparseArray<Barcode> barcodeArray = detector.detect(frame);
-//
-//            // Decode the barcode
-//            Barcode barcode = barcodeArray.valueAt(0);
-//            Log.v("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", barcode.rawValue);
-            Log.v("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "ENTROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-        }else{
-            Log.v("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "El BITMAP ES NULL");
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
         }
 
-
     }
 
-    private void takePhoto(){
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                Log.e(TAKE_PHOTO_TAG, ex.toString());
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                photoUri = getUriForFile(this,
-                        getApplicationContext().getPackageName() + ".fileprovider",
-                        photoFile);
-                Log.d(TAKE_PHOTO_TAG, photoUri.toString());
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("LLEGO AL ACTIVITY RESULT", "SIII");
+        if (requestCode == REQUEST_IMAGE_CAPTURE &&
+                resultCode == RESULT_OK) {
+            Log.d("ENTRA?", "SIIII");
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                bitmap = (Bitmap) extras.get("data");
 
+                if(bitmap != null){
+                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                    SparseArray<Barcode> barcodeArray = detector.detect(frame);
+                    Log.d("BARCODE", barcodeArray.toString());
+                    if (barcodeArray.size() != 0) {
+                        Barcode barcode = barcodeArray.valueAt(0);
+                        Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", barcode.rawValue);
+                    }
+                    // Decode the barcode
+
+                }else{
+                    Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "El BITMAP ES NULL");
+                }
+            }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
-
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String imageFileName = "Photo_" + UUID.randomUUID();
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        return File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",   /* suffix */
-                storageDir      /* directory */
-        );
-    }
 
     private void waitUntilBarcodeDetectorIsOperational(BarcodeDetector detector, int retries) {
         final Handler handler = new Handler();
@@ -445,6 +380,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 10000);
     }
+
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
     private void handleMicrophoneBtn(){
 

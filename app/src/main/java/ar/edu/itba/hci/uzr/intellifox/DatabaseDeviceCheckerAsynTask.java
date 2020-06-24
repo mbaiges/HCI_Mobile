@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 
@@ -142,7 +143,6 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         if (deviceState != null) {
             VacuumDeviceState state = new VacuumDeviceState();
             state.setStatus(deviceState.getStatus());
-            state.setLocation(deviceState.getLocation());
             state.setBatteryLevel(deviceState.getBatteryLevel());
             state.setMode(deviceState.getMode());
             device.setState(state);
@@ -179,7 +179,6 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
             state.setStatus(deviceState.getStatus());
             state.setLock(deviceState.getLock());
             device.setState(state);
-
         }
         return device;
     }
@@ -242,9 +241,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     @Override
     protected void onPostExecute(Device device) {
-        boolean notify = false;
-
         Log.d("BD_GET_DEVICE", device.toString());
+        Log.d("API_GET_DEVICE", actualDevice.toString());
         if (typeName.equals("faucet")) {
             checkTapChanges((TapDevice) device);
         }
@@ -273,7 +271,6 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private void checkTapChanges(TapDevice device) {
         if (!actualDevice.equals(device)) {
-            Log.d("DEVICE_CHANGED", actualDevice.toString());
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
             Context context = weakContext.get();
@@ -284,6 +281,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                 }else{
                     messageBuilder.append(context.getResources().getString(R.string.notif_tap_closed));
                 }
+                messageBuilder.append(" ");
                 // Tell the user
                 showNotification(context, typeName, device, messageBuilder.toString());
             }
@@ -292,7 +290,6 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private void checkAcChanges(AcDevice device) {
         if (!actualDevice.equals(device)) {
-            Log.d("DEVICE_CHANGED", actualDevice.toString());
             AcDevice actualAcDevice = (AcDevice) actualDevice;
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualAcDevice);
             task.execute();
@@ -308,11 +305,12 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                     }else{
                         messageBuilder.append(context.getResources().getString(R.string.notif_ac_turned_off));
                     }
+                    messageBuilder.append(" ");
                     stateChanged = true;
                 }
                 if(!actualAcDevice.getState().getTemperature().equals(device.getState().getTemperature())){
                     if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
                     }else{
@@ -322,7 +320,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                 }
                 if(!actualAcDevice.getState().getFanSpeed().equals(device.getState().getFanSpeed())){
                     if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
                     }else{
@@ -332,7 +330,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                 }
                 if(!actualAcDevice.getState().getHorizontalSwing().equals(device.getState().getHorizontalSwing())){
                     if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
                     }else{
@@ -342,7 +340,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                 }
                 if(!actualAcDevice.getState().getVerticalSwing().equals(device.getState().getVerticalSwing())){
                     if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                     }else{
                         messageBuilder.append(" - ");
                     }
@@ -359,8 +357,6 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private void checkLightChanges(LightDevice device) {
         if (!actualDevice.equals(device)) {
-            Log.d("DEVICE_CHANGED", actualDevice.toString());
-
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
             Context context = weakContext.get();
@@ -374,12 +370,13 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                     }else{
                         messageBuilder.append(context.getResources().getString(R.string.notif_light_turned_off));
                     }
+                    messageBuilder.append(" ");
                     stateChanged = true;
                 }
 
                 if( !(((LightDevice)actualDevice).getState().getColor().equals(device.getState().getColor())) ||
                         (((LightDevice)actualDevice).getState().getBrightness().equals(device.getState().getBrightness()))){
-                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                     messageBuilder.append(" ");
                     messageBuilder.append(context.getResources().getString(R.string.notif_light_color));
                     first = false;
@@ -394,7 +391,6 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private void checkOvenChanges(OvenDevice device) {
         if (!actualDevice.equals(device)) {
-            Log.d("DEVICE_CHANGED", actualDevice.toString());
             OvenDevice actualOvenDevice = (OvenDevice) actualDevice;
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
@@ -410,12 +406,13 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                     }else{
                         messageBuilder.append(context.getResources().getString(R.string.notif_oven_turned_off));
                     }
+                    messageBuilder.append(" ");
                     stateChanged = true;
                 }
 
                 if(!actualOvenDevice.getState().getTemperature().equals(device.getState().getTemperature())){
                     if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
                     }else{
@@ -425,7 +422,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                 }
                 if(!actualOvenDevice.getState().getConvection().equals(device.getState().getConvection())){
                     if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
                     }else{
@@ -435,7 +432,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                 }
                 if(!actualOvenDevice.getState().getGrill().equals(device.getState().getGrill())){
                     if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
                     }else{
@@ -445,7 +442,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                 }
                 if(!actualOvenDevice.getState().getHeat().equals(device.getState().getHeat())){
                     if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
                     }else{
@@ -464,7 +461,6 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private void checkSpeakerChanges(SpeakerDevice device) {
         if (!actualDevice.equals(device)) {
-            Log.d("DEVICE_CHANGED", actualDevice.toString());
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
             Context context = weakContext.get();
@@ -478,11 +474,12 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                     }else{
                         messageBuilder.append(context.getResources().getString(R.string.notif_speaker_turned_off));
                     }
+                    messageBuilder.append(" ");
                     stateChanged = true;
                 }
 
                 if(!((SpeakerDevice)actualDevice).getState().getGenre().equals(device.getState().getGenre())){
-                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                     messageBuilder.append(" ");
                     messageBuilder.append(context.getResources().getString(R.string.notif_speaker_genre));
                     messageBuilder.append(" ");
@@ -499,7 +496,6 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private void checkBlindChanges(BlindDevice device) {
         if (!actualDevice.equals(device)) {
-            Log.d("DEVICE_CHANGED", actualDevice.toString());
             BlindDevice actualBlindDevice = (BlindDevice) actualDevice;
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
@@ -514,6 +510,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                     }else if(actualBlindDevice.getState().getStatus().equals("closed")&& device.getState().getStatus().equals("opened")) {
                         messageBuilder.append(context.getResources().getString(R.string.notif_blind_closed));
                     }
+                    messageBuilder.append(" ");
                 }
                 showNotification(context, typeName, device, messageBuilder.toString());
             }
@@ -522,7 +519,6 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     private void checkDoorChanges(DoorDevice device) {
         if (!actualDevice.equals(device)) {
-            Log.d("DEVICE_CHANGED", actualDevice.toString());
             DatabaseUpdateDeviceAsyncTask task = new DatabaseUpdateDeviceAsyncTask(typeName, actualDevice);
             task.execute();
             Context context = weakContext.get();
@@ -537,17 +533,19 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                     }else{
                         messageBuilder.append(context.getResources().getString(R.string.notif_door_turned_closed));
                     }
+                    messageBuilder.append(" ");
                     stateChanged = true;
                 }
 
                 if(!((DoorDevice)actualDevice).getState().getLock().equals(device.getState().getLock())){
-                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                     messageBuilder.append(" ");
                     if(((DoorDevice)actualDevice).getState().getLock().equals("unlocked")){
                         messageBuilder.append(context.getResources().getString(R.string.notif_door_unlocked));
                     }else{
                         messageBuilder.append(context.getResources().getString(R.string.notif_door_locked));
                     }
+                    messageBuilder.append(" ");
                     first = false;
                 }
                 if (!first) {
@@ -575,12 +573,13 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                     }else{
                         messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_turned_off));
                     }
+                    messageBuilder.append(" ");
                     stateChanged = true;
                 }
 
                 if(!actualVacuumDevice.getState().getMode().equals(device.getState().getMode())){
                     if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
                     }else{
@@ -589,28 +588,24 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
                     messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_mode));
                 }
 
-                if(!actualVacuumDevice.getState().getLocation().equals(device.getState().getLocation())){
-                    if(first){
-                        messageBuilder.append(context.getResources().getString(R.string.notif_additional_changes));
-                        first = false;
-                    }else{
-                        messageBuilder.append(" - ");
-                    }
-                    messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_location));
-                }
 
-                if( (!actualVacuumDevice.getState().getBatteryLevel().equals(device.getState().getBatteryLevel())) &&
-                        actualVacuumDevice.getState().getBatteryLevel() <= 6 && device.getState().getBatteryLevel() > 6){
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_changes):context.getResources().getString(R.string.notif_additional_changes));
-                        messageBuilder.append(" ");
-                        first = false;
-                    }else{
-                        messageBuilder.append(" - ");
+                if( !actualVacuumDevice.getState().getBatteryLevel().equals(device.getState().getBatteryLevel()) ) {
+                    if (actualVacuumDevice.getState().getBatteryLevel() <= 6 && device.getState().getBatteryLevel() > 6) {
+                        if (first) {
+                            messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                            messageBuilder.append(" ");
+                            first = false;
+                        }
+                        else{
+                            messageBuilder.append(" - ");
+                        }
+                        messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_battery));
                     }
-                    messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_battery));
+                    else if (first && !stateChanged) {
+                        return;
+                    }
                 }
-                if (first) {
+                if (!first) {
                     messageBuilder.append(".");
                 }
                 showNotification(context, typeName, device, messageBuilder.toString());
@@ -625,7 +620,8 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         // clicked.
 
         String title = device.getName();
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), getIconRef(typeName));;
+        Integer iconRef = getIconRef(typeName);
+        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_circle);;
 
         Intent notificationIntent = new Intent(context, MainActivity.class);
         notificationIntent.putExtra(MainActivity.MESSAGE_ID, deviceType + "," + device.getId());
@@ -641,17 +637,19 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
         // when notification in action bar is clicked.
         final PendingIntent contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Log.d("MESSAGE", message);
+        Bundle args = new Bundle();
+        args.putString(MainActivity.MESSAGE_ID, deviceType + "," + device.getId());
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setLargeIcon(icon)
                 .setSmallIcon(getIconRef(typeName))
-                .setContentIntent(contentIntent);
+                .setContentIntent(contentIntent)
+                .addExtras(args);
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(MY_NOTIFICATION_ID, builder.build());
+        notificationManager.notify(notification_id++, builder.build());
     }
 
     private Integer getIconRef(String typeName){

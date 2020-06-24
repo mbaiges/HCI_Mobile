@@ -31,6 +31,6 @@ public interface VacuumDeviceDBDao {
     @Update
     void update(VacuumDeviceDB device);
 
-    @Query("DELETE FROM acdevicedb")
+    @Query("DELETE FROM vacuumdevicedb")
     void deleteAllRows();
 }

@@ -118,44 +118,4 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
         Log.e(LOG_TAG, t.toString());
     }
-
-    private void showNotification(Context context, Device device) {
-        // Create the intent to start Activity when notification in action bar is
-        // clicked.
-
-        String eventName = "action";
-        String title = device.getName();
-        String text = "an " + eventName + " was performed on device " + device.getName();
-        Bitmap icon = getIcon(device, context);
-
-        Intent notificationIntent = new Intent(context, MainActivity.class);
-        notificationIntent.putExtra(MainActivity.MESSAGE_ID, device.getType().getName() + "," + device.getId());
-
-        // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(MainActivity.class);
-        stackBuilder.addNextIntent(notificationIntent);
-        // Create the pending intent granting the Operating System to launch activity
-        // when notification in action bar is clicked.
-        final PendingIntent contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setLargeIcon(icon)
-                .setSmallIcon(R.drawable.ic_menu_remote)
-                .setContentIntent(contentIntent);
-
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(MY_NOTIFICATION_ID, builder.build());
-    }
-
-    private Bitmap getIcon(Device device, Context context){
-        //get the icon 
-        return BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_menu_remote);
-    }
 }
