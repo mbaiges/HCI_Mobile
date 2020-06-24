@@ -165,7 +165,7 @@ public class ACDeviceObserver extends DeviceObserver {
         if (state != null) {
             AcDeviceState s = (AcDeviceState) state;
             ACDeviceViewHolder h = (ACDeviceViewHolder) holder;
-            Log.v("ENTROOO", "SET UI");
+            //Log.v("ENTROOO", "SET UI");
             String status = state.getStatus();
             if (status != null) {
                 if (h.onSwitch != null) {
@@ -181,10 +181,7 @@ public class ACDeviceObserver extends DeviceObserver {
 
                     String aux = temp.toString();
                     h.temperatureValue.setText(aux);
-                }else{
-                    Log.v("TEMP"," ES NULL");
                 }
-
             }
             if(h.ModeBtn != null){
                 String mode = s.getMode();
@@ -304,8 +301,6 @@ public class ACDeviceObserver extends DeviceObserver {
                     }
                 }
             }
-        }else{
-            Log.v("SET UI", "STATE ES NULL");
         }
     }
 

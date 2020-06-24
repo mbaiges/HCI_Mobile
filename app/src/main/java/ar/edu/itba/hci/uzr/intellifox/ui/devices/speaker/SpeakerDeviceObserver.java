@@ -70,7 +70,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
             SpeakerDeviceState s = (SpeakerDeviceState) state;
             SpeakerDeviceViewHolder h = (SpeakerDeviceViewHolder) holder;
 
-            Log.v("INFO:", "Setting Description");
+            //Log.v("INFO:", "Setting Description");
 
             String status = s.getStatus();
             String stateStatus;
@@ -143,8 +143,8 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                 String stateSongProgress = stateSong.getProgress();
                 Integer minsTotal = calculateEquivalentProgress(stateSongDuration);
                 Integer minsPassed = calculateEquivalentProgress(stateSongProgress);
-                Log.v("PASSED", minsPassed.toString());
-                Log.v("TOTAL", minsTotal.toString());
+                //Log.v("PASSED", minsPassed.toString());
+                //Log.v("TOTAL", minsTotal.toString());
 
                 if(h.txtProgressLow != null){
                     h.progressBar.setMax(minsTotal);
@@ -207,7 +207,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                         }else{
                             action = "resume";
                         }
-                        Log.v("SONG", "togglePlay");
+                        //Log.v("SONG", "togglePlay");
                         ApiClient.getInstance().executeDeviceAction(d.getId(), action, new String[0], new Callback<Result<Object>>() {
                             @Override
                             public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
@@ -239,7 +239,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                 public void onClick(View v) {
                     SpeakerDevice d = (SpeakerDevice) h.device;
                     if (d != null) {
-                        Log.v("SONG", "previous");
+                        //Log.v("SONG", "previous");
                         ApiClient.getInstance().executeDeviceAction(d.getId(), "previousSong", new String[0], new Callback<Result<Object>>() {
                             @Override
                             public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
@@ -271,7 +271,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                 public void onClick(View v) {
                     SpeakerDevice d = (SpeakerDevice) h.device;
                     if (d != null) {
-                        Log.v("SONG", "next");
+                        //Log.v("SONG", "next");
                         ApiClient.getInstance().executeDeviceAction(d.getId(), "nextSong", new String[0], new Callback<Result<Object>>() {
                             @Override
                             public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
@@ -305,7 +305,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                     if (d != null) {
                         clearSelections();
                         genre = "classical";
-                        Log.v("GENRE", "Classical");
+                        //Log.v("GENRE", "Classical");
                         String[] args = new String[1];
                         args[0] = genre;
                         h.btnClassical.setChecked(true);
@@ -343,7 +343,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                     if (d != null) {
                         clearSelections();
                         genre = "country";
-                        Log.v("GENRE", "Country");
+                        //Log.v("GENRE", "Country");
                         String[] args = new String[1];
                         args[0] = genre;
                         h.btnCountry.setChecked(true);
@@ -381,7 +381,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                     if (d != null) {
                         clearSelections();
                         genre = "dance";
-                        Log.v("GENRE", "Dance");
+                        //Log.v("GENRE", "Dance");
                         String[] args = new String[1];
                         args[0] = genre;
                         h.btnDance.setChecked(true);
@@ -419,7 +419,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                     if (d != null) {
                         clearSelections();
                         genre = "latina";
-                        Log.v("GENRE", "Latina");
+                        //Log.v("GENRE", "Latina");
                         String[] args = new String[1];
                         args[0] = genre;
                         h.btnLatina.setChecked(true);
@@ -457,7 +457,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                     if (d != null) {
                         clearSelections();
                         genre = "pop";
-                        Log.v("GENRE", "Pop");
+                        //Log.v("GENRE", "Pop");
                         String[] args = new String[1];
                         args[0] = genre;
                         h.btnPop.setChecked(true);
@@ -496,7 +496,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
 
                         clearSelections();
                         genre = "rock";
-                        Log.v("GENRE", "Rock");
+                        //Log.v("GENRE", "Rock");
                         String[] args = new String[1];
                         args[0] = genre;
                         h.btnRock.setChecked(true);
@@ -533,7 +533,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                     SpeakerDevice d = (SpeakerDevice) h.device;
                     if (d != null && volume < 10) {
                         volume += 1;
-                        Log.v("Volume", "Up");
+                        //Log.v("Volume", "Up");
                         String[] args = new String[1];
                         args[0] = volume.toString();
                         h.txtVolume.setText(volume.toString());
@@ -568,7 +568,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                     SpeakerDevice d = (SpeakerDevice) h.device;
                     if (d != null && volume > 0) {
                         volume -= 1;
-                        Log.v("Volume", "Down");
+                        //Log.v("Volume", "Down");
                         String[] args = new String[1];
                         args[0] = volume.toString();
                         h.txtVolume.setText(volume.toString());

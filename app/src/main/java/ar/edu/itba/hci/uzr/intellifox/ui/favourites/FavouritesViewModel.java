@@ -94,9 +94,11 @@ public class FavouritesViewModel extends ViewModel {
 
                             if (routinesSet == null || !(routinesSet.equals(actualRoutinesSet))) {
                                 mRoutines.postValue(actualRoutinesSet);
+                                /*
                                 for (Routine r: actualRoutinesSet) {
                                     Log.v("ROUTINE", r.toString());
                                 }
+                                */
                             }
                         }
                     } else {

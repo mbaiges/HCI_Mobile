@@ -79,6 +79,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 import ar.edu.itba.hci.uzr.intellifox.ui.settings.SettingsViewModel;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.BelledDevices;
+import ar.edu.itba.hci.uzr.intellifox.wrappers.QRInfo;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.TypeAndDeviceId;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -97,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
     static final String DEVICE_ID_ARG = "DEVICE_ID";
     static final String DEVICE_TYPE_NAME_ARG = "DEVICE_TYPE_NAME";
+
+    static final String ROOM_ID_ARG = "room_id";
+
+    static final String ROUTINE_ID_ARG = "routine_id";
+    static final String ROUTINE_EXECUTION_ARG = "routine_execution";
 
     private static final String CHANNEL_ID = "NOTIFICATIONS";
 
@@ -338,21 +344,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("LLEGO AL ACTIVITY RESULT", "SIII");
+        //Log.d("LLEGO AL ACTIVITY RESULT", "SIII");
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE &&
                 resultCode == RESULT_OK) {
-            Log.d("ENTRA?", "SIIII");
+            //Log.d("ENTRA?", "SIIII");
             Bundle extras = data.getExtras();
             if (extras != null) {
                 bitmap = (Bitmap) extras.get("data");
 
                 if(bitmap != null){
+                    Log.d("LO QUE HAY EN BITMAP ES:", bitmap.toString());
                     Frame frame = new Frame.Builder().setBitmap(bitmap).build();
                     SparseArray<Barcode> barcodeArray = detector.detect(frame);
-                    Log.d("BARCODE", barcodeArray.toString());
+//
                     if (barcodeArray.size() != 0) {
                         Barcode barcode = barcodeArray.valueAt(0);
-                        Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", barcode.rawValue);
+                        processBarcodeScan(barcode.rawValue);
                     }
                     // Decode the barcode
 
@@ -361,9 +369,64 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void processBarcodeScan(String json) {
+        Gson gson = new Gson();
+        QRInfo qrInfo = gson.fromJson(json, QRInfo.class);
+        Log.d("A VER QUE CARAJO LLEGA",json);
+        String type = qrInfo.getType();
+        String id = qrInfo.getId();
+        if (type.equals("device")) {
+            String typeName = qrInfo.getTypeName();
+            if (typeName != null) {
+                Bundle args = new Bundle();
+                args.putString(DEVICE_ID_ARG, id);
+                args.putString(DEVICE_TYPE_NAME_ARG, typeName);
+                Log.d("ARGUMENTOS QUE MANDO",args.toString());
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_device, args);
+            }
+        }
+        else if (type.equals("room")) {
+            Bundle args = new Bundle();
+            args.putString(ROOM_ID_ARG, id);
+            Log.d("ARGUMENTOS QUE MANDO",args.toString());
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_room, args);
+        }
+        else if (type.equals("routine")) {
+            Boolean executable = qrInfo.isExecutable();
+            if (executable == null) {
+                //executable = false;
+                if(!executable){
+                    Bundle args = new Bundle();
+                    args.putString(ROUTINE_ID_ARG, id);
+                    args.putBoolean(ROUTINE_EXECUTION_ARG, executable);
+                    Log.d("ARGUMENTOS QUE MANDO",args.toString());
+                    Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_routine, args);
+                }else{
+                    Bundle args = new Bundle();
+                    args.putString(ROUTINE_ID_ARG, id);
+                    args.putBoolean(ROUTINE_EXECUTION_ARG, executable);
+                    Log.d("ARGUMENTOS QUE MANDO",args.toString());
+                    Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_routine, args);
+                }
+
+
+            }
+
+        }
+    }
+
+//    private File createImageFile() throws IOException {
+//        // Create an image file name
+//        String imageFileName = "Photo_" + UUID.randomUUID();
+//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        return File.createTempFile(
+//                imageFileName,  /* prefix */
+//                ".jpg",   /* suffix */
+//                storageDir      /* directory */
+//        );
+//    }
 
     private void waitUntilBarcodeDetectorIsOperational(BarcodeDetector detector, int retries) {
         final Handler handler = new Handler();

@@ -119,9 +119,9 @@ public class LightDeviceObserver extends DeviceObserver {
             h.colorPickerView.setColorListener(new ColorEnvelopeListener() {
                 @Override
                 public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
-                    Log.v("COLOR_PICKER", envelope.getHexCode());
+                    //Log.v("COLOR_PICKER", envelope.getHexCode());
                     String[] newColor = {envelope.getHexCode().substring(2)};
-                    Log.v("COLOR_PICKER_TO_API", newColor[0]);
+                    //Log.v("COLOR_PICKER_TO_API", newColor[0]);
 
                     LightDevice d = (LightDevice) h.device;
                     if(d != null){
@@ -224,10 +224,10 @@ public class LightDeviceObserver extends DeviceObserver {
 
     @Override
     protected int getIconColor(Boolean turnedOn, DeviceState state) {
-        Log.v("LIGHT_COLOR", "ASKED FOR LIGHT COLOR");
+        //Log.v("LIGHT_COLOR", "ASKED FOR LIGHT COLOR");
         if (turnedOn && state != null) {
             LightDeviceState s = (LightDeviceState) state;
-            Log.v("LIGHT_COLOR", s.getColor());
+            //Log.v("LIGHT_COLOR", s.getColor());
             String color = s.getColor();
             return Color.parseColor("#FF" + color);
         }
