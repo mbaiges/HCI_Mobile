@@ -438,6 +438,7 @@ public abstract class AppDatabase extends RoomDatabase {
         AcDeviceState state = new AcDeviceState();
         state.setStatus(dbDevice.status);
         d.setState(state);
+        state.setMode(dbDevice.mode);
         state.setTemperature(dbDevice.temperature);
         state.setFanSpeed(dbDevice.fanSpeed);
         state.setHorizontalSwing(dbDevice.horizontalSwing);
