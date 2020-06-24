@@ -1,5 +1,7 @@
 package ar.edu.itba.hci.uzr.intellifox.ui.devices;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -8,9 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
+import ar.edu.itba.hci.uzr.intellifox.SharedPreferencesGetter;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
@@ -18,6 +26,9 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceMeta;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
+import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
+import ar.edu.itba.hci.uzr.intellifox.wrappers.BelledDevices;
+import ar.edu.itba.hci.uzr.intellifox.wrappers.TypeAndDeviceId;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,11 +41,23 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
     private final static Integer FAVOURITE_ICON = R.drawable.ic_heart_filled;
     private final static Integer NON_FAVOURITE_ICON = R.drawable.ic_heart_outline;
 
+    private final static Integer BELLED_ICON = R.drawable.ic_bell;
+    private final static Integer NON_BELLED_ICON = R.drawable.ic_bell_off;
+
+    private final static String BELLED_DEVICES = "belled_devices";
+
+    static SharedPreferences sharedPreferences;
+
     protected View contextView;
     protected DeviceViewHolder holder;
 
     public DeviceObserver(View contextView) {
         this.contextView = contextView;
+
+        if (sharedPreferences == null) {
+            sharedPreferences = SharedPreferencesGetter.getInstance();
+        }
+
         createHolder();
         findElements();
         attachFunctions();
@@ -62,6 +85,7 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
     }
 
     protected void findElements() {
+        holder.bell = contextView.findViewById(R.id.bell);
         holder.icon = contextView.findViewById(R.id.icon);
         holder.description = contextView.findViewById(R.id.desc);
         holder.favourite = contextView.findViewById(R.id.favourite);
@@ -72,10 +96,42 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
         DeviceState state = device.getState();
 
         if (state != null) {
-            String status = state.getStatus();
-
             setFavourite(device);
+            setBell(device);
             setUI(state);
+        }
+    }
+
+    private void setBell(Device<? extends DeviceState> device) {
+        if (device != null && holder.bell != null) {
+            final Gson gson = new Gson();
+            String json = sharedPreferences.getString(BELLED_DEVICES, "");
+            if (!json.equals("")) {
+                Log.d("JSON", json);
+                BelledDevices belledDevices = gson.fromJson(json, BelledDevices.class);
+                if (belledDevices != null) {
+                    HashSet<TypeAndDeviceId> tadis = belledDevices.getBelledDevices();
+                    if (tadis != null) {
+                        DeviceType dt = device.getType();
+                        if (dt != null) {
+                            String typeName = dt.getName();
+                            if (typeName != null) {
+                                String deviceId = device.getId();
+                                if (deviceId != null) {
+                                    TypeAndDeviceId tadi = new TypeAndDeviceId(typeName, device.getId());
+                                    boolean present = tadis.contains(tadi);
+                                    holder.bell.setImageResource(present?BELLED_ICON:NON_BELLED_ICON);
+                                    holder.bell.setColorFilter(ContextCompat.getColor(contextView.getContext(), R.color.icon));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                holder.bell.setImageResource(NON_BELLED_ICON);
+                holder.bell.setColorFilter(ContextCompat.getColor(contextView.getContext(), R.color.icon));
+            }
         }
     }
 
@@ -160,6 +216,60 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                                 if (holder.favourite != null) {
                                     holder.favourite.setImageResource(fav?FAVOURITE_ICON:NON_FAVOURITE_ICON);
                                     holder.favourite.setColorFilter(ContextCompat.getColor(contextView.getContext(), R.color.icon));
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        if (holder.bell != null) {
+            holder.bell.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Device device = holder.device;
+                    if (device != null) {
+                        final Gson gson = new Gson();
+                        String json = sharedPreferences.getString(BELLED_DEVICES, "");
+                        BelledDevices belledDevices;
+                        if (json.equals("")) {
+                            belledDevices = new BelledDevices(new HashSet<>());
+                        }
+                        else {
+                            Log.d("JSON", json);
+                            belledDevices = gson.fromJson(json, BelledDevices.class);
+                        }
+                        if (belledDevices != null) {
+                            HashSet<TypeAndDeviceId> tadis = belledDevices.getBelledDevices();
+                            if (tadis != null) {
+                                DeviceType dt = device.getType();
+                                if (dt != null) {
+                                    String typeName = dt.getName();
+                                    if (typeName != null) {
+                                        String deviceId = device.getId();
+                                        if (deviceId != null) {
+                                            TypeAndDeviceId tadi = new TypeAndDeviceId(typeName, device.getId());
+                                            boolean present = tadis.contains(tadi);
+                                            if (present) {
+                                                tadis.remove(tadi);
+                                            }
+                                            else {
+                                                tadis.add(tadi);
+                                            }
+                                            present = !present;
+
+                                            holder.bell.setImageResource(present?BELLED_ICON:NON_BELLED_ICON);
+                                            holder.bell.setColorFilter(ContextCompat.getColor(contextView.getContext(), R.color.icon));
+
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                            belledDevices.setBelledDevices(tadis);
+
+                                            String jsonToSave = gson.toJson(belledDevices);
+                                            editor.putString(BELLED_DEVICES, jsonToSave);
+                                            editor.apply();
+                                        }
+                                    }
                                 }
                             }
                         }

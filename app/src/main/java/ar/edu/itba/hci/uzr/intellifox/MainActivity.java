@@ -33,6 +33,8 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,15 +50,33 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
+import java.lang.reflect.Type;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 
+import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
+import ar.edu.itba.hci.uzr.intellifox.api.Error;
+import ar.edu.itba.hci.uzr.intellifox.api.Result;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
+import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 import ar.edu.itba.hci.uzr.intellifox.ui.settings.SettingsViewModel;
+import ar.edu.itba.hci.uzr.intellifox.wrappers.BelledDevices;
+import ar.edu.itba.hci.uzr.intellifox.wrappers.TypeAndDeviceId;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    private final static String DATABASE_NAME = "intellifox_db";
+
+    private final static String BELLED_DEVICES = "belled_devices";
 
     static final String DEVICE_ID_ARG = "DEVICE_ID";
     static final String DEVICE_TYPE_NAME_ARG = "DEVICE_TYPE_NAME";
@@ -65,9 +85,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static final String MESSAGE_ID = "ar.edu.itba.MESSAGE_ID";
-    public static final String MyPREFERENCES = "nightModePrefs";
+    public static final String MyPREFERENCES = "intellifoxPrefs";
     public static final String KEY_ISNIGHTMODE = "isNightMode";
     SharedPreferences sharedPreferences;
+    AppDatabase db;
 
     private AlarmManager alarmManager;
     private PendingIntent alarmBroadcastReceiverPendingIntent;
@@ -145,6 +166,12 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
+        SharedPreferencesGetter.setInstance(sharedPreferences);
+
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, DATABASE_NAME).build();
+
+        DatabaseGetter.setInstance(db);
+
         checkNightModeActivated();
         //checkLanguage();
 
@@ -209,10 +236,71 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + INTERVAL,
-                INTERVAL,
-                alarmBroadcastReceiverPendingIntent);
+        if (fetchAndSaveBelledDevices()) {
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME,
+                    SystemClock.elapsedRealtime() + INTERVAL,
+                    INTERVAL,
+                    alarmBroadcastReceiverPendingIntent);
+        }
+    }
+
+    private boolean fetchAndSaveBelledDevices() {
+        final Gson gson = new Gson();
+        String json = sharedPreferences.getString(BELLED_DEVICES, "");
+        if (!json.equals("")) {
+            BelledDevices belledDevices = gson.fromJson(json, BelledDevices.class);
+            if (belledDevices != null) {
+                HashSet<TypeAndDeviceId> tadis =  belledDevices.getBelledDevices();
+                if (tadis != null) {
+                    for (TypeAndDeviceId tadi: tadis) {
+                        String deviceId = tadi.getDeviceId();
+                        String typeName = tadi.getTypeName();
+                        if (deviceId != null && typeName != null) {
+                            ApiClient.getInstance().getDevice(deviceId, new Callback<Result<Device>>() {
+                                @Override
+                                public void onResponse(Call<Result<Device>> call, Response<Result<Device>> response) {
+                                    if (response.isSuccessful()) {
+                                        Result<Device> result = response.body();
+                                        if (result != null) {
+                                            Log.d("DEVICE_BELLED", result.getResult().toString());
+                                            //addToDatabase(typeName, deviceId);
+                                        } else {
+                                            handleError(response);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<Result<Device>> call, @NonNull Throwable t) {
+                                    handleUnexpectedError(t);
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    protected <T> void handleError(Response<T> response) {
+        Error error = ApiClient.getInstance().getError(response.errorBody());
+        List<String> descList = error.getDescription();
+        String desc = "";
+        if (descList != null) {
+            desc = descList.get(0);
+        }
+        String code = "Code " + String.valueOf(error.getCode());
+        Log.e("ERROR", code + " - " + desc);
+        /*
+        String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
+        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+        */
+    }
+
+    protected void handleUnexpectedError(Throwable t) {
+        String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
+        Log.e(LOG_TAG, t.toString());
     }
 
     @Override

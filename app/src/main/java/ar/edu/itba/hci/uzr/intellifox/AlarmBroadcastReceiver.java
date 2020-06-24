@@ -20,6 +20,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
+import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
@@ -27,29 +28,24 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "NOTIFICATIONS";
     private static final int MY_NOTIFICATION_ID = 1;
     private static SharedPreferences sharedPreferences;
+    private static AppDatabase db;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(MainActivity.TAG, "Alarm at: " + DateFormat.getDateTimeInstance().format(new Date()));
 
         if (sharedPreferences == null) {
-            sharedPreferences = context.getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+            sharedPreferences = SharedPreferencesGetter.getInstance();
+        }
+        if (db == null) {
+            db = DatabaseGetter.getInstance();
         }
 
-        showNotification(context);
+        checkBelledSavedDevices(context);
+    }
 
-        //To save
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(myObject);
-//        editor.putString("MyObject", json);
-//        editor.commit();
-//        showNotification(context);
+    private void checkBelledSavedDevices(Context context) {
 
-        //To retrieve
-//        Gson gson = new Gson();
-//        String json = sharedPreferences.getString("MyObject", "");
-//        MyObject obj = gson.fromJson(json, MyObject.class);
     }
 
     private void showNotification(Context context, Device device) {
