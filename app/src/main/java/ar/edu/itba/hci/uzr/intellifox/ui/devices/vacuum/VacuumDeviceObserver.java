@@ -150,15 +150,15 @@ public class VacuumDeviceObserver extends DeviceObserver {
 
                         //spinner.setOnItemClickListener(contextView.getContext());
 
-                        Set<Room> actualRoomsSet = new HashSet<>(result.getResult());
-                        Log.v("ROOMS", actualRoomsSet.toString());
-                        Object[] rooms = actualRoomsSet.toArray();
-                        Log.v("ROOM 1", ((Room)rooms[0]).getName());
-
-                        String[] roomNames = new String[actualRoomsSet.size()];
-                        for (int i =0; i< actualRoomsSet.size(); i++){
-                            roomNames[i] = ((Room)rooms[i]).getName();
-                        }
+//                        Set<Room> actualRoomsSet = new HashSet<>(result.getResult());
+//                        Log.v("ROOMS", actualRoomsSet.toString());
+//                        Object[] rooms = actualRoomsSet.toArray();
+//                        Log.v("ROOM 1", ((Room)rooms[0]).getName());
+//
+//                        String[] roomNames = new String[actualRoomsSet.size()];
+//                        for (int i =0; i< actualRoomsSet.size(); i++){
+//                            roomNames[i] = ((Room)rooms[i]).getName();
+//                        }
 //
 //                      List<String> categories = new ArrayList<String>();
 //
