@@ -14,6 +14,9 @@ public interface TapDeviceDBDao {
     @Query("SELECT * FROM tapdevicedb")
     List<TapDeviceDB> getAll();
 
+    @Query("SELECT * FROM tapdevicedb WHERE id = :id LIMIT 1")
+    TapDeviceDB get(String id);
+
     @Query("SELECT * FROM tapdevicedb WHERE id IN (:ids)")
     List<TapDeviceDB> loadAllByIds(String[] ids);
 
