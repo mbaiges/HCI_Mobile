@@ -54,6 +54,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -357,6 +358,19 @@ public class MainActivity extends AppCompatActivity {
         {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQ_CODE_SPEECH_INPUT &&
+                resultCode == RESULT_OK &&
+                null != data) {
+
+            ArrayList<String> result = data
+                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            //recognizedText.setText(result != null && result.size() > 0 ? result.get(0) : "");
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }
