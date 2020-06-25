@@ -16,6 +16,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaCodecInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -222,6 +224,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         waitUntilBarcodeDetectorIsOperational(detector, 10);
+
+        Location l1 = new Location("");
+        l1.setLatitude(-34.7214235);
+        l1.setLongitude(-58.2958171);
+        Location l2 = new Location("");
+        l2.setLatitude(-34.7232241);
+        l2.setLongitude(-58.2940983);
+
+        // De acá a 2 cuadras (casi 3)... devuelve 253 (supongo que son metros), así que esta bien
+        Log.d("PRUEBA_LOCATION", String.valueOf(l1.distanceTo(l2)));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
