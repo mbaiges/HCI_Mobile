@@ -49,7 +49,7 @@ public class RoutineFragment extends Fragment {
     static final String ROUTINE_EXECUTION_ARG = "routine_execution";
 
     RoutineViewModel routineViewModel;
-    ImageButton btnSchedule;
+    ImageButton btnSchedule, btnExecuteFromWithin;
     View listView;
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -58,6 +58,7 @@ public class RoutineFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_routine, container, false);
         listView = root.findViewById(R.id.routines_routine_detail_list);
         btnSchedule = root.findViewById(R.id.btnSchedule);
+        btnExecuteFromWithin =  root.findViewById(R.id.btnExecuteFromWithin);
 
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -95,6 +96,15 @@ public class RoutineFragment extends Fragment {
                     new DatePickerDialog(getActivity(), date, myCalendar
                             .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                             myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
+        }
+
+        if (btnExecuteFromWithin != null) {
+            btnExecuteFromWithin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    executeRoutine(routineViewModel.getRoutine().getValue().getId());
                 }
             });
         }
@@ -205,6 +215,29 @@ public class RoutineFragment extends Fragment {
     protected void handleUnexpectedError(Throwable t) {
         String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
         Log.e(LOG_TAG, t.toString());
+    }
+
+    public void executeRoutine(String id){
+        if (id != null) {
+            ApiClient.getInstance().executeRoutine(id, new Callback<Result<Boolean>>() {
+                @Override
+                public void onResponse(Call<Result<Boolean>> call, Response<Result<Boolean>> response) {
+                    if (response.isSuccessful()) {
+                        Log.v("ROUTINE_EXECUTE", "Routine executed successfully by alarm manager");
+                    }
+                    else {
+                        handleError(response);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Result<Boolean>> call, Throwable t) {
+                    handleUnexpectedError(t);
+                }
+            });
+        }else{
+            Log.v("EXECUTE", "NULL ID");
+        }
     }
 
 
