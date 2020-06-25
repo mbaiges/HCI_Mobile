@@ -1,15 +1,15 @@
 package ar.edu.itba.hci.uzr.intellifox.ui.devices.oven;
 
-import android.util.Pair;
-import android.widget.Button;
+
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.ToggleButton;
+
 
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceViewHolder;
 
 public class OvenDeviceViewHolder extends DeviceViewHolder {
-    public Button tempDecBtn;
-    public Button tempIncBtn;
+    public ImageButton tempDecBtn;
+    public ImageButton tempIncBtn;
 
     public TextView temperatureValue;
 
