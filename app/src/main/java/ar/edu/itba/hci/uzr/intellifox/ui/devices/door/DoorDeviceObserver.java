@@ -58,7 +58,7 @@ public class DoorDeviceObserver extends DeviceObserver {
             if (status != null && lock != null) {
                 String aux;
                 if(h.icon != null) {  //si esta el icono
-                    aux = status;
+                    aux = statusText;
                 }
                 else
                     aux= statusText + " - " + lockText;

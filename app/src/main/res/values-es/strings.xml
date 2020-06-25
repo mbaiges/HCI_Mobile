@@ -42,6 +42,10 @@
     <string name="favourites_title_routines">Rutinas</string>
     <string name="favourites_title_devices">Dispositivos</string>
 
+    <string name="settings_night_mode">Modo oscuro</string>
+    <string name="about_us">Sobre nosotros</string>
+    <string name="about_us_text">Somos un grupo de estudiantes felices!</string>
+
     <!-- Speech Recognition -->
 
     <string name="prompt">Hola! Di algo</string>
