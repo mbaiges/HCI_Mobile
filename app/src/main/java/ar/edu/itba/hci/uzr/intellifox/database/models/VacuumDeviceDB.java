@@ -20,9 +20,6 @@ public class VacuumDeviceDB {
     @ColumnInfo(name = "batteryLevel")
     public int batteryLevel;
 
-    @ColumnInfo(name = "location")
-    public String location;
-
     @ColumnInfo(name = "mode")
     public String mode;
 

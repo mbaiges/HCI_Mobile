@@ -203,4 +203,47 @@
     <string name="routine_action_vacuum_set_mode">Set Mode</string>
     <string name="routine_action_vacuum_set_location">Set Location</string>
 
+    <!-- Notifications -->
+    <string name="notif_additional_changes">Additional Changes: </string>
+    <string name="notif_changes">Changes: </string>
+
+    <string name="notif_tap_opened">Was opened.</string>
+    <string name="notif_tap_closed">Was closed.</string>
+
+    <string name="notif_ac_turned_on">Was turned on.</string>
+    <string name="notif_ac_turned_off">Was turned off.</string>
+    <string name="notif_ac_changed_temperature">its temperature changed</string>
+    <string name="notif_ac_changed_fan_speed">its fan speed changed</string>
+    <string name="notif_ac_changed_horizontal_swing">its horizontal swing changed</string>
+    <string name="notif_ac_changed_vertical_swing">its vertical swing changed</string>
+
+    <string name="notif_light_turned_on">Was turned on.</string>
+    <string name="notif_light_turned_off">Was turned off.</string>
+    <string name="notif_light_color">its color changed</string>
+
+    <string name="notif_oven_turned_on">Was turned on.</string>
+    <string name="notif_oven_turned_off">Was turned off.</string>
+    <string name="notif_oven_changed_temperature">its temperature changed</string>
+    <string name="notif_oven_changed_convection">its convection mode changed</string>
+    <string name="notif_oven_changed_grill">its grill mode changed</string>
+    <string name="notif_oven_changed_heat">its heat setting changed</string>
+
+    <string name="notif_speaker_turned_on">Was turned on.</string>
+    <string name="notif_speaker_turned_off">Was turned off.</string>
+    <string name="notif_speaker_genre">its genre changed to </string>
+
+    <string name="notif_blind_opened">Was opened.</string>
+    <string name="notif_blind_closed">Was closed.</string>
+
+    <string name="notif_door_turned_opened">Was opened.</string>
+    <string name="notif_door_turned_closed">Was closed.</string>
+    <string name="notif_door_unlocked">was unlocked</string>
+    <string name="notif_door_locked">was locked</string>
+
+    <string name="notif_vacuum_turned_on">Was turned on.</string>
+    <string name="notif_vacuum_turned_off">Was turned off.</string>
+    <string name="notif_vacuum_mode">its mode changed</string>
+    <string name="notif_vacuum_location">its location changed</string>
+    <string name="notif_vacuum_battery">it has low battery</string>
+
 </resources>

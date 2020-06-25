@@ -11,17 +11,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.media.MediaCodecInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.speech.RecognizerIntent;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -30,7 +36,11 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -53,11 +63,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
@@ -66,10 +81,13 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 import ar.edu.itba.hci.uzr.intellifox.ui.settings.SettingsViewModel;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.BelledDevices;
+import ar.edu.itba.hci.uzr.intellifox.wrappers.QRInfo;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.TypeAndDeviceId;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static androidx.core.content.FileProvider.getUriForFile;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -85,8 +103,18 @@ public class MainActivity extends AppCompatActivity {
     static final String DEVICE_ID_ARG = "DEVICE_ID";
     static final String DEVICE_TYPE_NAME_ARG = "DEVICE_TYPE_NAME";
 
+    static final String ROOM_ID_ARG = "room_id";
+
+    static final String ROUTINE_ID_ARG = "routine_id";
+    static final String ROUTINE_EXECUTION_ARG = "routine_execution";
+
     private static final String CHANNEL_ID = "NOTIFICATIONS";
 
+    private static final String TAKE_PHOTO_TAG = "Take Photo";
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private Uri photoUri;
+    public Bitmap bitmap;
+    BarcodeDetector detector;
 
     public static final String MESSAGE_ID = "ar.edu.itba.MESSAGE_ID";
     public static final String MyPREFERENCES = "intellifoxPrefs";
@@ -109,14 +137,14 @@ public class MainActivity extends AppCompatActivity {
         if (drawable != null) {
             int c = ContextCompat.getColor(this.getBaseContext(), R.color.background1);
             drawable.mutate();
-            drawable.setColorFilter(c,PorterDuff.Mode.SRC_ATOP);
+            drawable.setColorFilter(c, PorterDuff.Mode.SRC_ATOP);
         }
 
         Drawable drawable2 = menu.findItem(R.id.btnQrScann).getIcon();
         if (drawable2 != null) {
             int c = ContextCompat.getColor(this.getBaseContext(), R.color.background1);
             drawable2.mutate();
-            drawable2.setColorFilter(c,PorterDuff.Mode.SRC_ATOP);
+            drawable2.setColorFilter(c, PorterDuff.Mode.SRC_ATOP);
         }
 
         MenuItem appBtn1 = menu.findItem(R.id.btnMicrophone);
@@ -137,7 +165,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     Log.v("BTN", "Qr Scann Clicked");
-                    handleQRScanBtn();
+                    try {
+                        handleQRScanBtn();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     return true;
                 }
             });
@@ -149,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_main);
 
@@ -179,6 +212,14 @@ public class MainActivity extends AppCompatActivity {
         checkNightModeActivated();
         //checkLanguage();
 
+        if (detector == null) {
+            detector = new BarcodeDetector.Builder(getApplicationContext())
+                    .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                    .build();
+        }
+
+        waitUntilBarcodeDetectorIsOperational(detector, 10);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //FloatingActionButton fab = findViewById(R.id.fab);
@@ -202,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             String value = extras.getString(MESSAGE_ID);
             if (value != null) {
                 treatNotification(value);
@@ -222,9 +263,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkNightModeActivated() {
-        if(sharedPreferences.getBoolean(KEY_ISNIGHTMODE, true)){
+        if (sharedPreferences.getBoolean(KEY_ISNIGHTMODE, true)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else {
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
@@ -255,65 +296,17 @@ public class MainActivity extends AppCompatActivity {
         if (!json.equals("")) {
             BelledDevices belledDevices = gson.fromJson(json, BelledDevices.class);
             if (belledDevices != null) {
-                HashSet<TypeAndDeviceId> tadis =  belledDevices.getBelledDevices();
+                HashSet<TypeAndDeviceId> tadis = belledDevices.getBelledDevices();
                 if (tadis != null) {
-                    DatabaseTruncateTablesAsyncTask task = new DatabaseTruncateTablesAsyncTask();
+                    DatabaseReloadTablesAsyncTask task = new DatabaseReloadTablesAsyncTask(tadis);
                     task.execute();
-                    for (TypeAndDeviceId tadi: tadis) {
-                        String deviceId = tadi.getDeviceId();
-                        String typeName = tadi.getTypeName();
-                        if (deviceId != null && typeName != null) {
-                            ApiClient.getInstance().getDevice(deviceId, new Callback<Result<Device>>() {
-                                @Override
-                                public void onResponse(Call<Result<Device>> call, Response<Result<Device>> response) {
-                                    if (response.isSuccessful()) {
-                                        Result<Device> result = response.body();
-                                        if (result != null) {
-                                            Device device = result.getResult();
-                                            if (device != null) {
-                                                Log.d("DEVICE_BELLED", result.getResult().toString());
-                                                DatabaseAddDeviceAsyncTask task = new DatabaseAddDeviceAsyncTask(typeName, device);
-                                                task.execute();
-                                            }
-                                        } else {
-                                            handleError(response);
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(@NonNull Call<Result<Device>> call, @NonNull Throwable t) {
-                                    handleUnexpectedError(t);
-                                }
-                            });
-                        }
-                        worked = true;
-                    }
+                    worked = true;
                 }
             }
         }
         return worked;
     }
 
-    protected <T> void handleError(Response<T> response) {
-        Error error = ApiClient.getInstance().getError(response.errorBody());
-        List<String> descList = error.getDescription();
-        String desc = "";
-        if (descList != null) {
-            desc = descList.get(0);
-        }
-        String code = "Code " + String.valueOf(error.getCode());
-        Log.e("ERROR", code + " - " + desc);
-        /*
-        String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
-        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
-        */
-    }
-
-    protected void handleUnexpectedError(Throwable t) {
-        String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
-        Log.e(LOG_TAG, t.toString());
-    }
 
     @Override
     protected void onResume() {
@@ -342,10 +335,123 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+//-----------------------------------------------------------------------QRs----------------------------------------------------------------------------
 
-    private void handleQRScanBtn(){
-        
+    private void handleQRScanBtn() throws FileNotFoundException {
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        }
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Log.d("LLEGO AL ACTIVITY RESULT", "SIII");
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE &&
+                resultCode == RESULT_OK) {
+            //Log.d("ENTRA?", "SIIII");
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                bitmap = (Bitmap) extras.get("data");
+
+                if(bitmap != null){
+                    Log.d("LO QUE HAY EN BITMAP ES:", bitmap.toString());
+                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                    SparseArray<Barcode> barcodeArray = detector.detect(frame);
+//
+                    if (barcodeArray.size() != 0) {
+                        Barcode barcode = barcodeArray.valueAt(0);
+                        processBarcodeScan(barcode.rawValue);
+                    }
+                    // Decode the barcode
+
+                }else{
+                    Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "El BITMAP ES NULL");
+                }
+            }
+        }
+    }
+
+    private void processBarcodeScan(String json) {
+        Gson gson = new Gson();
+        QRInfo qrInfo = gson.fromJson(json, QRInfo.class);
+        Log.d("A VER QUE CARAJO LLEGA",json);
+        String type = qrInfo.getType();
+        String id = qrInfo.getId();
+        if (type.equals("device")) {
+            String typeName = qrInfo.getTypeName();
+            if (typeName != null) {
+                Bundle args = new Bundle();
+                args.putString(DEVICE_ID_ARG, id);
+                args.putString(DEVICE_TYPE_NAME_ARG, typeName);
+                Log.d("ARGUMENTOS QUE MANDO",args.toString());
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_device, args);
+            }
+        }
+        else if (type.equals("room")) {
+            Bundle args = new Bundle();
+            args.putString(ROOM_ID_ARG, id);
+            Log.d("ARGUMENTOS QUE MANDO",args.toString());
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_room, args);
+        }
+        else if (type.equals("routine")) {
+            Boolean executable = qrInfo.isExecutable();
+            if (executable == null) {
+                //executable = false;
+                if(!executable){
+                    Bundle args = new Bundle();
+                    args.putString(ROUTINE_ID_ARG, id);
+                    args.putBoolean(ROUTINE_EXECUTION_ARG, executable);
+                    Log.d("ARGUMENTOS QUE MANDO",args.toString());
+                    Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_routine, args);
+                }else{
+                    Bundle args = new Bundle();
+                    args.putString(ROUTINE_ID_ARG, id);
+                    args.putBoolean(ROUTINE_EXECUTION_ARG, executable);
+                    Log.d("ARGUMENTOS QUE MANDO",args.toString());
+                    Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_routine, args);
+                }
+
+
+            }
+
+        }
+    }
+
+//    private File createImageFile() throws IOException {
+//        // Create an image file name
+//        String imageFileName = "Photo_" + UUID.randomUUID();
+//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        return File.createTempFile(
+//                imageFileName,  /* prefix */
+//                ".jpg",   /* suffix */
+//                storageDir      /* directory */
+//        );
+//    }
+
+    private void waitUntilBarcodeDetectorIsOperational(BarcodeDetector detector, int retries) {
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Log.d(TAG, "Waiting for barcode detector to be operational...");
+            if (retries > 0) {
+                if(detector.isOperational()) {
+                    Log.v("BARCODE DETECTOR", "LLego a ser operacional");
+                } else {
+                    waitUntilBarcodeDetectorIsOperational(detector, retries - 1);
+                }
+            } else {
+                Log.e("BARCODE DETECTOR", "Nunca llego a ser operacional");
+            }
+        }, 10000);
+    }
+
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
     private void handleMicrophoneBtn(){
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);

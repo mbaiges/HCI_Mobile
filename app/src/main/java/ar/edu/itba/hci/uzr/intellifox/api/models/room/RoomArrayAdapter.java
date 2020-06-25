@@ -21,7 +21,6 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.room.RoomViewHolder;
 public class RoomArrayAdapter extends ArrayAdapter<Room> {
 
     static final String ROOM_ID_ARG = "room_id";
-    static final String ROOM_NAME_ARG = "room_name";
 
     static private HashMap<String, Integer> iconsConverter;
 
@@ -60,7 +59,6 @@ public class RoomArrayAdapter extends ArrayAdapter<Room> {
         if (room != null) {
             Bundle args = new Bundle();
             args.putString(ROOM_ID_ARG, room.getId());
-            args.putString(ROOM_NAME_ARG, room.getName());
             if (holder.card != null) {
                 holder.card.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_room, args));
             }

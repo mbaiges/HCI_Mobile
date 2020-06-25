@@ -20,6 +20,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumLocation;
 import ar.edu.itba.hci.uzr.intellifox.database.dao.ACDeviceDBDao;
 import ar.edu.itba.hci.uzr.intellifox.database.dao.BlindDeviceDBDao;
 import ar.edu.itba.hci.uzr.intellifox.database.dao.DoorDeviceDBDao;
@@ -38,7 +39,7 @@ import ar.edu.itba.hci.uzr.intellifox.database.models.TapDeviceDB;
 import ar.edu.itba.hci.uzr.intellifox.database.models.VacuumDeviceDB;
 
 
-@Database(entities = {TapDeviceDB.class, ACDeviceDB.class, LightDeviceDB.class, OvenDeviceDB.class, SpeakerDeviceDB.class, BlindDeviceDB.class, VacuumDeviceDB.class, DoorDeviceDB.class}, version = 1)
+@Database(entities = {TapDeviceDB.class, ACDeviceDB.class, LightDeviceDB.class, OvenDeviceDB.class, SpeakerDeviceDB.class, BlindDeviceDB.class, VacuumDeviceDB.class, DoorDeviceDB.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TapDeviceDBDao tapDeviceDBDao();
@@ -192,42 +193,50 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private DoorDeviceDB convertDoorToDBModel(Device device) {
         DoorDevice d = (DoorDevice) device;
-        String id = null, name = null, status = null;
+        String id = null, name = null, status = null, lock = null;
         if (d != null) {
             id = d.getId();
             name = d.getName();
             DoorDeviceState state = d.getState();
             if (state != null) {
                 status = state.getStatus();
+                lock = state.getLock();
             }
         }
         DoorDeviceDB model = new DoorDeviceDB();
         model.id = id;
         model.name = name;
         model.status = status;
+        model.lock = lock;
         return model;
     }
 
     private VacuumDeviceDB convertVacuumToDBModel(Device device) {
         VacuumDevice d = (VacuumDevice) device;
-        String id = null, name = null, status = null;
+        int batteryLevel = 0;
+        String id = null, name = null, status = null, location = null, mode = null;
         if (d != null) {
             id = d.getId();
             name = d.getName();
             VacuumDeviceState state = d.getState();
             if (state != null) {
                 status = state.getStatus();
+                batteryLevel = state.getBatteryLevel();
+                mode = state.getMode();
             }
         }
         VacuumDeviceDB model = new VacuumDeviceDB();
         model.id = id;
         model.name = name;
         model.status = status;
+        model.batteryLevel = batteryLevel;
+        model.mode = mode;
         return model;
     }
 
     private BlindDeviceDB convertBlindToDBModel(Device device) {
         BlindDevice d = (BlindDevice) device;
+        int level = 0;
         String id = null, name = null, status = null;
         if (d != null) {
             id = d.getId();
@@ -235,84 +244,113 @@ public abstract class AppDatabase extends RoomDatabase {
             BlindDeviceState state = d.getState();
             if (state != null) {
                 status = state.getStatus();
+                level = state.getLevel();
             }
         }
         BlindDeviceDB model = new BlindDeviceDB();
         model.id = id;
         model.name = name;
         model.status = status;
+        model.level = level;
         return model;
     }
 
     private SpeakerDeviceDB convertSpeakerToDBModel(Device device) {
         SpeakerDevice d = (SpeakerDevice) device;
-        String id = null, name = null, status = null;
+        String id = null, name = null, status = null, genre = null;
         if (d != null) {
             id = d.getId();
             name = d.getName();
             SpeakerDeviceState state = d.getState();
             if (state != null) {
                 status = state.getStatus();
+                genre = state.getGenre();
             }
         }
         SpeakerDeviceDB model = new SpeakerDeviceDB();
         model.id = id;
         model.name = name;
         model.status = status;
+        model.genre = genre;
         return model;
     }
 
     private OvenDeviceDB convertOvenToDBModel(Device device) {
         OvenDevice d = (OvenDevice) device;
-        String id = null, name = null, status = null;
+        int temperature = 0;
+        String id = null, name = null, status = null, grill = null, convection = null, heat = null;
         if (d != null) {
             id = d.getId();
             name = d.getName();
             OvenDeviceState state = d.getState();
             if (state != null) {
                 status = state.getStatus();
+                temperature = state.getTemperature();
+                grill = state.getGrill();
+                convection = state.getConvection();
+                heat = state.getHeat();
             }
         }
         OvenDeviceDB model = new OvenDeviceDB();
         model.id = id;
         model.name = name;
         model.status = status;
+        model.heat = heat;
+        model.convection = convection;
+        model.grill = grill;
+        model.temperature = temperature;
         return model;
     }
 
     private LightDeviceDB convertLightToDBModel(Device device) {
         LightDevice d = (LightDevice) device;
-        String id = null, name = null, status = null;
+        int brightness = 0;
+        String id = null, name = null, status = null, color = null;
         if (d != null) {
             id = d.getId();
             name = d.getName();
             LightDeviceState state = d.getState();
             if (state != null) {
                 status = state.getStatus();
+                brightness = state.getBrightness();
+                color = state.getColor();
             }
         }
         LightDeviceDB model = new LightDeviceDB();
         model.id = id;
         model.name = name;
         model.status = status;
+        model.brightness = brightness;
+        model.color = color;
         return model;
     }
 
     private ACDeviceDB convertAcToDBModel(Device device) {
         AcDevice d = (AcDevice) device;
-        String id = null, name = null, status = null;
+        int temperature = 0;
+        String id = null, name = null, status = null, mode = null, vSwing = null, hSwing = null, fanSpeed = null;
         if (d != null) {
             id = d.getId();
             name = d.getName();
             AcDeviceState state = d.getState();
             if (state != null) {
                 status = state.getStatus();
+                mode = state.getMode();
+                temperature = state.getTemperature();
+                vSwing = state.getVerticalSwing();
+                hSwing = state.getHorizontalSwing();
+                fanSpeed = state.getFanSpeed();
             }
         }
         ACDeviceDB model = new ACDeviceDB();
         model.id = id;
         model.name = name;
         model.status = status;
+        model.mode = mode;
+        model.verticalSwing = vSwing;
+        model.horizontalSwing = hSwing;
+        model.temperature = temperature;
+        model.fanSpeed = fanSpeed;
         return model;
     }
 
@@ -324,6 +362,7 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         TapDeviceState state = new TapDeviceState();
         state.setStatus(dbDevice.status);
+        d.setState(state);
         return d;
     }
 
@@ -333,6 +372,8 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         DoorDeviceState state = new DoorDeviceState();
         state.setStatus(dbDevice.status);
+        state.setLock(dbDevice.lock);
+        d.setState(state);
         return d;
     }
 
@@ -342,6 +383,9 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         VacuumDeviceState state = new VacuumDeviceState();
         state.setStatus(dbDevice.status);
+        state.setBatteryLevel(dbDevice.batteryLevel);
+        state.setMode(dbDevice.mode);
+        d.setState(state);
         return d;
     }
 
@@ -351,6 +395,8 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         BlindDeviceState state = new BlindDeviceState();
         state.setStatus(dbDevice.status);
+        state.setLevel(dbDevice.level);
+        d.setState(state);
         return d;
     }
 
@@ -360,6 +406,8 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         SpeakerDeviceState state = new SpeakerDeviceState();
         state.setStatus(dbDevice.status);
+        state.setGenre(dbDevice.genre);
+        d.setState(state);
         return d;
     }
 
@@ -369,6 +417,11 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         OvenDeviceState state = new OvenDeviceState();
         state.setStatus(dbDevice.status);
+        state.setConvection(dbDevice.convection);
+        state.setGrill(dbDevice.grill);
+        state.setHeat(dbDevice.heat);
+        state.setTemperature(dbDevice.temperature);
+        d.setState(state);
         return d;
     }
 
@@ -378,6 +431,12 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         AcDeviceState state = new AcDeviceState();
         state.setStatus(dbDevice.status);
+        state.setMode(dbDevice.mode);
+        state.setTemperature(dbDevice.temperature);
+        state.setFanSpeed(dbDevice.fanSpeed);
+        state.setHorizontalSwing(dbDevice.horizontalSwing);
+        state.setVerticalSwing(dbDevice.verticalSwing);
+        d.setState(state);
         return d;
     }
 
@@ -387,6 +446,9 @@ public abstract class AppDatabase extends RoomDatabase {
         d.setName(dbDevice.name);
         LightDeviceState state = new LightDeviceState();
         state.setStatus(dbDevice.status);
+        state.setColor(dbDevice.color);
+        state.setBrightness(dbDevice.brightness);
+        d.setState(state);
         return d;
     }
 }

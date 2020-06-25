@@ -34,8 +34,8 @@ public class FavouritesFragment extends Fragment {
         devicesListView = root.findViewById(R.id.favourite_devices_list_view);
         routinesListView = root.findViewById(R.id.favourite_routines_list_view);
 
-        Log.v("DEVICES_LIST_VIEW",(devicesListView != null)?"Found":"Not Found");
-        Log.v("ROUTINES_LIST_VIEW",(routinesListView != null)?"Found":"Not Found");
+        //Log.v("DEVICES_LIST_VIEW",(devicesListView != null)?"Found":"Not Found");
+        //Log.v("ROUTINES_LIST_VIEW",(routinesListView != null)?"Found":"Not Found");
 
         favouritesViewModel =
                 ViewModelProviders.of(this).get(FavouritesViewModel.class);

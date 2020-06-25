@@ -59,11 +59,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        Locale primaryLocale = getResources().getConfiguration().getLocales().get(0);
-        String locale = primaryLocale.getDisplayName();
-
-        Log.v("Language", locale);
-
         final TextView textView = root.findViewById(R.id.text_settings);
         settingsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

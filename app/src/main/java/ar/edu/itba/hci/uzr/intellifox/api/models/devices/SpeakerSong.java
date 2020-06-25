@@ -63,6 +63,17 @@ public class SpeakerSong {
     }
 
     @Override
+    public String toString() {
+        return "SpeakerSong{" +
+                "title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", album='" + album + '\'' +
+                ", duration='" + duration + '\'' +
+                ", progress='" + progress + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

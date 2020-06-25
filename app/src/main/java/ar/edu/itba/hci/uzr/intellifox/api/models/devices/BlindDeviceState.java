@@ -40,6 +40,15 @@ public class BlindDeviceState extends DeviceState {
     }
 
     @Override
+    public String toString() {
+        return "BlindDeviceState{" +
+                "level=" + level +
+                ", currentLevel=" + currentLevel +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

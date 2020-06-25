@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.Navigation;
 
+import java.util.List;
+
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
@@ -32,6 +34,7 @@ import retrofit2.Response;
 public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
 
     static final String ROUTINE_ID_ARG = "routine_id";
+    static final String ROUTINE_EXECUTION_ARG = "routine_execution";
 
     private final static Integer FAVOURITE_ICON = R.drawable.ic_heart_filled;
     private final static Integer NON_FAVOURITE_ICON = R.drawable.ic_heart_outline;
@@ -62,6 +65,7 @@ public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
             if (holder.arrowBtn != null) {
                 Bundle args = new Bundle();
                 args.putString(ROUTINE_ID_ARG, routine.getId());
+                args.putBoolean(ROUTINE_EXECUTION_ARG, false);
                 holder.arrowBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_routine, args));
             }
             if (meta != null) {
@@ -155,15 +159,22 @@ public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
         }
     }
 
-    private <T> void handleError(Response<T> response) {
+    protected <T> void handleError(Response<T> response) {
         Error error = ApiClient.getInstance().getError(response.errorBody());
+        List<String> descList = error.getDescription();
+        String desc = "";
+        if (descList != null) {
+            desc = descList.get(0);
+        }
+        String code = "Code " + String.valueOf(error.getCode());
+        Log.e("ERROR", code + " - " + desc);
         /*
         String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
         Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
         */
     }
 
-    private void handleUnexpectedError(Throwable t) {
+    protected void handleUnexpectedError(Throwable t) {
         String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
         Log.e(LOG_TAG, t.toString());
     }

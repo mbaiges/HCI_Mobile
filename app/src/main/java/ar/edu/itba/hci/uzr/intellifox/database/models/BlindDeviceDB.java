@@ -20,6 +20,4 @@ public class BlindDeviceDB {
     @ColumnInfo(name = "level")
     public int level;
 
-    @ColumnInfo(name = "currentlevel")
-    public int currentLevel;
 }

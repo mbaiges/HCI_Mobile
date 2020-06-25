@@ -22,7 +22,7 @@ public class LightDeviceDB {
     public String color;
 
     @ColumnInfo(name = "brightness")
-    public String brightness;
+    public int brightness;
 
 
 }

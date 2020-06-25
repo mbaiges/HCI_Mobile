@@ -38,7 +38,7 @@ public class VacuumDeviceState extends DeviceState {
         return batteryLevel;
     }
 
-    public void setBatteryLever(Integer batteryLevel) {
+    public void setBatteryLevel(Integer batteryLevel) {
         this.batteryLevel = batteryLevel;
     }
 
@@ -48,6 +48,16 @@ public class VacuumDeviceState extends DeviceState {
 
     public void setLocation(VacuumLocation location) {
         this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return "VacuumDeviceState{" +
+                "mode='" + mode + '\'' +
+                ", batteryLevel=" + batteryLevel +
+                ", location=" + location +
+                ", status='" + status + '\'' +
+                '}';
     }
 
     @Override

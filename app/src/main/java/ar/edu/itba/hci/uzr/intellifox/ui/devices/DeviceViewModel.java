@@ -112,7 +112,6 @@ public class DeviceViewModel extends ViewModel {
 
                         if (device == null || !device.equals(actualDevice)) {
                             mDevice.postValue(actualDevice);
-                            Log.v("DEVICE", actualDevice.toString());
                         }
                     } else {
                         handleError(response);
@@ -146,7 +145,6 @@ public class DeviceViewModel extends ViewModel {
     }
 
     private void updateDoorDevice() {
-        Log.v("UPDATE_DOOR", "Running");
         ApiClient.getInstance().getDoorDeviceState(deviceId, new Callback<Result<DoorDeviceState>>() {
             @Override
             public void onResponse(@NonNull Call<Result<DoorDeviceState>> call, @NonNull Response<Result<DoorDeviceState>> response) {
@@ -160,7 +158,6 @@ public class DeviceViewModel extends ViewModel {
                             if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
                                 device.setState(actualDeviceState);
                                 mDevice.postValue(device);
-                                Log.v("UPDATED_DOOR", device.toString());
                             }
                         }
                     } else {
@@ -177,7 +174,6 @@ public class DeviceViewModel extends ViewModel {
     }
 
     private void updateVacuumDevice() {
-        Log.v("UPDATE_VACUUM", "Running");
         ApiClient.getInstance().getVacuumDeviceState(deviceId, new Callback<Result<VacuumDeviceState>>() {
             @Override
             public void onResponse(@NonNull Call<Result<VacuumDeviceState>> call, @NonNull Response<Result<VacuumDeviceState>> response) {
@@ -191,7 +187,6 @@ public class DeviceViewModel extends ViewModel {
                             if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
                                 device.setState(actualDeviceState);
                                 mDevice.postValue(device);
-                                Log.v("UPDATED_VACUUM", device.toString());
                             }
                         }
                     } else {
@@ -208,7 +203,6 @@ public class DeviceViewModel extends ViewModel {
     }
 
     private void updateTapDevice() {
-        Log.v("UPDATE_DOOR", "Running");
         ApiClient.getInstance().getTapDeviceState(deviceId, new Callback<Result<TapDeviceState>>() {
             @Override
             public void onResponse(@NonNull Call<Result<TapDeviceState>> call, @NonNull Response<Result<TapDeviceState>> response) {
@@ -222,7 +216,6 @@ public class DeviceViewModel extends ViewModel {
                             if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
                                 device.setState(actualDeviceState);
                                 mDevice.postValue(device);
-                                Log.v("UPDATED_TAP", device.toString());
                             }
                         }
                     } else {
@@ -239,7 +232,6 @@ public class DeviceViewModel extends ViewModel {
     }
 
     private void updateBlindDevice() {
-        Log.v("UPDATE_DOOR", "Running");
         ApiClient.getInstance().getBlindDeviceState(deviceId, new Callback<Result<BlindDeviceState>>() {
             @Override
             public void onResponse(@NonNull Call<Result<BlindDeviceState>> call, @NonNull Response<Result<BlindDeviceState>> response) {
@@ -253,7 +245,6 @@ public class DeviceViewModel extends ViewModel {
                             if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
                                 device.setState(actualDeviceState);
                                 mDevice.postValue(device);
-                                Log.v("UPDATED_DOOR", device.toString());
                             }
                         }
                     } else {
@@ -270,7 +261,6 @@ public class DeviceViewModel extends ViewModel {
     }
 
     private void updateSpeakerDevice() {
-        Log.v("UPDATE_DOOR", "Running");
         ApiClient.getInstance().getSpeakerDeviceState(deviceId, new Callback<Result<SpeakerDeviceState>>() {
             @Override
             public void onResponse(@NonNull Call<Result<SpeakerDeviceState>> call, @NonNull Response<Result<SpeakerDeviceState>> response) {
@@ -284,7 +274,6 @@ public class DeviceViewModel extends ViewModel {
                             if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
                                 device.setState(actualDeviceState);
                                 mDevice.postValue(device);
-                                Log.v("UPDATED_DOOR", device.toString());
                             }
                         }
                     } else {
@@ -301,7 +290,6 @@ public class DeviceViewModel extends ViewModel {
     }
 
     private void updateACDevice() {
-        Log.v("UPDATE_AC", "Running");
         ApiClient.getInstance().getAcDeviceState(deviceId, new Callback<Result<AcDeviceState>>() {
             @Override
             public void onResponse(@NonNull Call<Result<AcDeviceState>> call, @NonNull Response<Result<AcDeviceState>> response) {
@@ -315,7 +303,6 @@ public class DeviceViewModel extends ViewModel {
                             if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
                                 device.setState(actualDeviceState);
                                 mDevice.postValue(device);
-                                Log.v("UPDATED_AC", device.toString());
                             }
                         }
                     } else {
@@ -331,7 +318,6 @@ public class DeviceViewModel extends ViewModel {
     }
 
     private void updateOvenDevice() {
-        Log.v("UPDATE_OVEN", "Running");
         ApiClient.getInstance().getOvenDeviceState(deviceId, new Callback<Result<OvenDeviceState>>() {
             @Override
             public void onResponse(@NonNull Call<Result<OvenDeviceState>> call, @NonNull Response<Result<OvenDeviceState>> response) {
@@ -345,7 +331,6 @@ public class DeviceViewModel extends ViewModel {
                             if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
                                 device.setState(actualDeviceState);
                                 mDevice.postValue(device);
-                                Log.v("UPDATED_OVEN", device.toString());
                             }
                         }
                     } else {
@@ -361,7 +346,6 @@ public class DeviceViewModel extends ViewModel {
     }
 
     private void updateLightDevice() {
-        Log.v("UPDATE_LIGHT", "Running");
         ApiClient.getInstance().getLightDeviceState(deviceId, new Callback<Result<LightDeviceState>>() {
             @Override
             public void onResponse(@NonNull Call<Result<LightDeviceState>> call, @NonNull Response<Result<LightDeviceState>> response) {
@@ -375,7 +359,6 @@ public class DeviceViewModel extends ViewModel {
                             if (device != null && (device.getState() == null || !device.getState().equals(actualDeviceState))) {
                                 device.setState(actualDeviceState);
                                 mDevice.postValue(device);
-                                Log.v("UPDATED_LIGHT", device.toString());
                             }
                         }
                     } else {
