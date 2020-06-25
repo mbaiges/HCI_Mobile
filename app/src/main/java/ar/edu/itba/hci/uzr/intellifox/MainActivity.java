@@ -1,6 +1,8 @@
 package ar.edu.itba.hci.uzr.intellifox;
 
+import android.Manifest;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,12 +11,15 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaCodecInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,7 +34,11 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -39,6 +48,7 @@ import com.google.gson.GsonBuilder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
@@ -95,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
     private final static int INTERVAL = 60000;
     public final static String TAG = "Alarm";
 
+    FusedLocationProviderClient fusedLocationClient;
+    private final static int PERMISSION_ACCESS_FINE_LOCATION = 0;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,14 +117,14 @@ public class MainActivity extends AppCompatActivity {
         if (drawable != null) {
             int c = ContextCompat.getColor(this.getBaseContext(), R.color.background1);
             drawable.mutate();
-            drawable.setColorFilter(c,PorterDuff.Mode.SRC_ATOP);
+            drawable.setColorFilter(c, PorterDuff.Mode.SRC_ATOP);
         }
 
         Drawable drawable2 = menu.findItem(R.id.btnQrScann).getIcon();
         if (drawable2 != null) {
             int c = ContextCompat.getColor(this.getBaseContext(), R.color.background1);
             drawable2.mutate();
-            drawable2.setColorFilter(c,PorterDuff.Mode.SRC_ATOP);
+            drawable2.setColorFilter(c, PorterDuff.Mode.SRC_ATOP);
         }
 
         MenuItem appBtn1 = menu.findItem(R.id.btnMicrophone);
@@ -134,6 +146,18 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onMenuItemClick(MenuItem item) {
                     Log.v("BTN", "Qr Scann Clicked");
                     handleQRScanBtn();
+                    return true;
+                }
+            });
+        }
+
+        MenuItem appBtn3 = menu.findItem(R.id.btnMap);
+        if (appBtn3 != null) {
+            appBtn3.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    Log.v("BTN", "Location Clicked");
+                    handleLocationBtn();
                     return true;
                 }
             });
@@ -198,12 +222,14 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             String value = extras.getString(MESSAGE_ID);
             if (value != null) {
                 treatNotification(value);
             }
         }
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     private void treatNotification(String info) {
@@ -218,9 +244,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkNightModeActivated() {
-        if(sharedPreferences.getBoolean(KEY_ISNIGHTMODE, true)){
+        if (sharedPreferences.getBoolean(KEY_ISNIGHTMODE, true)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else {
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
@@ -251,11 +277,11 @@ public class MainActivity extends AppCompatActivity {
         if (!json.equals("")) {
             BelledDevices belledDevices = gson.fromJson(json, BelledDevices.class);
             if (belledDevices != null) {
-                HashSet<TypeAndDeviceId> tadis =  belledDevices.getBelledDevices();
+                HashSet<TypeAndDeviceId> tadis = belledDevices.getBelledDevices();
                 if (tadis != null) {
                     DatabaseTruncateTablesAsyncTask task = new DatabaseTruncateTablesAsyncTask();
                     task.execute();
-                    for (TypeAndDeviceId tadi: tadis) {
+                    for (TypeAndDeviceId tadi : tadis) {
                         String deviceId = tadi.getDeviceId();
                         String typeName = tadi.getTypeName();
                         if (deviceId != null && typeName != null) {
@@ -339,12 +365,52 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void handleQRScanBtn(){
-        
-    }
-
-    private void handleMicrophoneBtn(){
+    private void handleQRScanBtn() {
 
     }
+
+    private void handleMicrophoneBtn() {
+
+    }
+
+    private void handleLocationBtn() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSION_ACCESS_FINE_LOCATION);
+            // PERMISSION_ACCESS_FINE_LOCATION is an
+            // app-defined int constant. The callback method gets the
+            // result of the request.
+            //realmente no entendi bien esto ultmo de PERMISSION_ACCESS_FINE_LOCATION
+        }
+        else {
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                Log.v("location", location.toString());
+                                Log.v("provider", location.getProvider());
+                                // Logic to handle location object
+
+                                //para comparar locations
+                                    //float disntance = 0;
+                                    //float distance = crntLocation.distanceTo(newLocation);  in meters
+                                    //distance =currentLocation.distanceTo(newLocation) / 1000; // in km
+
+                                //para crear una location
+                                    //Location(String provider) -> constructor
+                                    //Location newLocation = new Location(newLoc);
+                                    //newLocation.setLatitude(double latitude);
+                                    //newLocation.setLongitude(double longitud);
+                            }
+                        }
+                    });
+        }
+
+    }
+
+
 
 }
