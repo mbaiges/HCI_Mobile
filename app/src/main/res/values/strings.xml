@@ -246,4 +246,6 @@
     <string name="notif_vacuum_location">its location changed</string>
     <string name="notif_vacuum_battery">it has low battery</string>
 
+
+    <string name="routine_future_execution">Routine will execute at specified time.</string>
 </resources>

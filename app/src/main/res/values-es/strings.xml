@@ -245,4 +245,8 @@
     <string name="notif_vacuum_mode">cambió su modo</string>
     <string name="notif_vacuum_location">cambió su ubicación</string>
     <string name="notif_vacuum_battery">tiene baja bateria</string>
+
+    <string name="routine_future_execution">La rutina se ejecutara en el horario especificado.</string>
+
+
 </resources>
