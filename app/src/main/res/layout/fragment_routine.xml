@@ -15,25 +15,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnSchedule"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
                 android:src="@drawable/ic_menu_calendar_clock"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <ListView
                 android:id="@+id/routines_routine_detail_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="100dp"
                 android:divider="@null"
                 android:listSelector="@android:color/transparent"
-                app:layout_constraintTop_toBottomOf="@+id/btnSchedule"
-                tools:layout_editor_absoluteX="1dp"/>
+                tools:layout_editor_absoluteX="1dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 

@@ -7,8 +7,10 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
+import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,17 +34,33 @@ public class RoutineSchedulerReceiver extends BroadcastReceiver {
                         Log.v("ROUTINE_EXECUTE", "Routine executed successfully by alarm manager");
                     }
                     else {
-                        //handleError(response);
+                        handleError(response);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Result<Boolean>> call, Throwable t) {
-                    //handleUnexpectedError(t);
+                    handleUnexpectedError(t);
                 }
             });
         }else{
             Log.v("EXECUTE", "NULL ID");
         }
+    }
+
+    protected <T> void handleError(Response<T> response) {
+        Error error = ApiClient.getInstance().getError(response.errorBody());
+        List<String> descList = error.getDescription();
+        String desc = "";
+        if (descList != null) {
+            desc = descList.get(0);
+        }
+        String code = "Code " + String.valueOf(error.getCode());
+        Log.e("ERROR", code + " - " + desc);
+    }
+
+    protected void handleUnexpectedError(Throwable t) {
+        String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
+        Log.e(LOG_TAG, t.toString());
     }
 }

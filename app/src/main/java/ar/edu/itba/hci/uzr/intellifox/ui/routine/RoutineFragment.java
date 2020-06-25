@@ -26,11 +26,15 @@ import androidx.lifecycle.ViewModelProviders;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import ar.edu.itba.hci.uzr.intellifox.AlarmBroadcastReceiver;
 import ar.edu.itba.hci.uzr.intellifox.MainActivity;
 import ar.edu.itba.hci.uzr.intellifox.R;
+import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
+import ar.edu.itba.hci.uzr.intellifox.api.Error;
+import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine_action.RoutineAction;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine_action.RoutineActionArrayAdapter;
@@ -178,7 +182,30 @@ public class RoutineFragment extends Fragment {
     }
 
     private void showToast() {
-        Toast.makeText(getActivity(), "Alarm will vibrate at time specified" + myCalendar.getTime(), Toast.LENGTH_SHORT).show();
+        String msg = getActivity().getResources().getString(R.string.routine_future_execution);
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Routine execution set for: " + myCalendar.getTime(), Toast.LENGTH_SHORT).show();
     }
+
+    protected <T> void handleError(Response<T> response) {
+        Error error = ApiClient.getInstance().getError(response.errorBody());
+        List<String> descList = error.getDescription();
+        String desc = "";
+        if (descList != null) {
+            desc = descList.get(0);
+        }
+        String code = "Code " + String.valueOf(error.getCode());
+        Log.e("ERROR", code + " - " + desc);
+        /*
+        String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
+        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+        */
+    }
+
+    protected void handleUnexpectedError(Throwable t) {
+        String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
+        Log.e(LOG_TAG, t.toString());
+    }
+
 
 }
