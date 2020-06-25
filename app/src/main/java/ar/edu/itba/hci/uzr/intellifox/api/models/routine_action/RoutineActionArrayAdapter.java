@@ -47,7 +47,7 @@ public class RoutineActionArrayAdapter extends ArrayAdapter<RoutineAction> {
 
         if (actionNameMap == null) {
             actionNameMap = new HashMap<String, Integer>() {{
-               put("speaker_setTemperature", R.string.routine_action_speaker_set_volume);
+               put("speaker_setVolume", R.string.routine_action_speaker_set_volume);
                put("speaker_play", R.string.routine_action_speaker_play);
                put("speaker_stop", R.string.routine_action_speaker_stop);
                put("speaker_pause", R.string.routine_action_speaker_pause);

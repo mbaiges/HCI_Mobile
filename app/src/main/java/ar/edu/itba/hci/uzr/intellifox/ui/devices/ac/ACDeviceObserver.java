@@ -4,6 +4,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
 
@@ -151,7 +152,7 @@ public class ACDeviceObserver extends DeviceObserver {
                     aux = status;
                 }
                 else {
-                    aux = status + "-" + tempTitle + temp + "-" + modeTitle + mode + "-" + vBladesTitle + vBlades + "-" + hBladesTitle + hBlades + "-" + fanTitle + fanSpeed;
+                    aux = status + "\n" + tempTitle + temp + " - " + modeTitle + mode + " - " + vBladesTitle + vBlades + "\n" + hBladesTitle + hBlades + " - " + fanTitle + fanSpeed;
                 }
                 if (h.description != null) {
                     h.description.setText(aux);
@@ -376,7 +377,7 @@ public class ACDeviceObserver extends DeviceObserver {
     }
 
 
-    public void upButtonWork(ImageView button, ACDeviceViewHolder h){
+    public void upButtonWork(ImageButton button, ACDeviceViewHolder h){
         if(button != null){
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -420,7 +421,7 @@ public class ACDeviceObserver extends DeviceObserver {
         }
     }
 
-    public void downButtonWork(ImageView button, ACDeviceViewHolder h){
+    public void downButtonWork(ImageButton button, ACDeviceViewHolder h){
         if(button != null){
             button.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -21,7 +21,7 @@ public class CommandExecutorTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        if (command.equals("highlight path on") || command.equals("ilumina camino prendido")) {
+        if (command.equals("highlight path on") || command.equals("ilumina camino encendido")) {
             highlightMyWay(true);
         }
         else if (command.equals("highlight path off") || command.equals("ilumina camino apagado")) {

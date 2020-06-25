@@ -4,6 +4,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
 
@@ -311,7 +312,7 @@ public class OvenDeviceObserver extends DeviceObserver {
     }
 
 
-    public void upButtonWork(Button button, OvenDeviceViewHolder h){
+    public void upButtonWork(ImageButton button, OvenDeviceViewHolder h){
         if(button != null){
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -355,7 +356,7 @@ public class OvenDeviceObserver extends DeviceObserver {
         }
     }
 
-    public void downButtonWork(Button button, OvenDeviceViewHolder h){
+    public void downButtonWork(ImageButton button, OvenDeviceViewHolder h){
         if(button != null){
             button.setOnClickListener(new View.OnClickListener() {
                 @Override

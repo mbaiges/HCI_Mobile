@@ -30,6 +30,4 @@
         app:layout_constraintTop_toBottomOf="@id/text_about_us"
         app:layout_constraintStart_toStartOf="parent"
   />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

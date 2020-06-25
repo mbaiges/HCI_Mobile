@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.uzr.intellifox;
+package ar.edu.itba.hci.uzr.intellifox.database.tasks;
 
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -19,6 +19,9 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
+import ar.edu.itba.hci.uzr.intellifox.settings.DatabaseSetting;
+import ar.edu.itba.hci.uzr.intellifox.MainActivity;
+import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDevice;
@@ -71,7 +74,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
         }
 
         if (db == null) {
-            db = DatabaseGetter.getInstance();
+            db = DatabaseSetting.getInstance();
         }
 
         this.weakContext = new WeakReference<>(context);

@@ -46,6 +46,10 @@ public class HistoryFragment extends Fragment {
             public void onChanged(@Nullable List<DeviceLogRecord> deviceLogRecords) {
                 if (deviceLogRecords != null) {
                     DeviceLogRecord[] deviceLogRecordsArray = new DeviceLogRecord[deviceLogRecords.size()];
+                    int i = 0;
+                    for (DeviceLogRecord dli: deviceLogRecords) {
+                        deviceLogRecordsArray[i++] = dli;
+                    }
                     DeviceLogRecordArrayAdapter adapter = new DeviceLogRecordArrayAdapter(getActivity(), deviceLogRecordsArray);
                     int orientation = getResources().getConfiguration().orientation;
                     /*

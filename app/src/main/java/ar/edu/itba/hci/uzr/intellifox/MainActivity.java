@@ -83,10 +83,15 @@ import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
+import ar.edu.itba.hci.uzr.intellifox.broadcast_receivers.AlarmBroadcastReceiver;
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
+import ar.edu.itba.hci.uzr.intellifox.database.tasks.DatabaseReloadTablesAsyncTask;
 import ar.edu.itba.hci.uzr.intellifox.path_highlighter.PathHighlighter;
+import ar.edu.itba.hci.uzr.intellifox.settings.DatabaseSetting;
+import ar.edu.itba.hci.uzr.intellifox.settings.FusedLocationClientSetting;
+import ar.edu.itba.hci.uzr.intellifox.settings.SharedPreferencesSetting;
 import ar.edu.itba.hci.uzr.intellifox.speech_analyzer.CommandExecutorTask;
-import ar.edu.itba.hci.uzr.intellifox.ui.settings.SettingsViewModel;
+
 import ar.edu.itba.hci.uzr.intellifox.wrappers.BelledDevices;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.QRInfo;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.TypeAndDeviceId;
@@ -201,26 +206,15 @@ public class MainActivity extends AppCompatActivity {
         alarmBroadcastReceiverPendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmNotificationReceiverIntent, 0);
         createNotificationChannel();
 
-
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-//                .setSmallIcon(R.drawable.ic_heart_outline)
-//                .setContentTitle("My notification")
-//                .setContentText("Much longer text that cannot fit one line...")
-//                .setStyle(new NotificationCompat.BigTextStyle()
-//                .bigText("Much longer text that cannot fit one line..."))
-//                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        SharedPreferencesGetter.setInstance(sharedPreferences);
+        SharedPreferencesSetting.setInstance(sharedPreferences);
 
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, DATABASE_NAME).build();
 
-        DatabaseGetter.setInstance(db);
+        DatabaseSetting.setInstance(db);
 
         checkNightModeActivated();
-        //checkLanguage();
 
         if (detector == null) {
             detector = new BarcodeDetector.Builder(getApplicationContext())
@@ -230,20 +224,10 @@ public class MainActivity extends AppCompatActivity {
 
         waitUntilBarcodeDetectorIsOperational(detector, 10);
 
-        Location l1 = new Location("");
-        l1.setLatitude(-34.7214235);
-        l1.setLongitude(-58.2958171);
-        Location l2 = new Location("");
-        l2.setLatitude(-34.7232241);
-        l2.setLongitude(-58.2940983);
-
-        // De acá a 2 cuadras (casi 3)... devuelve 253 (supongo que son metros), así que esta bien
-        Log.d("PRUEBA_LOCATION", String.valueOf(l1.distanceTo(l2)));
-
         PathHighlighter.associateActivity(this);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        FusedLocationClientGetter.setInstance(fusedLocationClient);
+        FusedLocationClientSetting.setInstance(fusedLocationClient);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
