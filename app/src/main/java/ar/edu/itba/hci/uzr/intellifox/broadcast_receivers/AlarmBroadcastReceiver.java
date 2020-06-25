@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.uzr.intellifox;
+package ar.edu.itba.hci.uzr.intellifox.broadcast_receivers;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import ar.edu.itba.hci.uzr.intellifox.database.tasks.DatabaseDeviceCheckerAsyncTask;
+import ar.edu.itba.hci.uzr.intellifox.settings.SharedPreferencesSetting;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
@@ -50,7 +52,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         //Log.d(MainActivity.TAG, "Alarm at: " + DateFormat.getDateTimeInstance().format(new Date()));
 
         if (sharedPreferences == null) {
-            sharedPreferences = SharedPreferencesGetter.getInstance();
+            sharedPreferences = SharedPreferencesSetting.getInstance();
         }
 
         checkBelledSavedDevices(context);

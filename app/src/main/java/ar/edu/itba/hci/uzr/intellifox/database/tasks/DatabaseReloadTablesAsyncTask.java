@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.uzr.intellifox;
+package ar.edu.itba.hci.uzr.intellifox.database.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import java.util.HashSet;
 import java.util.List;
 
+import ar.edu.itba.hci.uzr.intellifox.settings.DatabaseSetting;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
@@ -25,7 +26,7 @@ public class DatabaseReloadTablesAsyncTask extends AsyncTask<Void, Void, Void> {
 
     public DatabaseReloadTablesAsyncTask(HashSet<TypeAndDeviceId> tadis) {
         if (db == null) {
-            db = DatabaseGetter.getInstance();
+            db = DatabaseSetting.getInstance();
         }
         this.tadis = tadis;
     }

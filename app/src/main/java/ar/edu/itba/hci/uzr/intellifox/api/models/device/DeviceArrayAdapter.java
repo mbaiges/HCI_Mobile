@@ -64,7 +64,6 @@ public class DeviceArrayAdapter extends ArrayAdapter<Device> {
             final ConstraintLayout expandableView = convertView.findViewById(R.id.expandableView);
             final Button arrowBtn = convertView.findViewById(R.id.arrowBtn);
             final CardView cardView = convertView.findViewById(R.id.cardView);
-            holder.expandableView = expandableView;
             holder.arrowBtn = arrowBtn;
             holder.cardView = cardView;
             convertView.setTag(holder);

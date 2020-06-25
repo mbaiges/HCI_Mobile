@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProviders;
 import java.util.Locale;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
+import ar.edu.itba.hci.uzr.intellifox.settings.SharedPreferencesSetting;
 
 public class SettingsFragment extends Fragment {
 
@@ -35,14 +36,12 @@ public class SettingsFragment extends Fragment {
 
     SharedPreferences sharedPreferences;
 
-    private SettingsViewModel settingsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        settingsViewModel =
-                ViewModelProviders.of(this).get(SettingsViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        sharedPreferences = this.getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        sharedPreferences = SharedPreferencesSetting.getInstance();
 
         nightModeSwitch = root.findViewById(R.id.nightModeSwitch);
         nightModeSwitch.setChecked(sharedPreferences.getBoolean(KEY_ISNIGHTMODE, true));
@@ -50,22 +49,16 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton view, boolean isChecked) {
                 if(isChecked){
+                    //Log.d("THEME", "Is going to be dark");
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    SaveNightModeState(true);
                 }else{
+                    //Log.d("THEME", "Is going to be white");
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    SaveNightModeState(false);
                 }
+                SaveNightModeState(isChecked);
             }
         });
 
-        final TextView textView = root.findViewById(R.id.text_settings);
-        settingsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 

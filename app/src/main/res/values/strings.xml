@@ -40,6 +40,10 @@
     <string name="favourites_title_routines">Routines</string>
     <string name="favourites_title_devices">Devices</string>
 
+    <string name="settings_night_mode">Night mode</string>
+    <string name="about_us">About us</string>
+    <string name="about_us_text">We are a happy group of students!</string>
+
     <!-- Speech Recognition -->
 
     <string name="prompt">Hi, Say something</string>

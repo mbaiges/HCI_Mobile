@@ -26,7 +26,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import ar.edu.itba.hci.uzr.intellifox.FusedLocationClientGetter;
+import ar.edu.itba.hci.uzr.intellifox.settings.FusedLocationClientSetting;
 import ar.edu.itba.hci.uzr.intellifox.MainActivity;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
@@ -66,7 +66,7 @@ public class PathHighlighter {
 
     static public PathHighlighter getInstance() {
         if (fusedLocationClient == null) {
-            fusedLocationClient = FusedLocationClientGetter.getInstance();
+            fusedLocationClient = FusedLocationClientSetting.getInstance();
         }
         if (instance == null) {
             instance = new PathHighlighter();

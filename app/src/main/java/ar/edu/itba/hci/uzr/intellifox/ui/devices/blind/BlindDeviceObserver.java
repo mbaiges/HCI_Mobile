@@ -80,7 +80,7 @@ public class BlindDeviceObserver extends DeviceObserver {
 
             String auxDec;
             if(h.icon != null) {  //si esta el icono
-                auxDec = status;
+                auxDec = stateStatus;
             }
             else
                 auxDec = stateStatus + " - " +  levelText + ": " + stateCurrentLevel + "/" + stateLevel;

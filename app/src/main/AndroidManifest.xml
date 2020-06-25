@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlarmBroadcastReceiver" />
+        <receiver android:name=".broadcast_receivers.AlarmBroadcastReceiver" />
         <receiver android:name=".ui.routine.RoutineSchedulerReceiver"/>
     </application>
 

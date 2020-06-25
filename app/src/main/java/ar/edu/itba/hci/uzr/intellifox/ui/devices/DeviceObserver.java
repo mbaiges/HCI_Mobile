@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
-import ar.edu.itba.hci.uzr.intellifox.SharedPreferencesGetter;
+import ar.edu.itba.hci.uzr.intellifox.settings.SharedPreferencesSetting;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
@@ -55,7 +55,7 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
         this.contextView = contextView;
 
         if (sharedPreferences == null) {
-            sharedPreferences = SharedPreferencesGetter.getInstance();
+            sharedPreferences = SharedPreferencesSetting.getInstance();
         }
 
         createHolder();

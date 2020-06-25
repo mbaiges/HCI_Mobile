@@ -1,11 +1,11 @@
-package ar.edu.itba.hci.uzr.intellifox;
+package ar.edu.itba.hci.uzr.intellifox.settings;
 
 import android.content.SharedPreferences;
 
-public class SharedPreferencesGetter {
+public class SharedPreferencesSetting {
     private static SharedPreferences instance;
 
-    private SharedPreferencesGetter() {}
+    private SharedPreferencesSetting() {}
 
     static public SharedPreferences getInstance() {
         return instance;
