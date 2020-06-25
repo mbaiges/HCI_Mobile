@@ -260,4 +260,19 @@
     <string name="snackbar_added_to_favourites">Agregado a favoritos.</string>
     <string name="snackbar_removed_from_favourites">Eliminado de favoritos.</string>
 
+
+
+    <string name="notif_blind_changed_level">Cambio su nivel</string>
+
+    <string name="notif_light_changed_brightness">Cambio su brillo</string>
+
+    <string name="notif_speaker_paused">Fue pausado</string>
+    <string name="notif_speaker_resumed">Fue resumido</string>
+    <string name="notif_speaker_changed_song">Cambio su canción</string>
+    <string name="notif_speaker_changed_volume">Cambio su volumen</string>
+
+    <string name="notif_tap_dispensing">Esta dispensando</string>
+
+    <string name="notif_vacuum_changed_location">Cambio su ubicación</string>
+    
 </resources>
