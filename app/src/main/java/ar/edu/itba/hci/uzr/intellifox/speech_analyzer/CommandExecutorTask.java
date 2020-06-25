@@ -5,6 +5,8 @@ import android.util.Log;
 
 import java.text.Normalizer;
 
+import ar.edu.itba.hci.uzr.intellifox.path_highlighter.PathHighlighter;
+
 public class CommandExecutorTask extends AsyncTask<Void, Void, Void> {
 
     static final String COMMAND_TASK_TAG = "Command_Task";
@@ -19,9 +21,20 @@ public class CommandExecutorTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+        if (command.equals("highlight path on") || command.equals("ilumina camino prendido")) {
+            highlightMyWay(true);
+        }
+        else if (command.equals("highlight path off") || command.equals("ilumina camino apagado")) {
+            highlightMyWay(false);
+        }
         if (command.equals("la juana es tres gatos")) {
             Log.d(COMMAND_TASK_TAG, "This is what i wanted so far");
         }
         return null;
+    }
+
+    private void highlightMyWay(boolean intentSwitch) {
+        Log.d("HIGHLIGHTER", "Entered");
+        PathHighlighter.getInstance().highlightPath(intentSwitch);
     }
 }

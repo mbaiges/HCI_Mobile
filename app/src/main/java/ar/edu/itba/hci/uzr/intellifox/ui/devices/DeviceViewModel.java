@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -394,6 +395,13 @@ public class DeviceViewModel extends ViewModel {
 
     private <T> void handleError(Response<T> response) {
         Error error = ApiClient.getInstance().getError(response.errorBody());
+        List<String> descList = error.getDescription();
+        String desc = "";
+        if (descList != null) {
+            desc = descList.get(0);
+        }
+        String code = "Code " + String.valueOf(error.getCode());
+        Log.e("ERROR", code + " - " + desc);
         /*
         String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
         Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
