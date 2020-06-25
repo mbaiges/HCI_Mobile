@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.List;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
@@ -39,8 +41,11 @@ public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
     private final static Integer FAVOURITE_ICON = R.drawable.ic_heart_filled;
     private final static Integer NON_FAVOURITE_ICON = R.drawable.ic_heart_outline;
 
-    public RoutineArrayAdapter(Activity context, Routine[] objects) {
+    private View rootView;
+
+    public RoutineArrayAdapter(Activity context, View root, Routine[] objects) {
         super(context, R.layout.routine_card_item, objects);
+        this.rootView = root;
     }
 
     @Override
@@ -138,11 +143,14 @@ public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
     public void executeRoutine(Routine routine){
         String id = routine.getId();
         if (id != null) {
-            ApiClient.getInstance().executeRoutine(id, new Callback<Result<Boolean>>() {
+            ApiClient.getInstance().executeRoutine(id, new Callback<Result<Object>>() {
                 @Override
-                public void onResponse(Call<Result<Boolean>> call, Response<Result<Boolean>> response) {
+                public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
                     if (response.isSuccessful()) {
-                        //Log.v("ROUTINE_EXECUTE", "Routine executed successfully");
+                        Snackbar snackbar = Snackbar.make(rootView, R.string.snackbar_routine_executed_success, Snackbar.LENGTH_SHORT);
+                        View sbView = snackbar.getView();
+                        sbView.setBackgroundColor(ContextCompat.getColor(rootView.getContext(), R.color.primary2));
+                        snackbar.show();
                     }
                     else {
                         handleError(response);
@@ -150,7 +158,7 @@ public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
                 }
 
                 @Override
-                public void onFailure(Call<Result<Boolean>> call, Throwable t) {
+                public void onFailure(Call<Result<Object>> call, Throwable t) {
                     handleUnexpectedError(t);
                 }
             });

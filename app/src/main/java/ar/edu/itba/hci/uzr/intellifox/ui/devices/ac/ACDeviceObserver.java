@@ -8,6 +8,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
 
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.snackbar.Snackbar;
+
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
@@ -345,15 +349,38 @@ public class ACDeviceObserver extends DeviceObserver {
                                                         Object success =  result.getResult();
                                                         if(success != null){
                                                             Log.v("ACTION_SUCCESS", success.toString());
-                                                            if(functionType.equals("setMode"))
+                                                            if(functionType.equals("setMode")) {
+                                                                String text = contextView.getResources().getString(R.string.notif_ac_changed_mode)  + ".";
+                                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                                View sbView = snackbar.getView();
+                                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                                snackbar.show();
                                                                 clearModeSelections();
-                                                            else if(functionType.equals("setVerticalSwing"))
+                                                            }
+                                                            else if(functionType.equals("setVerticalSwing")) {
+                                                                String text = contextView.getResources().getString(R.string.notif_ac_changed_vertical_swing)  + ".";
+                                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                                View sbView = snackbar.getView();
+                                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                                snackbar.show();
                                                                 clearVBladesSelections();
-                                                            else if(functionType.equals("setHorizontalSwing"))
+                                                            }
+                                                            else if(functionType.equals("setHorizontalSwing")) {
+                                                                String text = contextView.getResources().getString(R.string.notif_ac_changed_temperature)  + ".";
+                                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                                View sbView = snackbar.getView();
+                                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                                snackbar.show();
                                                                 clearHBladesSelections();
-                                                            else if(functionType.equals("setFanSpeed"))
+                                                            }
+                                                            else if(functionType.equals("setFanSpeed")) {
+                                                                String text = contextView.getResources().getString(R.string.notif_ac_changed_fan_speed)  + ".";
+                                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                                View sbView = snackbar.getView();
+                                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                                snackbar.show();
                                                                 clearFanSpeedSelections();
-
+                                                            }
                                                             pairAux.first.setChecked(true);
                                                         }
                                                     }
@@ -401,7 +428,11 @@ public class ACDeviceObserver extends DeviceObserver {
                                             if(result != null){
                                                 Object success =  result.getResult();
                                                 if(success != null){
-                                                    Log.v("ACTION_SUCCESS", success.toString());
+                                                    String text = contextView.getResources().getString(R.string.notif_ac_changed_temperature)  + ".";
+                                                    Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                    View sbView = snackbar.getView();
+                                                    sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                    snackbar.show();
                                                     h.temperatureValue.setText(args[0]);
                                                 }
                                             }
@@ -445,7 +476,11 @@ public class ACDeviceObserver extends DeviceObserver {
                                             if(result != null){
                                                 Object success =  result.getResult();
                                                 if(success != null){
-                                                    Log.v("ACTION_SUCCESS", success.toString());
+                                                    String text = contextView.getResources().getString(R.string.notif_ac_changed_temperature)  + ".";
+                                                    Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                    View sbView = snackbar.getView();
+                                                    sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                    snackbar.show();
                                                     h.temperatureValue.setText(args[0]);
                                                 }
                                             }

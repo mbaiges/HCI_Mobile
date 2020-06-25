@@ -72,7 +72,7 @@ public interface ApiService {
     Call<Result<List<Routine>>> getRoutines();
 
     @PUT("routines/{routineId}/execute")
-    Call<Result<Boolean>> executeRoutine(@Path("routineId") String routineId);
+    Call<Result<Object>> executeRoutine(@Path("routineId") String routineId);
 
     @GET("devices/{deviceId}/state")
     Call<Result<DoorDeviceState>> getDoorDeviceState(@Path("deviceId") String deviceId);
