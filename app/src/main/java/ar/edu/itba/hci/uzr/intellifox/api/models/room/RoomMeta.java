@@ -15,9 +15,14 @@ public class RoomMeta {
     @Expose
     private String icon;
 
+    @SerializedName("location")
+    @Expose(serialize = false)
+    private RoomMetaLocation location;
+
     public RoomMeta(String desc, String icon) {
         this.desc = desc;
         this.icon = icon;
+        this.location = location;
     }
 
     public String getDesc() {
@@ -36,11 +41,20 @@ public class RoomMeta {
         this.icon = icon;
     }
 
+    public RoomMetaLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(RoomMetaLocation location) {
+        this.location = location;
+    }
+
     @Override
     public String toString() {
         return "RoomMeta{" +
                 "desc='" + desc + '\'' +
                 ", icon='" + icon + '\'' +
+                ", location=" + location +
                 '}';
     }
 

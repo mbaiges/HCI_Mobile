@@ -104,6 +104,12 @@ public class ApiClient {
         return call;
     }
 
+    public Call<Result<List<Device>>> getDevicesByRoom(String roomId, Callback<Result<List<Device>>> callback) {
+        Call<Result<List<Device>>> call = this.service.getDevicesByRoom(roomId);
+        call.enqueue(callback);
+        return call;
+    }
+
     public Call<Result<Device>> getDevice(String deviceId, Callback<Result<Device>> callback) {
         Call<Result<Device>> call = this.service.getDevice(deviceId);
         call.enqueue(callback);

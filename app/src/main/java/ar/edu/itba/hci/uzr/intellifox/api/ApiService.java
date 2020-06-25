@@ -44,6 +44,9 @@ public interface ApiService {
     @GET("rooms")
     Call<Result<List<Room>>> getRooms();
 
+    @GET("rooms/{roomId}/devices")
+    Call<Result<List<Device>>> getDevicesByRoom(@Path("roomId") String roomId);
+
     @GET("devices/{deviceId}")
     Call<Result<Device>> getDevice(@Path("deviceId") String deviceId);
 

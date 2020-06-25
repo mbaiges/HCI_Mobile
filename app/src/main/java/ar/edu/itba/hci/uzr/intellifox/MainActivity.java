@@ -40,6 +40,8 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
@@ -52,6 +54,7 @@ import com.google.gson.GsonBuilder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
@@ -81,6 +84,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
+import ar.edu.itba.hci.uzr.intellifox.path_highlighter.PathHighlighter;
 import ar.edu.itba.hci.uzr.intellifox.speech_analyzer.CommandExecutorTask;
 import ar.edu.itba.hci.uzr.intellifox.ui.settings.SettingsViewModel;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.BelledDevices;
@@ -120,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
     private BarcodeDetector detector;
 
     private CommandExecutorTask commandsInterpreter;
+
+    private FusedLocationProviderClient fusedLocationClient;
 
     public static final String MESSAGE_ID = "ar.edu.itba.MESSAGE_ID";
     public static final String MyPREFERENCES = "intellifoxPrefs";
@@ -233,6 +239,11 @@ public class MainActivity extends AppCompatActivity {
 
         // De acá a 2 cuadras (casi 3)... devuelve 253 (supongo que son metros), así que esta bien
         Log.d("PRUEBA_LOCATION", String.valueOf(l1.distanceTo(l2)));
+
+        PathHighlighter.associateActivity(this);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationClientGetter.setInstance(fusedLocationClient);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
