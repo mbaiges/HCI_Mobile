@@ -60,7 +60,6 @@ public class RoutineFragment extends Fragment {
         btnSchedule = root.findViewById(R.id.btnSchedule);
         btnExecuteFromWithin =  root.findViewById(R.id.btnExecuteFromWithin);
 
-
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -239,6 +238,4 @@ public class RoutineFragment extends Fragment {
             Log.v("EXECUTE", "NULL ID");
         }
     }
-
-
 }
