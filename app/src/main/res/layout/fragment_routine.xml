@@ -6,11 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".ui.routine.RoutineFragment">
 
-    <ListView
-        android:id="@+id/routines_routine_detail_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:listSelector="@android:color/transparent" />
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/btnSchedule"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/ic_menu_calendar_clock"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ListView
+                android:id="@+id/routines_routine_detail_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="100dp"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSchedule"
+                tools:layout_editor_absoluteX="1dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

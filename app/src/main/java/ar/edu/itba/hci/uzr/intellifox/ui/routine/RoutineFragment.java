@@ -1,12 +1,21 @@
 package ar.edu.itba.hci.uzr.intellifox.ui.routine;
 
-import android.content.res.Configuration;
+import android.app.AlarmManager;
+import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,9 +24,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+import ar.edu.itba.hci.uzr.intellifox.AlarmBroadcastReceiver;
+import ar.edu.itba.hci.uzr.intellifox.MainActivity;
 import ar.edu.itba.hci.uzr.intellifox.R;
-import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
-import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceArrayAdapter;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine_action.RoutineAction;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine_action.RoutineActionArrayAdapter;
@@ -27,15 +40,57 @@ public class RoutineFragment extends Fragment {
 
     static final String ROUTINE_ID_ARG = "routine_id";
     RoutineViewModel routineViewModel;
+    ImageButton btnSchedule;
     View listView;
+    final Calendar myCalendar = Calendar.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_routine, container, false);
         listView = root.findViewById(R.id.routines_routine_detail_list);
+        btnSchedule = root.findViewById(R.id.btnSchedule);
 
-        routineViewModel =
-                ViewModelProviders.of(this).get(RoutineViewModel.class);
+
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
+                int minute = myCalendar.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        myCalendar.set(Calendar.HOUR_OF_DAY, selectedHour);
+                        myCalendar.set(Calendar.MINUTE, selectedMinute);
+                        myCalendar.set(Calendar.SECOND, 0);
+                        showToast();
+                        createAlarm(myCalendar);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        };
+
+        if (btnSchedule != null) {
+            btnSchedule.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new DatePickerDialog(getActivity(), date, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
+        }
+
+        routineViewModel = ViewModelProviders.of(this).get(RoutineViewModel.class);
 
         Bundle bundle = this.getArguments();
         String routineId = null;
@@ -83,4 +138,23 @@ public class RoutineFragment extends Fragment {
 
         return root;
     }
+
+    private void createAlarm(Calendar calendar){
+        routineViewModel = ViewModelProviders.of(this).get(RoutineViewModel.class);
+
+        Intent intent = new Intent(getActivity(), RoutineSchedulerReceiver.class);
+        intent.putExtra("RoutineID", routineViewModel.getRoutine().getValue().getId());
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
+
+        AlarmManager alarmMgr  = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+        Log.v("SCHEDULE", "want to schedule for: " + myCalendar.getTime() + " - RoutineId: " + routineViewModel.getRoutine().getValue().getId());
+    }
+
+    private void showToast() {
+        Toast.makeText(getActivity(), "Alarm will vibrate at time specified" + myCalendar.getTime(), Toast.LENGTH_SHORT).show();
+    }
+
 }

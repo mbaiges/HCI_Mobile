@@ -42,6 +42,7 @@
         </activity>
 
         <receiver android:name=".AlarmBroadcastReceiver" />
+        <receiver android:name=".ui.routine.RoutineSchedulerReceiver"/>
     </application>
 
 </manifest>
