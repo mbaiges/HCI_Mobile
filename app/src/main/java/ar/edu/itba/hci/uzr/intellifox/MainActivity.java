@@ -79,6 +79,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
+import ar.edu.itba.hci.uzr.intellifox.speech_analyzer.CommandExecutorTask;
 import ar.edu.itba.hci.uzr.intellifox.ui.settings.SettingsViewModel;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.BelledDevices;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.QRInfo;
@@ -113,14 +114,16 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAKE_PHOTO_TAG = "Take Photo";
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri photoUri;
-    public Bitmap bitmap;
-    BarcodeDetector detector;
+    private Bitmap bitmap;
+    private BarcodeDetector detector;
+
+    private CommandExecutorTask commandsInterpreter;
 
     public static final String MESSAGE_ID = "ar.edu.itba.MESSAGE_ID";
     public static final String MyPREFERENCES = "intellifoxPrefs";
     public static final String KEY_ISNIGHTMODE = "isNightMode";
-    SharedPreferences sharedPreferences;
-    AppDatabase db;
+    private SharedPreferences sharedPreferences;
+    private AppDatabase db;
 
     private AlarmManager alarmManager;
     private PendingIntent alarmBroadcastReceiverPendingIntent;
@@ -350,35 +353,50 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Log.d("LLEGO AL ACTIVITY RESULT", "SIII");
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE &&
-                resultCode == RESULT_OK) {
-            //Log.d("ENTRA?", "SIIII");
-            Bundle extras = data.getExtras();
-            if (extras != null) {
-                bitmap = (Bitmap) extras.get("data");
+        switch(requestCode) {
+            case REQUEST_IMAGE_CAPTURE:
+                if (resultCode == RESULT_OK) {
+                    //Log.d("ENTRA?", "SIIII");
+                    Bundle extras = data.getExtras();
+                    if (extras != null) {
+                        bitmap = (Bitmap) extras.get("data");
 
-                if(bitmap != null){
-                    Log.d("LO QUE HAY EN BITMAP ES:", bitmap.toString());
-                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-                    SparseArray<Barcode> barcodeArray = detector.detect(frame);
-//
-                    if (barcodeArray.size() != 0) {
-                        Barcode barcode = barcodeArray.valueAt(0);
-                        processBarcodeScan(barcode.rawValue);
+                        if (bitmap != null) {
+                            //Log.d("LO QUE HAY EN BITMAP ES:", bitmap.toString());
+                            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                            SparseArray<Barcode> barcodeArray = detector.detect(frame);
+                            //
+                            if (barcodeArray.size() != 0) {
+                                Barcode barcode = barcodeArray.valueAt(0);
+                                processBarcodeScan(barcode.rawValue);
+                            }
+                            // Decode the barcode
+
+                        } else {
+                            //Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "El BITMAP ES NULL");
+                        }
                     }
-                    // Decode the barcode
-
-                }else{
-                    Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "El BITMAP ES NULL");
                 }
-            }
+                break;
+            case REQ_CODE_SPEECH_INPUT:
+                if (resultCode == RESULT_OK && data != null) {
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    if (result != null && result.size() > 0) {
+                        String speech = result.get(0);
+                        processSpeech(speech);
+                    }
+                }
+                break;
+            default:
+                break;
         }
     }
 
     private void processBarcodeScan(String json) {
         Gson gson = new Gson();
+        Log.d("BARCODE_SCANNER", json);
         QRInfo qrInfo = gson.fromJson(json, QRInfo.class);
-        Log.d("A VER QUE CARAJO LLEGA",json);
         String type = qrInfo.getType();
         String id = qrInfo.getId();
         if (type.equals("device")) {
@@ -387,50 +405,22 @@ public class MainActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putString(DEVICE_ID_ARG, id);
                 args.putString(DEVICE_TYPE_NAME_ARG, typeName);
-                Log.d("ARGUMENTOS QUE MANDO",args.toString());
                 Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_device, args);
             }
         }
         else if (type.equals("room")) {
             Bundle args = new Bundle();
             args.putString(ROOM_ID_ARG, id);
-            Log.d("ARGUMENTOS QUE MANDO",args.toString());
             Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_room, args);
         }
         else if (type.equals("routine")) {
-            Boolean executable = qrInfo.isExecutable();
-            if (executable == null) {
-                //executable = false;
-                if(!executable){
-                    Bundle args = new Bundle();
-                    args.putString(ROUTINE_ID_ARG, id);
-                    args.putBoolean(ROUTINE_EXECUTION_ARG, executable);
-                    Log.d("ARGUMENTOS QUE MANDO",args.toString());
-                    Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_routine, args);
-                }else{
-                    Bundle args = new Bundle();
-                    args.putString(ROUTINE_ID_ARG, id);
-                    args.putBoolean(ROUTINE_EXECUTION_ARG, executable);
-                    Log.d("ARGUMENTOS QUE MANDO",args.toString());
-                    Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_routine, args);
-                }
-
-
-            }
-
+            boolean executable = qrInfo.isExecutable() != null && qrInfo.isExecutable();
+            Bundle args = new Bundle();
+            args.putString(ROUTINE_ID_ARG, id);
+            args.putBoolean(ROUTINE_EXECUTION_ARG, executable);
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_routine, args);
         }
     }
-
-//    private File createImageFile() throws IOException {
-//        // Create an image file name
-//        String imageFileName = "Photo_" + UUID.randomUUID();
-//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        return File.createTempFile(
-//                imageFileName,  /* prefix */
-//                ".jpg",   /* suffix */
-//                storageDir      /* directory */
-//        );
-//    }
 
     private void waitUntilBarcodeDetectorIsOperational(BarcodeDetector detector, int retries) {
         final Handler handler = new Handler();
@@ -451,7 +441,7 @@ public class MainActivity extends AppCompatActivity {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------------
 
-
+    // Speech-to-Text
 
     private void handleMicrophoneBtn(){
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -466,17 +456,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQ_CODE_SPEECH_INPUT &&
-                resultCode == RESULT_OK &&
-                null != data) {
-
-            ArrayList<String> result = data
-                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            //recognizedText.setText(result != null && result.size() > 0 ? result.get(0) : "");
-        }
-        super.onActivityResult(requestCode, resultCode, data);
+    private void processSpeech(String speech) {
+        CommandExecutorTask task = new CommandExecutorTask(speech);
+        task.execute();
     }
 
 }

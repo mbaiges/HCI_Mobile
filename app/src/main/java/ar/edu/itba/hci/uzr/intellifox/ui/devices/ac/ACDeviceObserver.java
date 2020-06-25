@@ -169,7 +169,7 @@ public class ACDeviceObserver extends DeviceObserver {
             String status = state.getStatus();
             if (status != null) {
                 if (h.onSwitch != null) {
-                    Log.v("asdawdwd",status);
+                    //Log.v("asdawdwd",status);
                     h.onSwitch.setChecked(status.equals("on"));
                 }
             }
