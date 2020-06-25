@@ -255,5 +255,9 @@
 
     <!-- Snackbar messages -->
     <string name="snackbar_routine_executed_success">La rutina fue ejecutada satisfactoriamente.</string>
+    <string name="snackbar_will_receive_notifications">Recibirá notificaciones sobre este dispositivo.</string>
+    <string name="snackbar_wont_receive_notifications">Ya no recibirá notificaciones sobre este dispositivo.</string>
+    <string name="snackbar_added_to_favourites">Agregado a favoritos.</string>
+    <string name="snackbar_removed_from_favourites">Eliminado de favoritos.</string>
 
 </resources>

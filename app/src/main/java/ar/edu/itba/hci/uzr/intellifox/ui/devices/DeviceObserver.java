@@ -71,8 +71,8 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                 put("vacuum", new Pair<>(R.string.notif_vacuum_turned_off, R.string.notif_vacuum_turned_on));
                 put("speaker", new Pair<>(R.string.notif_speaker_turned_off, R.string.notif_speaker_turned_on));
                 put("blinds", new Pair<>(R.string.notif_blind_closed, R.string.notif_blind_opened));
-                put("tap", new Pair<>(R.string.notif_tap_closed, R.string.notif_tap_opened));
-                put("door", new Pair<>(R.string.notif_door_turned_opened, R.string.notif_door_turned_closed));
+                put("faucet", new Pair<>(R.string.notif_tap_closed, R.string.notif_tap_opened));
+                put("door", new Pair<>(R.string.notif_door_turned_closed, R.string.notif_door_turned_opened));
             }};
         }
 
@@ -205,8 +205,7 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                                             if (typeName != null) {
                                                 Pair<Integer, Integer> pair = turnMessages.get(typeName);
                                                 if (pair != null) {
-                                                    String text = contextView.getResources().getString(isChecked?pair.second:pair.first) + ".";
-                                                    Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                    Snackbar snackbar = Snackbar.make(contextView, isChecked?pair.second:pair.first, Snackbar.LENGTH_SHORT);
                                                     View sbView = snackbar.getView();
                                                     sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
                                                     snackbar.show();
@@ -246,6 +245,10 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                                 if (holder.favourite != null) {
                                     holder.favourite.setImageResource(fav?FAVOURITE_ICON:NON_FAVOURITE_ICON);
                                     holder.favourite.setColorFilter(ContextCompat.getColor(contextView.getContext(), R.color.icon));
+                                    Snackbar snackbar = Snackbar.make(contextView, fav?R.string.snackbar_added_to_favourites:R.string.snackbar_removed_from_favourites, Snackbar.LENGTH_SHORT);
+                                    View sbView = snackbar.getView();
+                                    sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                    snackbar.show();
                                 }
                             }
                         }
@@ -297,6 +300,11 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                                             String jsonToSave = gson.toJson(belledDevices);
                                             editor.putString(BELLED_DEVICES, jsonToSave);
                                             editor.apply();
+
+                                            Snackbar snackbar = Snackbar.make(contextView, present?R.string.snackbar_will_receive_notifications:R.string.snackbar_wont_receive_notifications, Snackbar.LENGTH_SHORT);
+                                            View sbView = snackbar.getView();
+                                            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                            snackbar.show();
                                         }
                                     }
                                 }
