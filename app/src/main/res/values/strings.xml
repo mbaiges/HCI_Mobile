@@ -216,14 +216,15 @@
 
     <string name="notif_ac_turned_on">Was turned on.</string>
     <string name="notif_ac_turned_off">Was turned off.</string>
-    <string name="notif_ac_changed_temperature">its temperature changed</string>
-    <string name="notif_ac_changed_fan_speed">its fan speed changed</string>
-    <string name="notif_ac_changed_horizontal_swing">its horizontal swing changed</string>
-    <string name="notif_ac_changed_vertical_swing">its vertical swing changed</string>
+    <string name="notif_ac_changed_mode">Its mode changed</string>
+    <string name="notif_ac_changed_temperature">Its temperature changed</string>
+    <string name="notif_ac_changed_fan_speed">Its fan speed changed</string>
+    <string name="notif_ac_changed_horizontal_swing">Its horizontal swing changed</string>
+    <string name="notif_ac_changed_vertical_swing">Its vertical swing changed</string>
 
     <string name="notif_light_turned_on">Was turned on.</string>
     <string name="notif_light_turned_off">Was turned off.</string>
-    <string name="notif_light_color">its color changed</string>
+    <string name="notif_light_color">Its color changed</string>
 
     <string name="notif_oven_turned_on">Was turned on.</string>
     <string name="notif_oven_turned_off">Was turned off.</string>
@@ -252,4 +253,8 @@
 
 
     <string name="routine_future_execution">Routine will execute at specified time.</string>
+
+    <!-- Snackbar messages -->
+    <string name="snackbar_routine_executed_success">Routine successfully executed.</string>
+
 </resources>

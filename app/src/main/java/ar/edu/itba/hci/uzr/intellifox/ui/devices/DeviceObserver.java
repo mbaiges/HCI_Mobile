@@ -3,6 +3,7 @@ package ar.edu.itba.hci.uzr.intellifox.ui.devices;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -10,10 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -46,6 +49,8 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
 
     private final static String BELLED_DEVICES = "belled_devices";
 
+    private static HashMap<String, Pair<Integer, Integer>> turnMessages;
+
     static SharedPreferences sharedPreferences;
 
     protected View contextView;
@@ -56,6 +61,19 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
 
         if (sharedPreferences == null) {
             sharedPreferences = SharedPreferencesSetting.getInstance();
+        }
+
+        if (turnMessages == null) {
+            turnMessages = new HashMap<String, Pair<Integer, Integer>>() {{
+                put("ac", new Pair<>(R.string.notif_ac_turned_off, R.string.notif_ac_turned_on));
+                put("lamp", new Pair<>(R.string.notif_light_turned_off, R.string.notif_light_turned_on));
+                put("oven", new Pair<>(R.string.notif_oven_turned_off, R.string.notif_oven_turned_on));
+                put("vacuum", new Pair<>(R.string.notif_vacuum_turned_off, R.string.notif_vacuum_turned_on));
+                put("speaker", new Pair<>(R.string.notif_speaker_turned_off, R.string.notif_speaker_turned_on));
+                put("blinds", new Pair<>(R.string.notif_blind_closed, R.string.notif_blind_opened));
+                put("tap", new Pair<>(R.string.notif_tap_closed, R.string.notif_tap_opened));
+                put("door", new Pair<>(R.string.notif_door_turned_opened, R.string.notif_door_turned_closed));
+            }};
         }
 
         createHolder();
@@ -180,8 +198,21 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
                             public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
-
                                     if (result != null) {
+                                        DeviceType dt = device.getType();
+                                        if (dt != null) {
+                                            String typeName = dt.getName();
+                                            if (typeName != null) {
+                                                Pair<Integer, Integer> pair = turnMessages.get(typeName);
+                                                if (pair != null) {
+                                                    String text = contextView.getResources().getString(isChecked?pair.second:pair.first) + ".";
+                                                    Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                    View sbView = snackbar.getView();
+                                                    sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                    snackbar.show();
+                                                }
+                                            }
+                                        }
                                         Log.v("RESULT", result.toString());
                                     } else {
                                         handleError(response);
