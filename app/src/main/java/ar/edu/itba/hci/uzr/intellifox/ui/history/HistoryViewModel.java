@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class HistoryViewModel extends ViewModel {
 
     private final int OFFSET = 0;
-    private final int LIMIT = 10;
+    private final int LIMIT = 100;
 
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);

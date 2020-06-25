@@ -58,6 +58,7 @@ public class SettingsFragment extends Fragment {
                 SaveNightModeState(isChecked);
             }
         });
+
         return root;
     }
 
