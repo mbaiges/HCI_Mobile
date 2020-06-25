@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.uzr.intellifox;
+package ar.edu.itba.hci.uzr.intellifox.broadcast_receivers;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -12,6 +12,8 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.TaskStackBuilder;
+
+import ar.edu.itba.hci.uzr.intellifox.MainActivity;
 
 
 public class NotificationBroadcastReceiver extends BroadcastReceiver {

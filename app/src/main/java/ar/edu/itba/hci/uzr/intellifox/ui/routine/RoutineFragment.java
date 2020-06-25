@@ -29,7 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import ar.edu.itba.hci.uzr.intellifox.AlarmBroadcastReceiver;
+import ar.edu.itba.hci.uzr.intellifox.broadcast_receivers.AlarmBroadcastReceiver;
 import ar.edu.itba.hci.uzr.intellifox.MainActivity;
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;

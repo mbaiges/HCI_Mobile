@@ -1,11 +1,11 @@
-package ar.edu.itba.hci.uzr.intellifox;
+package ar.edu.itba.hci.uzr.intellifox.settings;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 
-public class FusedLocationClientGetter {
+public class FusedLocationClientSetting {
     private static FusedLocationProviderClient fusedLocationClient;
 
-    private FusedLocationClientGetter() {}
+    private FusedLocationClientSetting() {}
 
     static public FusedLocationProviderClient getInstance() {
         return fusedLocationClient;

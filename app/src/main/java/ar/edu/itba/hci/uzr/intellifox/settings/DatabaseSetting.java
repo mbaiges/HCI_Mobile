@@ -1,11 +1,11 @@
-package ar.edu.itba.hci.uzr.intellifox;
+package ar.edu.itba.hci.uzr.intellifox.settings;
 
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 
-public class DatabaseGetter {
+public class DatabaseSetting {
     private static AppDatabase db;
 
-    private DatabaseGetter() {}
+    private DatabaseSetting() {}
 
     static public AppDatabase getInstance() {
         return db;

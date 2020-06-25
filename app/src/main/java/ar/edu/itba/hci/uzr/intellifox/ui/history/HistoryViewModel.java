@@ -7,10 +7,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
+import java.util.stream.Collectors;
 
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
@@ -41,15 +43,16 @@ public class HistoryViewModel extends ViewModel {
     }
 
     private void fetchDeviceLogs() {
-        ApiClient.getInstance().getDevicesLogs(OFFSET, LIMIT, new Callback<Result<List<DeviceLogRecord>>>() {
+        ApiClient.getInstance().getDevicesLogs(LIMIT, OFFSET, new Callback<Result<List<DeviceLogRecord>>>() {
             @Override
             public void onResponse(@NonNull Call<Result<List<DeviceLogRecord>>> call, @NonNull Response<Result<List<DeviceLogRecord>>> response) {
                 if (response.isSuccessful()) {
                     Result<List<DeviceLogRecord>> result = response.body();
                     if (result != null) {
-                        List<DeviceLogRecord> routine = result.getResult();
-                        if (routine != null) {
-                            mLogs.postValue(routine);
+                        List<DeviceLogRecord> deviceLogRecords = result.getResult();
+                        if (deviceLogRecords != null) {
+                            Log.d("LOGS", deviceLogRecords.toString());
+                            mLogs.postValue(deviceLogRecords.stream().sorted(Comparator.comparing(DeviceLogRecord::getTimestamp).reversed()).collect(Collectors.toList()));
                         }
                     } else {
                         handleError(response);
