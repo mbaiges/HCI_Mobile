@@ -257,4 +257,21 @@
     <!-- Snackbar messages -->
     <string name="snackbar_routine_executed_success">Routine successfully executed.</string>
 
+
+    <!-- set level de blind/ cambio de brillo de la luz/ speacker: pausa, resume, change song, cambio de volumen / dispensing para tap /
+     set location en vacuum, -->
+
+    <string name="notif_blind_changed_level">Its level changed</string>
+
+    <string name="notif_light_changed_brightness">Its brightness changed</string>
+
+    <string name="notif_speaker_paused">It paused</string>
+    <string name="notif_speaker_resumed">It resumed</string>
+    <string name="notif_speaker_changed_song">Its song changed</string>
+    <string name="notif_speaker_changed_volume">Its volume changed</string>
+
+    <string name="notif_tap_dispensing">It is dispensing</string>
+
+    <string name="notif_vacuum_changed_location">Its location changed</string>
+
 </resources>
