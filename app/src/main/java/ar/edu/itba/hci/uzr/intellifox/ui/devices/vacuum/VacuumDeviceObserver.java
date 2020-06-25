@@ -99,12 +99,13 @@ public class VacuumDeviceObserver extends DeviceObserver {
             }
 
 
+
             if (status != null && bat != null && mode != null) {
                 String aux;
                 if (h.icon != null) {  //si esta el icono
                     aux = status;
                 } else
-                    aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%";
+                    aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%" ;
                 if (h.description != null) {
                     h.description.setText(aux);
                 }
@@ -251,16 +252,50 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                 h.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                                     @Override
-                                    public void onItemSelected(AdapterView<?> adapterView, View view,
-                                                               int position, long id) {
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                                         // Here you get the current item (a User object) that is selected by its position
                                         Room user = adapter.getItem(position);
+
+
                                         // Here you can do the action you want to...
+
+                                        VacuumDevice d = (VacuumDevice) h.device;
+                                        if (d != null) {
+                                            VacuumDeviceState s = d.getState();
+                                            if (s != null) {
+                                                String[] args = {user.getId()};
+                                                Log.v("cuarto", args[0]);
+                                                ApiClient.getInstance().executeDeviceAction(d.getId(), "setLocation", args, new Callback<Result<Object>>() {
+                                                    @Override
+                                                    public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
+                                                        if (response.isSuccessful()) {
+                                                            Result<Object> result = response.body();
+                                                            if (result != null) {
+                                                                Object success = result.getResult();
+                                                                if (success != null) {
+                                                                    Log.v("ACTION_SUCCESS", success.toString());
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<Result<Object>> call, Throwable t) {
+                                                        handleUnexpectedError(t);
+                                                    }
+                                                });
+                                            }
+                                        }
+
+
                                         Toast.makeText(contextView.getContext(), "ID: " + user.getId() + "\nName: " + user.getName(),
                                                 Toast.LENGTH_SHORT).show();
                                     }
+
+
                                     @Override
-                                    public void onNothingSelected(AdapterView<?> adapter) {  }
+                                    public void onNothingSelected(AdapterView<?> adapter) {
+                                    }
                                 });
                             }
                         } else {
