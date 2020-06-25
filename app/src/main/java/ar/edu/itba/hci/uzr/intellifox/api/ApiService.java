@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.log.DeviceLogRecord;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
@@ -51,6 +52,9 @@ public interface ApiService {
 
     @GET("devices")
     Call<Result<List<Device>>> getDevices();
+
+    @GET("devices/logs/limit/{limit}/offset/{offset}")
+    Call<Result<List<DeviceLogRecord>>> getDevicesLogs(@Path("limit") int limit, @Path("offset") int offset);
 
     @PUT("devices/{deviceId}/{actionName}")
     Call<Result<Object>> executeDeviceAction(@Path("deviceId") String deviceId, @Path("actionName") String actionName, @Body String[] params);
