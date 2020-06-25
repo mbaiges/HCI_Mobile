@@ -13,8 +13,11 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -165,12 +168,13 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                                 if (response.isSuccessful()) {
                                                     Result<Object> result = response.body();
                                                     if (result != null) {
-                                                        Object success = result.getResult();
-                                                        if (success != null) {
-                                                            Log.v("ACTION_SUCCESS", success.toString());
-                                                            clearModeSelections();
-                                                            aux.first.setChecked(true);
-                                                        }
+                                                        clearModeSelections();
+                                                        String text = contextView.getResources().getString(R.string.notif_vacuum_changed_mode) + ".";
+                                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                        View sbView = snackbar.getView();
+                                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                        snackbar.show();
+                                                        aux.first.setChecked(true);
                                                     }
                                                 }
                                             }
@@ -206,10 +210,11 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                         Result<Object> result = response.body();
 
                                         if (result != null) {
-                                            Boolean success = (Boolean) result.getResult();
-                                            if (success != null) {
-                                                Log.v("ACTION_SUCCESS", success.toString());
-                                            }
+                                            String text = contextView.getResources().getString(R.string.notif_vacuum_docked) + ".";
+                                            Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                            View sbView = snackbar.getView();
+                                            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                            snackbar.show();
                                         } else {
                                             handleError(response);
                                         }

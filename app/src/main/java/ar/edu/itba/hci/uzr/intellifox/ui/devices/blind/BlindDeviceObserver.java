@@ -5,6 +5,9 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.DialogCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
@@ -136,12 +139,12 @@ public class BlindDeviceObserver extends DeviceObserver {
                                     public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
                                         if (response.isSuccessful()) {
                                             Result<Object> result = response.body();
-
                                             if (result != null) {
-                                                Object lastVal = (Object) result.getResult();
-                                                if (lastVal != null) {
-                                                    Log.v("ACTION_SUCCESS", lastVal.toString());
-                                                }
+                                                String text = contextView.getResources().getString(R.string.notif_blind_changed_level)  + ".";
+                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                View sbView = snackbar.getView();
+                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                snackbar.show();
                                             } else {
                                                 handleError(response);
                                             }
@@ -182,10 +185,11 @@ public class BlindDeviceObserver extends DeviceObserver {
                                             Result<Object> result = response.body();
 
                                             if (result != null) {
-                                                Object lastVal = (Object) result.getResult();
-                                                if (lastVal != null) {
-                                                    Log.v("ACTION_SUCCESS", lastVal.toString());
-                                                }
+                                                String text = contextView.getResources().getString(R.string.notif_blind_changed_level)  + ".";
+                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                View sbView = snackbar.getView();
+                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                snackbar.show();
                                             } else {
                                                 handleError(response);
                                             }

@@ -7,6 +7,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
@@ -214,10 +217,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(playing?R.string.notif_speaker_paused:R.string.notif_speaker_resumed)  + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }
@@ -246,10 +250,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_speaker_changed_song)  + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }
@@ -278,10 +283,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_speaker_changed_song)  + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }
@@ -316,10 +322,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_speaker_changed_genre)  + " " + contextView.getResources().getString(R.string.dev_speaker_genre_clasical) + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }
@@ -354,10 +361,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_speaker_changed_genre)  + " " + contextView.getResources().getString(R.string.dev_speaker_genre_country) + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }
@@ -392,10 +400,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_speaker_changed_genre)  + " " + contextView.getResources().getString(R.string.dev_speaker_genre_dance) + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }
@@ -430,10 +439,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_speaker_changed_genre)  + " " + contextView.getResources().getString(R.string.dev_speaker_genre_latina) + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }
@@ -468,10 +478,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_speaker_changed_genre)  + " " + contextView.getResources().getString(R.string.dev_speaker_genre_pop) + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }
@@ -507,10 +518,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_speaker_changed_genre)  + " " + contextView.getResources().getString(R.string.dev_speaker_genre_rock) + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }
@@ -543,10 +555,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_speaker_changed_volume) + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }
@@ -578,10 +591,11 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 if (response.isSuccessful()) {
                                     Result<Object> result = response.body();
                                     if (result != null) {
-                                        Object success = (Object) result.getResult();
-                                        if (success != null) {
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_speaker_changed_volume) + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     } else {
                                         handleError(response);
                                     }

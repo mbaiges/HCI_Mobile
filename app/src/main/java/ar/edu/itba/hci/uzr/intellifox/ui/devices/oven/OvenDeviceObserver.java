@@ -8,6 +8,9 @@ import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
 
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
@@ -279,18 +282,32 @@ public class OvenDeviceObserver extends DeviceObserver {
                                                     Result<Object> result = response.body();
                                                     if(result != null){
                                                         Object success =  result.getResult();
-                                                        if(success != null){
-                                                            Log.v("ACTION_SUCCESS", success.toString());
-                                                            if(functionType.equals("setHeat"))
-                                                                clearHeatSelections();
-                                                            else if(functionType.equals("setGrill"))
-                                                                clearGrillSelections();
-                                                            else if(functionType.equals("setConvection"))
-                                                                clearConvectionSelections();
-
-
-                                                            pairAux.first.setChecked(true);
+                                                        Log.v("ACTION_SUCCESS", success.toString());
+                                                        if(functionType.equals("setHeat")) {
+                                                            clearHeatSelections();
+                                                            String text = contextView.getResources().getString(R.string.notif_oven_changed_heat)  + ".";
+                                                            Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                            View sbView = snackbar.getView();
+                                                            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                            snackbar.show();
                                                         }
+                                                        else if(functionType.equals("setGrill")) {
+                                                            clearGrillSelections();
+                                                            String text = contextView.getResources().getString(R.string.notif_oven_changed_grill)  + ".";
+                                                            Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                            View sbView = snackbar.getView();
+                                                            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                            snackbar.show();
+                                                        }
+                                                        else if(functionType.equals("setConvection")) {
+                                                            clearConvectionSelections();
+                                                            String text = contextView.getResources().getString(R.string.notif_oven_changed_convection)  + ".";
+                                                            Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                            View sbView = snackbar.getView();
+                                                            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                            snackbar.show();
+                                                        }
+                                                        pairAux.first.setChecked(true);
                                                     }
                                                 }
                                             }
@@ -334,11 +351,12 @@ public class OvenDeviceObserver extends DeviceObserver {
                                         if(response.isSuccessful()){
                                             Result<Object> result = response.body();
                                             if(result != null){
-                                                Object success =  result.getResult();
-                                                if(success != null){
-                                                    Log.v("ACTION_SUCCESS", success.toString());
-                                                    h.temperatureValue.setText(args[0]);
-                                                }
+                                                String text = contextView.getResources().getString(R.string.notif_oven_changed_temperature)  + ".";
+                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                View sbView = snackbar.getView();
+                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                snackbar.show();
+                                                h.temperatureValue.setText(args[0]);
                                             }
                                         }
                                     }
@@ -378,11 +396,12 @@ public class OvenDeviceObserver extends DeviceObserver {
                                         if(response.isSuccessful()){
                                             Result<Object> result = response.body();
                                             if(result != null){
-                                                Object success =  result.getResult();
-                                                if(success != null){
-                                                    Log.v("ACTION_SUCCESS", success.toString());
-                                                    h.temperatureValue.setText(args[0]);
-                                                }
+                                                String text = contextView.getResources().getString(R.string.notif_oven_changed_temperature)  + ".";
+                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                View sbView = snackbar.getView();
+                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                snackbar.show();
+                                                h.temperatureValue.setText(args[0]);
                                             }
                                         }
                                     }

@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.skydoves.colorpickerview.ActionMode;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerView;
@@ -99,8 +100,8 @@ public class LightDeviceObserver extends DeviceObserver {
             String auxColor = "#FF" + color;
             if (color != null && h.colorPickerView != null) {
                 ColorPickerPreferenceManager manager = ColorPickerPreferenceManager.getInstance(h.colorPickerView.getContext());
-                Log.v("LIGHT_COLOR", color);
-                Log.v("LIGHT_COLOR_AUX", auxColor);
+                //Log.v("LIGHT_COLOR", color);
+                //Log.v("LIGHT_COLOR_AUX", auxColor);
 
                 manager.setColor("LightColorPicker", Color.parseColor(auxColor)); // manipulates the saved color data.
                 if (h.lightIcon != null) {
@@ -131,13 +132,14 @@ public class LightDeviceObserver extends DeviceObserver {
                                 if(response.isSuccessful()){
                                     Result<Object> result = response.body();
                                     if(result != null){
-                                        Object success =  result.getResult();
-                                        if(success != null){
-                                            Log.v("ACTION_SUCCESS", success.toString());
-                                            if (h.lightIcon != null) {
-                                                String auxColor = "#FF" + newColor[0];
-                                                h.lightIcon.setColorFilter(Color.parseColor(auxColor));
-                                            }
+                                        if (h.lightIcon != null) {
+                                            String auxColor = "#FF" + newColor[0];
+                                            h.lightIcon.setColorFilter(Color.parseColor(auxColor));
+                                            String text = contextView.getResources().getString(R.string.notif_light_changed_color)  + ".";
+                                            Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                            View sbView = snackbar.getView();
+                                            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                            snackbar.show();
                                         }
                                     }
                                 }
@@ -155,11 +157,11 @@ public class LightDeviceObserver extends DeviceObserver {
                                 if(response.isSuccessful()){
                                     Result<Object> result = response.body();
                                     if(result != null){
-                                        Object success =  result.getResult();
-                                        if(success != null){
-                                            //Log.v("ACTION_SUCCESS", success.toString());
-                                            //COMPLETAR TODOOOOO
-                                        }
+                                        String text = contextView.getResources().getString(R.string.notif_light_changed_color)  + ".";
+                                        Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                        View sbView = snackbar.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                        snackbar.show();
                                     }
                                 }
                             }
@@ -176,45 +178,6 @@ public class LightDeviceObserver extends DeviceObserver {
             });
             h.colorPickerView.setActionMode(ActionMode.LAST);
         }
-
-//        if (h. .................  != null) {
-//            h. ................. setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    LightDevice d = (LightDevice) h.device;
-//                    if (d != null) {
-//                        LightDeviceState s = (LightDeviceState) d.getState();
-//                        if (s != null) {
-//
-//                            String actionName = ...............;
-//
-//                            ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, .........., new Callback<Result<Object>>() {
-//                                @Override
-//                                public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
-//                                    if (response.isSuccessful()) {
-//                                        Result<Object> result = response.body();
-//
-//                                        if (result != null) {
-//                                            Boolean success = (Boolean) result.getResult();
-//                                            if (success != null) {
-//                                                Log.v("ACTION_SUCCESS", success.toString());
-//                                            }
-//                                        } else {
-//                                            handleError(response);
-//                                        }
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
-//                                    handleUnexpectedError(t);
-//                                }
-//                            });
-//                        }
-//                    }
-//                }
-//            });
-//        }
     }
 
     @Override

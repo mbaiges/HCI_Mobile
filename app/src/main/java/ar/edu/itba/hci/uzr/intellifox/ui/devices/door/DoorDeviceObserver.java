@@ -4,6 +4,9 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
@@ -105,6 +108,7 @@ public class DoorDeviceObserver extends DeviceObserver {
                             if (lockStatus.equals("locked")) {
                                 actionName = UNLOCK_ACTION;
                             }
+                            final String actionMade = actionName;
                             ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, new String[0], new Callback<Result<Object>>() {
                                 @Override
                                 public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
@@ -112,10 +116,11 @@ public class DoorDeviceObserver extends DeviceObserver {
                                         Result<Object> result = response.body();
 
                                         if (result != null) {
-                                            Boolean success = (Boolean) result.getResult();
-                                            if (success != null) {
-                                                Log.v("ACTION_SUCCESS", success.toString());
-                                            }
+                                            String text = contextView.getResources().getString((actionMade.equals(LOCK_ACTION))?R.string.notif_door_locked:R.string.notif_door_unlocked)  + ".";
+                                            Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                            View sbView = snackbar.getView();
+                                            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                            snackbar.show();
                                         } else {
                                             handleError(response);
                                         }
