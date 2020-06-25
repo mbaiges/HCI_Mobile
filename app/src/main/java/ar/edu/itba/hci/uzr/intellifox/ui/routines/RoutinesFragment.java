@@ -42,7 +42,7 @@ public class RoutinesFragment extends Fragment {
                     for (Routine r : routines) {
                         routinesArray[i++] = r;
                     }
-                    RoutineArrayAdapter adapter = new RoutineArrayAdapter(getActivity(), routinesArray);
+                    RoutineArrayAdapter adapter = new RoutineArrayAdapter(getActivity(), root, routinesArray);
                     int orientation = getResources().getConfiguration().orientation;
                     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                         // In landscape

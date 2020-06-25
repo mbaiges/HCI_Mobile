@@ -64,7 +64,7 @@ public class FavouritesFragment extends Fragment {
                     for (Routine r : routines) {
                         routinesArray[i++] = r;
                     }
-                    RoutineArrayAdapter adapter = new RoutineArrayAdapter(getActivity(), routinesArray);
+                    RoutineArrayAdapter adapter = new RoutineArrayAdapter(getActivity(), root ,routinesArray);
                     routinesListView.setAdapter(adapter);
                 }
             }

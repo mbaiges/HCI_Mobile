@@ -313,6 +313,16 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
                     messageBuilder.append(" ");
                     stateChanged = true;
                 }
+                if(!actualAcDevice.getState().getMode().equals(device.getState().getMode())) {
+                    if(first){
+                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                        messageBuilder.append(" ");
+                        first = false;
+                    }else{
+                        messageBuilder.append(" - ");
+                    }
+                    messageBuilder.append(context.getResources().getString(R.string.notif_ac_changed_mode));
+                }
                 if(!actualAcDevice.getState().getTemperature().equals(device.getState().getTemperature())){
                     if(first){
                         messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));

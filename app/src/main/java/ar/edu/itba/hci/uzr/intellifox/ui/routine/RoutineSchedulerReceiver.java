@@ -27,9 +27,9 @@ public class RoutineSchedulerReceiver extends BroadcastReceiver {
 
     public void executeRoutine(String id){
         if (id != null) {
-            ApiClient.getInstance().executeRoutine(id, new Callback<Result<Boolean>>() {
+            ApiClient.getInstance().executeRoutine(id, new Callback<Result<Object>>() {
                 @Override
-                public void onResponse(Call<Result<Boolean>> call, Response<Result<Boolean>> response) {
+                public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
                     if (response.isSuccessful()) {
                         Log.v("ROUTINE_EXECUTE", "Routine executed successfully by alarm manager");
                     }
@@ -39,7 +39,7 @@ public class RoutineSchedulerReceiver extends BroadcastReceiver {
                 }
 
                 @Override
-                public void onFailure(Call<Result<Boolean>> call, Throwable t) {
+                public void onFailure(Call<Result<Object>> call, Throwable t) {
                     handleUnexpectedError(t);
                 }
             });

@@ -152,8 +152,8 @@ public class ApiClient {
         return call;
     }
 
-    public Call<Result<Boolean>> executeRoutine(String routineId, Callback<Result<Boolean>> callback) {
-        Call<Result<Boolean>> call = this.service.executeRoutine(routineId);
+    public Call<Result<Object>> executeRoutine(String routineId, Callback<Result<Object>> callback) {
+        Call<Result<Object>> call = this.service.executeRoutine(routineId);
         call.enqueue(callback);
         return call;
     }

@@ -216,41 +216,44 @@
 
     <string name="notif_ac_turned_on">Fue encendido.</string>
     <string name="notif_ac_turned_off">Fue apagado.</string>
-    <string name="notif_ac_changed_temperature">cambió su temperatura</string>
-    <string name="notif_ac_changed_fan_speed">cambió su ventilador</string>
-    <string name="notif_ac_changed_horizontal_swing">cambió su swing vertical</string>
-    <string name="notif_ac_changed_vertical_swing">cambiósu swing horizontal</string>
+    <string name="notif_ac_changed_mode">Cambió su modo</string>
+    <string name="notif_ac_changed_temperature">Cambió su temperatura</string>
+    <string name="notif_ac_changed_fan_speed">Cambió su ventilador</string>
+    <string name="notif_ac_changed_horizontal_swing">Cambió su swing vertical</string>
+    <string name="notif_ac_changed_vertical_swing">Cambió su swing horizontal</string>
 
-    <string name="notif_light_turned_on">fue encendida</string>
-    <string name="notif_light_turned_off">fue apagada</string>
-    <string name="notif_light_color"> cambio de color</string>
+    <string name="notif_light_turned_on">Fue encendida</string>
+    <string name="notif_light_turned_off">Fue apagada</string>
+    <string name="notif_light_color">Cambio de color</string>
 
     <string name="notif_oven_turned_on">Fue encendido.</string>
     <string name="notif_oven_turned_off">Fue apagado.</string>
-    <string name="notif_oven_changed_temperature">cambió de temperatura</string>
-    <string name="notif_oven_changed_convection">cambió su modo de conveccion</string>
-    <string name="notif_oven_changed_grill">cambió su modo de parrilla</string>
-    <string name="notif_oven_changed_heat">cambió su modo de calor</string>
+    <string name="notif_oven_changed_temperature">Cambió de temperatura</string>
+    <string name="notif_oven_changed_convection">Cambió su modo de conveccion</string>
+    <string name="notif_oven_changed_grill">Cambió su modo de parrilla</string>
+    <string name="notif_oven_changed_heat">Cambió su modo de calor</string>
 
-    <string name="notif_speaker_turned_on">fue encendido.</string>
+    <string name="notif_speaker_turned_on">Fue encendido.</string>
     <string name="notif_speaker_turned_off">Fue apagado.</string>
-    <string name="notif_speaker_genre">cambió su genero a</string>
+    <string name="notif_speaker_genre">Cambió su genero a</string>
 
     <string name="notif_blind_opened">Fue abierta.</string>
     <string name="notif_blind_closed">Fue cerrada.</string>
 
     <string name="notif_door_turned_opened">Fue abierta.</string>
     <string name="notif_door_turned_closed">Fue cerrada.</string>
-    <string name="notif_door_unlocked">fue desbloqueada</string>
-    <string name="notif_door_locked">fue bloqueada</string>
+    <string name="notif_door_unlocked">Fue desbloqueada</string>
+    <string name="notif_door_locked">Fue bloqueada</string>
 
     <string name="notif_vacuum_turned_on">Fue encendida.</string>
     <string name="notif_vacuum_turned_off">Fue apagada.</string>
-    <string name="notif_vacuum_mode">cambió su modo</string>
-    <string name="notif_vacuum_location">cambió su ubicación</string>
-    <string name="notif_vacuum_battery">tiene baja bateria</string>
+    <string name="notif_vacuum_mode">Cambió su modo</string>
+    <string name="notif_vacuum_location">Cambió su ubicación</string>
+    <string name="notif_vacuum_battery">Tiene baja bateria</string>
 
-    <string name="routine_future_execution">La rutina se ejecutara en el horario especificado.</string>
+    <string name="routine_future_execution">La rutina se ejecutará en el horario especificado.</string>
 
+    <!-- Snackbar messages -->
+    <string name="snackbar_routine_executed_success">La rutina fue ejecutada satisfactoriamente.</string>
 
 </resources>

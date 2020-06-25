@@ -20,9 +20,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -51,11 +54,13 @@ public class RoutineFragment extends Fragment {
     RoutineViewModel routineViewModel;
     ImageButton btnSchedule, btnExecuteFromWithin;
     View listView;
+    View root;
+
     final Calendar myCalendar = Calendar.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_routine, container, false);
+        root = inflater.inflate(R.layout.fragment_routine, container, false);
         listView = root.findViewById(R.id.routines_routine_detail_list);
         btnSchedule = root.findViewById(R.id.btnSchedule);
         btnExecuteFromWithin =  root.findViewById(R.id.btnExecuteFromWithin);
@@ -120,22 +125,7 @@ public class RoutineFragment extends Fragment {
 
         if (routineId != null) {
             if (executable) {
-                ApiClient.getInstance().executeRoutine(routineId, new Callback<Result<Boolean>>() {
-                    @Override
-                    public void onResponse(Call<Result<Boolean>> call, Response<Result<Boolean>> response) {
-                        if (response.isSuccessful()) {
-                            //Log.v("ROUTINE_EXECUTE", "Routine executed successfully");
-                        }
-                        else {
-                            handleError(response);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Result<Boolean>> call, Throwable t) {
-                        handleUnexpectedError(t);
-                    }
-                });
+                executeRoutine(routineId);
             }
             routineViewModel.getRoutine().observe(getViewLifecycleOwner(), new Observer<Routine>() {
                 @Override
@@ -218,11 +208,14 @@ public class RoutineFragment extends Fragment {
 
     public void executeRoutine(String id){
         if (id != null) {
-            ApiClient.getInstance().executeRoutine(id, new Callback<Result<Boolean>>() {
+            ApiClient.getInstance().executeRoutine(id, new Callback<Result<Object>>() {
                 @Override
-                public void onResponse(Call<Result<Boolean>> call, Response<Result<Boolean>> response) {
+                public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
                     if (response.isSuccessful()) {
-                        Log.v("ROUTINE_EXECUTE", "Routine executed successfully by alarm manager");
+                        Snackbar snackbar = Snackbar.make(root, R.string.snackbar_routine_executed_success, Snackbar.LENGTH_SHORT);
+                        View sbView = snackbar.getView();
+                        sbView.setBackgroundColor(ContextCompat.getColor(root.getContext(), R.color.primary2));
+                        snackbar.show();
                     }
                     else {
                         handleError(response);
@@ -230,7 +223,7 @@ public class RoutineFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<Result<Boolean>> call, Throwable t) {
+                public void onFailure(Call<Result<Object>> call, Throwable t) {
                     handleUnexpectedError(t);
                 }
             });
