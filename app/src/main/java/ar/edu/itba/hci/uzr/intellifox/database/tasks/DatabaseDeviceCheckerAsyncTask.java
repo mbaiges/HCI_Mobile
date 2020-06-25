@@ -393,7 +393,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
                         (((LightDevice)actualDevice).getState().getBrightness().equals(device.getState().getBrightness()))){
                     messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                     messageBuilder.append(" ");
-                    messageBuilder.append(context.getResources().getString(R.string.notif_light_color));
+                    messageBuilder.append(context.getResources().getString(R.string.notif_light_changed_color));
                     first = false;
                 }
                 if (!first) {
@@ -496,7 +496,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
                 if(!((SpeakerDevice)actualDevice).getState().getGenre().equals(device.getState().getGenre())){
                     messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
                     messageBuilder.append(" ");
-                    messageBuilder.append(context.getResources().getString(R.string.notif_speaker_genre));
+                    messageBuilder.append(context.getResources().getString(R.string.notif_speaker_changed_genre));
                     messageBuilder.append(" ");
                     messageBuilder.append(((SpeakerDevice)actualDevice).getState().getGenre());
                     first = false;
@@ -600,7 +600,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
                     }else{
                         messageBuilder.append(" - ");
                     }
-                    messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_mode));
+                    messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_changed_mode));
                 }
 
 

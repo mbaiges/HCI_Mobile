@@ -213,6 +213,7 @@
 
     <string name="notif_tap_opened">Was opened.</string>
     <string name="notif_tap_closed">Was closed.</string>
+    <string name="notif_tap_dispensing">It is dispensing</string>
 
     <string name="notif_ac_turned_on">Was turned on.</string>
     <string name="notif_ac_turned_off">Was turned off.</string>
@@ -224,32 +225,40 @@
 
     <string name="notif_light_turned_on">Was turned on.</string>
     <string name="notif_light_turned_off">Was turned off.</string>
-    <string name="notif_light_color">Its color changed</string>
+    <string name="notif_light_changed_brightness">Its brightness changed</string>
+    <string name="notif_light_changed_color">Its color changed</string>
 
     <string name="notif_oven_turned_on">Was turned on.</string>
     <string name="notif_oven_turned_off">Was turned off.</string>
-    <string name="notif_oven_changed_temperature">its temperature changed</string>
-    <string name="notif_oven_changed_convection">its convection mode changed</string>
-    <string name="notif_oven_changed_grill">its grill mode changed</string>
-    <string name="notif_oven_changed_heat">its heat setting changed</string>
+    <string name="notif_oven_changed_temperature">Its temperature changed</string>
+    <string name="notif_oven_changed_convection">Its convection mode changed</string>
+    <string name="notif_oven_changed_grill">Its grill mode changed</string>
+    <string name="notif_oven_changed_heat">Its heat setting changed</string>
 
     <string name="notif_speaker_turned_on">Was turned on.</string>
     <string name="notif_speaker_turned_off">Was turned off.</string>
-    <string name="notif_speaker_genre">its genre changed to </string>
+    <string name="notif_speaker_changed_genre">Its genre changed to </string>
+    <string name="notif_speaker_paused">It paused</string>
+    <string name="notif_speaker_resumed">It resumed</string>
+    <string name="notif_speaker_changed_song">Its song changed</string>
+    <string name="notif_speaker_changed_volume">Its volume changed</string>
 
     <string name="notif_blind_opened">Was opened.</string>
     <string name="notif_blind_closed">Was closed.</string>
+    <string name="notif_blind_changed_level">Its level changed</string>
 
     <string name="notif_door_turned_opened">Was opened.</string>
     <string name="notif_door_turned_closed">Was closed.</string>
-    <string name="notif_door_unlocked">was unlocked</string>
-    <string name="notif_door_locked">was locked</string>
+    <string name="notif_door_unlocked">Was unlocked</string>
+    <string name="notif_door_locked">Was locked</string>
 
     <string name="notif_vacuum_turned_on">Was turned on.</string>
     <string name="notif_vacuum_turned_off">Was turned off.</string>
-    <string name="notif_vacuum_mode">its mode changed</string>
-    <string name="notif_vacuum_location">its location changed</string>
-    <string name="notif_vacuum_battery">it has low battery</string>
+    <string name="notif_vacuum_changed_mode">Its mode changed</string>
+    <string name="notif_vacuum_changed_location">Its location changed</string>
+    <string name="notif_vacuum_battery">It has low battery</string>
+    <string name="notif_vacuum_docked">It was docked</string>
+    <string name="notif_vacuum_undocked">It was undocked</string>
 
 
     <string name="routine_future_execution">Routine will execute at specified time.</string>
@@ -262,20 +271,5 @@
     <string name="snackbar_removed_from_favourites">Removed from favourites.</string>
 
 
-    <!-- set level de blind/ cambio de brillo de la luz/ speacker: pausa, resume, change song, cambio de volumen / dispensing para tap /
-     set location en vacuum, -->
-
-    <string name="notif_blind_changed_level">Its level changed</string>
-
-    <string name="notif_light_changed_brightness">Its brightness changed</string>
-
-    <string name="notif_speaker_paused">It paused</string>
-    <string name="notif_speaker_resumed">It resumed</string>
-    <string name="notif_speaker_changed_song">Its song changed</string>
-    <string name="notif_speaker_changed_volume">Its volume changed</string>
-
-    <string name="notif_tap_dispensing">It is dispensing</string>
-
-    <string name="notif_vacuum_changed_location">Its location changed</string>
 
 </resources>

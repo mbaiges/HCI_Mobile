@@ -213,6 +213,7 @@
 
     <string name="notif_tap_opened">Fue abierta</string>
     <string name="notif_tap_closed">Fue cerrada</string>
+    <string name="notif_tap_dispensing">Esta dispensando</string>
 
     <string name="notif_ac_turned_on">Fue encendido.</string>
     <string name="notif_ac_turned_off">Fue apagado.</string>
@@ -224,7 +225,8 @@
 
     <string name="notif_light_turned_on">Fue encendida</string>
     <string name="notif_light_turned_off">Fue apagada</string>
-    <string name="notif_light_color">Cambio de color</string>
+    <string name="notif_light_changed_color">Cambio de color</string>
+    <string name="notif_light_changed_brightness">Cambio su brillo</string>
 
     <string name="notif_oven_turned_on">Fue encendido.</string>
     <string name="notif_oven_turned_off">Fue apagado.</string>
@@ -235,10 +237,15 @@
 
     <string name="notif_speaker_turned_on">Fue encendido.</string>
     <string name="notif_speaker_turned_off">Fue apagado.</string>
-    <string name="notif_speaker_genre">Cambió su genero a</string>
+    <string name="notif_speaker_changed_genre">Cambió su genero a</string>
+    <string name="notif_speaker_paused">Fue pausado</string>
+    <string name="notif_speaker_resumed">Fue resumido</string>
+    <string name="notif_speaker_changed_song">Cambio su canción</string>
+    <string name="notif_speaker_changed_volume">Cambio su volumen</string>
 
     <string name="notif_blind_opened">Fue abierta.</string>
     <string name="notif_blind_closed">Fue cerrada.</string>
+    <string name="notif_blind_changed_level">Cambio su nivel</string>
 
     <string name="notif_door_turned_opened">Fue abierta.</string>
     <string name="notif_door_turned_closed">Fue cerrada.</string>
@@ -247,9 +254,11 @@
 
     <string name="notif_vacuum_turned_on">Fue encendida.</string>
     <string name="notif_vacuum_turned_off">Fue apagada.</string>
-    <string name="notif_vacuum_mode">Cambió su modo</string>
-    <string name="notif_vacuum_location">Cambió su ubicación</string>
+    <string name="notif_vacuum_changed_mode">Cambió su modo</string>
+    <string name="notif_vacuum_changed_location">Cambió su ubicación</string>
     <string name="notif_vacuum_battery">Tiene baja bateria</string>
+    <string name="notif_vacuum_docked">Se acopló para cargar</string>
+    <string name="notif_vacuum_undocked">Se desacopló del cargador</string>
 
     <string name="routine_future_execution">La rutina se ejecutará en el horario especificado.</string>
 
@@ -259,20 +268,5 @@
     <string name="snackbar_wont_receive_notifications">Ya no recibirá notificaciones sobre este dispositivo.</string>
     <string name="snackbar_added_to_favourites">Agregado a favoritos.</string>
     <string name="snackbar_removed_from_favourites">Eliminado de favoritos.</string>
-
-
-
-    <string name="notif_blind_changed_level">Cambio su nivel</string>
-
-    <string name="notif_light_changed_brightness">Cambio su brillo</string>
-
-    <string name="notif_speaker_paused">Fue pausado</string>
-    <string name="notif_speaker_resumed">Fue resumido</string>
-    <string name="notif_speaker_changed_song">Cambio su canción</string>
-    <string name="notif_speaker_changed_volume">Cambio su volumen</string>
-
-    <string name="notif_tap_dispensing">Esta dispensando</string>
-
-    <string name="notif_vacuum_changed_location">Cambio su ubicación</string>
     
 </resources>

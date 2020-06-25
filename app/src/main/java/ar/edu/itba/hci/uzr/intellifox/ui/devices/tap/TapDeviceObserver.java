@@ -4,6 +4,9 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
@@ -106,11 +109,12 @@ public class TapDeviceObserver extends DeviceObserver {
                                             Result<Object> result = response.body();
 
                                             if (result != null) {
-                                                Boolean success = (Boolean) result.getResult();
-                                                if (success != null) {
-                                                    Log.v("ACTION_SUCCESS", success.toString());
-                                                    h.amount.setText("");
-                                                }
+                                                String text = contextView.getResources().getString(R.string.notif_tap_dispensing) + ".";
+                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                View sbView = snackbar.getView();
+                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                snackbar.show();
+                                                h.amount.setText("");
                                             } else {
                                                 handleError(response);
                                             }

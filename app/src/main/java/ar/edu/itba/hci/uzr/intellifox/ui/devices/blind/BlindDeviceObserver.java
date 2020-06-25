@@ -140,7 +140,7 @@ public class BlindDeviceObserver extends DeviceObserver {
                                         if (response.isSuccessful()) {
                                             Result<Object> result = response.body();
                                             if (result != null) {
-                                                String text = contextView.getResources().getString(R.string.notif_blind)  + ".";
+                                                String text = contextView.getResources().getString(R.string.notif_blind_changed_level)  + ".";
                                                 Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
                                                 View sbView = snackbar.getView();
                                                 sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
@@ -185,10 +185,11 @@ public class BlindDeviceObserver extends DeviceObserver {
                                             Result<Object> result = response.body();
 
                                             if (result != null) {
-                                                Object lastVal = (Object) result.getResult();
-                                                if (lastVal != null) {
-                                                    Log.v("ACTION_SUCCESS", lastVal.toString());
-                                                }
+                                                String text = contextView.getResources().getString(R.string.notif_blind_changed_level)  + ".";
+                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                                View sbView = snackbar.getView();
+                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                                snackbar.show();
                                             } else {
                                                 handleError(response);
                                             }
