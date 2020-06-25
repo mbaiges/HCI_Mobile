@@ -94,7 +94,6 @@ public class OvenDeviceObserver extends DeviceObserver {
             OvenDeviceState s = (OvenDeviceState) state;
             OvenDeviceViewHolder h = (OvenDeviceViewHolder) holder;
 
-            Log.v("ENTROOOO", "SetDescription");
 
             String status = s.getStatus();
             if(status.equals("on")){
@@ -159,11 +158,9 @@ public class OvenDeviceObserver extends DeviceObserver {
         if (state != null) {
             OvenDeviceState s = (OvenDeviceState) state;
             OvenDeviceViewHolder h = (OvenDeviceViewHolder) holder;
-            Log.v("ENTROOO", "SET UI");
             String status = state.getStatus();
             if (status != null) {
                 if (h.onSwitch != null) {
-                    Log.v("asdawdwd",status);
                     h.onSwitch.setChecked(status.equals("on"));
                 }
             }
@@ -175,10 +172,7 @@ public class OvenDeviceObserver extends DeviceObserver {
 
                     String aux = temp.toString();
                     h.temperatureValue.setText(aux);
-                }else{
-                    Log.v("TEMP"," ES NULL");
                 }
-
             }
             if(h.HeatBtn != null){
                 String heat = s.getHeat();
@@ -244,8 +238,6 @@ public class OvenDeviceObserver extends DeviceObserver {
             }
 
 
-        }else{
-            Log.v("SET UI", "STATE ES NULL");
         }
     }
 

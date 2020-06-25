@@ -63,9 +63,11 @@ public class DeviceTypesViewModel extends ViewModel {
 
                             if (deviceTypesSet == null || !(deviceTypesSet.equals(actualDeviceTypesSet))) {
                                 mDeviceTypes.postValue(actualDeviceTypesSet);
+                                /*
                                 for (DeviceType dt: actualDeviceTypesSet) {
                                     Log.v("DEVICE_TYPE", dt.getName());
                                 }
+                                */
                             }
                         }
                     } else {

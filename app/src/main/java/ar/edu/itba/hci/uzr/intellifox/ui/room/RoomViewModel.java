@@ -21,6 +21,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 
+import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,20 +32,28 @@ public class RoomViewModel extends ViewModel {
             Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> fetcherHandler;
     private MutableLiveData<Set<Device>> mDevices;
-    private String roomName;
+    private MutableLiveData<Room> mRoom;
+    private String roomId;
 
     public RoomViewModel() {
         mDevices = new MutableLiveData<>();
+        mRoom = new MutableLiveData<>();
     }
 
-    public void init(String roomName) {
-        this.roomName = roomName;
+    public void init(String roomId) {
+        this.roomId = roomId;
+
         fetchDevices();
+        fetchRoom();
+
+        scheduleFetching();
     }
 
     public LiveData<Set<Device>> getDevices() {
         return mDevices;
     }
+
+    public LiveData<Room> getRoom() { return mRoom; }
 
     private void fetchDevices() {
         ApiClient.getInstance().getDevices(new Callback<Result<List<Device>>>() {
@@ -55,7 +64,7 @@ public class RoomViewModel extends ViewModel {
                     if (result != null) {
                         List<Device> comingDevicesList = result.getResult();
                         if (comingDevicesList != null) {
-                            Set<Device> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getRoom() != null && d.getRoom().getId().equals(roomName)).sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
+                            Set<Device> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getRoom() != null && d.getRoom().getId().equals(roomId)).sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
                             Set<Device> devicesSet = mDevices.getValue();
 
                             if (devicesSet == null || !devicesSet.equals(actualDevicesSet)) {
@@ -75,10 +84,38 @@ public class RoomViewModel extends ViewModel {
         });
     }
 
+    private void fetchRoom() {
+        ApiClient.getInstance().getRoom(roomId, new Callback<Result<Room>>() {
+            @Override
+            public void onResponse(@NonNull Call<Result<Room>> call, @NonNull Response<Result<Room>> response) {
+                if (response.isSuccessful()) {
+                    Result<Room> result = response.body();
+                    if (result != null) {
+                        Room comingRoom = result.getResult();
+                        if (comingRoom != null) {
+                            Room room = mRoom.getValue();
+                            if (room == null || !room.equals(comingRoom)) {
+                                mRoom.postValue(comingRoom);
+                            }
+                        }
+                    } else {
+                        handleError(response);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Result<Room>> call, @NonNull Throwable t) {
+                handleUnexpectedError(t);
+            }
+        });
+    }
+
     public void scheduleFetching() {
         final Runnable fetcher = new Runnable() {
             public void run() {
                 fetchDevices();
+                fetchRoom();
             }
         };
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);

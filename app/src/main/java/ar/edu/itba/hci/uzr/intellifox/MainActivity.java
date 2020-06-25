@@ -16,6 +16,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaCodecInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -23,6 +25,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.speech.RecognizerIntent;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -67,6 +70,7 @@ import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -77,8 +81,10 @@ import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
+import ar.edu.itba.hci.uzr.intellifox.speech_analyzer.CommandExecutorTask;
 import ar.edu.itba.hci.uzr.intellifox.ui.settings.SettingsViewModel;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.BelledDevices;
+import ar.edu.itba.hci.uzr.intellifox.wrappers.QRInfo;
 import ar.edu.itba.hci.uzr.intellifox.wrappers.TypeAndDeviceId;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -91,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+
     private final static String DATABASE_NAME = "intellifox_db";
 
     private final static String BELLED_DEVICES = "belled_devices";
@@ -98,19 +106,26 @@ public class MainActivity extends AppCompatActivity {
     static final String DEVICE_ID_ARG = "DEVICE_ID";
     static final String DEVICE_TYPE_NAME_ARG = "DEVICE_TYPE_NAME";
 
+    static final String ROOM_ID_ARG = "room_id";
+
+    static final String ROUTINE_ID_ARG = "routine_id";
+    static final String ROUTINE_EXECUTION_ARG = "routine_execution";
+
     private static final String CHANNEL_ID = "NOTIFICATIONS";
 
     private static final String TAKE_PHOTO_TAG = "Take Photo";
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri photoUri;
-    public Bitmap bitmap;
-    BarcodeDetector detector;
+    private Bitmap bitmap;
+    private BarcodeDetector detector;
+
+    private CommandExecutorTask commandsInterpreter;
 
     public static final String MESSAGE_ID = "ar.edu.itba.MESSAGE_ID";
     public static final String MyPREFERENCES = "intellifoxPrefs";
     public static final String KEY_ISNIGHTMODE = "isNightMode";
-    SharedPreferences sharedPreferences;
-    AppDatabase db;
+    private SharedPreferences sharedPreferences;
+    private AppDatabase db;
 
     private AlarmManager alarmManager;
     private PendingIntent alarmBroadcastReceiverPendingIntent;
@@ -208,6 +223,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         waitUntilBarcodeDetectorIsOperational(detector, 10);
+
+        Location l1 = new Location("");
+        l1.setLatitude(-34.7214235);
+        l1.setLongitude(-58.2958171);
+        Location l2 = new Location("");
+        l2.setLatitude(-34.7232241);
+        l2.setLongitude(-58.2940983);
+
+        // De acá a 2 cuadras (casi 3)... devuelve 253 (supongo que son metros), así que esta bien
+        Log.d("PRUEBA_LOCATION", String.valueOf(l1.distanceTo(l2)));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -337,32 +362,76 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("LLEGO AL ACTIVITY RESULT", "SIII");
-        if (requestCode == REQUEST_IMAGE_CAPTURE &&
-                resultCode == RESULT_OK) {
-            Log.d("ENTRA?", "SIIII");
-            Bundle extras = data.getExtras();
-            if (extras != null) {
-                bitmap = (Bitmap) extras.get("data");
-
-                if(bitmap != null){
-                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-                    SparseArray<Barcode> barcodeArray = detector.detect(frame);
-                    Log.d("BARCODE", barcodeArray.toString());
-                    if (barcodeArray.size() != 0) {
-                        Barcode barcode = barcodeArray.valueAt(0);
-                        Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", barcode.rawValue);
-                    }
-                    // Decode the barcode
-
-                }else{
-                    Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "El BITMAP ES NULL");
-                }
-            }
-        }
+        //Log.d("LLEGO AL ACTIVITY RESULT", "SIII");
         super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case REQUEST_IMAGE_CAPTURE:
+                if (resultCode == RESULT_OK) {
+                    //Log.d("ENTRA?", "SIIII");
+                    Bundle extras = data.getExtras();
+                    if (extras != null) {
+                        bitmap = (Bitmap) extras.get("data");
+
+                        if (bitmap != null) {
+                            //Log.d("LO QUE HAY EN BITMAP ES:", bitmap.toString());
+                            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                            SparseArray<Barcode> barcodeArray = detector.detect(frame);
+                            //
+                            if (barcodeArray.size() != 0) {
+                                Barcode barcode = barcodeArray.valueAt(0);
+                                processBarcodeScan(barcode.rawValue);
+                            }
+                            // Decode the barcode
+
+                        } else {
+                            //Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "El BITMAP ES NULL");
+                        }
+                    }
+                }
+                break;
+            case REQ_CODE_SPEECH_INPUT:
+                if (resultCode == RESULT_OK && data != null) {
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    if (result != null && result.size() > 0) {
+                        String speech = result.get(0);
+                        processSpeech(speech);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
 
+    private void processBarcodeScan(String json) {
+        Gson gson = new Gson();
+        Log.d("BARCODE_SCANNER", json);
+        QRInfo qrInfo = gson.fromJson(json, QRInfo.class);
+        String type = qrInfo.getType();
+        String id = qrInfo.getId();
+        if (type.equals("device")) {
+            String typeName = qrInfo.getTypeName();
+            if (typeName != null) {
+                Bundle args = new Bundle();
+                args.putString(DEVICE_ID_ARG, id);
+                args.putString(DEVICE_TYPE_NAME_ARG, typeName);
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_device, args);
+            }
+        }
+        else if (type.equals("room")) {
+            Bundle args = new Bundle();
+            args.putString(ROOM_ID_ARG, id);
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_room, args);
+        }
+        else if (type.equals("routine")) {
+            boolean executable = qrInfo.isExecutable() != null && qrInfo.isExecutable();
+            Bundle args = new Bundle();
+            args.putString(ROUTINE_ID_ARG, id);
+            args.putBoolean(ROUTINE_EXECUTION_ARG, executable);
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.nav_routine, args);
+        }
+    }
 
     private void waitUntilBarcodeDetectorIsOperational(BarcodeDetector detector, int retries) {
         final Handler handler = new Handler();
@@ -383,10 +452,24 @@ public class MainActivity extends AppCompatActivity {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------------
 
-
+    // Speech-to-Text
 
     private void handleMicrophoneBtn(){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getResources().getString(R.string.prompt));
 
+        if (intent.resolveActivity(getPackageManager()) != null)
+        {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        }
+    }
+
+    private void processSpeech(String speech) {
+        CommandExecutorTask task = new CommandExecutorTask(speech);
+        task.execute();
     }
 
 }

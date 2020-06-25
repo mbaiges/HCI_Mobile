@@ -39,7 +39,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 
-public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device> {
+public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device> {
 
     private static final String CHANNEL_ID = "NOTIFICATIONS";
     private static int notification_id = 1;
@@ -51,7 +51,7 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
     private String typeName, deviceID;
     private Device actualDevice;
 
-    public DatabaseDeviceCheckerAsynTask(Context context, String typeName, String deviceID, Device actualDevice) {
+    public DatabaseDeviceCheckerAsyncTask(Context context, String typeName, String deviceID, Device actualDevice) {
 
         if (typeInfo == null) {
             typeInfo = new HashMap<String, Integer>() {
@@ -241,8 +241,10 @@ public class DatabaseDeviceCheckerAsynTask extends AsyncTask<Void, Void, Device>
 
     @Override
     protected void onPostExecute(Device device) {
+        /*
         Log.d("BD_GET_DEVICE", device.toString());
         Log.d("API_GET_DEVICE", actualDevice.toString());
+        */
         if (typeName.equals("faucet")) {
             checkTapChanges((TapDevice) device);
         }

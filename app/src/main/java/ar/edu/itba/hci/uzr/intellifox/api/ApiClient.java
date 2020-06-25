@@ -15,6 +15,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceDeserializer;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.log.DeviceLogRecord;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
@@ -31,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Path;
 
 public class ApiClient {
     private Retrofit retrofit = null;
@@ -110,6 +112,12 @@ public class ApiClient {
 
     public Call<Result<Device>> modifyDevice(String deviceId, Device device, Callback<Result<Device>> callback) {
         Call<Result<Device>> call = this.service.modifyDevice(deviceId, device);
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Call<Result<List<DeviceLogRecord>>> getDevicesLogs(int limit, int offset, Callback<Result<List<DeviceLogRecord>>> callback) {
+        Call<Result<List<DeviceLogRecord>>> call = this.service.getDevicesLogs(limit, offset);
         call.enqueue(callback);
         return call;
     }

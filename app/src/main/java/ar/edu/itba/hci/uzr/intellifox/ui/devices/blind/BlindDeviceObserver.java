@@ -23,7 +23,7 @@ public class BlindDeviceObserver extends DeviceObserver {
 
     public BlindDeviceObserver(View contextView) {
         super(contextView);
-        Log.v("INFO:", "Initializing");
+        //Log.v("INFO:", "Initializing");
     }
 
     @Override
@@ -36,7 +36,7 @@ public class BlindDeviceObserver extends DeviceObserver {
         super.findElements();
         BlindDeviceViewHolder h = (BlindDeviceViewHolder) holder;
 
-        Log.v("INFO:", "Setting Elements");
+        //Log.v("INFO:", "Setting Elements");
 
         h.btnUp = contextView.findViewById(R.id.btnUp);
         h.btnDown = contextView.findViewById(R.id.btnDown);
@@ -51,7 +51,7 @@ public class BlindDeviceObserver extends DeviceObserver {
             BlindDeviceState s = (BlindDeviceState) state;
             BlindDeviceViewHolder h = (BlindDeviceViewHolder) holder;
 
-            Log.v("INFO:", "Setting Description");
+            //Log.v("INFO:", "Setting Description");
 
             String status = s.getStatus();
             String stateStatus;
@@ -120,7 +120,7 @@ public class BlindDeviceObserver extends DeviceObserver {
             h.btnUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.v("PRESSED", "btnUp");
+                    //Log.v("PRESSED", "btnUp");
                     BlindDevice d = (BlindDevice) h.device;
                     if (d != null) {
                         BlindDeviceState s = (BlindDeviceState) d.getState();
@@ -130,7 +130,7 @@ public class BlindDeviceObserver extends DeviceObserver {
                                 h.level.setText(level.toString());
                                 String[] args = new String[1];
                                 args[0] = level.toString();
-                                Log.v("NEW_LEVEL", level.toString());
+                                //Log.v("NEW_LEVEL", level.toString());
                                 ApiClient.getInstance().executeDeviceAction(d.getId(), "setLevel", args, new Callback<Result<Object>>() {
                                     @Override
                                     public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
@@ -164,7 +164,7 @@ public class BlindDeviceObserver extends DeviceObserver {
             h.btnDown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.v("PRESSED", "btnDown");
+                    //Log.v("PRESSED", "btnDown");
                     BlindDevice d = (BlindDevice) h.device;
                     if (d != null) {
                         BlindDeviceState s = (BlindDeviceState) d.getState();
@@ -174,7 +174,7 @@ public class BlindDeviceObserver extends DeviceObserver {
                                 h.level.setText(level.toString());
                                 String[] args = new String[1];
                                 args[0] = level.toString();
-                                Log.v("NEW_LEVEL", level.toString());
+                                //Log.v("NEW_LEVEL", level.toString());
                                 ApiClient.getInstance().executeDeviceAction(d.getId(), "setLevel", args, new Callback<Result<Object>>() {
                                     @Override
                                     public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {

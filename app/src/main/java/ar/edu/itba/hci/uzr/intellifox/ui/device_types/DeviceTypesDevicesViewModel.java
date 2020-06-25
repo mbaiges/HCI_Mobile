@@ -62,9 +62,11 @@ public class DeviceTypesDevicesViewModel extends ViewModel {
 
                             if (devicesSet == null || !devicesSet.equals(actualDevicesSet)) {
                                 mDevices.postValue(actualDevicesSet);
+                                /*
                                 for(Device d: actualDevicesSet) {
                                     Log.v("DEVICE_TYPE_DEVICE", d.toString());
                                 }
+                                */
                             }
                         }
                     } else {
@@ -90,7 +92,6 @@ public class DeviceTypesDevicesViewModel extends ViewModel {
     }
 
     public void stopFetching() {
-        Log.v("STOP_FETCHING", "Starting");
         fetcherHandler.cancel(true);
     }
 

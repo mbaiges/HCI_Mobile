@@ -136,7 +136,7 @@ public class TapDeviceObserver extends DeviceObserver {
                     clearSelections();
                     h.btnML.setChecked(true);
                     unit = "ml";
-                    Log.v("UNIT", "ml");
+                    //Log.v("UNIT", "ml");
                 }
             });
         }
@@ -148,7 +148,7 @@ public class TapDeviceObserver extends DeviceObserver {
                     clearSelections();
                     h.btnCL.setChecked(true);
                     unit = "cl";
-                    Log.v("UNIT", "cl");
+                    //Log.v("UNIT", "cl");
                 }
             });
         }
@@ -160,7 +160,7 @@ public class TapDeviceObserver extends DeviceObserver {
                     clearSelections();
                     h.btnDL.setChecked(true);
                     unit = "dl";
-                    Log.v("UNIT", "dl");
+                    //Log.v("UNIT", "dl");
                 }
             });
         }
@@ -172,7 +172,7 @@ public class TapDeviceObserver extends DeviceObserver {
                     clearSelections();
                     h.btnL.setChecked(true);
                     unit = "l";
-                    Log.v("UNIT", "l");
+                    //Log.v("UNIT", "l");
                 }
             });
         }
@@ -184,7 +184,7 @@ public class TapDeviceObserver extends DeviceObserver {
                     clearSelections();
                     h.btnDAL.setChecked(true);
                     unit = "dal";
-                    Log.v("UNIT", "dal");
+                    //Log.v("UNIT", "dal");
                 }
             });
         }
@@ -196,7 +196,7 @@ public class TapDeviceObserver extends DeviceObserver {
                     clearSelections();
                     h.btnHL.setChecked(true);
                     unit = "hl";
-                    Log.v("UNIT", "hl");
+                    //Log.v("UNIT", "hl");
                 }
             });
         }
@@ -208,7 +208,7 @@ public class TapDeviceObserver extends DeviceObserver {
                     clearSelections();
                     h.btnKL.setChecked(true);
                     unit = "kl";
-                    Log.v("UNIT", "kl");
+                    //Log.v("UNIT", "kl");
                 }
             });
         }

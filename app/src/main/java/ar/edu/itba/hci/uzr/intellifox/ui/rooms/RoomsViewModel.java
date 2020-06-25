@@ -52,9 +52,11 @@ public class RoomsViewModel extends ViewModel {
 
                         if (roomsSet == null || !(roomsSet.equals(actualRoomsSet))) {
                             mRooms.postValue(actualRoomsSet);
+                            /*
                             for (Room r : actualRoomsSet) {
                                 Log.d("ROOM",r.toString());
                             }
+                            */
                         }
 
                     } else {

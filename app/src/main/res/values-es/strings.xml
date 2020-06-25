@@ -42,7 +42,11 @@
     <string name="favourites_title_routines">Rutinas</string>
     <string name="favourites_title_devices">Dispositivos</string>
 
-    <!-- Noificaciones -->
+    <!-- Speech Recognition -->
+
+    <string name="prompt">Hola! Di algo</string>
+
+    <!-- Notificaciones -->
     <string name="show_notification">Mostrar Notificacion</string>
     <string name="notification_title">Uso del API.pdf</string>
     <string name="notification_text">Descarga Completa</string>

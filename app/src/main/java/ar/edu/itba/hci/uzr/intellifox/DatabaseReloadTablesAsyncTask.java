@@ -50,7 +50,7 @@ public class DatabaseReloadTablesAsyncTask extends AsyncTask<Void, Void, Void> {
                             if (result != null) {
                                 Device device = result.getResult();
                                 if (device != null) {
-                                    Log.d("DEVICE_BELLED", result.getResult().toString());
+                                    //Log.d("DEVICE_BELLED", result.getResult().toString());
                                     DatabaseAddDeviceAsyncTask task = new DatabaseAddDeviceAsyncTask(typeName, device);
                                     task.execute();
                                 }

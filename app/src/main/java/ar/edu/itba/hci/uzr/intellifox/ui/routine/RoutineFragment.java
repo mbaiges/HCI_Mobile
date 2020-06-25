@@ -34,11 +34,16 @@ import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine_action.RoutineAction;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine_action.RoutineActionArrayAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class RoutineFragment extends Fragment {
 
     static final String ROUTINE_ID_ARG = "routine_id";
+    static final String ROUTINE_EXECUTION_ARG = "routine_execution";
+
     RoutineViewModel routineViewModel;
     ImageButton btnSchedule;
     View listView;
@@ -94,23 +99,42 @@ public class RoutineFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         String routineId = null;
+        boolean executable = false;
         if (bundle != null) {
             routineId = bundle.getString(ROUTINE_ID_ARG, null);
+            executable = bundle.getBoolean(ROUTINE_EXECUTION_ARG, false);
         }
 
-        routineViewModel.getRoutine().observe(getViewLifecycleOwner(), new Observer<Routine>() {
-            @Override
-            public void onChanged(Routine routine) {
-                if (routine != null) {
-                    String routineName = routine.getName();
-                    if (routineName != null) {
-                        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(routineName);
+        if (routineId != null) {
+            if (executable) {
+                ApiClient.getInstance().executeRoutine(routineId, new Callback<Result<Boolean>>() {
+                    @Override
+                    public void onResponse(Call<Result<Boolean>> call, Response<Result<Boolean>> response) {
+                        if (response.isSuccessful()) {
+                            //Log.v("ROUTINE_EXECUTE", "Routine executed successfully");
+                        }
+                        else {
+                            handleError(response);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result<Boolean>> call, Throwable t) {
+                        handleUnexpectedError(t);
+                    }
+                });
+            }
+            routineViewModel.getRoutine().observe(getViewLifecycleOwner(), new Observer<Routine>() {
+                @Override
+                public void onChanged(Routine routine) {
+                    if (routine != null) {
+                        String routineName = routine.getName();
+                        if (routineName != null) {
+                            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(routineName);
+                        }
                     }
                 }
-            }
-        });
-
-        if (routineId != null) {
+            });
             routineViewModel.getRoutine().observe(getViewLifecycleOwner(), new Observer<Routine>() {
                 @Override
                 public void onChanged(@Nullable Routine routine) {

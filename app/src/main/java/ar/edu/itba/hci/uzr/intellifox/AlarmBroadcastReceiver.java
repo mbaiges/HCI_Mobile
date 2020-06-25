@@ -47,7 +47,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(MainActivity.TAG, "Alarm at: " + DateFormat.getDateTimeInstance().format(new Date()));
+        //Log.d(MainActivity.TAG, "Alarm at: " + DateFormat.getDateTimeInstance().format(new Date()));
 
         if (sharedPreferences == null) {
             sharedPreferences = SharedPreferencesGetter.getInstance();
@@ -68,17 +68,17 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                         String deviceId = tadi.getDeviceId();
                         String typeName = tadi.getTypeName();
                         if (deviceId != null && typeName != null) {
-                            Log.d("DEVICE", "Processing");
+                            //Log.d("DEVICE", "Processing");
                             ApiClient.getInstance().getDevice(deviceId, new Callback<Result<Device>>() {
                                 @Override
                                 public void onResponse(Call<Result<Device>> call, Response<Result<Device>> response) {
                                     if (response.isSuccessful()) {
-                                        Log.d("GET_DEVICE", "Processing");
+                                        //Log.d("GET_DEVICE", "Processing");
                                         Result<Device> result = response.body();
                                         if (result != null) {
                                             Device device = result.getResult();
                                             if (device != null) {
-                                                DatabaseDeviceCheckerAsynTask task = new DatabaseDeviceCheckerAsynTask(context, typeName, deviceId, device);
+                                                DatabaseDeviceCheckerAsyncTask task = new DatabaseDeviceCheckerAsyncTask(context, typeName, deviceId, device);
                                                 task.execute();
                                             }
                                         } else {
