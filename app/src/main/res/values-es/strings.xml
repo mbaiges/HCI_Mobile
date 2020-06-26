@@ -280,4 +280,6 @@
     <string name="empty_devices">No hay dispositivos aún. Agrega una desde la pagina web</string>
     <string name="empty_favourite_devices">No hay dispositivos en favoritos aún. Agrega uno con el icono de corazón</string>
     <string name="empty_favourite_routines">No hay rutinas en favoritos aún. Agrega una con el icono de corazón</string>
+
+    <string name="handle_unexpected_error">Ocurrio un error inesperadom, chequee su coneccion a internet.</string>
 </resources>

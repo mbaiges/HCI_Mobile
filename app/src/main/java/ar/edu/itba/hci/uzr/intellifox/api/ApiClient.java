@@ -34,7 +34,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Path;
 
-public class ApiClient {
+public class  ApiClient {
     private Retrofit retrofit = null;
     private ApiService service = null;
     private static ApiClient instance = null;
