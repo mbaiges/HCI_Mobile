@@ -285,7 +285,7 @@
 
     <string name="no_connection">no se pudo establecer una coneccion, chequee el estado de su internet.</string>
     <string name="no_internet">la coneccion establecida no tiene acceso a internet.</string>
-    
+
     <string name="handle_qr_error_not_found">QR no encontrado en la foto. Intentelo de nuevo!</string>
 
 </resources>
