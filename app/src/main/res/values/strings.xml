@@ -285,5 +285,10 @@
 
     <string name="handle_unexpected_error">An unexpected error occurred, check internet connectivity.</string>
 
+    <string name="no_connection">an internet connection couldn\'t be established, please check internet connectivity</string>
+    <string name="no_internet">the established connections has no access to internet.</string>
+
+
+
     <string name="handle_qr_error_not_found">QR not found in picture. Try again!</string>
 </resources>
