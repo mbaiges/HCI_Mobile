@@ -2,11 +2,6 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.routine_action;
 
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +10,9 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.navigation.Navigation;
 
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
@@ -30,9 +20,6 @@ import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
-import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
-import ar.edu.itba.hci.uzr.intellifox.api.models.routine.RoutineMeta;
-import ar.edu.itba.hci.uzr.intellifox.api.models.routine.RoutineViewHolder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -123,9 +110,9 @@ public class RoutineActionArrayAdapter extends ArrayAdapter<RoutineAction> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.routine_action_card_item, parent, false);
             holder = new RoutineActionViewHolder();
             holder.iconView = convertView.findViewById(R.id.icon);
-            holder.deviceNameTextView = convertView.findViewById(R.id.deviceName);
-            holder.actionNameTextView = convertView.findViewById(R.id.actionName);
-            holder.paramsTextView = convertView.findViewById(R.id.params);
+            holder.deviceNameTextView = convertView.findViewById(R.id.txtTitle);
+            holder.actionNameTextView = convertView.findViewById(R.id.txtAlbum);
+            holder.paramsTextView = convertView.findViewById(R.id.txtAlbumContent);
             convertView.setTag(holder);
         } else {
             holder = (RoutineActionViewHolder) convertView.getTag();

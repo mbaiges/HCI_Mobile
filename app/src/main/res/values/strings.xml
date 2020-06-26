@@ -115,6 +115,10 @@
     <string name="dev_speaker_genre_rock">Rock</string>
     <string name="dev_speaker_volume">Volume:</string>
     <string name="dev_speaker_get_playlist">Show Playlist</string>
+    <string name="dev_speaker_list_title">Title:</string>
+    <string name="dev_speaker_list_artist">Artist:</string>
+    <string name="dev_speaker_list_album">Album:</string>
+    <string name="dev_speaker_list_duration">Duration:</string>
 
     <!-- Oven -->
     <string name="dev_oven_status_on">On</string>
