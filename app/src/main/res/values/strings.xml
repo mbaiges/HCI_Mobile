@@ -114,6 +114,7 @@
     <string name="dev_speaker_genre_pop">Pop</string>
     <string name="dev_speaker_genre_rock">Rock</string>
     <string name="dev_speaker_volume">Volume:</string>
+    <string name="dev_speaker_get_playlist">Show Playlist</string>
 
     <!-- Oven -->
     <string name="dev_oven_status_on">On</string>

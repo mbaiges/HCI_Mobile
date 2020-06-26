@@ -65,6 +65,8 @@ public class SpeakerDeviceObserver extends DeviceObserver {
         h.btnVolumeDown = contextView.findViewById(R.id.btnVolumeDown);
         h.btnVolumeUp = contextView.findViewById(R.id.btnVolumeUp);
 
+        h.btnShowPlaylist = contextView.findViewById(R.id.btnGetPlaylist);
+
     }
 
     @Override
@@ -596,6 +598,36 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                         View sbView = snackbar.getView();
                                         sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
                                         snackbar.show();
+                                    } else {
+                                        handleError(response);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                handleUnexpectedError(t);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+
+        if (h.btnShowPlaylist != null) {
+            h.btnShowPlaylist.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SpeakerDevice d = (SpeakerDevice) h.device;
+                    if (d != null && volume > 0) {
+
+                        ApiClient.getInstance().executeDeviceAction(d.getId(), "getPlaylist", new String[0], new Callback<Result<Object>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                if (response.isSuccessful()) {
+                                    Result<Object> result = response.body();
+                                    if (result != null) {
+
                                     } else {
                                         handleError(response);
                                     }
