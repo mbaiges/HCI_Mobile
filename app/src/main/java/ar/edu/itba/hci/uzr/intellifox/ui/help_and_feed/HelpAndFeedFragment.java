@@ -16,8 +16,6 @@ import ar.edu.itba.hci.uzr.intellifox.R;
 
 public class HelpAndFeedFragment extends Fragment {
 
-    private HelpAndFeedViewModel helpAndFeedViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
