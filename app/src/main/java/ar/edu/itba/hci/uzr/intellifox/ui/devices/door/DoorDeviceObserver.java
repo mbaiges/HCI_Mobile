@@ -142,32 +142,6 @@ public class DoorDeviceObserver extends DeviceObserver {
                                     handleUnexpectedError(t);
                                 }
                             });
-                            /*
-                            ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, new String[0], new Callback<Result<Object>>() {
-                                @Override
-                                public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
-                                    if (response.isSuccessful()) {
-                                        Result<Object> result = response.body();
-
-                                        if (result != null) {
-                                            String text = contextView.getResources().getString((actionMade.equals(LOCK_ACTION))?R.string.notif_door_locked:R.string.notif_door_unlocked)  + ".";
-                                            Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
-                                            View sbView = snackbar.getView();
-                                            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
-                                            snackbar.show();
-                                        } else {
-                                            handleError(response);
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
-                                    handleUnexpectedError(t);
-                                }
-                            });
-
-                            */
                         }
                     }
                 }
