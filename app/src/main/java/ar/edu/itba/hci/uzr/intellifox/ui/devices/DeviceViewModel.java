@@ -405,10 +405,6 @@ public class DeviceViewModel extends ViewModel {
         String desc = error.getDescription();
         String code = "Code " + String.valueOf(error.getCode());
         Log.e("ERROR", code + " - " + desc);
-        /*
-        String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
-        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
-        */
     }
 
     private void handleUnexpectedError(Throwable t) {

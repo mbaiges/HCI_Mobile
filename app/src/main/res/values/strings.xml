@@ -114,6 +114,7 @@
     <string name="dev_speaker_genre_pop">Pop</string>
     <string name="dev_speaker_genre_rock">Rock</string>
     <string name="dev_speaker_volume">Volume:</string>
+    <string name="dev_speaker_get_playlist">Show Playlist</string>
 
     <!-- Oven -->
     <string name="dev_oven_status_on">On</string>
@@ -285,8 +286,8 @@
 
     <string name="handle_unexpected_error">An unexpected error occurred, check internet connectivity.</string>
 
-    <string name="no_connection">an internet connection couldn\'t be established, please check internet connectivity</string>
-    <string name="no_internet">the established connections has no access to internet.</string>
+    <string name="no_connection">An internet connection couldn\'t be established, please check connectivity</string>
+    <string name="no_internet">The established connections has no access to internet.</string>
 
     <string name="speech_analyzer_turn_on_path_highlighter">Highlight path on</string>
     <string name="speech_analyzer_turn_off_path_highlighter">Highlight path off</string>

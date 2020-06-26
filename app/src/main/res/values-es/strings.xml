@@ -115,6 +115,9 @@
     <string name="dev_speaker_genre_pop">Pop</string>
     <string name="dev_speaker_genre_rock">Rock</string>
     <string name="dev_speaker_volume">Volumen:</string>
+    <string name="dev_speaker_get_playlist">Mostrar Playlist</string>
+
+
     <!-- Horno -->
     <string name="dev_oven_status_on">Encendido</string>
     <string name="dev_oven_status_off">Apagado</string>
@@ -283,8 +286,8 @@
 
     <string name="handle_unexpected_error">Ocurrio un error inesperadom, chequee su coneccion a internet.</string>
 
-    <string name="no_connection">no se pudo establecer una coneccion, chequee el estado de su internet.</string>
-    <string name="no_internet">la coneccion establecida no tiene acceso a internet.</string>
+    <string name="no_connection">No se pudo establecer una coneccion, por favor, chequee su internet.</string>
+    <string name="no_internet">La coneccion establecida no tiene acceso a internet.</string>
 
     <string name="handle_qr_error_not_found">QR no encontrado en la foto. Intentelo de nuevo!</string>
 
