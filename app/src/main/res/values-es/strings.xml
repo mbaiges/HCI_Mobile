@@ -87,7 +87,7 @@
     <string name="dev_tap_button_dispense">Dispensar</string>
     <string name="dev_tap_button_dispense_off">Dispensando</string>
     <string name="dev_tap_hint">Cuanto?</string>
-    <string name="dev_tap_amount">Cantindad</string>
+    <string name="dev_tap_amount">Cantidad</string>
     <string name="dev_tap_text_progress">Progreso:</string>
 
 
@@ -271,5 +271,17 @@
     <string name="snackbar_wont_receive_notifications">Ya no recibirá notificaciones sobre este dispositivo.</string>
     <string name="snackbar_added_to_favourites">Agregado a favoritos.</string>
     <string name="snackbar_removed_from_favourites">Eliminado de favoritos.</string>
-    
+
+
+    <!-- empty categories messages-->
+    <string name="empty_rooms">No hay habitaciones aún. Agrega una desde la pagina web</string>
+    <string name="empty_room">No hay dispositivos en esta habitacion aún. Agrega una desde la pagina web</string>
+    <string name="empty_routines">No hay rutinas aún. Agrega una desde la pagina web</string>
+    <string name="empty_devices">No hay dispositivos aún. Agrega una desde la pagina web</string>
+    <string name="empty_favourite_devices">No hay dispositivos en favoritos aún. Agrega uno con el icono de corazón</string>
+    <string name="empty_favourite_routines">No hay rutinas en favoritos aún. Agrega una con el icono de corazón</string>
+
+    <string name="handle_unexpected_error">Ocurrio un error inesperadom, chequee su coneccion a internet.</string>
+
+    <string name="handle_qr_error_not_found">QR no encontrado en la foto. Intentelo de nuevo!</string>
 </resources>

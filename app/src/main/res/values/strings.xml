@@ -114,7 +114,7 @@
     <string name="dev_speaker_genre_pop">Pop</string>
     <string name="dev_speaker_genre_rock">Rock</string>
     <string name="dev_speaker_volume">Volume:</string>
-    
+
     <!-- Oven -->
     <string name="dev_oven_status_on">On</string>
     <string name="dev_oven_status_off">Off</string>
@@ -275,5 +275,15 @@
     <string name="snackbar_removed_from_favourites">Removed from favourites.</string>
 
 
+    <!-- empty categories messages-->
+    <string name="empty_rooms">You don\'t have any rooms yet. Add one from the website</string>
+    <string name="empty_room">You don\'t have any devices here yet. Add one from the website</string>
+    <string name="empty_routines">You don\'t have any routines yet. Add one from the website</string>
+    <string name="empty_devices">You don\'t have any devices yet. Add one from the website</string>
+    <string name="empty_favourite_devices">You don\'t have any devices in favourites yet. Add one with the heart icon</string>
+    <string name="empty_favourite_routines">You don\'t have any routines in favourites yet. Add one with the heart icon</string>
 
+    <string name="handle_unexpected_error">An unexpected error occurred, check internet connectivity.</string>
+
+    <string name="handle_qr_error_not_found">QR not found in picture. Try again!</string>
 </resources>

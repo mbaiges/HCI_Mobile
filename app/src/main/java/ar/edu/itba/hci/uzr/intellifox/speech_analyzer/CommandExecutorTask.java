@@ -27,9 +27,8 @@ public class CommandExecutorTask extends AsyncTask<Void, Void, Void> {
         else if (command.equals("highlight path off") || command.equals("ilumina camino apagado")) {
             highlightMyWay(false);
         }
-        if (command.equals("la juana es tres gatos")) {
-            Log.d(COMMAND_TASK_TAG, "This is what i wanted so far");
-        }
+
+
         return null;
     }
 

@@ -87,6 +87,7 @@ import ar.edu.itba.hci.uzr.intellifox.broadcast_receivers.AlarmBroadcastReceiver
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 import ar.edu.itba.hci.uzr.intellifox.database.tasks.DatabaseReloadTablesAsyncTask;
 import ar.edu.itba.hci.uzr.intellifox.path_highlighter.PathHighlighter;
+import ar.edu.itba.hci.uzr.intellifox.settings.ConnectivityManagerSetting;
 import ar.edu.itba.hci.uzr.intellifox.settings.DatabaseSetting;
 import ar.edu.itba.hci.uzr.intellifox.settings.FusedLocationClientSetting;
 import ar.edu.itba.hci.uzr.intellifox.settings.SharedPreferencesSetting;
@@ -228,6 +229,8 @@ public class MainActivity extends AppCompatActivity {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         FusedLocationClientSetting.setInstance(fusedLocationClient);
+
+        ConnectivityManagerSetting.setContext(getApplicationContext());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -375,8 +378,14 @@ public class MainActivity extends AppCompatActivity {
                             if (barcodeArray.size() != 0) {
                                 Barcode barcode = barcodeArray.valueAt(0);
                                 processBarcodeScan(barcode.rawValue);
+                            }else{
+                                View parentLayout = findViewById(android.R.id.content);
+                                Snackbar snackbar = Snackbar.make(parentLayout, parentLayout.getContext().getResources().getString(R.string.handle_qr_error_not_found), Snackbar.LENGTH_SHORT);
+                                View sbView = snackbar.getView();
+                                sbView.setBackgroundColor(ContextCompat.getColor(parentLayout.getContext(), R.color.handle_not_found_error));
+                                snackbar.show();
+
                             }
-                            // Decode the barcode
 
                         } else {
                             //Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "El BITMAP ES NULL");

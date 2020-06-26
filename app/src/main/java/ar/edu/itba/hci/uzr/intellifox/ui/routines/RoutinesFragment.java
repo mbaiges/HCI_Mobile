@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,19 +25,24 @@ public class RoutinesFragment extends Fragment {
 
     RoutinesViewModel routinesViewModel;
     View listView;
+    TextView noRoutinesText;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_routines, container, false);
         listView = root.findViewById(R.id.routines_list_view);
 
-        routinesViewModel =
-                ViewModelProviders.of(this).get(RoutinesViewModel.class);
+        routinesViewModel = ViewModelProviders.of(this).get(RoutinesViewModel.class);
+
+        noRoutinesText = root.findViewById(R.id.routines_empty_routines_text);
 
         routinesViewModel.getRoutines().observe(getViewLifecycleOwner(), new Observer<Set<Routine>>() {
             @Override
             public void onChanged(@Nullable Set<Routine> routines) {
                 if (routines != null) {
+                    if(noRoutinesText != null){
+                        noRoutinesText.setVisibility((routines.size() > 0)?View.INVISIBLE : View.VISIBLE);
+                    }
                     Routine[] routinesArray = new Routine[routines.size()];
                     int i = 0;
                     for (Routine r : routines) {

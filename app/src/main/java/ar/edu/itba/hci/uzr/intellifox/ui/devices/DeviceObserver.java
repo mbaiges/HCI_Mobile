@@ -351,6 +351,12 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
     }
 
     protected <T> void handleError(Response<T> response) {
+
+        Snackbar snackbar = Snackbar.make(contextView, contextView.getResources().getString(R.string.handle_unexpected_error), Snackbar.LENGTH_SHORT);
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.handle_error));
+        snackbar.show();
+
         Error error = ApiClient.getInstance().getError(response.errorBody());
         List<String> descList = error.getDescription();
         String desc = "";
@@ -366,6 +372,12 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
     }
 
     protected void handleUnexpectedError(Throwable t) {
+
+        Snackbar snackbar = Snackbar.make(contextView, contextView.getResources().getString(R.string.handle_unexpected_error), Snackbar.LENGTH_SHORT);
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.handle_error));
+        snackbar.show();
+
         String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
         Log.e(LOG_TAG, t.toString());
     }

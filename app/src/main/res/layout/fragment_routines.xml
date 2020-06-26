@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.routines.RoutinesFragment">
 
+    <TextView
+        android:id="@+id/routines_empty_routines_text"
+        android:layout_width="205dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/empty_routines"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/routines_list_view"
         android:layout_width="match_parent"
