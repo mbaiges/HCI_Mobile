@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +30,9 @@ public class FavouritesFragment extends Fragment {
     FavouritesViewModel favouritesViewModel;
     ListView devicesListView, routinesListView;
 
+    TextView noFavouritesDevicesText;
+    TextView noFavouritesRoutinesText;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_favourites, container, false);
@@ -38,8 +42,10 @@ public class FavouritesFragment extends Fragment {
         //Log.v("DEVICES_LIST_VIEW",(devicesListView != null)?"Found":"Not Found");
         //Log.v("ROUTINES_LIST_VIEW",(routinesListView != null)?"Found":"Not Found");
 
-        favouritesViewModel =
-                ViewModelProviders.of(this).get(FavouritesViewModel.class);
+        favouritesViewModel = ViewModelProviders.of(this).get(FavouritesViewModel.class);
+
+        noFavouritesDevicesText = root.findViewById(R.id.favourites_empty_devices_text);
+        noFavouritesRoutinesText = root.findViewById(R.id.favourites_empty_routines_text);
 
         favouritesViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<MinimumComparableDevice>>() {
             @Override
@@ -50,6 +56,11 @@ public class FavouritesFragment extends Fragment {
                     for (MinimumComparableDevice mcd : minimumComparableDevices) {
                         devicesArray[i++] = mcd.getDevice();
                     }
+
+                    if (noFavouritesDevicesText != null) {
+                        noFavouritesDevicesText.setVisibility((devicesArray.length > 0)?View.INVISIBLE : View.VISIBLE);
+                    }
+
                     DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), devicesArray);
                     devicesListView.setAdapter(adapter);
                 }
@@ -65,6 +76,11 @@ public class FavouritesFragment extends Fragment {
                     for (Routine r : routines) {
                         routinesArray[i++] = r;
                     }
+
+                    if (noFavouritesRoutinesText != null) {
+                        noFavouritesRoutinesText.setVisibility((routinesArray.length > 0)?View.INVISIBLE : View.VISIBLE);
+                    }
+
                     RoutineArrayAdapter adapter = new RoutineArrayAdapter(getActivity(), root ,routinesArray);
                     routinesListView.setAdapter(adapter);
                 }

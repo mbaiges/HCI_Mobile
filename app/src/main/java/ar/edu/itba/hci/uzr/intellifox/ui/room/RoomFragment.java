@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ public class RoomFragment extends Fragment {
     static final String ROOM_ID_ARG = "room_id";
     static final String ROOM_NAME_ARG = "room_name";
     RoomViewModel roomViewModel;
+    TextView noDevicesText;
     View listView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,8 +43,8 @@ public class RoomFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_room, container, false);
         listView = root.findViewById(R.id.room_devices_list_view);
 
-        roomViewModel =
-                ViewModelProviders.of(this).get(RoomViewModel.class);
+        roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
+        noDevicesText = root.findViewById(R.id.room_empty_room_text);
 
         Bundle bundle = this.getArguments();
         String roomId = null;
@@ -56,6 +58,9 @@ public class RoomFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable Set<Device> devices) {
                     if (devices != null) {
+                        if (noDevicesText != null) {
+                            noDevicesText.setVisibility((devices.size() > 0)?View.INVISIBLE : View.VISIBLE);
+                        }
                         Device[] devicesArray = new Device[devices.size()];
                         int i = 0;
                         for (Device r : devices) {
