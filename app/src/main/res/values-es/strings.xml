@@ -85,8 +85,11 @@
     <string name="dev_tap_state_closed">Cerrada</string>
     <string name="dev_tap_state_opened">Abierta</string>
     <string name="dev_tap_button_dispense">Dispensar</string>
+    <string name="dev_tap_button_dispense_off">Dispensando</string>
     <string name="dev_tap_hint">Cuanto?</string>
     <string name="dev_tap_amount">Cantindad</string>
+    <string name="dev_tap_text_progress">Progreso:</string>
+
 
     <!-- Persianas -->
     <string name="dev_blind_state_closed">Cerrada</string>

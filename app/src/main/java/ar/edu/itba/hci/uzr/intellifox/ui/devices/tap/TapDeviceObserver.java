@@ -47,6 +47,9 @@ public class TapDeviceObserver extends DeviceObserver {
         h.btnKL = contextView.findViewById(R.id.btn6);
         h.amount = contextView.findViewById(R.id.howMany);
         h.btnDispence = contextView.findViewById(R.id.btnDispense);
+        h.progBarDispensing = contextView.findViewById(R.id.progBarDispensing);
+        h.txtDispensing = contextView.findViewById(R.id.txtDispensing);
+        h.progBarLoading = contextView.findViewById(R.id.progBarLoading);
     }
 
     @Override
@@ -76,6 +79,27 @@ public class TapDeviceObserver extends DeviceObserver {
             TapDeviceState s = (TapDeviceState) state;
             TapDeviceViewHolder h = (TapDeviceViewHolder) holder;
 
+            Log.v("TapStatus", s.toString());
+
+            if(s.getQuantity() != null){
+                h.txtDispensing.setVisibility(View.VISIBLE);
+                h.progBarLoading.setVisibility(View.VISIBLE);
+                h.progBarDispensing.setVisibility(View.VISIBLE);
+                h.btnDispence.setEnabled(false);
+                h.btnDispence.setAlpha(.5f);
+                h.btnDispence.setText(contextView.getResources().getString(R.string.dev_tap_button_dispense_off));
+                h.progBarDispensing.setMax(Integer.parseInt(s.getQuantity())*100);
+                h.progBarDispensing.setProgress((int)(s.getDispensedQuantity()*100));
+                Log.v("PROGRESS", String.valueOf((int)(s.getDispensedQuantity()*100)));
+            }else{
+                h.txtDispensing.setVisibility(View.INVISIBLE);
+                h.progBarDispensing.setVisibility(View.INVISIBLE);
+                h.progBarLoading.setVisibility(View.INVISIBLE);
+                h.btnDispence.setEnabled(true);
+                h.btnDispence.setAlpha(1);
+                h.btnDispence.setText(contextView.getResources().getString(R.string.dev_tap_button_dispense));
+            }
+
             if(h.btnL != null){
                 clearSelections();
                 h.btnL.setChecked(true);
@@ -92,6 +116,14 @@ public class TapDeviceObserver extends DeviceObserver {
             h.btnDispence.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    h.txtDispensing.setVisibility(View.VISIBLE);
+                    h.progBarLoading.setVisibility(View.VISIBLE);
+                    h.progBarDispensing.setVisibility(View.VISIBLE);
+                    h.btnDispence.setEnabled(false);
+                    h.btnDispence.setAlpha(.5f);
+                    h.btnDispence.setText(contextView.getResources().getString(R.string.dev_tap_button_dispense_off));
+
                     TapDevice d = (TapDevice) h.device;
                     if (d != null) {
                         TapDeviceState s = (TapDeviceState) d.getState();
@@ -107,7 +139,6 @@ public class TapDeviceObserver extends DeviceObserver {
                                     public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
                                         if (response.isSuccessful()) {
                                             Result<Object> result = response.body();
-
                                             if (result != null) {
                                                 String text = contextView.getResources().getString(R.string.notif_tap_dispensing) + ".";
                                                 Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
