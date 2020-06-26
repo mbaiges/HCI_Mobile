@@ -116,6 +116,14 @@ public class TapDeviceObserver extends DeviceObserver {
             h.btnDispence.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    h.txtDispensing.setVisibility(View.VISIBLE);
+                    h.progBarLoading.setVisibility(View.VISIBLE);
+                    h.progBarDispensing.setVisibility(View.VISIBLE);
+                    h.btnDispence.setEnabled(false);
+                    h.btnDispence.setAlpha(.5f);
+                    h.btnDispence.setText(contextView.getResources().getString(R.string.dev_tap_button_dispense_off));
+
                     TapDevice d = (TapDevice) h.device;
                     if (d != null) {
                         TapDeviceState s = (TapDeviceState) d.getState();
