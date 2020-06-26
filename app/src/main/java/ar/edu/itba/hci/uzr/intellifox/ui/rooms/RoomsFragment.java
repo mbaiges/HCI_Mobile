@@ -30,8 +30,7 @@ public class RoomsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_rooms, container, false);
 
-        roomsViewModel =
-                ViewModelProviders.of(this).get(RoomsViewModel.class);
+        roomsViewModel = ViewModelProviders.of(this).get(RoomsViewModel.class);
 
         gridView = root.findViewById(R.id.rooms_grid_view);
 

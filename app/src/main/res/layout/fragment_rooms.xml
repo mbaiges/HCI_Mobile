@@ -6,10 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.rooms.RoomsFragment">
 
+    <TextView
+        android:id="@+id/emptyRoomsText"
+        android:layout_width="201dp"
+        android:layout_height="81dp"
+        android:text="@string/empty_rooms"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24000001" />
+
     <GridView
         android:id="@+id/rooms_grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:listSelector="@android:color/transparent"
-        android:numColumns="2" />
+        android:numColumns="2"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-116dp">
+
+    </GridView>
 </androidx.constraintlayout.widget.ConstraintLayout>

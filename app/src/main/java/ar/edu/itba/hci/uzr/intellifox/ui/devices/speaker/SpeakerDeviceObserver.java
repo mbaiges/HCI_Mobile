@@ -164,7 +164,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                     case "classical":
                         h.btnClassical.setChecked(true);
                         break;
-                    case "cuntry":
+                    case "country":
                         h.btnCountry.setChecked(true);
                         break;
                     case "latina":

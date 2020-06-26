@@ -19,6 +19,7 @@ import java.util.Set;
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceArrayAdapter;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.MinimumComparableDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.RoutineArrayAdapter;
 
@@ -40,14 +41,14 @@ public class FavouritesFragment extends Fragment {
         favouritesViewModel =
                 ViewModelProviders.of(this).get(FavouritesViewModel.class);
 
-        favouritesViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<Device>>() {
+        favouritesViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<MinimumComparableDevice>>() {
             @Override
-            public void onChanged(@Nullable Set<Device> devices) {
-                if (devices != null) {
-                    Device[] devicesArray = new Device[devices.size()];
+            public void onChanged(@Nullable Set<MinimumComparableDevice> minimumComparableDevices) {
+                if (minimumComparableDevices != null) {
+                    Device[] devicesArray = new Device[minimumComparableDevices.size()];
                     int i = 0;
-                    for (Device r : devices) {
-                        devicesArray[i++] = r;
+                    for (MinimumComparableDevice mcd : minimumComparableDevices) {
+                        devicesArray[i++] = mcd.getDevice();
                     }
                     DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), devicesArray);
                     devicesListView.setAdapter(adapter);

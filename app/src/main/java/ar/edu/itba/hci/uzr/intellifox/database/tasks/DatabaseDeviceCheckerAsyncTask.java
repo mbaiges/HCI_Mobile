@@ -45,6 +45,8 @@ import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 
 public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device> {
 
+
+
     static AppDatabase db;
 
     private WeakReference<Context> weakContext;
@@ -52,8 +54,6 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
     private Device actualDevice;
 
     public DatabaseDeviceCheckerAsyncTask(Context context, String typeName, String deviceID, Device actualDevice) {
-
-
 
         if (db == null) {
             db = DatabaseSetting.getInstance();
@@ -608,11 +608,13 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
     }
 
     private void broadcastDeviceChangeIntent(Context context, String typeName, Device device, String message) {
-        Intent intent = new Intent(NotificationBroadcastReceiver.ACTION_DEVICE_CHANGED);
-        intent.putExtra("DEVICE_TYPE_NAME", typeName);
-        intent.putExtra("DEVICE_ID", device.getId());
-        intent.putExtra("DEVICE_NAME", device.getName());
-        intent.putExtra("MESSAGE", message);
+        Intent intent = new Intent(context.getApplicationContext(), NotificationBroadcastReceiver.class);
+        intent.setAction(NotificationBroadcastReceiver.ACTION_DEVICE_CHANGED);
+        intent.putExtra(NotificationBroadcastReceiver.DEVICE_TYPE_NAME_KEY, typeName);
+        intent.putExtra(NotificationBroadcastReceiver.DEVICE_ID_KEY, device.getId());
+        intent.putExtra(NotificationBroadcastReceiver.DEVICE_NAME_KEY, device.getName());
+        intent.putExtra(NotificationBroadcastReceiver.MESSAGE_KEY, message);
         context.sendBroadcast(intent);
+        Log.d("MESSAGE_TO_NOTIFY", "Broadcast sent");
     }
 }

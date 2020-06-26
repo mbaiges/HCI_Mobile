@@ -22,6 +22,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.MinimumComparableDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device_type.DeviceType;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +33,7 @@ public class DeviceTypesDevicesViewModel extends ViewModel {
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> fetcherHandler;
-    private MutableLiveData<Set<Device>> mDevices;
+    private MutableLiveData<Set<MinimumComparableDevice>> mDevices;
     private String typeName;
 
     public DeviceTypesDevicesViewModel() {
@@ -44,7 +45,7 @@ public class DeviceTypesDevicesViewModel extends ViewModel {
         fetchDeviceTypeDevices();
     }
 
-    public LiveData<Set<Device>> getDevices() {
+    public LiveData<Set<MinimumComparableDevice>> getDevices() {
         return mDevices;
     }
 
@@ -57,8 +58,8 @@ public class DeviceTypesDevicesViewModel extends ViewModel {
                     if (result != null) {
                         List<Device> comingDevicesList = result.getResult();
                         if (comingDevicesList != null) {
-                            Set<Device> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getType().getName().equals(typeName)).sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
-                            Set<Device> devicesSet = mDevices.getValue();
+                            Set<MinimumComparableDevice> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getType().getName().equals(typeName)).sorted((a, b) -> a.getName().compareTo(b.getName())).map(MinimumComparableDevice::new).collect(Collectors.toCollection(LinkedHashSet::new));
+                            Set<MinimumComparableDevice> devicesSet = mDevices.getValue();
 
                             if (devicesSet == null || !devicesSet.equals(actualDevicesSet)) {
                                 mDevices.postValue(actualDevicesSet);

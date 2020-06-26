@@ -80,7 +80,7 @@
     <string name="dev_vacuum_select_room">Seleccionar cuarto</string>
     <string name="dev_vacuum_battery">Bateria</string>
     <string name="dev_vacuum_location">Localizacion</string>
-
+    <string name="dev_vacuum_none">Ninguno</string>
     <!-- Canilla -->
     <string name="dev_tap_state_closed">Cerrada</string>
     <string name="dev_tap_state_opened">Abierta</string>
@@ -268,5 +268,9 @@
     <string name="snackbar_wont_receive_notifications">Ya no recibirá notificaciones sobre este dispositivo.</string>
     <string name="snackbar_added_to_favourites">Agregado a favoritos.</string>
     <string name="snackbar_removed_from_favourites">Eliminado de favoritos.</string>
-    
+
+
+    <!-- empty categories messages-->
+    <string name="empty_rooms">No hay habitaciones aún. Agrega una desde la pagina web</string>
+
 </resources>

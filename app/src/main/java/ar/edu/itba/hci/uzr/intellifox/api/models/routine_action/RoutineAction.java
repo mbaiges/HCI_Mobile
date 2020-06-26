@@ -3,6 +3,7 @@ package ar.edu.itba.hci.uzr.intellifox.api.models.routine_action;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,14 +54,23 @@ public class RoutineAction {
     }
 
     @Override
+    public String toString() {
+        return "RoutineAction{" +
+                "device=" + device +
+                ", actionName='" + actionName + '\'' +
+                ", params=" + Arrays.toString(params) +
+                ", meta=" + meta +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoutineAction that = (RoutineAction) o;
         return Objects.equals(device, that.device) &&
                 Objects.equals(actionName, that.actionName) &&
-                Objects.equals(params, that.params) &&
-                Objects.equals(meta, that.meta);
+                Objects.equals(params, that.params);
     }
 
     @Override

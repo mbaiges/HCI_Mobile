@@ -15,7 +15,7 @@
         <item name="background">@color/background1</item>
     </style>
 
-    <style name="AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/icon</item>
         <item name="android:actionMenuTextColor">@color/icon</item>
         <item name="color">@color/icon</item>

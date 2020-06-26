@@ -25,14 +25,17 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 
 public class NotificationBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String MESSAGE_KEY = "MESSAGE";
+    public static final String ACTION_DEVICE_CHANGED = "ar.edu.itba.hci.uzr.intellifox.ACTION_DEVICE_CHANGED";
+
+    public static final String DEVICE_TYPE_NAME_KEY = "device_type_name";
+    public static final String DEVICE_ID_KEY = "device_id";
+    public static final String DEVICE_NAME_KEY = "device_name";
+    public static final String MESSAGE_KEY = "message";
 
     static private Map<String, Integer> typeInfo;
 
     private static final String CHANNEL_ID = "NOTIFICATIONS";
     private static int notification_id = 1;
-
-    public static final String ACTION_DEVICE_CHANGED = "ar.edu.itba.hci.uzr.intellifox.ACTION_DEVICE_CHANGED";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -54,21 +57,23 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
             };
         }
 
+        String deviceTypeName = intent.getStringExtra(DEVICE_TYPE_NAME_KEY);
+        String deviceId = intent.getStringExtra(DEVICE_ID_KEY);
+        String deviceName = intent.getStringExtra(DEVICE_NAME_KEY);
         String message = intent.getStringExtra(MESSAGE_KEY);
 
         Log.d("MESSAGE_TO_NOTIFY", message);
 
-        /*
         // Create the intent to start Activity when notification in action bar is
         // clicked.
 
-        String title = device.getName();
-        Integer iconRef = getIconRef(typeName);
+        String title = deviceName;
+        Integer iconRef = getIconRef(deviceTypeName);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_circle);
         ;
 
         Intent notificationIntent = new Intent(context, MainActivity.class);
-        notificationIntent.putExtra(MainActivity.MESSAGE_ID, deviceType + "," + device.getId());
+        notificationIntent.putExtra(MainActivity.MESSAGE_ID, deviceTypeName + "," + deviceId);
 
         // The stack builder object will contain an artificial back stack for the
         //        // started Activity.
@@ -79,23 +84,22 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
         stackBuilder.addNextIntent(notificationIntent);
         // Create the pending intent granting the Operating System to launch activity
         // when notification in action bar is clicked.
-        final PendingIntent contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        final PendingIntent contentIntent = stackBuilder.getPendingIntent(notification_id, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Bundle args = new Bundle();
-        args.putString(MainActivity.MESSAGE_ID, deviceType + "," + device.getId());
+        args.putString(MainActivity.MESSAGE_ID, deviceTypeName + "," + deviceId);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setLargeIcon(icon)
-                .setSmallIcon(getIconRef(typeName))
+                .setSmallIcon(getIconRef(deviceTypeName))
                 .setContentIntent(contentIntent)
+                .setAutoCancel(true)
                 .addExtras(args);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(notification_id++, builder.build());
-
-         */
     }
 
     private Integer getIconRef(String typeName){
