@@ -13,7 +13,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="632dp">
+            android:layout_height="wrap_content">
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -258,6 +258,14 @@
                 app:layout_constraintEnd_toEndOf="@+id/txtVolume"
                 app:layout_constraintStart_toStartOf="@+id/txtVolume"
                 app:layout_constraintTop_toBottomOf="@+id/txtVolume" />
+
+            <TextView
+                android:id="@+id/txtSongs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/btnGetPlaylist"
+                app:layout_constraintStart_toStartOf="@+id/btnGetPlaylist"
+                app:layout_constraintTop_toBottomOf="@+id/btnGetPlaylist" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

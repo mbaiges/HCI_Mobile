@@ -10,6 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.internal.LinkedTreeMap;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
@@ -66,6 +72,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
         h.btnVolumeUp = contextView.findViewById(R.id.btnVolumeUp);
 
         h.btnShowPlaylist = contextView.findViewById(R.id.btnGetPlaylist);
+        h.txtSongs = contextView.findViewById(R.id.txtSongs);
 
     }
 
@@ -621,12 +628,28 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                     SpeakerDevice d = (SpeakerDevice) h.device;
                     if (d != null && volume > 0) {
 
-                        ApiClient.getInstance().executeDeviceAction(d.getId(), "getPlaylist", new String[0], new Callback<Result<Object>>() {
+                        ApiClient.getInstance().executeGetSpeakerPlaylist(d.getId(), new String[0], new Callback<Result<List<SpeakerSong>>>() {
                             @Override
-                            public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                            public void onResponse(@NonNull Call<Result<List<SpeakerSong>>> call, @NonNull Response<Result<List<SpeakerSong>>> response) {
                                 if (response.isSuccessful()) {
-                                    Result<Object> result = response.body();
+                                    Result<List<SpeakerSong>> result = response.body();
                                     if (result != null) {
+                                        //LinkedTreeMap<SpeakerSong> songs = (LinkedTreeMap<SpeakerSong>)result.getResult();
+
+                                        Log.v("HOLA", result.getResult().toString());
+
+                                        List<SpeakerSong> songList = result.getResult();
+
+                                        String listString = "";
+                                        for (SpeakerSong s : songList)
+                                        {
+                                            String aux = s.toString();
+                                            listString += s + "\n";
+                                        }
+
+                                        Log.v("SONGS", listString);
+
+                                        h.txtSongs.setText(listString);
 
                                     } else {
                                         handleError(response);
@@ -634,7 +657,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
                                 }
                             }
                             @Override
-                            public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                            public void onFailure(@NonNull Call<Result<List<SpeakerSong>>> call, @NonNull Throwable t) {
                                 handleUnexpectedError(t);
                             }
                         });
