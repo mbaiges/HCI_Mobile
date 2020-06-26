@@ -83,6 +83,7 @@ public class ConnectivityManagerSetting {
             Snackbar snackbar = Snackbar.make(parentLayout, auxActivity.getApplicationContext().getResources().getString(msgResource), Snackbar.LENGTH_INDEFINITE);
             View sbView = snackbar.getView();
             sbView.setBackgroundColor(ContextCompat.getColor(auxActivity.getApplicationContext(), R.color.warning));
+            snackbar.setActionTextColor(auxActivity.getResources().getColor(R.color.warning_text, null));
             snackbar.setAction("Dismiss.", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -92,7 +93,8 @@ public class ConnectivityManagerSetting {
             });
 
             TextView textView = (TextView)sbView.findViewById(com.google.android.material.R.id.snackbar_text);
-            textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_bell_off, 0, 0, 0);
+            textView.setTextColor(auxActivity.getResources().getColor(R.color.warning_text, null));
+            textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_wifi_strength_off, 0, 0, 0);
             textView.setCompoundDrawablePadding(auxActivity.getResources().getDimensionPixelOffset(R.dimen.snackbar_icon_padding));
 
             snackbar.show();
