@@ -147,7 +147,6 @@ public class VacuumDeviceObserver extends DeviceObserver {
 
             }
 
-
         }
     }
 
