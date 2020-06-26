@@ -243,6 +243,8 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManagerSetting.setActivity(this);
         scheduleInternetCheck();
 
+        CommandExecutorTask.associateActivity(this);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //FloatingActionButton fab = findViewById(R.id.fab);

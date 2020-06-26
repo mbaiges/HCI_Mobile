@@ -30,6 +30,7 @@ import retrofit2.Response;
 
 public class FavouritesViewModel extends ViewModel {
 
+    private static final long UPDATE_RATE = 1;
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> fetcherHandler;
@@ -160,7 +161,7 @@ public class FavouritesViewModel extends ViewModel {
                 fetchRoutines();
             }
         };
-        fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);
+        fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, UPDATE_RATE, UPDATE_RATE, TimeUnit.SECONDS);
     }
 
     public void stopFetching() {

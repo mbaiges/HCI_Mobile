@@ -289,7 +289,75 @@
     <string name="no_connection">An internet connection couldn\'t be established, please check connectivity</string>
     <string name="no_internet">The established connections has no access to internet.</string>
 
+    <string name="speech_analyzer_turn_on_path_highlighter">Highlight path on</string>
+    <string name="speech_analyzer_turn_off_path_highlighter">Highlight path off</string>
 
+    <string name="speech_analyzer_execute">Execute</string>
+
+    <string name="speech_analyzer_routine">Routine</string>
 
     <string name="handle_qr_error_not_found">QR not found in picture. Try again!</string>
+
+    <string name="speech_analyzer_to">to</string>
+
+    <string name="speech_analyzer_over">over</string>
+
+    <string name="snackbar_device_action_executed_succesfully">Action executed successfully</string>
+
+    <!-- puerta -->
+    <string name="speech_analyzer_door_action_open">Open</string>
+    <string name="speech_analyzer_door_action_close">Close</string>
+    <string name="speech_analyzer_door_action_lock">Lock</string>
+    <string name="speech_analyzer_door_action_unlock">Unlock</string>
+
+    <!-- canilla -->
+    <string name="speech_analyzer_tap_action_open">Open</string>
+    <string name="speech_analyzer_tap_action_close">Close</string>
+    <string name="speech_analyzer_tap_action_dispense">Dispense</string>
+
+    <!-- persiana -->
+    <string name="speech_analyzer_blind_action_open">Open</string>
+    <string name="speech_analyzer_blind_action_close">Close</string>
+    <string name="speech_analyzer_blind_action_set_level">Set level</string>
+
+    <!-- luz -->
+    <string name="speech_analyzer_light_action_turn_on">Turn on</string>
+    <string name="speech_analyzer_light_action_turn_off">Turn off</string>
+    <string name="speech_analyzer_light_action_set_color">Set color</string>
+    <string name="speech_analyzer_light_action_set_brightness">Set brightness</string>
+
+    <!-- aire -->
+    <string name="speech_analyzer_ac_action_turn_on">Turn on</string>
+    <string name="speech_analyzer_ac_action_turn_off">Turn off</string>
+    <string name="speech_analyzer_ac_action_set_temperature">Set temperature</string>
+    <string name="speech_analyzer_ac_action_set_vertical_swing">Set vertical swing</string>
+    <string name="speech_analyzer_ac_action_set_horizontal_swing">Set horizontal swing</string>
+    <string name="speech_analyzer_ac_action_set_fan_speed">Set fan speed</string>
+    <string name="speech_analyzer_ac_action_set_mode">Set mode</string>
+
+    <!-- horno -->
+    <string name="speech_analyzer_oven_action_turn_on">Turn on</string>
+    <string name="speech_analyzer_oven_action_turn_off">Turn off</string>
+    <string name="speech_analyzer_oven_action_set_temperature">Set temperature</string>
+    <string name="speech_analyzer_oven_action_set_grill">Set grill</string>
+    <string name="speech_analyzer_oven_action_set_heat">Set heat</string>
+    <string name="speech_analyzer_oven_action_set_convection">Set convection</string>
+
+    <!-- aspiradora -->
+    <string name="speech_analyzer_vacuum_action_start">Start</string>
+    <string name="speech_analyzer_vacuum_action_pause">Pause</string>
+    <string name="speech_analyzer_vacuum_action_set_mode">Set mode</string>
+    <string name="speech_analyzer_vacuum_action_set_location">Set location</string>
+    <string name="speech_analyzer_vacuum_action_dock">Dock</string>
+
+    <!-- parlante -->
+    <string name="speech_analyzer_speaker_action_play">Play</string>
+    <string name="speech_analyzer_speaker_action_stop">Stop</string>
+    <string name="speech_analyzer_speaker_action_set_volume">Set volume</string>
+    <string name="speech_analyzer_speaker_action_pause">Pause</string>
+    <string name="speech_analyzer_speaker_action_resume">Resume</string>
+    <string name="speech_analyzer_speaker_action_next_song">Next song</string>
+    <string name="speech_analyzer_speaker_action_previous_song">Previous song</string>
+    <string name="speech_analyzer_speaker_action_set_genre">Set genre</string>
+    <string name="speech_analyzer_speaker_action_get_playlist">Get playlist</string>
 </resources>

@@ -108,7 +108,7 @@ public class RoutineFragment extends Fragment {
             btnExecuteFromWithin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    executeRoutine(routineViewModel.getRoutine().getValue().getId());
+                    executeRoutine(root, routineViewModel.getRoutine().getValue().getId());
                 }
             });
         }
@@ -125,7 +125,7 @@ public class RoutineFragment extends Fragment {
 
         if (routineId != null) {
             if (executable) {
-                executeRoutine(routineId);
+                executeRoutine(root, routineId);
             }
             routineViewModel.getRoutine().observe(getViewLifecycleOwner(), new Observer<Routine>() {
                 @Override
@@ -186,13 +186,16 @@ public class RoutineFragment extends Fragment {
         //Toast.makeText(getActivity(), "Routine execution set for: " + myCalendar.getTime(), Toast.LENGTH_SHORT).show();
     }
 
-    protected <T> void handleError(Response<T> response) {
+    protected <T> void handleError(View view, Response<T> response) {
+
+        Snackbar snackbar = Snackbar.make(view, view.getResources().getString(R.string.handle_unexpected_error), Snackbar.LENGTH_SHORT);
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.handle_error));
+        snackbar.show();
+
         Error error = ApiClient.getInstance().getError(response.errorBody());
-        List<String> descList = error.getDescription();
-        String desc = "";
-        if (descList != null) {
-            desc = descList.get(0);
-        }
+        String desc = error.getDescription();
+
         String code = "Code " + String.valueOf(error.getCode());
         Log.e("ERROR", code + " - " + desc);
         /*
@@ -206,7 +209,7 @@ public class RoutineFragment extends Fragment {
         Log.e(LOG_TAG, t.toString());
     }
 
-    public void executeRoutine(String id){
+    public void executeRoutine(View view, String id){
         if (id != null) {
             ApiClient.getInstance().executeRoutine(id, new Callback<Result<Object>>() {
                 @Override
@@ -218,7 +221,7 @@ public class RoutineFragment extends Fragment {
                         snackbar.show();
                     }
                     else {
-                        handleError(response);
+                        handleError(view, response);
                     }
                 }
 
