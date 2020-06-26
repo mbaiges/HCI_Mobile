@@ -12,12 +12,12 @@ public class Error {
     private int code;
     @SerializedName("description")
     @Expose
-    private List<String> description = null;
+    private String description = null;
 
     public Error() {
     }
 
-    public Error(int code, List<String> description) {
+    public Error(int code, String description) {
         this.code = code;
         this.description = description;
     }
@@ -30,11 +30,11 @@ public class Error {
         this.code = code;
     }
 
-    public List<String> getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(List<String> description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

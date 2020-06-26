@@ -49,6 +49,7 @@ import retrofit2.Response;
 
 public class DeviceViewModel extends ViewModel {
 
+    private static final long UPDATE_RATE = 1;
     private HashMap<String, Function<Void, Void>> functionHashMap;
     private Function<Void, Void> deviceUpdater;
     private final ScheduledExecutorService scheduler =
@@ -384,21 +385,10 @@ public class DeviceViewModel extends ViewModel {
     public void scheduleUpdating() {
         final Runnable fetcher = new Runnable() {
             public void run() {
-                if(ConnectivityManagerSetting.getInstance().isNetworkConnected()){
-                    if(ConnectivityManagerSetting.getInstance().isInternetAvailable()){
-                        updateDevice();
-                        Log.v("CM", "asd");
-                    }else{
-                        //ConnectivityManagerSetting.getInstance().noInternetError();
-                        Log.v("CM", "no internet available");
-                    }
-                }else{
-                    //ConnectivityManagerSetting.getInstance().noConnectionError();
-                    Log.v("CM", "no connection available");
-                }
+                updateDevice();
             }
         };
-        fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);
+        fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, UPDATE_RATE, UPDATE_RATE, TimeUnit.SECONDS);
     }
 
     public void stopUpdating() {
@@ -412,11 +402,7 @@ public class DeviceViewModel extends ViewModel {
 
     private <T> void handleError(Response<T> response) {
         Error error = ApiClient.getInstance().getError(response.errorBody());
-        List<String> descList = error.getDescription();
-        String desc = "";
-        if (descList != null) {
-            desc = descList.get(0);
-        }
+        String desc = error.getDescription();
         String code = "Code " + String.valueOf(error.getCode());
         Log.e("ERROR", code + " - " + desc);
         /*

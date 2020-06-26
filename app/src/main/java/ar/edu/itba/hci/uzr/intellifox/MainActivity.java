@@ -232,6 +232,8 @@ public class MainActivity extends AppCompatActivity {
 
         ConnectivityManagerSetting.setContext(getApplicationContext());
 
+        CommandExecutorTask.associateActivity(this);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //FloatingActionButton fab = findViewById(R.id.fab);

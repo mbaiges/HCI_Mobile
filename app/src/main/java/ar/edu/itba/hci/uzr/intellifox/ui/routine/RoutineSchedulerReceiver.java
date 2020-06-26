@@ -48,15 +48,15 @@ public class RoutineSchedulerReceiver extends BroadcastReceiver {
         }
     }
 
-    protected <T> void handleError(Response<T> response) {
+    private <T> void handleError(Response<T> response) {
         Error error = ApiClient.getInstance().getError(response.errorBody());
-        List<String> descList = error.getDescription();
-        String desc = "";
-        if (descList != null) {
-            desc = descList.get(0);
-        }
+        String desc = error.getDescription();
         String code = "Code " + String.valueOf(error.getCode());
         Log.e("ERROR", code + " - " + desc);
+        /*
+        String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
+        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+        */
     }
 
     protected void handleUnexpectedError(Throwable t) {
