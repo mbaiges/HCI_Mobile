@@ -83,8 +83,10 @@
     <string name="dev_tap_state_closed">Closed</string>
     <string name="dev_tap_state_opened">Opened</string>
     <string name="dev_tap_button_dispense">Dispense</string>
+    <string name="dev_tap_button_dispense_off">Dispensing</string>
     <string name="dev_tap_hint">How many?</string>
     <string name="dev_tap_amount">Amount</string>
+    <string name="dev_tap_text_progress">Progress:</string>
 
     <!-- Blind -->
     <string name="dev_blind_state_closed">Closed</string>
