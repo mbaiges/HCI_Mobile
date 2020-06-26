@@ -56,15 +56,24 @@ public class ConnectivityManagerSetting {
         }
     }
 
-    public void noInternetError(){
+    public void noInternetError(View contextView){
         Context auxContext = mycontext.get();
         if(auxContext != null){
+            Snackbar snackbar = Snackbar.make(contextView, contextView.getResources().getString(R.string.no_internet), Snackbar.LENGTH_SHORT);
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.warning));
+            snackbar.show();
         }
-
     }
 
-    public void noConnectionError(){
-
+    public void noConnectionError(View contextView){
+        Context auxContext = mycontext.get();
+        if(auxContext != null){
+            Snackbar snackbar = Snackbar.make(contextView, contextView.getResources().getString(R.string.no_connection), Snackbar.LENGTH_SHORT);
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.warning));
+            snackbar.show();
+        }
     }
 }
 

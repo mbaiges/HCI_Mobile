@@ -282,4 +282,7 @@
     <string name="empty_favourite_routines">No hay rutinas en favoritos aún. Agrega una con el icono de corazón</string>
 
     <string name="handle_unexpected_error">Ocurrio un error inesperadom, chequee su coneccion a internet.</string>
+    <string name="no_connection">no se pudo establecer una coneccion, chequee el estado de su internet.</string>
+    <string name="no_internet">la coneccion establecida no tiene acceso a internet.</string>
+
 </resources>

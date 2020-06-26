@@ -389,11 +389,11 @@ public class DeviceViewModel extends ViewModel {
                         updateDevice();
                         Log.v("CM", "asd");
                     }else{
-                        //noInternetError();
+                        //ConnectivityManagerSetting.getInstance().noInternetError();
                         Log.v("CM", "no internet aveliable");
                     }
                 }else{
-                    //noConectionError();
+                    //ConnectivityManagerSetting.getInstance().noConnectionError();
                     Log.v("CM", "no connection aveliable");
                 }
             }

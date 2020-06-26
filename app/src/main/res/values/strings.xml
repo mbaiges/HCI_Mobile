@@ -284,4 +284,7 @@
     <string name="empty_favourite_routines">You don\'t have any routines in favourites yet. Add one with the heart icon</string>
 
     <string name="handle_unexpected_error">An unexpected error occurred, check internet connectivity.</string>
+    <string name="no_connection">an internet connection couldn\'t be established, please check internet connectivity</string>
+    <string name="no_internet">the established connections has no access to internet.</string>
+
 </resources>
