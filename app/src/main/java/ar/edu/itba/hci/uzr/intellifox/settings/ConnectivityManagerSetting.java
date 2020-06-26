@@ -2,6 +2,7 @@ package ar.edu.itba.hci.uzr.intellifox.settings;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.util.Log;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
@@ -40,13 +41,14 @@ public class ConnectivityManagerSetting {
     }
     
     public boolean isNetworkConnected() {
-        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+        return (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected());
     }
 
     public boolean isInternetAvailable() {
         try {
             InetAddress ipAddr = InetAddress.getByName("google.com");
             //You can replace it with your name
+            Log.v("CM", "alta coneccion con" + ipAddr.toString());
             return !ipAddr.equals("");
 
         } catch (Exception e) {
