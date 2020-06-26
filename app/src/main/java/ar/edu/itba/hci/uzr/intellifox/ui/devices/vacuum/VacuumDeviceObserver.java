@@ -140,6 +140,14 @@ public class VacuumDeviceObserver extends DeviceObserver {
             if (h.dockBtn != null && s.getStatus() != null) {
                 h.dockBtn.setText((s.getStatus().equals("docked")) ? R.string.dev_vacuum_button_docked : R.string.dev_vacuum_button_dock);
             }
+
+            if(h.spinner != null){
+                if(s.getLocation() == null){
+                    h.spinner.
+                }else{
+
+                }
+            }
         }
     }
 
