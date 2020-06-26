@@ -384,18 +384,7 @@ public class DeviceViewModel extends ViewModel {
     public void scheduleUpdating() {
         final Runnable fetcher = new Runnable() {
             public void run() {
-                if(ConnectivityManagerSetting.getInstance().isNetworkConnected()){
-                    if(ConnectivityManagerSetting.getInstance().isInternetAvailable()){
-                        updateDevice();
-                        Log.v("CM", "asd");
-                    }else{
-                        //ConnectivityManagerSetting.getInstance().noInternetError();
-                        Log.v("CM", "no internet aveliable");
-                    }
-                }else{
-                    //ConnectivityManagerSetting.getInstance().noConnectionError();
-                    Log.v("CM", "no connection aveliable");
-                }
+                updateDevice();
             }
         };
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);
@@ -419,10 +408,6 @@ public class DeviceViewModel extends ViewModel {
         }
         String code = "Code " + String.valueOf(error.getCode());
         Log.e("ERROR", code + " - " + desc);
-        /*
-        String text = getResources().getString(R.string.error_message, error.getDescription().get(0), error.getCode());
-        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
-        */
     }
 
     private void handleUnexpectedError(Throwable t) {

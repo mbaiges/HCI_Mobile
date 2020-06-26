@@ -78,6 +78,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
@@ -105,15 +109,21 @@ import static androidx.core.content.FileProvider.getUriForFile;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private ScheduledFuture<?> fetcherHandler;
+
     private AppBarConfiguration mAppBarConfiguration;
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
+
+    private final int THE_CONSTANT_UNCHANGING_NUMBER_ONE = 1;
 
     private final static String DATABASE_NAME = "intellifox_db";
 
     private final static String BELLED_DEVICES = "belled_devices";
 
     static final String DEVICE_ID_ARG = "DEVICE_ID";
+
     static final String DEVICE_TYPE_NAME_ARG = "DEVICE_TYPE_NAME";
 
     static final String ROOM_ID_ARG = "room_id";
@@ -230,7 +240,8 @@ public class MainActivity extends AppCompatActivity {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         FusedLocationClientSetting.setInstance(fusedLocationClient);
 
-        ConnectivityManagerSetting.setContext(getApplicationContext());
+        ConnectivityManagerSetting.setActivity(this);
+        scheduleInternetCheck();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -261,6 +272,12 @@ public class MainActivity extends AppCompatActivity {
                 treatNotification(value);
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopInternetCheck();
+        super.onDestroy();
     }
 
     private void treatNotification(String info) {
@@ -474,6 +491,32 @@ public class MainActivity extends AppCompatActivity {
     private void processSpeech(String speech) {
         CommandExecutorTask task = new CommandExecutorTask(speech);
         task.execute();
+    }
+
+
+    //-----------------------internet check------------------------------------------
+
+    public void scheduleInternetCheck() {
+        final Runnable fetcher = new Runnable() {
+            public void run() {
+                if(ConnectivityManagerSetting.getInstance().isNetworkConnected()){
+                    if(ConnectivityManagerSetting.getInstance().isInternetAvailable()){
+                        //everithing fine
+                    }else{
+                        ConnectivityManagerSetting.getInstance().noInternetError();
+                        //Log.v("CM", "no internet aveliable");
+                    }
+                }else{
+                    ConnectivityManagerSetting.getInstance().noConnectionError();
+                    //Log.v("CM", "no connection aveliable");
+                }
+            }
+        };
+        fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, THE_CONSTANT_UNCHANGING_NUMBER_ONE, THE_CONSTANT_UNCHANGING_NUMBER_ONE, TimeUnit.SECONDS);
+    }
+
+    public void stopInternetCheck() {
+        fetcherHandler.cancel(true);
     }
 
 }
