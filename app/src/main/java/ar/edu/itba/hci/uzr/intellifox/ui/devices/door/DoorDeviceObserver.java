@@ -13,6 +13,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.commands.DeviceCommand;
 import ar.edu.itba.hci.uzr.intellifox.api.models.commands.door.LockDoorCommand;
+import ar.edu.itba.hci.uzr.intellifox.api.models.commands.door.UnlockDoorCommand;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
@@ -111,32 +112,36 @@ public class DoorDeviceObserver extends DeviceObserver {
                                 actionName = UNLOCK_ACTION;
                             }
                             final String actionMade = actionName;
+                            DeviceCommand c;
                             if (actionMade.equals(LOCK_ACTION)) {
-                                DeviceCommand c = new LockDoorCommand(d.getId(), new String[0]);
-                                c.execute(new Callback<Result<Object>>() {
-                                    @Override
-                                    public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
-                                        if (response.isSuccessful()) {
-                                            Result<Object> result = response.body();
+                                c = new LockDoorCommand(d.getId(), new String[0]);
+                            }
+                            else {
+                                c = new UnlockDoorCommand(d.getId(), new String[0]);
+                            }
+                            c.execute(new Callback<Result<Object>>() {
+                                @Override
+                                public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
+                                    if (response.isSuccessful()) {
+                                        Result<Object> result = response.body();
 
-                                            if (result != null) {
-                                                String text = contextView.getResources().getString((actionMade.equals(LOCK_ACTION))?R.string.notif_door_locked:R.string.notif_door_unlocked)  + ".";
-                                                Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
-                                                View sbView = snackbar.getView();
-                                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
-                                                snackbar.show();
-                                            } else {
-                                                handleError(response);
-                                            }
+                                        if (result != null) {
+                                            String text = contextView.getResources().getString((actionMade.equals(LOCK_ACTION))?R.string.notif_door_locked:R.string.notif_door_unlocked)  + ".";
+                                            Snackbar snackbar = Snackbar.make(contextView, text, Snackbar.LENGTH_SHORT);
+                                            View sbView = snackbar.getView();
+                                            sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
+                                            snackbar.show();
+                                        } else {
+                                            handleError(response);
                                         }
                                     }
+                                }
 
-                                    @Override
-                                    public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
-                                        handleUnexpectedError(t);
-                                    }
-                                });
-                            }
+                                @Override
+                                public void onFailure(@NonNull Call<Result<Object>> call, @NonNull Throwable t) {
+                                    handleUnexpectedError(t);
+                                }
+                            });
                             /*
                             ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, new String[0], new Callback<Result<Object>>() {
                                 @Override
