@@ -379,10 +379,12 @@ public class MainActivity extends AppCompatActivity {
                                 Barcode barcode = barcodeArray.valueAt(0);
                                 processBarcodeScan(barcode.rawValue);
                             }else{
-//                                Snackbar snackbar = Snackbar.make(contextView, contextView.getResources().getString(R.string.handle_unexpected_error), Snackbar.LENGTH_SHORT);
-//                                View sbView = snackbar.getView();
-//                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.handle_error));
-//                                snackbar.show();
+                                View parentLayout = findViewById(android.R.id.content);
+                                Snackbar snackbar = Snackbar.make(parentLayout, parentLayout.getContext().getResources().getString(R.string.handle_qr_error_not_found), Snackbar.LENGTH_SHORT);
+                                View sbView = snackbar.getView();
+                                sbView.setBackgroundColor(ContextCompat.getColor(parentLayout.getContext(), R.color.handle_not_found_error));
+                                snackbar.show();
+
                             }
 
                         } else {

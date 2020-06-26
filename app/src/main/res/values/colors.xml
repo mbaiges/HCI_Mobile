@@ -16,6 +16,7 @@
     <color name="cards">#954cba</color>
     <color name="error">#12B7C2</color>
     <color name="handle_error">#FF0000</color>
+    <color name="warning">#FFFF00</color>
     <color name="navBarActivated">#e4e3e5</color>
     <color name="navBarPressed">#e4e3e5</color>
 </resources>

@@ -11,6 +11,9 @@ import com.google.android.material.snackbar.Snackbar;
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
+import ar.edu.itba.hci.uzr.intellifox.api.models.commands.DeviceCommand;
+import ar.edu.itba.hci.uzr.intellifox.api.models.commands.door.LockDoorCommand;
+import ar.edu.itba.hci.uzr.intellifox.api.models.commands.door.UnlockDoorCommand;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 
@@ -109,7 +112,14 @@ public class DoorDeviceObserver extends DeviceObserver {
                                 actionName = UNLOCK_ACTION;
                             }
                             final String actionMade = actionName;
-                            ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, new String[0], new Callback<Result<Object>>() {
+                            DeviceCommand c;
+                            if (actionMade.equals(LOCK_ACTION)) {
+                                c = new LockDoorCommand(d.getId(), new String[0]);
+                            }
+                            else {
+                                c = new UnlockDoorCommand(d.getId(), new String[0]);
+                            }
+                            c.execute(new Callback<Result<Object>>() {
                                 @Override
                                 public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
                                     if (response.isSuccessful()) {
