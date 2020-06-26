@@ -87,6 +87,7 @@ import ar.edu.itba.hci.uzr.intellifox.broadcast_receivers.AlarmBroadcastReceiver
 import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 import ar.edu.itba.hci.uzr.intellifox.database.tasks.DatabaseReloadTablesAsyncTask;
 import ar.edu.itba.hci.uzr.intellifox.path_highlighter.PathHighlighter;
+import ar.edu.itba.hci.uzr.intellifox.settings.ConnectivityManagerSetting;
 import ar.edu.itba.hci.uzr.intellifox.settings.DatabaseSetting;
 import ar.edu.itba.hci.uzr.intellifox.settings.FusedLocationClientSetting;
 import ar.edu.itba.hci.uzr.intellifox.settings.SharedPreferencesSetting;
@@ -228,6 +229,8 @@ public class MainActivity extends AppCompatActivity {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         FusedLocationClientSetting.setInstance(fusedLocationClient);
+
+        ConnectivityManagerSetting.setContext(getApplicationContext());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
