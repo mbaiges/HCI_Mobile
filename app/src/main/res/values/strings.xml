@@ -278,5 +278,5 @@
     <!-- empty categories messages-->
     <string name="empty_rooms">You don\'t have any rooms yet. Add one from the website</string>
 
-
+    <string name="handle_unexpected_error">An unexpected error occurred, check internet connectivity.</string>
 </resources>

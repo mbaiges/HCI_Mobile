@@ -276,4 +276,5 @@
     <!-- empty categories messages-->
     <string name="empty_rooms">No hay habitaciones aún. Agrega una desde la pagina web</string>
 
+    <string name="handle_unexpected_error">Ocurrio un error inesperadom, chequee su coneccion a internet.</string>
 </resources>
