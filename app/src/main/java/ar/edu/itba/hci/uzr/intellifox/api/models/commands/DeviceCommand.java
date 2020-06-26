@@ -1,8 +1,14 @@
 package ar.edu.itba.hci.uzr.intellifox.api.models.commands;
 
+import java.io.IOException;
+
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
+import okhttp3.Request;
+import okio.Timeout;
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public abstract class DeviceCommand {
 

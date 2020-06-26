@@ -16,6 +16,7 @@
     <color name="cards">#E2CDFD</color>
     <color name="error">#ED483D</color>
     <color name="handle_error">#FF0000</color>
+    <color name="handle_not_found_error">#FFE042</color>
     <color name="warning">#FFFF00</color>
     <color name="navBarActivated">#24242420</color>
     <color name="navBarPressed">#36363640</color>
