@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ public class RoomsFragment extends Fragment {
 
     RoomsViewModel roomsViewModel;
     GridView gridView;
+    TextView noRoomsText;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -32,12 +34,21 @@ public class RoomsFragment extends Fragment {
 
         roomsViewModel = ViewModelProviders.of(this).get(RoomsViewModel.class);
 
+        noRoomsText = root.findViewById(R.id.rooms_empty_rooms_text);
         gridView = root.findViewById(R.id.rooms_grid_view);
 
+        if (noRoomsText != null) {
+            noRoomsText.setVisibility(View.VISIBLE);
+        }
+        
         roomsViewModel.getRooms().observe(getViewLifecycleOwner(), new Observer<Set<Room>>() {
             @Override
             public void onChanged(@Nullable Set<Room> rooms) {
                 if (rooms != null) {
+                    if (noRoomsText != null) {
+                        noRoomsText.setVisibility((rooms.size() > 0)?View.INVISIBLE : View.VISIBLE);
+                    }
+
                     Room[] roomsArray = new Room[rooms.size()];
                     int i = 0;
                     for (Room r : rooms) {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class DeviceTypesFragment extends Fragment {
 
     DeviceTypesViewModel deviceTypesViewModel;
     GridView gridView;
+    TextView noDevicesTypeText;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -44,11 +46,15 @@ public class DeviceTypesFragment extends Fragment {
                 ViewModelProviders.of(this).get(DeviceTypesViewModel.class);
 
         gridView = root.findViewById(R.id.device_types_grid_view);
+        noDevicesTypeText = root.findViewById(R.id.devices_empty_devices_text);
 
         deviceTypesViewModel.getDeviceTypes().observe(getViewLifecycleOwner(), new Observer<Set<DeviceType>>() {
             @Override
             public void onChanged(@Nullable Set<DeviceType> deviceTypes) {
                 if (deviceTypes != null) {
+                    if (noDevicesTypeText != null) {
+                        noDevicesTypeText.setVisibility((deviceTypes.size() > 0)?View.INVISIBLE : View.VISIBLE);
+                    }
                     DeviceType[] deviceTypesArray = new DeviceType[deviceTypes.size()];
                     int i = 0;
                     for (DeviceType r : deviceTypes) {

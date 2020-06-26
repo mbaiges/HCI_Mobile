@@ -6,11 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.room.RoomFragment">
 
+    <TextView
+        android:id="@+id/room_empty_room_text"
+        android:layout_width="242dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/empty_room"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/room_devices_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
         android:listSelector="@android:color/transparent"
-        android:numColumns="2" />
+        android:numColumns="2"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="29dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

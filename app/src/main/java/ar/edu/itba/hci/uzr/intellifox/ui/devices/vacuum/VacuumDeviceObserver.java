@@ -38,6 +38,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumLocation;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.RoomArrayAdapter;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceObserver;
@@ -251,16 +252,43 @@ public class VacuumDeviceObserver extends DeviceObserver {
                             if (result.getResult() != null) {
                                 List<Room> actualRoomsList = result.getResult().stream().sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toList());
 
-
-                                Room[] actualRoomsArray = new Room[actualRoomsList.size() + 1];
+                                Room[] actualRoomsArray = new Room[actualRoomsList.size()];
                                 int i = 0;
-                                Room none = new Room();
-                                none.setId("");
-                                none.setName(contextView.getResources().getString(R.string.dev_vacuum_none));
-                                actualRoomsArray[i++] = none;
                                 for (Room r : actualRoomsList) {
                                     actualRoomsArray[i++] = r;
                                 }
+
+                                boolean isNone = true;
+
+                                VacuumDevice vacuum = (VacuumDevice) holder.device;
+                                if (vacuum != null) {
+                                    VacuumDeviceState state = vacuum.getState();
+                                    if (state != null) {
+                                        VacuumLocation location = state.getLocation();
+                                        if (location != null) {
+                                            String roomId = location.getId();
+                                            int pos = actualRoomsList.stream().map(Room::getId).collect(Collectors.toList()).indexOf(roomId);
+                                            if (pos <= actualRoomsList.size()) {
+                                                h.spinner.setSelection(pos);
+                                                isNone = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (isNone) {
+                                    int j = 0;
+                                    Room[] newRoomsArray = new Room[actualRoomsList.size() + 1];
+                                    Room none = new Room();
+                                    none.setId("");
+                                    none.setName(contextView.getResources().getString(R.string.dev_vacuum_none));
+                                    actualRoomsArray[j++] = none;
+                                    for(;j < actualRoomsArray.length; j++) {
+                                        newRoomsArray[j] = actualRoomsArray[j];
+                                    }
+                                    actualRoomsArray = newRoomsArray;
+                                }
+
                                 RoomSpinnerAdapter adapter = new RoomSpinnerAdapter(contextView.getContext(),
                                         android.R.layout.simple_spinner_item,
                                         actualRoomsArray);
@@ -280,7 +308,7 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                         if (d != null) {
                                             VacuumDeviceState s = d.getState();
                                             if (s != null) {
-                                                if(user.getId() != null) {
+                                                if(user.getId() != null && !user.getId().equals("")) {
                                                     String[] args = {user.getId()};
                                                     Log.d("cuarto", args[0]);
                                                     ApiClient.getInstance().executeDeviceAction(d.getId(), "setLocation", args, new Callback<Result<Object>>() {

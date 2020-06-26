@@ -79,25 +79,27 @@ public class TapDeviceObserver extends DeviceObserver {
             TapDeviceState s = (TapDeviceState) state;
             TapDeviceViewHolder h = (TapDeviceViewHolder) holder;
 
-            Log.v("TapStatus", s.toString());
+            //Log.v("TapStatus", s.toString());
 
-            if(s.getQuantity() != null){
-                h.txtDispensing.setVisibility(View.VISIBLE);
-                h.progBarLoading.setVisibility(View.VISIBLE);
-                h.progBarDispensing.setVisibility(View.VISIBLE);
-                h.btnDispence.setEnabled(false);
-                h.btnDispence.setAlpha(.5f);
-                h.btnDispence.setText(contextView.getResources().getString(R.string.dev_tap_button_dispense_off));
-                h.progBarDispensing.setMax(Integer.parseInt(s.getQuantity())*100);
-                h.progBarDispensing.setProgress((int)(s.getDispensedQuantity()*100));
-                Log.v("PROGRESS", String.valueOf((int)(s.getDispensedQuantity()*100)));
-            }else{
-                h.txtDispensing.setVisibility(View.INVISIBLE);
-                h.progBarDispensing.setVisibility(View.INVISIBLE);
-                h.progBarLoading.setVisibility(View.INVISIBLE);
-                h.btnDispence.setEnabled(true);
-                h.btnDispence.setAlpha(1);
-                h.btnDispence.setText(contextView.getResources().getString(R.string.dev_tap_button_dispense));
+            if (h.txtDispensing != null && h.progBarLoading != null && h.progBarDispensing != null && h.btnDispence != null) {
+                if(s.getQuantity() != null){
+                    h.txtDispensing.setVisibility(View.VISIBLE);
+                    h.progBarLoading.setVisibility(View.VISIBLE);
+                    h.progBarDispensing.setVisibility(View.VISIBLE);
+                    h.btnDispence.setEnabled(false);
+                    h.btnDispence.setAlpha(.5f);
+                    h.btnDispence.setText(contextView.getResources().getString(R.string.dev_tap_button_dispense_off));
+                    h.progBarDispensing.setMax(Integer.parseInt(s.getQuantity())*100);
+                    h.progBarDispensing.setProgress((int)(s.getDispensedQuantity()*100));
+                    //Log.v("PROGRESS", String.valueOf((int)(s.getDispensedQuantity()*100)));
+                }else {
+                    h.txtDispensing.setVisibility(View.INVISIBLE);
+                    h.progBarDispensing.setVisibility(View.INVISIBLE);
+                    h.progBarLoading.setVisibility(View.INVISIBLE);
+                    h.btnDispence.setEnabled(true);
+                    h.btnDispence.setAlpha(1);
+                    h.btnDispence.setText(contextView.getResources().getString(R.string.dev_tap_button_dispense));
+                }
             }
 
             if(h.btnL != null){
