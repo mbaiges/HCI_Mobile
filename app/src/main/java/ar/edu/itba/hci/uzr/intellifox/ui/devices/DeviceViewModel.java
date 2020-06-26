@@ -387,11 +387,14 @@ public class DeviceViewModel extends ViewModel {
                 if(ConnectivityManagerSetting.getInstance().isNetworkConnected()){
                     if(ConnectivityManagerSetting.getInstance().isInternetAvailable()){
                         updateDevice();
+                        Log.v("CM", "asd");
                     }else{
                         //noInternetError();
+                        Log.v("CM", "no internet aveliable");
                     }
                 }else{
                     //noConectionError();
+                    Log.v("CM", "no connection aveliable");
                 }
             }
         };
