@@ -1,11 +1,15 @@
 package ar.edu.itba.hci.uzr.intellifox.ui.devices;
 
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +19,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
+import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
@@ -37,6 +42,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.settings.ConnectivityManagerSetting;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -378,7 +384,15 @@ public class DeviceViewModel extends ViewModel {
     public void scheduleUpdating() {
         final Runnable fetcher = new Runnable() {
             public void run() {
-                updateDevice();
+                if(ConnectivityManagerSetting.getInstance().isNetworkConnected()){
+                    if(ConnectivityManagerSetting.getInstance().isInternetAvailable()){
+                        updateDevice();
+                    }else{
+                        //noInternetError();
+                    }
+                }else{
+                    //noConectionError();
+                }
             }
         };
         fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);
@@ -412,4 +426,5 @@ public class DeviceViewModel extends ViewModel {
         String LOG_TAG = "ar.edu.itba.hci.uzr.intellifox.api";
         Log.e(LOG_TAG, t.toString());
     }
+
 }
