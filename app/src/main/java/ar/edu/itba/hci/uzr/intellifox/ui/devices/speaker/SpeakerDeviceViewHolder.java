@@ -31,5 +31,6 @@ public class SpeakerDeviceViewHolder extends DeviceViewHolder {
     ImageButton btnVolumeUp;
 
     Button btnShowPlaylist;
+    TextView txtSongs;
 
 }

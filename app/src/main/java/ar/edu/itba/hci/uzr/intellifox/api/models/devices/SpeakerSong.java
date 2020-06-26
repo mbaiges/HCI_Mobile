@@ -64,13 +64,7 @@ public class SpeakerSong {
 
     @Override
     public String toString() {
-        return "SpeakerSong{" +
-                "title='" + title + '\'' +
-                ", artist='" + artist + '\'' +
-                ", album='" + album + '\'' +
-                ", duration='" + duration + '\'' +
-                ", progress='" + progress + '\'' +
-                '}';
+        return "-" + title + "," + artist + "," + album + "\n";
     }
 
     @Override
