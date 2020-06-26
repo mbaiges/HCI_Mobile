@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="80dp"
+                android:textSize="20sp"
                 android:text="@string/dev_ac_title_temperature"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bell" />
@@ -292,6 +293,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
+                android:textSize="20sp"
                 android:text="@string/dev_ac_title_mode"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/temperatureTitle" />
@@ -302,6 +304,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:textSize="20sp"
                 android:text="@string/dev_ac_title_vSwing"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
@@ -311,6 +314,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:textSize="20sp"
                 android:layout_marginTop="16dp"
                 android:text="@string/dev_ac_title_hSwing"
                 app:layout_constraintStart_toStartOf="parent"
@@ -322,6 +326,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:textSize="20sp"
                 android:text="@string/dev_ac_title_fan"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />

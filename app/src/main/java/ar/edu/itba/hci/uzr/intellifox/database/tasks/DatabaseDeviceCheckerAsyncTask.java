@@ -19,6 +19,7 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
+import ar.edu.itba.hci.uzr.intellifox.broadcast_receivers.NotificationBroadcastReceiver;
 import ar.edu.itba.hci.uzr.intellifox.settings.DatabaseSetting;
 import ar.edu.itba.hci.uzr.intellifox.MainActivity;
 import ar.edu.itba.hci.uzr.intellifox.R;
@@ -44,34 +45,15 @@ import ar.edu.itba.hci.uzr.intellifox.database.AppDatabase;
 
 public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device> {
 
-    private static final String CHANNEL_ID = "NOTIFICATIONS";
-    private static int notification_id = 1;
+
 
     static AppDatabase db;
-    static private Map<String, Integer> typeInfo;
 
     private WeakReference<Context> weakContext;
     private String typeName, deviceID;
     private Device actualDevice;
 
     public DatabaseDeviceCheckerAsyncTask(Context context, String typeName, String deviceID, Device actualDevice) {
-
-        if (typeInfo == null) {
-            typeInfo = new HashMap<String, Integer>() {
-                {
-                    put("faucet", R.drawable.ic_device_water_pump);
-                    put("ac", R.drawable.ic_device_air_conditioner);
-                    put("alarm", R.drawable.ic_device_alarm_light_outline);
-                    put("blinds", R.drawable.ic_device_blinds);
-                    put("door", R.drawable.ic_device_door);
-                    put("refrigerator", R.drawable.ic_device_fridge_outline);
-                    put("lamp", R.drawable.ic_device_lightbulb_outline);
-                    put("vacuum", R.drawable.ic_device_robot_vacuum);
-                    put("speaker", R.drawable.ic_device_speaker);
-                    put("oven", R.drawable.ic_device_toaster_oven);
-                }
-            };
-        }
 
         if (db == null) {
             db = DatabaseSetting.getInstance();
@@ -83,19 +65,19 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
 
         if (typeName.equals("faucet")) {
             this.actualDevice = createComparableTap(actualDevice);
-        }else if (typeName.equals("ac")) {
+        } else if (typeName.equals("ac")) {
             this.actualDevice = createComparableAc(actualDevice);
-        }else if (typeName.equals("blinds")) {
+        } else if (typeName.equals("blinds")) {
             this.actualDevice = createComparableBlind(actualDevice);
-        }else if (typeName.equals("door")) {
+        } else if (typeName.equals("door")) {
             this.actualDevice = createComparableDoor(actualDevice);
-        }else if (typeName.equals("lamp")) {
+        } else if (typeName.equals("lamp")) {
             this.actualDevice = createComparableLight(actualDevice);
-        }else if (typeName.equals("vacuum")) {
+        } else if (typeName.equals("vacuum")) {
             this.actualDevice = createComparableVacuum(actualDevice);
-        }else if (typeName.equals("speaker")) {
+        } else if (typeName.equals("speaker")) {
             this.actualDevice = createComparableSpeaker(actualDevice);
-        }else if (typeName.equals("oven")) {
+        } else if (typeName.equals("oven")) {
             this.actualDevice = createComparableOven(actualDevice);
         }
 
@@ -107,7 +89,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        OvenDeviceState deviceState = (OvenDeviceState)actualDevice.getState();
+        OvenDeviceState deviceState = (OvenDeviceState) actualDevice.getState();
         if (deviceState != null) {
             OvenDeviceState state = new OvenDeviceState();
             state.setStatus(deviceState.getStatus());
@@ -142,7 +124,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        VacuumDeviceState deviceState = (VacuumDeviceState)actualDevice.getState();
+        VacuumDeviceState deviceState = (VacuumDeviceState) actualDevice.getState();
         if (deviceState != null) {
             VacuumDeviceState state = new VacuumDeviceState();
             state.setStatus(deviceState.getStatus());
@@ -159,7 +141,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        LightDeviceState deviceState = (LightDeviceState)actualDevice.getState();
+        LightDeviceState deviceState = (LightDeviceState) actualDevice.getState();
         if (deviceState != null) {
             LightDeviceState state = new LightDeviceState();
             state.setStatus(deviceState.getStatus());
@@ -176,7 +158,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        DoorDeviceState deviceState = (DoorDeviceState)actualDevice.getState();
+        DoorDeviceState deviceState = (DoorDeviceState) actualDevice.getState();
         if (deviceState != null) {
             DoorDeviceState state = new DoorDeviceState();
             state.setStatus(deviceState.getStatus());
@@ -192,7 +174,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        BlindDeviceState deviceState = (BlindDeviceState)actualDevice.getState();
+        BlindDeviceState deviceState = (BlindDeviceState) actualDevice.getState();
         if (deviceState != null) {
             BlindDeviceState state = new BlindDeviceState();
             state.setStatus(deviceState.getStatus());
@@ -208,7 +190,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        AcDeviceState deviceState = (AcDeviceState)actualDevice.getState();
+        AcDeviceState deviceState = (AcDeviceState) actualDevice.getState();
         if (deviceState != null) {
             AcDeviceState state = new AcDeviceState();
             state.setStatus(deviceState.getStatus());
@@ -228,7 +210,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
         device.setName(actualDevice.getName());
         device.setMeta(null);
         device.setRoom(null);
-        TapDeviceState deviceState = (TapDeviceState)actualDevice.getState();
+        TapDeviceState deviceState = (TapDeviceState) actualDevice.getState();
         if (deviceState != null) {
             TapDeviceState state = new TapDeviceState();
             state.setStatus(deviceState.getStatus());
@@ -250,26 +232,19 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
         */
         if (typeName.equals("faucet")) {
             checkTapChanges((TapDevice) device);
-        }
-        else if (typeName.equals("ac")) {
+        } else if (typeName.equals("ac")) {
             checkAcChanges((AcDevice) device);
-        }
-        else if (typeName.equals("lamp")) {
+        } else if (typeName.equals("lamp")) {
             checkLightChanges((LightDevice) device);
-        }
-        else if (typeName.equals("oven")) {
+        } else if (typeName.equals("oven")) {
             checkOvenChanges((OvenDevice) device);
-        }
-        else if (typeName.equals("speaker")) {
+        } else if (typeName.equals("speaker")) {
             checkSpeakerChanges((SpeakerDevice) device);
-        }
-        else if (typeName.equals("blinds")) {
+        } else if (typeName.equals("blinds")) {
             checkBlindChanges((BlindDevice) device);
-        }
-        else if (typeName.equals("vacuum")) {
+        } else if (typeName.equals("vacuum")) {
             checkVacuumChanges((VacuumDevice) device);
-        }
-        else if (typeName.equals("door")) {
+        } else if (typeName.equals("door")) {
             checkDoorChanges((DoorDevice) device);
         }
     }
@@ -281,16 +256,17 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
             Context context = weakContext.get();
             if (context != null) {
                 StringBuilder messageBuilder = new StringBuilder("");
-                if(actualDevice.getState().getStatus().equals("opened")){
+                if (actualDevice.getState().getStatus().equals("opened")) {
                     messageBuilder.append(context.getResources().getString(R.string.notif_tap_opened));
-                }else{
+                } else {
                     messageBuilder.append(context.getResources().getString(R.string.notif_tap_closed));
                 }
                 messageBuilder.append(" ");
                 // Tell the user
-                showNotification(context, typeName, device, messageBuilder.toString());
+                broadcastDeviceChangeIntent(context, typeName, device, messageBuilder.toString());
             }
-        };
+        }
+        ;
     }
 
     private void checkAcChanges(AcDevice device) {
@@ -304,59 +280,59 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
             if (context != null) {
                 StringBuilder messageBuilder = new StringBuilder("");
 
-                if(!actualAcDevice.getState().getStatus().equals(device.getState().getStatus())){
-                    if(actualAcDevice.getState().getStatus().equals("on")){
+                if (!actualAcDevice.getState().getStatus().equals(device.getState().getStatus())) {
+                    if (actualAcDevice.getState().getStatus().equals("on")) {
                         messageBuilder.append(context.getResources().getString(R.string.notif_ac_turned_on));
-                    }else{
+                    } else {
                         messageBuilder.append(context.getResources().getString(R.string.notif_ac_turned_off));
                     }
                     messageBuilder.append(" ");
                     stateChanged = true;
                 }
-                if(!actualAcDevice.getState().getMode().equals(device.getState().getMode())) {
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!actualAcDevice.getState().getMode().equals(device.getState().getMode())) {
+                    if (first) {
+                        messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
-                    }else{
+                    } else {
                         messageBuilder.append(" - ");
                     }
                     messageBuilder.append(context.getResources().getString(R.string.notif_ac_changed_mode));
                 }
-                if(!actualAcDevice.getState().getTemperature().equals(device.getState().getTemperature())){
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!actualAcDevice.getState().getTemperature().equals(device.getState().getTemperature())) {
+                    if (first) {
+                        messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
-                    }else{
+                    } else {
                         messageBuilder.append(" - ");
                     }
                     messageBuilder.append(context.getResources().getString(R.string.notif_ac_changed_temperature));
                 }
-                if(!actualAcDevice.getState().getFanSpeed().equals(device.getState().getFanSpeed())){
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!actualAcDevice.getState().getFanSpeed().equals(device.getState().getFanSpeed())) {
+                    if (first) {
+                        messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
-                    }else{
+                    } else {
                         messageBuilder.append(" - ");
                     }
                     messageBuilder.append(context.getResources().getString(R.string.notif_ac_changed_fan_speed));
                 }
-                if(!actualAcDevice.getState().getHorizontalSwing().equals(device.getState().getHorizontalSwing())){
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!actualAcDevice.getState().getHorizontalSwing().equals(device.getState().getHorizontalSwing())) {
+                    if (first) {
+                        messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
-                    }else{
+                    } else {
                         messageBuilder.append(" - ");
                     }
                     messageBuilder.append(context.getResources().getString(R.string.notif_ac_changed_horizontal_swing));
                 }
-                if(!actualAcDevice.getState().getVerticalSwing().equals(device.getState().getVerticalSwing())){
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
-                    }else{
+                if (!actualAcDevice.getState().getVerticalSwing().equals(device.getState().getVerticalSwing())) {
+                    if (first) {
+                        messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
+                    } else {
                         messageBuilder.append(" - ");
                     }
                     messageBuilder.append(context.getResources().getString(R.string.notif_ac_changed_vertical_swing));
@@ -364,10 +340,11 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
                 if (!first) {
                     messageBuilder.append(".");
                 }
-                showNotification(context, typeName, device, messageBuilder.toString());
+                broadcastDeviceChangeIntent(context, typeName, device, messageBuilder.toString());
             }
 
-        };
+        }
+        ;
     }
 
     private void checkLightChanges(LightDevice device) {
@@ -379,19 +356,19 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
 
             if (context != null) {
                 StringBuilder messageBuilder = new StringBuilder("");
-                if(!actualDevice.getState().getStatus().equals(device.getState().getStatus())){
-                    if(actualDevice.getState().getStatus().equals("on")){
+                if (!actualDevice.getState().getStatus().equals(device.getState().getStatus())) {
+                    if (actualDevice.getState().getStatus().equals("on")) {
                         messageBuilder.append(context.getResources().getString(R.string.notif_light_turned_on));
-                    }else{
+                    } else {
                         messageBuilder.append(context.getResources().getString(R.string.notif_light_turned_off));
                     }
                     messageBuilder.append(" ");
                     stateChanged = true;
                 }
 
-                if( !(((LightDevice)actualDevice).getState().getColor().equals(device.getState().getColor())) ||
-                        (((LightDevice)actualDevice).getState().getBrightness().equals(device.getState().getBrightness()))){
-                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!(((LightDevice) actualDevice).getState().getColor().equals(device.getState().getColor())) ||
+                        (((LightDevice) actualDevice).getState().getBrightness().equals(device.getState().getBrightness()))) {
+                    messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                     messageBuilder.append(" ");
                     messageBuilder.append(context.getResources().getString(R.string.notif_light_changed_color));
                     first = false;
@@ -399,7 +376,7 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
                 if (!first) {
                     messageBuilder.append(".");
                 }
-                showNotification(context, typeName, device, messageBuilder.toString());
+                broadcastDeviceChangeIntent(context, typeName, device, messageBuilder.toString());
             }
         }
     }
@@ -415,52 +392,52 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
             if (context != null) {
                 StringBuilder messageBuilder = new StringBuilder("");
 
-                if(!actualOvenDevice.getState().getStatus().equals(device.getState().getStatus())){
-                    if(actualOvenDevice.getState().getStatus().equals("on")){
+                if (!actualOvenDevice.getState().getStatus().equals(device.getState().getStatus())) {
+                    if (actualOvenDevice.getState().getStatus().equals("on")) {
                         messageBuilder.append(context.getResources().getString(R.string.notif_oven_turned_on));
-                    }else{
+                    } else {
                         messageBuilder.append(context.getResources().getString(R.string.notif_oven_turned_off));
                     }
                     messageBuilder.append(" ");
                     stateChanged = true;
                 }
 
-                if(!actualOvenDevice.getState().getTemperature().equals(device.getState().getTemperature())){
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!actualOvenDevice.getState().getTemperature().equals(device.getState().getTemperature())) {
+                    if (first) {
+                        messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
-                    }else{
+                    } else {
                         messageBuilder.append(" - ");
                     }
                     messageBuilder.append(context.getResources().getString(R.string.notif_oven_changed_temperature));
                 }
-                if(!actualOvenDevice.getState().getConvection().equals(device.getState().getConvection())){
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!actualOvenDevice.getState().getConvection().equals(device.getState().getConvection())) {
+                    if (first) {
+                        messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
-                    }else{
+                    } else {
                         messageBuilder.append(" - ");
                     }
                     messageBuilder.append(context.getResources().getString(R.string.notif_oven_changed_convection));
                 }
-                if(!actualOvenDevice.getState().getGrill().equals(device.getState().getGrill())){
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!actualOvenDevice.getState().getGrill().equals(device.getState().getGrill())) {
+                    if (first) {
+                        messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
-                    }else{
+                    } else {
                         messageBuilder.append(" - ");
                     }
                     messageBuilder.append(context.getResources().getString(R.string.notif_oven_changed_grill));
                 }
-                if(!actualOvenDevice.getState().getHeat().equals(device.getState().getHeat())){
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!actualOvenDevice.getState().getHeat().equals(device.getState().getHeat())) {
+                    if (first) {
+                        messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
-                    }else{
+                    } else {
                         messageBuilder.append(" - ");
                     }
                     messageBuilder.append(context.getResources().getString(R.string.notif_oven_changed_heat));
@@ -468,10 +445,11 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
                 if (!first) {
                     messageBuilder.append(".");
                 }
-                showNotification(context, typeName, device, messageBuilder.toString());
+                broadcastDeviceChangeIntent(context, typeName, device, messageBuilder.toString());
             }
 
-        };
+        }
+        ;
     }
 
     private void checkSpeakerChanges(SpeakerDevice device) {
@@ -483,30 +461,31 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
 
             if (context != null) {
                 StringBuilder messageBuilder = new StringBuilder("");
-                if(!actualDevice.getState().getStatus().equals(device.getState().getStatus())){
-                    if(actualDevice.getState().getStatus().equals("playing")){
+                if (!actualDevice.getState().getStatus().equals(device.getState().getStatus())) {
+                    if (actualDevice.getState().getStatus().equals("playing")) {
                         messageBuilder.append(context.getResources().getString(R.string.notif_speaker_turned_on));
-                    }else{
+                    } else {
                         messageBuilder.append(context.getResources().getString(R.string.notif_speaker_turned_off));
                     }
                     messageBuilder.append(" ");
                     stateChanged = true;
                 }
 
-                if(!((SpeakerDevice)actualDevice).getState().getGenre().equals(device.getState().getGenre())){
-                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!((SpeakerDevice) actualDevice).getState().getGenre().equals(device.getState().getGenre())) {
+                    messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                     messageBuilder.append(" ");
                     messageBuilder.append(context.getResources().getString(R.string.notif_speaker_changed_genre));
                     messageBuilder.append(" ");
-                    messageBuilder.append(((SpeakerDevice)actualDevice).getState().getGenre());
+                    messageBuilder.append(((SpeakerDevice) actualDevice).getState().getGenre());
                     first = false;
                 }
                 if (!first) {
                     messageBuilder.append(".");
                 }
-                showNotification(context, typeName, device, messageBuilder.toString());
+                broadcastDeviceChangeIntent(context, typeName, device, messageBuilder.toString());
             }
-        };
+        }
+        ;
     }
 
     private void checkBlindChanges(BlindDevice device) {
@@ -519,17 +498,18 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
             if (context != null) {
                 StringBuilder messageBuilder = new StringBuilder("");
 
-                if(!actualBlindDevice.getState().getStatus().equals(device.getState().getStatus())){
-                    if(actualBlindDevice.getState().getStatus().equals("opened") && device.getState().getStatus().equals("closed")){
+                if (!actualBlindDevice.getState().getStatus().equals(device.getState().getStatus())) {
+                    if (actualBlindDevice.getState().getStatus().equals("opened") && device.getState().getStatus().equals("closed")) {
                         messageBuilder.append(context.getResources().getString(R.string.notif_blind_opened));
-                    }else if(actualBlindDevice.getState().getStatus().equals("closed")&& device.getState().getStatus().equals("opened")) {
+                    } else if (actualBlindDevice.getState().getStatus().equals("closed") && device.getState().getStatus().equals("opened")) {
                         messageBuilder.append(context.getResources().getString(R.string.notif_blind_closed));
                     }
                     messageBuilder.append(" ");
                 }
-                showNotification(context, typeName, device, messageBuilder.toString());
+                broadcastDeviceChangeIntent(context, typeName, device, messageBuilder.toString());
             }
-        };
+        }
+        ;
     }
 
     private void checkDoorChanges(DoorDevice device) {
@@ -542,22 +522,22 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
 
             if (context != null) {
                 StringBuilder messageBuilder = new StringBuilder("");
-                if(!actualDevice.getState().getStatus().equals(device.getState().getStatus())){
-                    if(actualDevice.getState().getStatus().equals("opened")){
+                if (!actualDevice.getState().getStatus().equals(device.getState().getStatus())) {
+                    if (actualDevice.getState().getStatus().equals("opened")) {
                         messageBuilder.append(context.getResources().getString(R.string.notif_door_turned_opened));
-                    }else{
+                    } else {
                         messageBuilder.append(context.getResources().getString(R.string.notif_door_turned_closed));
                     }
                     messageBuilder.append(" ");
                     stateChanged = true;
                 }
 
-                if(!((DoorDevice)actualDevice).getState().getLock().equals(device.getState().getLock())){
-                    messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!((DoorDevice) actualDevice).getState().getLock().equals(device.getState().getLock())) {
+                    messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                     messageBuilder.append(" ");
-                    if(((DoorDevice)actualDevice).getState().getLock().equals("unlocked")){
+                    if (((DoorDevice) actualDevice).getState().getLock().equals("unlocked")) {
                         messageBuilder.append(context.getResources().getString(R.string.notif_door_unlocked));
-                    }else{
+                    } else {
                         messageBuilder.append(context.getResources().getString(R.string.notif_door_locked));
                     }
                     messageBuilder.append(" ");
@@ -566,9 +546,10 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
                 if (!first) {
                     messageBuilder.append(".");
                 }
-                showNotification(context, typeName, device, messageBuilder.toString());
+                broadcastDeviceChangeIntent(context, typeName, device, messageBuilder.toString());
             }
-        };
+        }
+        ;
     }
 
     private void checkVacuumChanges(VacuumDevice device) {
@@ -582,98 +563,58 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
             if (context != null) {
                 StringBuilder messageBuilder = new StringBuilder("");
 
-                if(!actualVacuumDevice.getState().getStatus().equals(device.getState().getStatus())){
-                    if(actualVacuumDevice.getState().getStatus().equals("on")){
+                if (!actualVacuumDevice.getState().getStatus().equals(device.getState().getStatus())) {
+                    if (actualVacuumDevice.getState().getStatus().equals("on")) {
                         messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_turned_on));
-                    }else{
+                    } else {
                         messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_turned_off));
                     }
                     messageBuilder.append(" ");
                     stateChanged = true;
                 }
 
-                if(!actualVacuumDevice.getState().getMode().equals(device.getState().getMode())){
-                    if(first){
-                        messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                if (!actualVacuumDevice.getState().getMode().equals(device.getState().getMode())) {
+                    if (first) {
+                        messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                         messageBuilder.append(" ");
                         first = false;
-                    }else{
+                    } else {
                         messageBuilder.append(" - ");
                     }
                     messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_changed_mode));
                 }
 
 
-                if( !actualVacuumDevice.getState().getBatteryLevel().equals(device.getState().getBatteryLevel()) ) {
+                if (!actualVacuumDevice.getState().getBatteryLevel().equals(device.getState().getBatteryLevel())) {
                     if (actualVacuumDevice.getState().getBatteryLevel() <= 6 && device.getState().getBatteryLevel() > 6) {
                         if (first) {
-                            messageBuilder.append(stateChanged?context.getResources().getString(R.string.notif_additional_changes):context.getResources().getString(R.string.notif_changes));
+                            messageBuilder.append(stateChanged ? context.getResources().getString(R.string.notif_additional_changes) : context.getResources().getString(R.string.notif_changes));
                             messageBuilder.append(" ");
                             first = false;
-                        }
-                        else{
+                        } else {
                             messageBuilder.append(" - ");
                         }
                         messageBuilder.append(context.getResources().getString(R.string.notif_vacuum_battery));
-                    }
-                    else if (first && !stateChanged) {
+                    } else if (first && !stateChanged) {
                         return;
                     }
                 }
                 if (!first) {
                     messageBuilder.append(".");
                 }
-                showNotification(context, typeName, device, messageBuilder.toString());
-            }
-        };
-    }
-
-
-
-    private void showNotification(Context context, String deviceType, Device device, String message) {
-        // Create the intent to start Activity when notification in action bar is
-        // clicked.
-
-        String title = device.getName();
-        Integer iconRef = getIconRef(typeName);
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_circle);;
-
-        Intent notificationIntent = new Intent(context, MainActivity.class);
-        notificationIntent.putExtra(MainActivity.MESSAGE_ID, deviceType + "," + device.getId());
-
-        // The stack builder object will contain an artificial back stack for the
-        //        // started Activity.
-        //        // This ensures that navigating backward from the Activity leads out of
-        //        // your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(MainActivity.class);
-        stackBuilder.addNextIntent(notificationIntent);
-        // Create the pending intent granting the Operating System to launch activity
-        // when notification in action bar is clicked.
-        final PendingIntent contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Bundle args = new Bundle();
-        args.putString(MainActivity.MESSAGE_ID, deviceType + "," + device.getId());
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setLargeIcon(icon)
-                .setSmallIcon(getIconRef(typeName))
-                .setContentIntent(contentIntent)
-                .addExtras(args);
-
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(notification_id++, builder.build());
-    }
-
-    private Integer getIconRef(String typeName){
-        if (typeInfo != null) {
-            Integer iconRef = typeInfo.get(typeName);
-            if (iconRef != null) {
-                return iconRef;
+                broadcastDeviceChangeIntent(context, typeName, device, messageBuilder.toString());
             }
         }
-        return R.drawable.ic_menu_remote;
+    }
+
+    private void broadcastDeviceChangeIntent(Context context, String typeName, Device device, String message) {
+        Intent intent = new Intent(context.getApplicationContext(), NotificationBroadcastReceiver.class);
+        intent.setAction(NotificationBroadcastReceiver.ACTION_DEVICE_CHANGED);
+        intent.putExtra(NotificationBroadcastReceiver.DEVICE_TYPE_NAME_KEY, typeName);
+        intent.putExtra(NotificationBroadcastReceiver.DEVICE_ID_KEY, device.getId());
+        intent.putExtra(NotificationBroadcastReceiver.DEVICE_NAME_KEY, device.getName());
+        intent.putExtra(NotificationBroadcastReceiver.MESSAGE_KEY, message);
+        context.sendBroadcast(intent);
+        Log.d("MESSAGE_TO_NOTIFY", "Broadcast sent");
     }
 }

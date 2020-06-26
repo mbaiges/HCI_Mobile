@@ -77,8 +77,9 @@
     <string name="dev_vacuum_select_mode">Select mode</string>
     <string name="dev_vacuum_select_room">Select room</string>
     <string name="dev_vacuum_battery">Battery</string>
+    <string name="dev_vacuum_location">Location</string>
     <string name="dev_vacuum_none">None</string>
-
+    dev_vacuum_none
     <!-- Tap -->
     <string name="dev_tap_state_closed">Closed</string>
     <string name="dev_tap_state_opened">Opened</string>

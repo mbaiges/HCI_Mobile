@@ -2,7 +2,7 @@
 <resources>
     <color name="accent">#8e36f9</color>
 
-    <color name="background1">#f7f7f7</color>
+    <color name="background1">#e4e3e5</color>
     <color name="background2">#FFFFFF</color>
     <color name="background3">#ded9e0</color>
     <color name="window">#e8e8e8</color>
@@ -15,6 +15,6 @@
     <color name="primary2">#6200EE</color>
     <color name="cards">#954cba</color>
     <color name="error">#12B7C2</color>
-    <color name="navBarActivated">#24242420</color>
-    <color name="navBarPressed">#36363640</color>
+    <color name="navBarActivated">#e4e3e5</color>
+    <color name="navBarPressed">#e4e3e5</color>
 </resources>

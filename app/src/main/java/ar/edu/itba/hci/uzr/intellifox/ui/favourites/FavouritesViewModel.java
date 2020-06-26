@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -21,6 +22,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.MinimumComparableDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.routine.Routine;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +33,7 @@ public class FavouritesViewModel extends ViewModel {
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> fetcherHandler;
-    private MutableLiveData<Set<Device>> mDevices;
+    private MutableLiveData<Set<MinimumComparableDevice>> mDevices;
     private MutableLiveData<Set<Routine>> mRoutines;
     private String roomName;
 
@@ -42,7 +44,7 @@ public class FavouritesViewModel extends ViewModel {
         fetchDevices();
     }
 
-    public LiveData<Set<Device>> getDevices() {
+    public LiveData<Set<MinimumComparableDevice>> getDevices() {
         return mDevices;
     }
 
@@ -55,11 +57,16 @@ public class FavouritesViewModel extends ViewModel {
                     if (result != null) {
                         List<Device> comingDevicesList = result.getResult();
                         if (comingDevicesList != null) {
-                            Set<Device> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getMeta() != null && d.getMeta().getFavourites() != null && d.getMeta().getFavourites()).sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
-                            Set<Device> devicesSet = mDevices.getValue();
+                            Set<MinimumComparableDevice> actualDevicesSet = comingDevicesList.stream().filter(d -> d != null && d.getMeta() != null && d.getMeta().getFavourites() != null && d.getMeta().getFavourites()).sorted((a, b) -> a.getName().compareTo(b.getName())).map(MinimumComparableDevice::new).collect(Collectors.toCollection(LinkedHashSet::new));
+                            Set<MinimumComparableDevice> devicesSet = mDevices.getValue();
 
                             if (devicesSet == null || !devicesSet.equals(actualDevicesSet)) {
                                 mDevices.postValue(actualDevicesSet);
+                                /*
+                                for(Device d: actualDevicesSet) {
+                                    Log.v("DEVICE_TYPE_DEVICE", d.toString());
+                                }
+                                */
                             }
                         }
                     } else {
@@ -89,10 +96,10 @@ public class FavouritesViewModel extends ViewModel {
                     if (result != null) {
                         List<Routine> comingRoutinesList = result.getResult();
                         if (comingRoutinesList != null) {
-                            Set<Routine> actualRoutinesSet = comingRoutinesList.stream().filter(r -> r.getMeta() != null && r.getMeta().getFavourites() != null && r.getMeta().getFavourites()).sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
+                            Set<Routine> actualRoutinesSet = comingRoutinesList.stream().filter(r -> r != null && r.getMeta() != null && r.getMeta().getFavourites() != null && r.getMeta().getFavourites()).sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
                             Set<Routine> routinesSet = mRoutines.getValue();
 
-                            if (routinesSet == null || !(routinesSet.equals(actualRoutinesSet))) {
+                            if (routinesSet == null || compareRoutineSet(actualRoutinesSet, routinesSet)) {
                                 mRoutines.postValue(actualRoutinesSet);
                                 /*
                                 for (Routine r: actualRoutinesSet) {
@@ -112,6 +119,38 @@ public class FavouritesViewModel extends ViewModel {
                 handleUnexpectedError(t);
             }
         });
+    }
+
+    private boolean compareRoutineSet(Set<Routine> s1, Set<Routine> s2) {
+        List<Routine> s2List = new ArrayList<>(s2);
+        int i = 0;
+        boolean equal;
+        for (Routine r1: s1) {
+            int pos = findRoutine(r1.getId(), s2List);
+            if (pos >= 0) {
+                Routine r2 = s2List.get(pos);
+                Log.d("ROUTINE_COMPARISON", "Comparable 1: " + r1.toString());
+                Log.d("ROUTINE_COMPARISON", "Comparable 2: " + r2.toString());
+                i++;
+                equal = r2.equals(r1);
+                Log.d("ROUTINE_COMPARISON", "Result: " + equal);
+                if (!equal) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private int findRoutine(String routineId, List<Routine> s) {
+        int i = 0;
+        for (Routine r: s) {
+            if (r.getId() != null && r.getId().equals(routineId)) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 
     public void scheduleFetching() {

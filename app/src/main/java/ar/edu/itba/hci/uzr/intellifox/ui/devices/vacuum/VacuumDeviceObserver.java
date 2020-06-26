@@ -102,12 +102,13 @@ public class VacuumDeviceObserver extends DeviceObserver {
             }
 
 
+
             if (status != null && bat != null && mode != null) {
                 String aux;
                 if (h.icon != null) {  //si esta el icono
                     aux = status;
                 } else
-                    aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%";
+                    aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%" + "-" + contextView.getResources().getString(R.string.dev_vacuum_location) + s.getLocation().getName();
                 if (h.description != null) {
                     h.description.setText(aux);
                 }
@@ -137,8 +138,16 @@ public class VacuumDeviceObserver extends DeviceObserver {
             }
 
             if (h.dockBtn != null && s.getStatus() != null) {
-                h.dockBtn.setText((s.getStatus().equals("docked")) ? R.string.dev_vacuum_button_docked : R.string.dev_vacuum_button_dock);
+                //h.dockBtn.setText((s.getStatus().equals("docked")) ? R.string.dev_vacuum_button_docked : R.string.dev_vacuum_button_dock);
+                if (s.getStatus().equals("docked")) {
+                    h.dockBtn.setText(R.string.dev_vacuum_button_docked);
+                } else {
+                    h.dockBtn.setText(R.string.dev_vacuum_button_dock);
+                }
+
             }
+
+
         }
     }
 
@@ -202,7 +211,8 @@ public class VacuumDeviceObserver extends DeviceObserver {
                         VacuumDeviceState s = (VacuumDeviceState) d.getState();
                         if (s != null) {
                             String actionName = DOCK;
-                            ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, new String[0], new Callback<Result<Object>>() {
+                            String[] aux = {};
+                            ApiClient.getInstance().executeDeviceAction(d.getId(), actionName, aux, new Callback<Result<Object>>() {
                                 @Override
                                 public void onResponse(@NonNull Call<Result<Object>> call, @NonNull Response<Result<Object>> response) {
                                     if (response.isSuccessful()) {
@@ -214,6 +224,7 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                             View sbView = snackbar.getView();
                                             sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.primary2));
                                             snackbar.show();
+                                            //Log.d("QUEEE CARAJOOOOOOOOOOOOOOOOOO", );
                                         } else {
                                             handleError(response);
                                         }
@@ -243,8 +254,12 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                 List<Room> actualRoomsList = result.getResult().stream().sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toList());
 
 
-                                Room[] actualRoomsArray = new Room[actualRoomsList.size()];
+                                Room[] actualRoomsArray = new Room[actualRoomsList.size() + 1];
                                 int i = 0;
+                                Room none = new Room();
+                                none.setId("");
+                                none.setName(contextView.getResources().getString(R.string.dev_vacuum_none));
+                                actualRoomsArray[i++] = none;
                                 for (Room r : actualRoomsList) {
                                     actualRoomsArray[i++] = r;
                                 }
@@ -253,19 +268,55 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                         actualRoomsArray);
 
                                 h.spinner.setAdapter(adapter);
+                                h.spinner.setSelection(2);
                                 h.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
                                     @Override
-                                    public void onItemSelected(AdapterView<?> adapterView, View view,
-                                                               int position, long id) {
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                                         // Here you get the current item (a User object) that is selected by its position
                                         Room user = adapter.getItem(position);
+
+
                                         // Here you can do the action you want to...
+
+                                        VacuumDevice d = (VacuumDevice) h.device;
+                                        if (d != null) {
+                                            VacuumDeviceState s = d.getState();
+                                            if (s != null) {
+                                                if(user.getId() != null) {
+                                                    String[] args = {user.getId()};
+                                                    Log.d("cuarto", args[0]);
+                                                    ApiClient.getInstance().executeDeviceAction(d.getId(), "setLocation", args, new Callback<Result<Object>>() {
+                                                        @Override
+                                                        public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
+                                                            if (response.isSuccessful()) {
+                                                                Result<Object> result = response.body();
+                                                                if (result != null) {
+                                                                    Object success = result.getResult();
+                                                                    if (success != null) {
+                                                                        Log.v("ACTION_SUCCESS", success.toString());
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<Result<Object>> call, Throwable t) {
+                                                            handleUnexpectedError(t);
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
+
+
                                         Toast.makeText(contextView.getContext(), "ID: " + user.getId() + "\nName: " + user.getName(),
                                                 Toast.LENGTH_SHORT).show();
                                     }
+
+
                                     @Override
-                                    public void onNothingSelected(AdapterView<?> adapter) {  }
+                                    public void onNothingSelected(AdapterView<?> adapter) {
+                                    }
                                 });
                             }
                         } else {

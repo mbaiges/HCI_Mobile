@@ -29,6 +29,7 @@ import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceArrayAdapter;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.MinimumComparableDevice;
 
 public class DeviceTypesDevicesFragment extends Fragment {
 
@@ -61,14 +62,14 @@ public class DeviceTypesDevicesFragment extends Fragment {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(typeTitle);
         }
         
-        deviceTypesDevicesViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<Device>>() {
+        deviceTypesDevicesViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<MinimumComparableDevice>>() {
             @Override
-            public void onChanged(@Nullable Set<Device> deviceTypesDevices) {
-                if (deviceTypesDevices != null) {
-                    Device[] deviceTypesDevicesArray = new Device[deviceTypesDevices.size()];
+            public void onChanged(@Nullable Set<MinimumComparableDevice> deviceTypesMinimumComparableDevices) {
+                if (deviceTypesMinimumComparableDevices != null) {
+                    Device[] deviceTypesDevicesArray = new Device[deviceTypesMinimumComparableDevices.size()];
                     int i = 0;
-                    for (Device r : deviceTypesDevices) {
-                        deviceTypesDevicesArray[i++] = r;
+                    for (MinimumComparableDevice mcd : deviceTypesMinimumComparableDevices) {
+                        deviceTypesDevicesArray[i++] = mcd.getDevice();
                     }
                     DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), deviceTypesDevicesArray);
                     int orientation = getResources().getConfiguration().orientation;
