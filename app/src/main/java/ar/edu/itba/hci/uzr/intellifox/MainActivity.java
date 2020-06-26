@@ -375,8 +375,12 @@ public class MainActivity extends AppCompatActivity {
                             if (barcodeArray.size() != 0) {
                                 Barcode barcode = barcodeArray.valueAt(0);
                                 processBarcodeScan(barcode.rawValue);
+                            }else{
+//                                Snackbar snackbar = Snackbar.make(contextView, contextView.getResources().getString(R.string.handle_unexpected_error), Snackbar.LENGTH_SHORT);
+//                                View sbView = snackbar.getView();
+//                                sbView.setBackgroundColor(ContextCompat.getColor(contextView.getContext(), R.color.handle_error));
+//                                snackbar.show();
                             }
-                            // Decode the barcode
 
                         } else {
                             //Log.d("RESPUESTAAAAAAAAAAAAAAAAAAAAAAA", "El BITMAP ES NULL");
