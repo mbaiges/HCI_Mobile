@@ -3,18 +3,13 @@ package ar.edu.itba.hci.uzr.intellifox.api;
 import com.google.gson.GsonBuilder;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-import ar.edu.itba.hci.uzr.intellifox.api.Error;
-import ar.edu.itba.hci.uzr.intellifox.api.ErrorResult;
-import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceDeserializer;
-import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.log.DeviceLogRecord;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
@@ -22,7 +17,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.LightDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDeviceState;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerSong;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.speaker_song.SpeakerSong;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
@@ -33,8 +28,6 @@ import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.Path;
 
 public class  ApiClient {
     private Retrofit retrofit = null;

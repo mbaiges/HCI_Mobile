@@ -259,10 +259,13 @@
                 app:layout_constraintStart_toStartOf="@+id/txtVolume"
                 app:layout_constraintTop_toBottomOf="@+id/txtVolume" />
 
-            <TextView
-                android:id="@+id/txtSongs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ListView
+                android:id="@+id/playlist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="2"
                 app:layout_constraintEnd_toEndOf="@+id/btnGetPlaylist"
                 app:layout_constraintStart_toStartOf="@+id/btnGetPlaylist"
                 app:layout_constraintTop_toBottomOf="@+id/btnGetPlaylist" />

@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.uzr.intellifox.api.models.devices;
+package ar.edu.itba.hci.uzr.intellifox.api.models.devices.speaker_song;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

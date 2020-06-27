@@ -2,19 +2,12 @@ package ar.edu.itba.hci.uzr.intellifox.ui.devices.speaker;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.internal.LinkedTreeMap;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
@@ -23,11 +16,9 @@ import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDeviceState;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerSong;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDevice;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.speaker_song.SpeakerSong;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.speaker_song.SpeakerSongArrayAdapter;
 import ar.edu.itba.hci.uzr.intellifox.ui.devices.DeviceObserver;
-import ar.edu.itba.hci.uzr.intellifox.ui.devices.tap.TapDeviceViewHolder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,8 +63,7 @@ public class SpeakerDeviceObserver extends DeviceObserver {
         h.btnVolumeUp = contextView.findViewById(R.id.btnVolumeUp);
 
         h.btnShowPlaylist = contextView.findViewById(R.id.btnGetPlaylist);
-        h.txtSongs = contextView.findViewById(R.id.txtSongs);
-
+        h.playlistView = contextView.findViewById(R.id.playlist);
     }
 
     @Override
@@ -638,19 +628,18 @@ public class SpeakerDeviceObserver extends DeviceObserver {
 
                                         Log.v("HOLA", result.getResult().toString());
 
-                                        List<SpeakerSong> songList = result.getResult();
+                                        List<SpeakerSong> songsList = result.getResult();
+                                        SpeakerSong[] songsArray = new SpeakerSong[songsList.size()];
 
-                                        String listString = "";
-                                        for (SpeakerSong s : songList)
-                                        {
-                                            String aux = s.toString();
-                                            listString += s + "\n";
+                                        int i = 0;
+                                        for (SpeakerSong s : songsList) {
+                                            songsArray[i++] = s;
                                         }
 
-                                        Log.v("SONGS", listString);
-
-                                        h.txtSongs.setText(listString);
-
+                                        SpeakerSongArrayAdapter adapter = new SpeakerSongArrayAdapter(contextView.getContext(), songsArray);
+                                        if (h.playlistView != null) {
+                                            h.playlistView.setAdapter(adapter);
+                                        }
                                     } else {
                                         handleError(response);
                                     }

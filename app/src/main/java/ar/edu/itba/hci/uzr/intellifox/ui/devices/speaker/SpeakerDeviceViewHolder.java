@@ -3,6 +3,7 @@ package ar.edu.itba.hci.uzr.intellifox.ui.devices.speaker;
 import android.media.Image;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -33,4 +34,5 @@ public class SpeakerDeviceViewHolder extends DeviceViewHolder {
     Button btnShowPlaylist;
     TextView txtSongs;
 
+    ListView playlistView;
 }

@@ -68,7 +68,7 @@ public class RoomFragment extends Fragment {
                         }
                         DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), devicesArray);
                         int orientation = getResources().getConfiguration().orientation;
-                        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        if (getContext().getResources().getBoolean(R.bool.isTablet) || orientation == Configuration.ORIENTATION_LANDSCAPE) {
                             // In landscape
                             ((GridView) listView).setAdapter(adapter);
                         } else {

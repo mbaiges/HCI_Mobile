@@ -50,7 +50,7 @@ public class RoutinesFragment extends Fragment {
                     }
                     RoutineArrayAdapter adapter = new RoutineArrayAdapter(getActivity(), root, routinesArray);
                     int orientation = getResources().getConfiguration().orientation;
-                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    if (getContext().getResources().getBoolean(R.bool.isTablet) || orientation == Configuration.ORIENTATION_LANDSCAPE) {
                         // In landscape
                         ((GridView) listView).setAdapter(adapter);
                     } else {

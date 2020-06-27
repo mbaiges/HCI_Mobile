@@ -2,8 +2,6 @@ package ar.edu.itba.hci.uzr.intellifox.api;
 
 import java.util.List;
 
-import ar.edu.itba.hci.uzr.intellifox.api.Result;
-import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.log.DeviceLogRecord;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.AcDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.BlindDeviceState;
@@ -11,7 +9,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.LightDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDeviceState;
-import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerSong;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.speaker_song.SpeakerSong;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;

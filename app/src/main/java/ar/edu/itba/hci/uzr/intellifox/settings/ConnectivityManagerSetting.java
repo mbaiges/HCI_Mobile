@@ -54,7 +54,7 @@ public class ConnectivityManagerSetting {
         try {
             InetAddress ipAddr = InetAddress.getByName("google.com");
             //You can replace it with your name
-            Log.d("MODO ATR", "RECONTRA ATR + " + currentActivity.get().getResources().getBoolean(R.bool.isTablet));
+            //Log.d("MODO ATR", "RECONTRA ATR + " + currentActivity.get().getResources().getBoolean(R.bool.isTablet));
             //Log.v("CM", "alta coneccion con" + ipAddr.toString());
             return !ipAddr.equals("");
 
