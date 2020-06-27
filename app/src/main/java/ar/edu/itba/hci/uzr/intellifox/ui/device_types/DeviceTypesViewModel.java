@@ -31,6 +31,7 @@ import retrofit2.Response;
 
 public class DeviceTypesViewModel extends ViewModel {
 
+    private static final long UPDATE_RATE = 1;
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> fetcherHandler;
@@ -98,7 +99,7 @@ public class DeviceTypesViewModel extends ViewModel {
                 fetchDeviceTypes();
             }
         };
-        fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, 4, 4, TimeUnit.SECONDS);
+        fetcherHandler = scheduler.scheduleAtFixedRate(fetcher, UPDATE_RATE, UPDATE_RATE, TimeUnit.SECONDS);
     }
 
     public void stopFetching() {
@@ -112,11 +113,7 @@ public class DeviceTypesViewModel extends ViewModel {
 
     private <T> void handleError(Response<T> response) {
         Error error = ApiClient.getInstance().getError(response.errorBody());
-        List<String> descList = error.getDescription();
-        String desc = "";
-        if (descList != null) {
-            desc = descList.get(0);
-        }
+        String desc = error.getDescription();
         String code = "Code " + String.valueOf(error.getCode());
         Log.e("ERROR", code + " - " + desc);
         /*

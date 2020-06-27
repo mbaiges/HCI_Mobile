@@ -115,6 +115,12 @@
     <string name="dev_speaker_genre_pop">Pop</string>
     <string name="dev_speaker_genre_rock">Rock</string>
     <string name="dev_speaker_volume">Volumen:</string>
+    <string name="dev_speaker_get_playlist">Mostrar Playlist</string>
+    <string name="dev_speaker_list_title">Titulo:</string>
+    <string name="dev_speaker_list_artist">Artista:</string>
+    <string name="dev_speaker_list_album">Álbum:</string>
+    <string name="dev_speaker_list_duration">Duracion:</string>
+
     <!-- Horno -->
     <string name="dev_oven_status_on">Encendido</string>
     <string name="dev_oven_status_off">Apagado</string>
@@ -283,9 +289,79 @@
 
     <string name="handle_unexpected_error">Ocurrio un error inesperadom, chequee su coneccion a internet.</string>
 
-    <string name="no_connection">no se pudo establecer una coneccion, chequee el estado de su internet.</string>
-    <string name="no_internet">la coneccion establecida no tiene acceso a internet.</string>
+    <string name="no_connection">No se pudo establecer una coneccion, por favor, chequee su internet.</string>
+    <string name="no_internet">La coneccion establecida no tiene acceso a internet.</string>
 
     <string name="handle_qr_error_not_found">QR no encontrado en la foto. Intentelo de nuevo!</string>
+
+    <string name="speech_analyzer_turn_on_path_highlighter">Ilumina camino encendido</string>
+    <string name="speech_analyzer_turn_off_path_highlighter">Ilumina camino apagado</string>
+
+    <string name="speech_analyzer_execute">Ejecutar</string>
+
+    <string name="speech_analyzer_routine">Rutina</string>
+
+    <string name="speech_analyzer_to">a</string>
+
+    <string name="speech_analyzer_over">sobre</string>
+
+    <string name="snackbar_device_action_executed_succesfully">Acción ejecutada con éxito</string>
+
+    <!-- puerta -->
+    <string name="speech_analyzer_door_action_open">Abrir</string>
+    <string name="speech_analyzer_door_action_close">Cerrar</string>
+    <string name="speech_analyzer_door_action_lock">Bloquear</string>
+    <string name="speech_analyzer_door_action_unlock">Desbloquear</string>
+
+    <!-- canilla -->
+    <string name="speech_analyzer_tap_action_open">Abrir</string>
+    <string name="speech_analyzer_tap_action_close">Cerrar</string>
+    <string name="speech_analyzer_tap_action_dispense">Dispensar</string>
+
+    <!-- persiana -->
+    <string name="speech_analyzer_blind_action_open">Abrir</string>
+    <string name="speech_analyzer_blind_action_close">Cerrar</string>
+    <string name="speech_analyzer_blind_action_set_level">Establecer nivel</string>
+
+    <!-- luz -->
+    <string name="speech_analyzer_light_action_turn_on">Encender</string>
+    <string name="speech_analyzer_light_action_turn_off">Apagar</string>
+    <string name="speech_analyzer_light_action_set_color">Establecer color</string>
+    <string name="speech_analyzer_light_action_set_brightness">Establecer brillo</string>
+
+    <!-- aire -->
+    <string name="speech_analyzer_ac_action_turn_on">Encender</string>
+    <string name="speech_analyzer_ac_action_turn_off">Apagar</string>
+    <string name="speech_analyzer_ac_action_set_temperature">Establecer temperatura</string>
+    <string name="speech_analyzer_ac_action_set_vertical_swing">Establecer swing vertical</string>
+    <string name="speech_analyzer_ac_action_set_horizontal_swing">Establecer swing horizontal</string>
+    <string name="speech_analyzer_ac_action_set_fan_speed">Establecer velocidad de ventilador</string>
+    <string name="speech_analyzer_ac_action_set_mode">Establecer modo</string>
+
+    <!-- horno -->
+    <string name="speech_analyzer_oven_action_turn_on">Encender</string>
+    <string name="speech_analyzer_oven_action_turn_off">Apagar</string>
+    <string name="speech_analyzer_oven_action_set_temperature">Establecer temperatura</string>
+    <string name="speech_analyzer_oven_action_set_grill">Establecer grill</string>
+    <string name="speech_analyzer_oven_action_set_heat">Establecer calor</string>
+    <string name="speech_analyzer_oven_action_set_convection">Establecer convección</string>
+
+    <!-- aspiradora -->
+    <string name="speech_analyzer_vacuum_action_start">Activar</string>
+    <string name="speech_analyzer_vacuum_action_pause">Pausar</string>
+    <string name="speech_analyzer_vacuum_action_set_mode">Establecer modo</string>
+    <string name="speech_analyzer_vacuum_action_set_location">Establecer localización</string>
+    <string name="speech_analyzer_vacuum_action_dock">Acoplar</string>
+
+    <!-- parlante -->
+    <string name="speech_analyzer_speaker_action_play">Reproducir</string>
+    <string name="speech_analyzer_speaker_action_stop">Parar</string>
+    <string name="speech_analyzer_speaker_action_set_volume">Establecer volumen</string>
+    <string name="speech_analyzer_speaker_action_pause">Pausar</string>
+    <string name="speech_analyzer_speaker_action_resume">Resumir</string>
+    <string name="speech_analyzer_speaker_action_next_song">Siguiente canción</string>
+    <string name="speech_analyzer_speaker_action_previous_song">Anterior canción</string>
+    <string name="speech_analyzer_speaker_action_set_genre">Establecer genero</string>
+    <string name="speech_analyzer_speaker_action_get_playlist">Obtener lista de reproducción</string>
 
 </resources>

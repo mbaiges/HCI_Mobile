@@ -168,12 +168,15 @@ public class RoutineArrayAdapter extends ArrayAdapter<Routine> {
     }
 
     protected <T> void handleError(Response<T> response) {
+
+        Snackbar snackbar = Snackbar.make(rootView, rootView.getResources().getString(R.string.handle_unexpected_error), Snackbar.LENGTH_SHORT);
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(ContextCompat.getColor(rootView.getContext(), R.color.handle_error));
+        snackbar.show();
+
         Error error = ApiClient.getInstance().getError(response.errorBody());
-        List<String> descList = error.getDescription();
-        String desc = "";
-        if (descList != null) {
-            desc = descList.get(0);
-        }
+        String desc = error.getDescription();
+
         String code = "Code " + String.valueOf(error.getCode());
         Log.e("ERROR", code + " - " + desc);
         /*

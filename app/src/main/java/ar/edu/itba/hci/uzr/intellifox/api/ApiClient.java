@@ -22,6 +22,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.devices.DoorDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.LightDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.OvenDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerDeviceState;
+import ar.edu.itba.hci.uzr.intellifox.api.models.devices.SpeakerSong;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.TapDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.devices.VacuumDeviceState;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
@@ -32,6 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Path;
 
 public class  ApiClient {
@@ -202,6 +204,12 @@ public class  ApiClient {
     }
     public Call<Result<AcDeviceState>> getAcDeviceState(String deviceId, Callback<Result<AcDeviceState>> callback) {
         Call<Result<AcDeviceState>> call = this.service.getAcDeviceState(deviceId);
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Call<Result<List<SpeakerSong>>> executeGetSpeakerPlaylist(String deviceId, String[] params, Callback<Result<List<SpeakerSong>>> callback) {
+        Call<Result<List<SpeakerSong>>> call = this.service.executeGetSpeakerPlaylist(deviceId, params);
         call.enqueue(callback);
         return call;
     }

@@ -69,13 +69,9 @@ public class HistoryFragment extends Fragment {
         return root;
     }
 
-    protected <T> void handleError(Response<T> response) {
+    private <T> void handleError(Response<T> response) {
         Error error = ApiClient.getInstance().getError(response.errorBody());
-        List<String> descList = error.getDescription();
-        String desc = "";
-        if (descList != null) {
-            desc = descList.get(0);
-        }
+        String desc = error.getDescription();
         String code = "Code " + String.valueOf(error.getCode());
         Log.e("ERROR", code + " - " + desc);
         /*

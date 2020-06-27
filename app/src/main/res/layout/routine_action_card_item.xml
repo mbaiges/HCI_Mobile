@@ -20,36 +20,36 @@
             android:backgroundTint="@color/background2">
 
             <TextView
-                android:id="@+id/deviceName"
+                android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="DeviceName"
-                app:layout_constraintStart_toStartOf="@+id/actionName"
+                app:layout_constraintStart_toStartOf="@+id/txtAlbum"
                 app:layout_constraintTop_toTopOf="@+id/icon" />
 
             <TextView
-                android:id="@+id/actionName"
+                android:id="@+id/txtAlbum"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="ActionName"
-                app:layout_constraintEnd_toStartOf="@+id/params"
+                app:layout_constraintEnd_toStartOf="@+id/txtAlbumContent"
                 app:layout_constraintStart_toEndOf="@+id/icon"
-                app:layout_constraintTop_toBottomOf="@+id/deviceName" />
+                app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
             <TextView
-                android:id="@+id/params"
+                android:id="@+id/txtAlbumContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:maxLength="20"
                 android:text="Params"
-                app:layout_constraintBottom_toBottomOf="@+id/actionName"
+                app:layout_constraintBottom_toBottomOf="@+id/txtAlbum"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/actionName" />
+                app:layout_constraintTop_toTopOf="@+id/txtAlbum" />
 
             <ImageView
                 android:id="@+id/icon"
