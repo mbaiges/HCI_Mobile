@@ -43,22 +43,28 @@
 
             <TextView
                 android:id="@+id/txtAlbumContent"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:maxLength="20"
                 android:text="content"
                 app:layout_constraintBottom_toBottomOf="@+id/txtAlbum"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/txtAlbum"
                 app:layout_constraintTop_toTopOf="@+id/txtAlbum" />
 
             <TextView
                 android:id="@+id/txtTitleContent"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="left"
                 android:text="content"
+                android:textAlignment="gravity"
                 app:layout_constraintBottom_toBottomOf="@+id/txtTitle"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/txtTitle"
                 app:layout_constraintTop_toTopOf="@+id/txtTitle" />
 
@@ -84,21 +90,25 @@
 
             <TextView
                 android:id="@+id/txtArtistContent"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="content"
                 app:layout_constraintBottom_toBottomOf="@+id/txtArtist"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/txtArtist"
                 app:layout_constraintTop_toTopOf="@+id/txtArtist" />
 
             <TextView
                 android:id="@+id/txtDurationContent"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="content"
                 app:layout_constraintBottom_toBottomOf="@+id/txtDuration"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/txtDuration"
                 app:layout_constraintTop_toTopOf="@+id/txtDuration" />
 
