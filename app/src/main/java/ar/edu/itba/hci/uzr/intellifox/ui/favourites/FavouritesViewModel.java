@@ -130,11 +130,11 @@ public class FavouritesViewModel extends ViewModel {
             int pos = findRoutine(r1.getId(), s2List);
             if (pos >= 0) {
                 Routine r2 = s2List.get(pos);
-                Log.d("ROUTINE_COMPARISON", "Comparable 1: " + r1.toString());
-                Log.d("ROUTINE_COMPARISON", "Comparable 2: " + r2.toString());
+                //Log.d("ROUTINE_COMPARISON", "Comparable 1: " + r1.toString());
+                //Log.d("ROUTINE_COMPARISON", "Comparable 2: " + r2.toString());
                 i++;
                 equal = r2.equals(r1);
-                Log.d("ROUTINE_COMPARISON", "Result: " + equal);
+                //Log.d("ROUTINE_COMPARISON", "Result: " + equal);
                 if (!equal) {
                     return false;
                 }
