@@ -21,6 +21,7 @@ import ar.edu.itba.hci.uzr.intellifox.api.Error;
 import ar.edu.itba.hci.uzr.intellifox.api.Result;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.MinimumComparableDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +33,7 @@ public class RoomViewModel extends ViewModel {
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> fetcherHandler;
-    private MutableLiveData<Set<Device>> mDevices;
+    private MutableLiveData<Set<MinimumComparableDevice>> mDevices;
     private MutableLiveData<Room> mRoom;
     private String roomId;
 
@@ -50,7 +51,7 @@ public class RoomViewModel extends ViewModel {
         scheduleFetching();
     }
 
-    public LiveData<Set<Device>> getDevices() {
+    public LiveData<Set<MinimumComparableDevice>> getDevices() {
         return mDevices;
     }
 
@@ -65,11 +66,16 @@ public class RoomViewModel extends ViewModel {
                     if (result != null) {
                         List<Device> comingDevicesList = result.getResult();
                         if (comingDevicesList != null) {
-                            Set<Device> actualDevicesSet = comingDevicesList.stream().filter(d -> d.getRoom() != null && d.getRoom().getId().equals(roomId)).sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
-                            Set<Device> devicesSet = mDevices.getValue();
+                            Set<MinimumComparableDevice> actualDevicesSet = comingDevicesList.stream().filter(d -> d != null && d.getRoom() != null && d.getRoom().getId() != null && d.getRoom().getId().equals(roomId)).sorted((a, b) -> a.getName().compareTo(b.getName())).map(MinimumComparableDevice::new).collect(Collectors.toCollection(LinkedHashSet::new));
+                            Set<MinimumComparableDevice> devicesSet = mDevices.getValue();
 
                             if (devicesSet == null || !devicesSet.equals(actualDevicesSet)) {
                                 mDevices.postValue(actualDevicesSet);
+                                /*
+                                for(Device d: actualDevicesSet) {
+                                    Log.v("DEVICE_TYPE_DEVICE", d.toString());
+                                }
+                                */
                             }
                         }
                     } else {

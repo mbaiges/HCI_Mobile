@@ -27,6 +27,7 @@ import java.util.Set;
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.Device;
 import ar.edu.itba.hci.uzr.intellifox.api.models.device.DeviceArrayAdapter;
+import ar.edu.itba.hci.uzr.intellifox.api.models.device.MinimumComparableDevice;
 import ar.edu.itba.hci.uzr.intellifox.api.models.room.Room;
 
 
@@ -54,17 +55,17 @@ public class RoomFragment extends Fragment {
         }
 
         if (roomId != null) {
-            roomViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<Device>>() {
+            roomViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<Set<MinimumComparableDevice>>() {
                 @Override
-                public void onChanged(@Nullable Set<Device> devices) {
+                public void onChanged(@Nullable Set<MinimumComparableDevice> devices) {
                     if (devices != null) {
                         if (noDevicesText != null) {
                             noDevicesText.setVisibility((devices.size() > 0)?View.INVISIBLE : View.VISIBLE);
                         }
                         Device[] devicesArray = new Device[devices.size()];
                         int i = 0;
-                        for (Device r : devices) {
-                            devicesArray[i++] = r;
+                        for (MinimumComparableDevice r : devices) {
+                            devicesArray[i++] = r.getDevice();
                         }
                         DeviceArrayAdapter adapter = new DeviceArrayAdapter(getActivity(), devicesArray);
                         int orientation = getResources().getConfiguration().orientation;
