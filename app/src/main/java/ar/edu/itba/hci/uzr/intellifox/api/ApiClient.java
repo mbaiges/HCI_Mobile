@@ -35,7 +35,22 @@ public class  ApiClient {
     private static ApiClient instance = null;
     // Use IP 10.0.2.2 instead of 127.0.0.1 when running Android emulator in the
     // same computer that runs the API.
-    private final String BaseURL = "http://10.0.2.2:8080/api/";
+    private String BaseURL = "http://10.0.2.2:8080/api/";
+
+    public void setBaseURL(String baseURL) {
+        BaseURL = baseURL;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+
+        gsonBuilder.registerTypeAdapter(Device.class, new DeviceDeserializer());
+        Gson gson = gsonBuilder.create();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BaseURL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        this.service = retrofit.create(ApiService.class);
+    }
 
     private ApiClient() {
         GsonBuilder gsonBuilder = new GsonBuilder();

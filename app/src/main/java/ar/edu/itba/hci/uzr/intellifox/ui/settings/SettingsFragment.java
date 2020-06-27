@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -25,11 +27,14 @@ import androidx.lifecycle.ViewModelProviders;
 import java.util.Locale;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
+import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
 import ar.edu.itba.hci.uzr.intellifox.settings.SharedPreferencesSetting;
 
 public class SettingsFragment extends Fragment {
 
     private Switch nightModeSwitch;
+    private EditText editText;
+    private Button editButton;
     private Switch languageSwitch;
     public static final String MyPREFERENCES = "nightModePrefs";
     public static final String KEY_ISNIGHTMODE = "isNightMode";
@@ -58,6 +63,22 @@ public class SettingsFragment extends Fragment {
                 SaveNightModeState(isChecked);
             }
         });
+
+        editText = root.findViewById(R.id.editTextTextPersonName);
+        if (editText != null) {
+            editButton = root.findViewById(R.id.button2);
+            if (editButton != null) {
+                editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String newAddress = editText.getText().toString();
+                        Log.d("ADDRESS_CHANGED", newAddress);
+                        ApiClient.getInstance().setBaseURL(newAddress);
+                    }
+                });
+            }
+        }
+
 
         return root;
     }
