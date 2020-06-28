@@ -77,8 +77,7 @@ public class MinimumComparableDevice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MinimumComparableDevice that = (MinimumComparableDevice) o;
-        return Objects.equals(device, that.device) &&
-                Objects.equals(deviceId, that.deviceId) &&
+        return  Objects.equals(deviceId, that.deviceId) &&
                 Objects.equals(deviceName, that.deviceName) &&
                 Objects.equals(status, that.status) &&
                 Objects.equals(lightColor, that.lightColor);
@@ -86,6 +85,6 @@ public class MinimumComparableDevice {
 
     @Override
     public int hashCode() {
-        return Objects.hash(device, deviceId, deviceName, status, lightColor);
+        return Objects.hash(deviceId, deviceName, status, lightColor);
     }
 }
