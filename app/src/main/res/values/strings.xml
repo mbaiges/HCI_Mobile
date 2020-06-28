@@ -288,6 +288,7 @@
 
     <string name="no_connection">An internet connection couldn\'t be established, please check connectivity</string>
     <string name="no_internet">The established connections has no access to internet.</string>
+    <string name="connection_restored">The connection was restored!</string>
 
     <string name="speech_analyzer_turn_on_path_highlighter">Highlight path on</string>
     <string name="speech_analyzer_turn_off_path_highlighter">Highlight path off</string>

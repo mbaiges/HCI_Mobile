@@ -17,6 +17,7 @@
     <color name="error">#12B7C2</color>
     <color name="handle_error">#FF0000</color>
     <color name="handle_not_found_error">#FFE042</color>
+    <color name="connection_restored">#4bdb4f</color>
     <color name="warning">#FFAE42</color>
     <color name="warning_text">#050505</color>
     <color name="navBarActivated">#e4e3e5</color>

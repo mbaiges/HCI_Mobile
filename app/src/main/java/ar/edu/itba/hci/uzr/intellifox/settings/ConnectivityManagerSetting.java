@@ -25,6 +25,7 @@ public class ConnectivityManagerSetting {
     private static ConnectivityManager cm;
     private static ConnectivityManagerSetting instance;
     private static boolean isItTheFirstTimeWeAreShowingTheMessage;
+    private Snackbar snackbar;
 
     private ConnectivityManagerSetting(){
 
@@ -77,11 +78,35 @@ public class ConnectivityManagerSetting {
         }
     }
 
+    public void attemptRestore(){
+        if(!isItTheFirstTimeWeAreShowingTheMessage){
+            displayConnectionRestoredMessage();
+            isItTheFirstTimeWeAreShowingTheMessage = true;
+        }
+    }
+
+    private void displayConnectionRestoredMessage(){
+        AppCompatActivity auxActivity = currentActivity.get();
+        if(auxActivity != null){
+            View parentLayout = auxActivity.findViewById(android.R.id.content);
+            snackbar = Snackbar.make(parentLayout, auxActivity.getApplicationContext().getResources().getString(R.string.connection_restored), Snackbar.LENGTH_LONG);
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(ContextCompat.getColor(auxActivity.getApplicationContext(), R.color.connection_restored));
+
+            TextView textView = (TextView)sbView.findViewById(com.google.android.material.R.id.snackbar_text);
+            textView.setTextColor(auxActivity.getResources().getColor(R.color.warning_text, null));
+            textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_tick, 0, 0, 0);
+            textView.setCompoundDrawablePadding(auxActivity.getResources().getDimensionPixelOffset(R.dimen.snackbar_icon_padding));
+
+            snackbar.show();
+        }
+    }
+
     private void displayConnectionErrorMessage(Integer msgResource){
         AppCompatActivity auxActivity = currentActivity.get();
         if(auxActivity != null){
             View parentLayout = auxActivity.findViewById(android.R.id.content);
-            Snackbar snackbar = Snackbar.make(parentLayout, auxActivity.getApplicationContext().getResources().getString(msgResource), Snackbar.LENGTH_INDEFINITE);
+            snackbar = Snackbar.make(parentLayout, auxActivity.getApplicationContext().getResources().getString(msgResource), Snackbar.LENGTH_INDEFINITE);
             View sbView = snackbar.getView();
             sbView.setBackgroundColor(ContextCompat.getColor(auxActivity.getApplicationContext(), R.color.warning));
             snackbar.setActionTextColor(auxActivity.getResources().getColor(R.color.warning_text, null));
