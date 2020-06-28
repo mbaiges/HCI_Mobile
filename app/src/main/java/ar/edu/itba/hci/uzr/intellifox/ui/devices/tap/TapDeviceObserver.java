@@ -84,9 +84,9 @@ public class TapDeviceObserver extends DeviceObserver {
             TapDeviceViewHolder h = (TapDeviceViewHolder) holder;
 
 
-            if(state.getStatus().equals("closed")){
+            if (state.getStatus().equals("closed")) {
                 h.onSwitch.setChecked(false);
-            }else{
+            } else {
                 h.onSwitch.setChecked(true);
             }
 
@@ -94,17 +94,17 @@ public class TapDeviceObserver extends DeviceObserver {
 
             if (h.txtDispensing != null && h.progBarLoading != null && h.progBarDispensing != null && h.btnDispence != null) {
 
-                if(s.getQuantity() != null){
+                if (s.getQuantity() != null) {
                     h.txtDispensing.setVisibility(View.VISIBLE);
                     h.progBarLoading.setVisibility(View.VISIBLE);
                     h.progBarDispensing.setVisibility(View.VISIBLE);
                     h.btnDispence.setEnabled(false);
                     h.btnDispence.setAlpha(.5f);
                     h.btnDispence.setText(contextView.getResources().getString(R.string.dev_tap_button_dispense_off));
-                    h.progBarDispensing.setMax(Integer.parseInt(s.getQuantity())*100);
-                    h.progBarDispensing.setProgress((int)(s.getDispensedQuantity()*100));
+                    h.progBarDispensing.setMax(Integer.parseInt(s.getQuantity()) * 100);
+                    h.progBarDispensing.setProgress((int) (s.getDispensedQuantity() * 100));
                     //Log.v("PROGRESS", String.valueOf((int)(s.getDispensedQuantity()*100)));
-                }else {
+                } else {
                     h.txtDispensing.setVisibility(View.INVISIBLE);
                     h.progBarDispensing.setVisibility(View.INVISIBLE);
                     h.progBarLoading.setVisibility(View.INVISIBLE);
@@ -114,19 +114,21 @@ public class TapDeviceObserver extends DeviceObserver {
                 }
             }
 
-            if(h.btnL != null){
+            if (h.btnL != null) {
                 clearSelections();
                 h.btnL.setChecked(true);
             }
 
-            if( !state.getStatus().equals("closed") || h.amount.getText().toString().equals("") ){
-                Log.v("TAP", "switch:" + state.getStatus().equals("closed") + ", ammount:" + h.amount.getText().toString());
-                h.btnDispence.setEnabled(false);
-                h.btnDispence.setAlpha(.5f);
-            }else{
-                Log.v("TAP", "switch:" + state.getStatus().equals("closed") + ", ammount:" + h.amount.getText().toString());
-                h.btnDispence.setEnabled(true);
-                h.btnDispence.setAlpha(1);
+            if (h.amount != null) {
+                if (!state.getStatus().equals("closed") || h.amount.getText().toString().equals("")) {
+                    Log.v("TAP", "switch:" + state.getStatus().equals("closed") + ", ammount:" + h.amount.getText().toString());
+                    h.btnDispence.setEnabled(false);
+                    h.btnDispence.setAlpha(.5f);
+                } else {
+                    Log.v("TAP", "switch:" + state.getStatus().equals("closed") + ", ammount:" + h.amount.getText().toString());
+                    h.btnDispence.setEnabled(true);
+                    h.btnDispence.setAlpha(1);
+                }
             }
         }
     }
