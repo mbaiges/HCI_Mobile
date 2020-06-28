@@ -298,11 +298,8 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                 h.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                                        // Here you get the current item (a User object) that is selected by its position
                                         Room user = adapter.getItem(position);
 
-
-                                        // Here you can do the action you want to...
 
                                         VacuumDevice d = (VacuumDevice) h.device;
                                         if (d != null) {

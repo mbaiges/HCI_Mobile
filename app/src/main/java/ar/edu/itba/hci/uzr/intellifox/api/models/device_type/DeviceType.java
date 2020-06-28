@@ -13,9 +13,9 @@ public class DeviceType {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("powerUasge")
+    @SerializedName("powerUsage")
     @Expose
-    private String powerUasge;
+    private Double powerUsage;
 
     public DeviceType() {
     }
@@ -45,6 +45,14 @@ public class DeviceType {
         this.name = name;
     }
 
+    public Double getPowerUsage() {
+        return powerUsage;
+    }
+
+    public void setPowerUsage(Double powerUsage) {
+        this.powerUsage = powerUsage;
+    }
+
     @Override
     public String toString() {
         return "DeviceType{" +
@@ -60,11 +68,11 @@ public class DeviceType {
         DeviceType that = (DeviceType) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(powerUasge, that.powerUasge);
+                Objects.equals(powerUsage, that.powerUsage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, powerUasge);
+        return Objects.hash(id, name, powerUsage);
     }
 }

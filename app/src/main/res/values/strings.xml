@@ -364,4 +364,15 @@
     <string name="speech_analyzer_speaker_action_previous_song">Previous song</string>
     <string name="speech_analyzer_speaker_action_set_genre">Set genre</string>
     <string name="speech_analyzer_speaker_action_get_playlist">Get playlist</string>
+
+
+    <!-- electrical consumption -->
+
+    <string name="electrical_cons_total_cons">Total Consumption: %1$.2f Watts</string>
+    <string name="electrical_cons_pie_chart_title">Consumption (Watts) per device type</string>
+    <string name="electrical_cons_select_period">Select period:</string>
+    <string name="electrical_cons_select_period_day">Day</string>
+    <string name="electrical_cons_select_period_week">Week</string>
+    <string name="electrical_cons_select_period_month">Month</string>
+    <string name="electrical_cons_select_period_year">Year</string>
 </resources>

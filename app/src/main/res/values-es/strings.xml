@@ -364,4 +364,13 @@
     <string name="speech_analyzer_speaker_action_set_genre">Establecer genero</string>
     <string name="speech_analyzer_speaker_action_get_playlist">Obtener lista de reproducción</string>
 
+    <!-- electrical consumption -->
+
+    <string name="electrical_cons_total_cons">Consumo Total: %1$.2f Watts</string>
+    <string name="electrical_cons_pie_chart_title">Consumo (Watts) por tipo de dispositivo</string>
+    <string name="electrical_cons_select_period">Seleccione el período:</string>
+    <string name="electrical_cons_select_period_day">Día</string>
+    <string name="electrical_cons_select_period_week">Semana</string>
+    <string name="electrical_cons_select_period_month">Mes</string>
+    <string name="electrical_cons_select_period_year">Año</string>
 </resources>
