@@ -302,7 +302,11 @@
 
     <string name="speech_analyzer_over">sobre</string>
 
+    <string name="handle_speech_analyzer_missing_execute">Comando no entendido. Para ejecutar un comando, debes comenzar diciendo la palabra ejecutar.</string>
+
     <string name="snackbar_device_action_executed_succesfully">Acción ejecutada con éxito</string>
+
+    <string name="handle_speech_analyzer_couldnt_recognize_command">El comando no fue identificado. Por favor, vuelva  a intentar.</string>
 
     <!-- puerta -->
     <string name="speech_analyzer_door_action_open">Abrir</string>
