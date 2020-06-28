@@ -1,8 +1,6 @@
 package ar.edu.itba.hci.uzr.intellifox.speech_analyzer;
 
-import android.content.Context;
 import android.content.res.Resources;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -10,17 +8,13 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.common.api.Api;
-import com.google.android.gms.common.util.Strings;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.InvocationTargetException;
 import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import ar.edu.itba.hci.uzr.intellifox.R;
 import ar.edu.itba.hci.uzr.intellifox.api.ApiClient;
@@ -55,8 +49,8 @@ import ar.edu.itba.hci.uzr.intellifox.api.models.commands.speaker.NextSongSpeake
 import ar.edu.itba.hci.uzr.intellifox.api.models.commands.speaker.PreviousSongSpeakerCommand;
 import ar.edu.itba.hci.uzr.intellifox.api.models.commands.speaker.SetGenreSpeakerCommand;
 import ar.edu.itba.hci.uzr.intellifox.api.models.commands.speaker.SetVolumeSpeakerCommand;
-import ar.edu.itba.hci.uzr.intellifox.api.models.commands.speaker.TurnOffSpeakerCommand;
-import ar.edu.itba.hci.uzr.intellifox.api.models.commands.speaker.TurnOnSpeakerCommand;
+import ar.edu.itba.hci.uzr.intellifox.api.models.commands.speaker.StopSpeakerCommand;
+import ar.edu.itba.hci.uzr.intellifox.api.models.commands.speaker.PlaySpeakerCommand;
 import ar.edu.itba.hci.uzr.intellifox.api.models.commands.tap.CloseTapCommand;
 import ar.edu.itba.hci.uzr.intellifox.api.models.commands.tap.DispenseTapCommand;
 import ar.edu.itba.hci.uzr.intellifox.api.models.commands.tap.OpenTapCommand;
@@ -290,8 +284,8 @@ public class CommandExecutorTask extends AsyncTask<Void, Void, Void> {
                     put(R.string.speech_analyzer_speaker_action_previous_song, PreviousSongSpeakerCommand.class);
                     put(R.string.speech_analyzer_speaker_action_set_genre, SetGenreSpeakerCommand.class);
                     put(R.string.speech_analyzer_speaker_action_set_volume, SetVolumeSpeakerCommand.class);
-                    put(R.string.speech_analyzer_speaker_action_stop, TurnOffSpeakerCommand.class);
-                    put(R.string.speech_analyzer_speaker_action_play, TurnOnSpeakerCommand.class);
+                    put(R.string.speech_analyzer_speaker_action_stop, StopSpeakerCommand.class);
+                    put(R.string.speech_analyzer_speaker_action_play, PlaySpeakerCommand.class);
 
                 }});
                 put("vacuum", new HashMap<Integer, Class>() {{
