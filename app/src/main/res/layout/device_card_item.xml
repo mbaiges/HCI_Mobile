@@ -27,8 +27,8 @@
 
             <ImageView
                 android:id="@+id/icon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="77dp"
+                android:layout_height="76dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_circle"
@@ -37,11 +37,14 @@
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="24dp"
+                android:maxLength="13"
                 android:text="DeviceName"
+                app:layout_constraintEnd_toStartOf="@+id/favourite"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/icon"
                 app:layout_constraintTop_toTopOf="parent" />
 

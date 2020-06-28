@@ -40,6 +40,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -68,6 +69,7 @@ public class ElectricalConsFragment extends Fragment {
     private TextView totalConsTextView;
     private Spinner periodSpinner;
     private Map<String, Pair<Integer, Integer>> typeInfo;
+    private View root;
 
     private int days = 1;
 
@@ -76,7 +78,7 @@ public class ElectricalConsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_electrical_cons, container, false);
+        root = inflater.inflate(R.layout.fragment_electrical_cons, container, false);
 
         pieChart = root.findViewById(R.id.pieChart);
         totalConsTextView = root.findViewById(R.id.totalCons);
@@ -106,56 +108,13 @@ public class ElectricalConsFragment extends Fragment {
                     ViewModelProviders.of(this).get(ElectricalConsViewModel.class);
             electricalConsViewModel.search(days);
 
+            displayPieEntries(new LinkedList<>());
+
             electricalConsViewModel.getElectricalInfoRecords().observe(getViewLifecycleOwner(), new Observer<List<ElectricalInfoRecord>>() {
                 @Override
                 public void onChanged(@Nullable List<ElectricalInfoRecord> electricalInfoRecordsList) {
                     if (electricalInfoRecordsList != null) {
-                        Map<String, Double> consumptionsPerType =
-                                electricalInfoRecordsList.stream()
-                                    .collect(Collectors.groupingBy(ElectricalInfoRecord::getDeviceTypeName,
-                                            Collectors.summingDouble(e -> e.getHours() * e.getWattagePerHour())));
-
-                        List<PieEntry> pieEntries = consumptionsPerType.entrySet().stream().filter(e -> e.getValue() > 0.0).map(c -> new PieEntry((float)((double) c.getValue()), root.getContext().getResources().getString(Objects.requireNonNull(typeInfo.get(c.getKey())).first))).collect(Collectors.toList());
-
-                        Optional<Double> op = consumptionsPerType.values().stream().reduce(Double::sum);
-                        if (op.isPresent()) {
-                            if (totalConsTextView != null) {
-                                totalConsTextView.setText(getString(R.string.electrical_cons_total_cons, BigDecimal.valueOf(op.get()).setScale(2, RoundingMode.UP).floatValue() ));
-                            }
-                        }
-
-                        PieDataSet pieDataSet = new PieDataSet(pieEntries, null);;
-                        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-                        pieDataSet.setValueTextColor(Color.BLACK);
-                        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
-                        pieDataSet.setValueLinePart1Length(1f);
-                        pieDataSet.setValueLinePart2Length(.2f);
-                        pieDataSet.setValueTextColor(Color.BLACK);
-                        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-
-                        PieData pieData = new PieData(pieDataSet);
-                        pieChart.setData(pieData);
-
-                        pieChart.setDrawEntryLabels(false);
-                        pieChart.getDescription().setEnabled(false);
-                        pieChart.setHoleRadius(30f);
-                        pieChart.setTransparentCircleAlpha(64);
-                        pieChart.setTransparentCircleRadius(35f);
-                        pieChart.setHoleColor(ContextCompat.getColor(root.getContext(), R.color.background2));
-
-                        Legend legend = pieChart.getLegend();
-
-                        legend.setTextColor(ContextCompat.getColor(root.getContext(), R.color.text));
-
-                        legend.setXEntrySpace(7f);
-                        legend.setYEntrySpace(0f);
-                        legend.setYOffset(0f);
-                        legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
-                        legend.setWordWrapEnabled(true);
-
-                        pieChart.animateXY(5000, 5000);
-                        pieChart.invalidate();
+                        displayPieEntries(electricalInfoRecordsList);
                     }
                 }
             });
@@ -190,5 +149,59 @@ public class ElectricalConsFragment extends Fragment {
         }
 
         return root;
+    }
+
+    private void displayPieEntries(List<ElectricalInfoRecord> electricalInfoRecordsList) {
+        Map<String, Double> consumptionsPerType =
+                electricalInfoRecordsList.stream()
+                        .collect(Collectors.groupingBy(ElectricalInfoRecord::getDeviceTypeName,
+                                Collectors.summingDouble(e -> e.getHours() * e.getWattagePerHour())));
+
+        List<PieEntry> pieEntries = consumptionsPerType.entrySet().stream().filter(e -> e.getValue() > 0.0).map(c -> new PieEntry((float)((double) c.getValue()), root.getContext().getResources().getString(Objects.requireNonNull(typeInfo.get(c.getKey())).first))).collect(Collectors.toList());
+
+        Optional<Double> op = consumptionsPerType.values().stream().reduce(Double::sum);
+        if (totalConsTextView != null) {
+            if (op.isPresent()) {
+                totalConsTextView.setText(getString(R.string.electrical_cons_total_cons, BigDecimal.valueOf(op.get()).setScale(2, RoundingMode.UP).floatValue() ));
+            }
+            else {
+                totalConsTextView.setText(getString(R.string.electrical_cons_total_cons, BigDecimal.valueOf(0.0).setScale(2, RoundingMode.UP).floatValue() ));
+            }
+        }
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, null);;
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        pieDataSet.setValueTextColor(Color.BLACK);
+        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
+        pieDataSet.setValueLinePart1Length(1f);
+        pieDataSet.setValueLinePart2Length(.2f);
+        pieDataSet.setValueTextColor(Color.BLACK);
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+
+        PieData pieData = new PieData(pieDataSet);
+        pieData.setValueTextSize(14f);
+
+        pieChart.setData(pieData);
+
+        pieChart.setDrawEntryLabels(false);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setHoleRadius(30f);
+        pieChart.setTransparentCircleAlpha(64);
+        pieChart.setTransparentCircleRadius(35f);
+        pieChart.setHoleColor(ContextCompat.getColor(root.getContext(), R.color.background2));
+
+        Legend legend = pieChart.getLegend();
+
+        legend.setTextColor(ContextCompat.getColor(root.getContext(), R.color.text));
+
+        legend.setXEntrySpace(7f);
+        legend.setYEntrySpace(0f);
+        legend.setYOffset(0f);
+        legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
+        legend.setWordWrapEnabled(true);
+
+        pieChart.animateXY(5000, 5000);
+        pieChart.invalidate();
     }
 }
