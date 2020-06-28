@@ -40,8 +40,8 @@ public class ElectricalConsViewModel extends ViewModel {
 
     static private DateTimeFormatter formatter;
     private Integer amount_of_days = 1;
-    private final int STARTING_AMOUNT_OF_LOGS = 100;
-    private final int INCREMENT_LOGS = 100;
+    private final int STARTING_AMOUNT_OF_LOGS = 200;
+    private final int INCREMENT_LOGS = 200;
     private int logs_to_fetch;
     private DateTime todaysDate, minDate;
     private static Map<String, Pair<String, String>> deviceTurnActions;

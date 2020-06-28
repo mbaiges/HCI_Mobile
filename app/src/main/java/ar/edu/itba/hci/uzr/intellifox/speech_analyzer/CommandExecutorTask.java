@@ -1,9 +1,11 @@
 package ar.edu.itba.hci.uzr.intellifox.speech_analyzer;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -173,6 +175,22 @@ public class CommandExecutorTask extends AsyncTask<Void, Void, Void> {
                 }
             }
         }
+        else {
+            if (currentActivity != null) {
+                Activity activity = currentActivity.get();
+                if (activity != null) {
+                    View parentLayout = activity.findViewById(android.R.id.content);
+                    Snackbar snackbar = Snackbar.make(parentLayout, parentLayout.getContext().getResources().getString(R.string.handle_speech_analyzer_missing_execute), Snackbar.LENGTH_SHORT);
+                    View sbView = snackbar.getView();
+                    sbView.setBackgroundColor(ContextCompat.getColor(parentLayout.getContext(), R.color.warning));
+
+                    TextView textView = (TextView)sbView.findViewById(com.google.android.material.R.id.snackbar_text);
+                    textView.setTextColor(activity.getResources().getColor(R.color.warning_text, null));
+
+                    snackbar.show();
+                }
+            }
+        }
     }
 
     private void findAndExecuteDeviceNamed(String deviceName, String actionName, String[] args) {
@@ -326,6 +344,15 @@ public class CommandExecutorTask extends AsyncTask<Void, Void, Void> {
                             }
                         }
                     }
+                    View parentLayout = activity.findViewById(android.R.id.content);
+                    Snackbar snackbar = Snackbar.make(parentLayout, parentLayout.getContext().getResources().getString(R.string.handle_speech_analyzer_couldnt_recognize_command), Snackbar.LENGTH_SHORT);
+                    View sbView = snackbar.getView();
+                    sbView.setBackgroundColor(ContextCompat.getColor(parentLayout.getContext(), R.color.warning));
+
+                    TextView textView = (TextView)sbView.findViewById(com.google.android.material.R.id.snackbar_text);
+                    textView.setTextColor(activity.getResources().getColor(R.color.warning_text, null));
+
+                    snackbar.show();
                 }
             }
         }
