@@ -345,10 +345,6 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                                 }
                                             }
                                         }
-
-
-                                        Toast.makeText(contextView.getContext(), "ID: " + room.getId() + "\nName: " + room.getName(),
-                                                Toast.LENGTH_SHORT).show();
                                     }
 
 
