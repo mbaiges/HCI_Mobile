@@ -459,15 +459,15 @@ public class MainActivity extends AppCompatActivity {
     private void waitUntilBarcodeDetectorIsOperational(BarcodeDetector detector, int retries) {
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Log.d(TAG, "Waiting for barcode detector to be operational...");
+            //Log.d(TAG, "Waiting for barcode detector to be operational...");
             if (retries > 0) {
                 if(detector.isOperational()) {
-                    Log.v("BARCODE DETECTOR", "LLego a ser operacional");
+                    //Log.v("BARCODE DETECTOR", "LLego a ser operacional");
                 } else {
                     waitUntilBarcodeDetectorIsOperational(detector, retries - 1);
                 }
             } else {
-                Log.e("BARCODE DETECTOR", "Nunca llego a ser operacional");
+                //Log.e("BARCODE DETECTOR", "Nunca llego a ser operacional");
             }
         }, 10000);
     }
