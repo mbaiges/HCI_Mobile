@@ -97,6 +97,10 @@ public class LightDeviceObserver extends DeviceObserver {
                 }
             }
             String color = s.getColor();
+            if(color.substring(0,1).equals("#")){
+                color = color.substring(1);
+            }
+
             String auxColor = "#FF" + color;
             if (color != null && h.colorPickerView != null) {
                 ColorPickerPreferenceManager manager = ColorPickerPreferenceManager.getInstance(h.colorPickerView.getContext());
