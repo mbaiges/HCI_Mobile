@@ -181,8 +181,16 @@ public class RoutineFragment extends Fragment {
     }
 
     private void showToast() {
-        String msg = getActivity().getResources().getString(R.string.routine_future_execution);
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+
+        View parentLayout = getActivity().findViewById(android.R.id.content);
+        String text = getActivity().getResources().getString(R.string.routine_future_execution);
+        Snackbar snackbar = Snackbar.make(parentLayout, text, Snackbar.LENGTH_SHORT);
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(ContextCompat.getColor(getActivity().getBaseContext(), R.color.primary2));
+        snackbar.show();
+
+//        String msg = getActivity().getResources().getString(R.string.routine_future_execution);
+//        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
         //Toast.makeText(getActivity(), "Routine execution set for: " + myCalendar.getTime(), Toast.LENGTH_SHORT).show();
     }
 
