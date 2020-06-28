@@ -48,7 +48,7 @@
         <receiver android:name=".broadcast_receivers.AlarmBroadcastReceiver" />
         <receiver android:name=".ui.routine.RoutineSchedulerReceiver"/>
         <receiver android:name=".broadcast_receivers.NotificationBroadcastReceiver">
-            <intent-filter>
+            <intent-filter android:priority="1">
                 <action android:name="ar.edu.itba.hci.uzr.intellifox.ACTION_DEVICE_CHANGED" />
             </intent-filter>
         </receiver>

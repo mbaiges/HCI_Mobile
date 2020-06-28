@@ -608,7 +608,8 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
     }
 
     private void broadcastDeviceChangeIntent(Context context, String typeName, Device device, String message) {
-        Intent intent = new Intent(context.getApplicationContext(), NotificationBroadcastReceiver.class);
+        Intent intent = new Intent(NotificationBroadcastReceiver.ACTION_DEVICE_CHANGED);
+        intent.setPackage(context.getPackageName());
         intent.setAction(NotificationBroadcastReceiver.ACTION_DEVICE_CHANGED);
         intent.putExtra(NotificationBroadcastReceiver.DEVICE_TYPE_NAME_KEY, typeName);
         intent.putExtra(NotificationBroadcastReceiver.DEVICE_ID_KEY, device.getId());
