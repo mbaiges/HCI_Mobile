@@ -616,6 +616,6 @@ public class DatabaseDeviceCheckerAsyncTask extends AsyncTask<Void, Void, Device
         intent.putExtra(NotificationBroadcastReceiver.DEVICE_NAME_KEY, device.getName());
         intent.putExtra(NotificationBroadcastReceiver.MESSAGE_KEY, message);
         context.sendBroadcast(intent);
-        Log.d("MESSAGE_TO_NOTIFY", "Broadcast sent");
+        //Log.d("MESSAGE_TO_NOTIFY", "Broadcast sent");
     }
 }

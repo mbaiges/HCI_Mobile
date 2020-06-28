@@ -50,13 +50,9 @@
 
     <!-- Notifications -->
     <string name="show_notification">Show Notification</string>
-    <string name="notification_title">Uso del API.pdf</string>
-    <string name="notification_text">Download complete</string>
-    <string name="title_activity_secondary">Secondary Activity</string>
-    <string name="hello_world">Hello world!</string>
     <string name="channel_name">Notifications</string>
-    <string name="channel_description">Notifications Description</string>
-    <string name="group_name">Notifications Group Name</string>
+    <string name="channel_description">Devices Notifications</string>
+    <string name="group_name">Devices Notifications</string>
 
     <!-- Door -->
     <string name="dev_door_state_lock_locked">Locked</string>

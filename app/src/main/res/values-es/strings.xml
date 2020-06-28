@@ -52,13 +52,9 @@
 
     <!-- Notificaciones -->
     <string name="show_notification">Mostrar Notificacion</string>
-    <string name="notification_title">Uso del API.pdf</string>
-    <string name="notification_text">Descarga Completa</string>
-    <string name="title_activity_secondary">Actividad Secundaria</string>
-    <string name="hello_world">Hola mundo</string>
     <string name="channel_name">Notificaciones</string>
-    <string name="channel_description">Descripcion de la notificacion</string>
-    <string name="group_name">Nombre del grupo de la notificacion</string>
+    <string name="channel_description">Notificaciones de dispositivos</string>
+    <string name="group_name">Notificaciones de dispositivos</string>
 
     <!-- Puerta -->
     <string name="dev_door_state_lock_locked">Bloqueado</string>
