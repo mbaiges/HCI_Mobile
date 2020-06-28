@@ -111,7 +111,7 @@ public class VacuumDeviceObserver extends DeviceObserver {
                     aux = status;
                 } else {
                     if (s.getLocation() != null) {
-                        aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%" + "-" + contextView.getResources().getString(R.string.dev_vacuum_location) + s.getLocation().getName();
+                        aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%" + "-" + contextView.getResources().getString(R.string.dev_vacuum_location) + ": " + s.getLocation().getName();
                     }
                 }
 
