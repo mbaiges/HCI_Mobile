@@ -503,7 +503,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 if(ConnectivityManagerSetting.getInstance().isNetworkConnected()){
                     if(ConnectivityManagerSetting.getInstance().isInternetAvailable()){
-                        //everithing fine
+                        ConnectivityManagerSetting.getInstance().attemptRestore();
                     }else{
                         ConnectivityManagerSetting.getInstance().noInternetError();
                         //Log.v("CM", "no internet aveliable");
