@@ -23,6 +23,7 @@ public class TapDeviceObserver extends DeviceObserver {
 
     private String amount = "1";
     private String unit = "l";
+    private TapDeviceState mystate;
 
     public TapDeviceObserver(View contextView) {
         super(contextView);
@@ -75,13 +76,24 @@ public class TapDeviceObserver extends DeviceObserver {
     @Override
     protected void setUI(DeviceState state) {
         super.setUI(state);
+
+        mystate = (TapDeviceState) state;
+
         if (state != null) {
             TapDeviceState s = (TapDeviceState) state;
             TapDeviceViewHolder h = (TapDeviceViewHolder) holder;
 
+
+            if(state.getStatus().equals("closed")){
+                h.onSwitch.setChecked(false);
+            }else{
+                h.onSwitch.setChecked(true);
+            }
+
             //Log.v("TapStatus", s.toString());
 
             if (h.txtDispensing != null && h.progBarLoading != null && h.progBarDispensing != null && h.btnDispence != null) {
+
                 if(s.getQuantity() != null){
                     h.txtDispensing.setVisibility(View.VISIBLE);
                     h.progBarLoading.setVisibility(View.VISIBLE);
@@ -106,6 +118,16 @@ public class TapDeviceObserver extends DeviceObserver {
                 clearSelections();
                 h.btnL.setChecked(true);
             }
+
+            if( !state.getStatus().equals("closed") || h.amount.getText().toString().equals("") ){
+                Log.v("TAP", "switch:" + state.getStatus().equals("closed") + ", ammount:" + h.amount.getText().toString());
+                h.btnDispence.setEnabled(false);
+                h.btnDispence.setAlpha(.5f);
+            }else{
+                Log.v("TAP", "switch:" + state.getStatus().equals("closed") + ", ammount:" + h.amount.getText().toString());
+                h.btnDispence.setEnabled(true);
+                h.btnDispence.setAlpha(1);
+            }
         }
     }
 
@@ -113,6 +135,26 @@ public class TapDeviceObserver extends DeviceObserver {
     protected void attachFunctions() {
         super.attachFunctions();
         TapDeviceViewHolder h = (TapDeviceViewHolder) holder;
+
+
+        if(h.amount != null) {
+            h.amount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if( !mystate.getStatus().equals("closed") || h.amount.getText().toString().equals("") ){
+                        Log.v("TAP", "switch:" + mystate.getStatus().equals("closed") + ", ammount:" + h.amount.getText().toString());
+                        h.btnDispence.setEnabled(false);
+                        h.btnDispence.setAlpha(.5f);
+                    }else{
+                        Log.v("TAP", "switch:" + mystate.getStatus().equals("closed") + ", ammount:" + h.amount.getText().toString());
+                        h.btnDispence.setEnabled(true);
+                        h.btnDispence.setAlpha(1);
+                    }
+                }
+            });
+        }
+
+
 
         if (h.btnDispence != null) {
             h.btnDispence.setOnClickListener(new View.OnClickListener() {
