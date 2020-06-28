@@ -196,6 +196,9 @@ public class LightDeviceObserver extends DeviceObserver {
             LightDeviceState s = (LightDeviceState) state;
             //Log.v("LIGHT_COLOR", s.getColor());
             String color = s.getColor();
+            if(color.substring(0,1).equals("#")){
+                color = color.substring(1);
+            }
             return Color.parseColor("#FF" + color);
         }
         return super.getIconColor(turnedOn,state);
