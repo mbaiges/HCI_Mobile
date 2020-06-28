@@ -46,7 +46,7 @@ public class RoomSpinnerAdapter extends ArrayAdapter<Room> {
 
         TextView label = (TextView) super.getView(position, convertView, parent);
         label.setTextColor(ContextCompat.getColor(context, R.color.text));
-        label.setText(values[position].getName());
+        label.setText((values[position] == null)?"":values[position].getName());
 
         return label;
     }
@@ -56,7 +56,7 @@ public class RoomSpinnerAdapter extends ArrayAdapter<Room> {
                                 ViewGroup parent) {
         TextView label = (TextView) super.getDropDownView(position, convertView, parent);
         label.setTextColor(ContextCompat.getColor(context, R.color.text));
-        label.setText(values[position].getName());
+        label.setText((values[position] == null)?"":values[position].getName());
 
         return label;
     }

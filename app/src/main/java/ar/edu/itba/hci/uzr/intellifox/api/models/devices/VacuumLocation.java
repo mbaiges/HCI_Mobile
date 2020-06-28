@@ -13,6 +13,11 @@ public class VacuumLocation {
     @Expose
     private String name;
 
+    public VacuumLocation(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }

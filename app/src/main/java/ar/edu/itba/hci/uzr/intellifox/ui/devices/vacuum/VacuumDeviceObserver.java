@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -105,11 +106,15 @@ public class VacuumDeviceObserver extends DeviceObserver {
 
 
             if (status != null && bat != null && mode != null) {
-                String aux;
+                String aux = "";
                 if (h.icon != null) {  //si esta el icono
                     aux = status;
-                } else
-                    aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%" + "-" + contextView.getResources().getString(R.string.dev_vacuum_location) + s.getLocation().getName();
+                } else {
+                    if (s.getLocation() != null) {
+                        aux = status + "-" + mode + "-" + contextView.getResources().getString(R.string.dev_vacuum_battery) + ": " + bat + "%" + "-" + contextView.getResources().getString(R.string.dev_vacuum_location) + s.getLocation().getName();
+                    }
+                }
+
                 if (h.description != null) {
                     h.description.setText(aux);
                 }
@@ -260,15 +265,17 @@ public class VacuumDeviceObserver extends DeviceObserver {
 
                                 boolean isNone = true;
 
+                                int pos = 0;
                                 VacuumDevice vacuum = (VacuumDevice) holder.device;
                                 if (vacuum != null) {
                                     VacuumDeviceState state = vacuum.getState();
                                     if (state != null) {
                                         VacuumLocation location = state.getLocation();
                                         if (location != null) {
+                                            Log.v("VACUUM_CLEANER", "Location: " + location);
                                             String roomId = location.getId();
-                                            int pos = actualRoomsList.stream().map(Room::getId).collect(Collectors.toList()).indexOf(roomId);
-                                            if (pos <= actualRoomsList.size()) {
+                                            pos = actualRoomsList.stream().map(Room::getId).collect(Collectors.toList()).indexOf(roomId);
+                                            if (pos >= 0 && pos <= actualRoomsList.size()) {
                                                 h.spinner.setSelection(pos);
                                                 isNone = false;
                                             }
@@ -276,49 +283,57 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                     }
                                 }
 
+
+
                                 if (isNone) {
-                                    int j = 0;
+                                    Log.v("VACUUM_CLEANER", "isNone");
                                     Room[] newRoomsArray = new Room[actualRoomsList.size() + 1];
                                     Room none = new Room();
                                     none.setId("");
                                     none.setName(contextView.getResources().getString(R.string.dev_vacuum_none));
-                                    actualRoomsArray[j++] = none;
-                                    for(;j < actualRoomsArray.length; j++) {
-                                        newRoomsArray[j] = actualRoomsArray[j];
+                                    Log.v("VACUUM_CLEANER", "None Room: " + none);
+                                    newRoomsArray[0] = none;
+                                    for(int k = 0;k < actualRoomsArray.length; k++) {
+                                        newRoomsArray[1 + k] = actualRoomsArray[k];
                                     }
+                                    Log.v("VACUUM_CLEANER", "isNone --> ROOMS: " + Arrays.asList(newRoomsArray));
                                     actualRoomsArray = newRoomsArray;
                                 }
+
+                                Log.v("VACUUM_CLEANER", "ROOMS: " + Arrays.asList(actualRoomsArray));
 
                                 RoomSpinnerAdapter adapter = new RoomSpinnerAdapter(contextView.getContext(),
                                         android.R.layout.simple_spinner_item,
                                         actualRoomsArray);
 
                                 h.spinner.setAdapter(adapter);
-                                h.spinner.setSelection(2);
+                                h.spinner.setSelection(pos);
+                                Room[] finalActualRoomsArray = actualRoomsArray;
                                 h.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                                        Room user = adapter.getItem(position);
+                                        Room room = adapter.getItem(position);
 
 
                                         VacuumDevice d = (VacuumDevice) h.device;
                                         if (d != null) {
                                             VacuumDeviceState s = d.getState();
                                             if (s != null) {
-                                                if(user.getId() != null && !user.getId().equals("")) {
-                                                    String[] args = {user.getId()};
-                                                    Log.d("cuarto", args[0]);
+                                                if(room.getId() != null && !room.getId().equals("")) {
+                                                    String[] args = {room.getId()};
+                                                    Log.d("VACUUM_CLEANER", args[0]);
                                                     ApiClient.getInstance().executeDeviceAction(d.getId(), "setLocation", args, new Callback<Result<Object>>() {
                                                         @Override
                                                         public void onResponse(Call<Result<Object>> call, Response<Result<Object>> response) {
                                                             if (response.isSuccessful()) {
-                                                                Result<Object> result = response.body();
-                                                                if (result != null) {
-                                                                    Object success = result.getResult();
-                                                                    if (success != null) {
-                                                                        Log.v("ACTION_SUCCESS", success.toString());
-                                                                    }
+                                                                Room[] newlyRoomsArray = new Room[finalActualRoomsArray.length - 1];
+                                                                for (int l = 0; l < finalActualRoomsArray.length - 1; l++) {
+                                                                    newlyRoomsArray[l] = finalActualRoomsArray[l + 1];
                                                                 }
+                                                                Log.v("VACUUM_CLEANER", "Updated ROOMS: " + Arrays.asList(newlyRoomsArray));
+                                                                h.spinner.setAdapter(new RoomSpinnerAdapter(contextView.getContext(),
+                                                                        android.R.layout.simple_spinner_item,
+                                                                        newlyRoomsArray));
                                                             }
                                                         }
 
@@ -332,7 +347,7 @@ public class VacuumDeviceObserver extends DeviceObserver {
                                         }
 
 
-                                        Toast.makeText(contextView.getContext(), "ID: " + user.getId() + "\nName: " + user.getName(),
+                                        Toast.makeText(contextView.getContext(), "ID: " + room.getId() + "\nName: " + room.getName(),
                                                 Toast.LENGTH_SHORT).show();
                                     }
 
