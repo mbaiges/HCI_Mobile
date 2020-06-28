@@ -320,20 +320,14 @@ public abstract class DeviceObserver implements Observer<Device<? extends Device
         ApiClient.getInstance().modifyDevice(device.getId(), device, new Callback<Result<Device>>() {
             @Override
             public void onResponse(@NonNull Call<Result<Device>> call, @NonNull Response<Result<Device>> response) {
-                if (response.isSuccessful()) {
-                    Result<Device> result = response.body();
 
-                    if (result != null) {
-                        Log.v("RESULT", result.toString());
-                    } else {
-                        handleError(response);
-                    }
-                }
             }
 
             @Override
             public void onFailure(@NonNull Call<Result<Device>> call, @NonNull Throwable t) {
-                handleUnexpectedError(t);
+                //Log.d("FAVOURITE", "onFailure");
+                // Although it updated device correctly, it appears to return onFailure instead of onResponse
+                //handleUnexpectedError(t);
             }
         });
     }
